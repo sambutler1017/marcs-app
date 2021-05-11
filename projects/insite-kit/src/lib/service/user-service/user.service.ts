@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GlobalConstantsService } from '../../common/global-constants.service';
+import { UrlService } from '../url-service/url.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly urlService: UrlService) {}
 
   getUserDataByName(id: number) {
-    return this.http.post(`${GlobalConstantsService.API_URL}/user/details`, [
+    return this.http.post(`${this.urlService.getAPIUrl()}/user/details`, [
       id,
     ]);
   }

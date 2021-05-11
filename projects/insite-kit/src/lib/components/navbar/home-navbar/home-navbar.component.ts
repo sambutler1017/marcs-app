@@ -12,7 +12,7 @@ export class HomeNavbarComponent implements OnInit {
   constructor(private jwt: JwtService) {}
 
   ngOnInit() {
-    this.name = this.jwt.get('first_name');
+    this.name = this.jwt.get('firstName');
   }
 
   logout() {
