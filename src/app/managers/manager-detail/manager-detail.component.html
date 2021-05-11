@@ -1,0 +1,46 @@
+<div *ngIf="!manager" class="loader"></div>
+<div *ngIf="manager">
+  <ik-header [title]="manager.name" [backEnabled]="true">
+    <button class="btn btn-danger btn-xl btn-right">Delete Manager</button>
+    <button class="btn btn-primary btn-xl btn-right" (click)="onMoveClick()">
+      Move Manager
+    </button>
+  </ik-header>
+  <div class="detail">
+    <div class="leftColumn column-wide">
+      <ik-card [title]="managerJson.detail.title" [editRoute]="infoEditRoute">
+        <ik-card-info
+          [header]="managerJson.detail.name"
+          [text]="manager.name"
+        ></ik-card-info>
+        <ik-card-info
+          [header]="managerJson.detail.hireDate"
+          [text]="manager.hireDate"
+        ></ik-card-info>
+        <ik-card-info
+          [header]="managerJson.detail.storeId"
+          [text]="manager.storeId"
+        ></ik-card-info>
+        <ik-card-info
+          [header]="managerJson.detail.storeName"
+          [text]="manager.storeName"
+        ></ik-card-info>
+        <ik-card-info
+          [header]="managerJson.detail.storeManager"
+          [text]="manager.storeManager"
+        ></ik-card-info>
+      </ik-card>
+    </div>
+  </div>
+  <div class="detail">
+    <div class="rightColumn column-narrow">
+      <ik-grid-card
+        [dataLoader]="vacations"
+        [excludedColumns]="excludedColumns"
+        [translationKey]="managerJson.vacations"
+        [editRoute]="vacationEditRoute"
+        (deleteClick)="onDeleteVacation($event)"
+      ></ik-grid-card>
+    </div>
+  </div>
+</div>

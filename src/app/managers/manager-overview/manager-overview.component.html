@@ -1,0 +1,16 @@
+<ik-header [title]="managerJson.managerTitle">
+  <button class="btn btn-info btn-xl btn-right" (click)="onAddManager()">
+    Add Manager
+  </button>
+</ik-header>
+
+<ik-grid
+  [translationKey]="managerJson"
+  [dataLoader]="dataLoader"
+  [outputEventColumns]="outputEventColumns"
+  [columnsToExclude]="excludedColumns"
+  [pageSize]="15"
+  [searchEnabled]="true"
+  [pagerEnabled]="true"
+  (gridRowClick)="handleClick($event)"
+></ik-grid>

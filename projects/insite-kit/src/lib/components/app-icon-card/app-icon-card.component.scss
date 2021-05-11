@@ -1,0 +1,30 @@
+.chip {
+  display: inline-block;
+  height: 130px;
+  width: 313px;
+  border-radius: 15px;
+  background: linear-gradient(to bottom, #ffffff 12%, #fffff5 100%);
+  transition: transform 0.2s; /* Animation */
+  cursor: pointer;
+  margin-top: 50px;
+}
+
+.chip:hover {
+  transform: scale(1.1);
+}
+
+.title {
+  font-size: 18px;
+  margin-top: 12px;
+  float: left;
+  font-weight: 700;
+  display: block;
+}
+
+.message {
+  margin-right: 5px;
+  font-size: 16px;
+  display: block;
+  word-wrap: break-word;
+  text-align: left;
+}

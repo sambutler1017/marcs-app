@@ -1,0 +1,20 @@
+<ik-card [title]="cardTitle" [editRoute]="editRoute">
+  <table *ngIf="dataLoader">
+    <thead>
+      <tr>
+        <td *ngFor="let column of columns" class="column-header">
+          <strong>{{ translationKey.card.grid.columns[column] }}</strong>
+        </td>
+      </tr>
+    </thead>
+    <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
+      <td *ngFor="let data of row | keyvalue" class="grid-content">
+        {{ data.value }}
+      </td>
+      <div class="trash-icon" (click)="onRowClick(rowIndex)"></div>
+    </tr>
+    <div class="no-results" *ngIf="this.dataLoader.length === 0">
+      No {{ cardTitle }}
+    </div>
+  </table></ik-card
+>

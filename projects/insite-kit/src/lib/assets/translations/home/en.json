@@ -1,0 +1,58 @@
+{
+  "appIcons": {
+    "manager": {
+      "title": "Manager's",
+      "message": "Track's a managers details and the their associated vacations.",
+      "icon": "manager",
+      "page": "managers"
+    },
+    "store": {
+      "title": "Store's",
+      "message": "Regional's stores they oversee, containing the store manager and manager count.",
+      "icon": "store",
+      "page": "stores"
+    },
+    "calendar": {
+      "title": "Calendar",
+      "message": "Shows a visual display of a calendar with all of the managers vacations.",
+      "icon": "calendar",
+      "page": ""
+    },
+    "blockDates": {
+      "title": "Block Dates",
+      "message": "List of dates that a manager is not able to take a vacation on.",
+      "icon": "block",
+      "page": ""
+    },
+    "map": {
+      "title": "Map",
+      "message": "List of all the stores, their locations, and directions to get there.",
+      "icon": "map",
+      "page": ""
+    },
+    "report": {
+      "title": "Reports",
+      "message": "Report information of stores, managers, and the managers vacations.",
+      "icon": "report",
+      "page": ""
+    },
+    "regional": {
+      "title": "Regional's",
+      "message": "Look at other regional vacation counts, and when a regional is on vacation.",
+      "icon": "regional",
+      "page": ""
+    },
+    "requestTracker": {
+      "title": "Request Tracker",
+      "message": "All requested vacations from managers show up here to be approved or declined.",
+      "icon": "request-tracker",
+      "page": "requestTracker"
+    },
+    "Contact": {
+      "title": "Contact",
+      "message": "Contact admin with any issues or questions about the app.",
+      "icon": "contact",
+      "page": ""
+    }
+  }
+}

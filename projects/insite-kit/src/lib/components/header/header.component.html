@@ -1,0 +1,5 @@
+<div class="header-margin">
+  <div *ngIf="backEnabled" class="back-arrow" (click)="onBackClick()"></div>
+  <div class="header-title">{{ title }}</div>
+  <ng-content></ng-content>
+</div>

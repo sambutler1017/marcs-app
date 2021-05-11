@@ -1,0 +1,96 @@
+.app-navbar {
+  min-height: 50px;
+  height: 75px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  background: #404040;
+  position: fixed;
+  width: 100%;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+.app-logo {
+  font-size: 70px;
+  color: red;
+  font-weight: 700;
+  text-align: left;
+  height: 74px;
+  float: left;
+  margin-left: 5px;
+  margin-top: -15px;
+  cursor: pointer;
+}
+
+.profile {
+  content: url(../../../assets/images/nav-icons/profile-icon.jpg);
+  height: 50px;
+  width: 50px;
+  float: right;
+  margin-top: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  color: black;
+  transition: transform 0.5s; /* Animation */
+}
+
+.profile:hover {
+  -moz-transform: translate(0, -8px);
+  -ms-transform: translate(0, -8px);
+  -o-transform: translate(0, -8px);
+  -webkit-transform: translate(0, -8px);
+  transform: translate(0, -8px);
+}
+
+.bell {
+  content: url(../../../assets/images/nav-icons/notification-bell.png);
+  height: 40px;
+  width: 40px;
+  float: right;
+  margin-top: 15px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: transform 0.2s; /* Animation */
+}
+
+.bell:hover {
+  -moz-transform: translate(0, -8px);
+  -ms-transform: translate(0, -8px);
+  -o-transform: translate(0, -8px);
+  -webkit-transform: translate(0, -8px);
+  transform: translate(0, -8px);
+}
+
+.welcome-img {
+  object-fit: cover;
+  content: url(../../../assets/images/welcome-img.jpg);
+  width: 100%;
+  height: 30%;
+}
+
+.centered-text-image {
+  margin-top: -90px;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 700;
+  transition: 0.5s; /* Animation */
+  margin-left: 500px;
+  width: 1000px;
+  color: white;
+}
+
+@media screen and (max-width: 1200px) {
+  .welcome-img {
+    height: 300px;
+  }
+
+  .centered-text-image {
+    margin-left: 360px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .welcome-img {
+    display: none;
+  }
+}

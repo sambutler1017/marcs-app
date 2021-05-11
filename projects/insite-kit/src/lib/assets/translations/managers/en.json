@@ -1,0 +1,37 @@
+{
+  "global": {
+    "title": "Managers"
+  },
+  "grid": {
+    "columns": {
+      "name": "Manager",
+      "storeId": "Store ID",
+      "storeName": "Store Name",
+      "startDate": "Start Date",
+      "endDate": "End Date"
+    },
+    "total": "Managers"
+  },
+  "detail": {
+    "title": "Details",
+    "regionalId": "Regional ID",
+    "name": "Manager Name",
+    "storeId": "Store ID",
+    "storeName": "Store Name",
+    "hireDate": "Hire Date",
+    "storeManager": "Store Manager"
+  },
+  "vacations": {
+    "card": {
+      "grid": {
+        "columns": {
+          "startDate": "Start Date",
+          "endDate": "End Date"
+        }
+      }
+    },
+    "title": "Vacations"
+  },
+  "moveManager": "Move Manager",
+  "managerTitle": "Managers"
+}

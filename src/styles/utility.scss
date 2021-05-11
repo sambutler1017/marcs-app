@@ -1,0 +1,60 @@
+.center {
+  display: inline-table;
+  width: 90%;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 900px) {
+  .center {
+    margin-top: 50px;
+  }
+}
+
+.table-cell {
+  display: table-cell;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.width-full {
+  width: 100%;
+}
+
+.margin-top-none {
+  margin-top: 0 !important;
+}
+
+.margin-top {
+  margin-top: 10px;
+}
+
+.float-left {
+  float: left;
+}
+
+.label-text {
+  margin-top: 10px;
+  font-size: 18px;
+  margin-right: 3px;
+  margin-bottom: 0;
+}
+
+.right {
+  float: right !important;
+}
+
+.left {
+  float: left !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+button,
+input {
+  outline: none !important;
+}

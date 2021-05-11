@@ -1,0 +1,14 @@
+.app-container {
+  margin: 0 auto;
+  height: auto;
+  width: 80%;
+  top: 130px;
+  position: relative;
+  text-align: left;
+}
+
+@media screen and (max-width: 750px) {
+  .app-container {
+    width: 100%;
+  }
+}

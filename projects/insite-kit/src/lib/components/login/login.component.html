@@ -1,0 +1,50 @@
+<div class="background">
+  <div class="container-fluid">
+    <div class="row main-content bg-success text-center">
+      <div class="col-md-4 text-center company__info">
+        <span class="company__logo">
+          <a class="logo"></a>
+        </span>
+        <h4 class="company-title large">Marc's Vacation App</h4>
+      </div>
+      <div class="col-md-8 col-xs-12 col-sm-12 login_form">
+        <div class="container-fluid">
+          <div class="row">
+            <h2 class="company-title large login-label">Log In</h2>
+          </div>
+          <div class="row">
+            <form control="" class="form-group">
+              <div class="row">
+                <label class="left">Username</label>
+                <input
+                  type="text"
+                  #username
+                  class="form__input margin-top-none"
+                  placeholder="Username"
+                />
+              </div>
+              <div class="row">
+                <label class="left">Password</label>
+                <input
+                  type="password"
+                  #password
+                  class="form__input margin-top-none"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="row">
+                <a href="#" class="left">Forgot Password?</a>
+              </div>
+              <div class="row">
+                <input (click)="login()" value="Submit" class="btn" />
+              </div>
+            </form>
+          </div>
+          <div class="row">
+            <p>Don't have an account? <a href="#">Register Here</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

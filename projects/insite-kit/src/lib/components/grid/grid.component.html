@@ -1,0 +1,51 @@
+<ik-card>
+  <input
+    *ngIf="searchEnabled"
+    class="search"
+    placeholder="Search"
+    (change)="onSearch($event.srcElement.value)"
+  />
+  <div *ngIf="!dataLoader" class="loader"></div>
+  <table *ngIf="dataLoader">
+    <thead>
+      <tr>
+        <td *ngFor="let column of columns" class="column-header">
+          <strong>{{ column }}</strong>
+        </td>
+      </tr>
+    </thead>
+    <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
+      <td
+        *ngFor="let value of row"
+        class="grid-content"
+        (click)="rowClick(rowIndex)"
+      >
+        {{ value }}
+      </td>
+    </tr>
+  </table>
+  <div *ngIf="dataLoader && pagerEnabled" class="grid-footer">
+    <div
+      class="left-arrow inline-block left"
+      (click)="onPreviousPageClick()"
+    ></div>
+    <div
+      *ngFor="let page of pages"
+      class="inline-block left"
+      [ngClass]="{
+        active: page.active,
+        'page-number': page.pageNum <= this.totalPages && page.pageNum > 0
+      }"
+      (click)="pageClick(page.pageNum)"
+    >
+      <div *ngIf="page.pageNum <= this.totalPages && page.pageNum > 0">
+        {{ page.pageNum }}
+      </div>
+    </div>
+    <div
+      class="right-arrow inline-block left"
+      (click)="onNextPageClick()"
+    ></div>
+    <label class="label-text right">{{ dataCountTranslation }}</label>
+  </div>
+</ik-card>
