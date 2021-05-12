@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { JwtService } from '../../../service/jwt-service/jwt-service.service';
 
 @Component({
@@ -9,13 +10,17 @@ import { JwtService } from '../../../service/jwt-service/jwt-service.service';
 export class HomeNavbarComponent implements OnInit {
   name: string;
 
-  constructor(private jwt: JwtService) {}
+  constructor(private jwt: JwtService, private router: Router) {}
 
   ngOnInit() {
     this.name = this.jwt.get('firstName');
   }
 
-  logout() {
-    this.jwt.logOut();
+  onLogoClick() {
+    this.router.navigate(['/home']);
+  }
+
+  onProfileClick() {
+    this.router.navigate(['/profile']);
   }
 }

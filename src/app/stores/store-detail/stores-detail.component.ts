@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
+import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/lib/models/store.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
 import { switchMap, tap } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class StoresDetailComponent implements OnInit {
   storeInfo: Store;
   userInfo: User;
   storeJson = json;
+  managers = [];
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -30,8 +31,7 @@ export class StoresDetailComponent implements OnInit {
         tap((res: any) => (this.storeInfo = res[0])),
         switchMap((result) =>
           this.userService.getUserById(this.storeInfo.regionalId)
-        ),
-        tap((value) => console.log(value))
+        )
       )
       .subscribe((res) => (this.userInfo = res[0]));
   }

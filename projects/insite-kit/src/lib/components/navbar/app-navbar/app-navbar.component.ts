@@ -11,8 +11,8 @@ export class AppNavbarComponent {
   @Input() appName: string;
   constructor(private jwt: JwtService, private router: Router) {}
 
-  logout() {
-    this.jwt.logOut();
+  onProfileClick() {
+    this.router.navigate(['/profile']);
   }
 
   onWaffleClick() {

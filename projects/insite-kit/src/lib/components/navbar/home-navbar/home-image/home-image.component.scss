@@ -1,0 +1,17 @@
+.welcome-img {
+  object-fit: cover;
+  content: url(../../../../assets/images/welcome-img.jpg);
+  width: 100%;
+  height: 30%;
+}
+
+.centered-text-image {
+  margin-top: -90px;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  font-weight: 700;
+  transition: 0.5s; /* Animation */
+  margin-left: 500px;
+  width: 1000px;
+  color: white;
+}

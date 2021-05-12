@@ -9,6 +9,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
+import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-navbar.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { InsiteKitComponent } from './insite-kit.component';
 
@@ -24,7 +25,8 @@ import { InsiteKitComponent } from './insite-kit.component';
     CardComponent,
     CardInfoComponent,
     GridCardComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    HomeImageComponent,
   ],
   imports: [BrowserModule],
   exports: [
@@ -37,7 +39,8 @@ import { InsiteKitComponent } from './insite-kit.component';
     CardComponent,
     CardInfoComponent,
     GridCardComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    HomeImageComponent,
   ],
 })
 export class InsiteKitModule {}

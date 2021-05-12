@@ -10,7 +10,21 @@
     "total": "Stores"
   },
   "detail": {
-    "title": "Store Details"
+    "title": "Details"
+  },
+  "manager": {
+    "title": "Mangers"
+  },
+  "managers": {
+    "card": {
+      "grid": {
+        "columns": {
+          "startDate": "Start Date",
+          "endDate": "End Date"
+        }
+      }
+    },
+    "title": "Mangers"
   },
   "storeTitle": "Overview"
 }

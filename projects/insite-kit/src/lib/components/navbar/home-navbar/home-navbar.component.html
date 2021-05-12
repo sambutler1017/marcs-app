@@ -1,8 +1,5 @@
 <nav class="app-navbar">
-  <div class="app-logo inline-block">Marc's</div>
-  <div class="profile inline-block" (click)="logout()"></div>
+  <div class="app-logo inline-block" (click)="onLogoClick()">Marc's</div>
+  <div class="profile inline-block" (click)="onProfileClick()"></div>
   <div class="bell inline-block"></div>
 </nav>
-
-<div class="welcome-img"></div>
-<div class="centered-text-image">Welcome, {{ name }}</div>

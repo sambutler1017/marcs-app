@@ -1,5 +1,5 @@
 <ik-card [title]="cardTitle" [editRoute]="editRoute">
-  <table *ngIf="dataLoader">
+  <table *ngIf="dataLoader && dataLoader.length > 0">
     <thead>
       <tr>
         <td *ngFor="let column of columns" class="column-header">

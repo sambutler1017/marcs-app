@@ -20,6 +20,7 @@ import { ManagerOverviewComponent } from './managers/manager-overview/manager-ov
 import { ManagersComponent } from './managers/managers.component';
 import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
 import { MapComponent } from './map/map.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RegionalsComponent } from './regionals/regionals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
@@ -48,7 +49,8 @@ import { StoresComponent } from './stores/stores.component';
     EditInfoComponent,
     EditVacationsComponent,
     StoresOverviewComponent,
-    StoresDetailComponent
+    StoresDetailComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

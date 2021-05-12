@@ -10,6 +10,7 @@ import { ManagerDetailComponent } from './managers/manager-detail/manager-detail
 import { ManagerOverviewComponent } from './managers/manager-overview/manager-overview.component';
 import { ManagersComponent } from './managers/managers.component';
 import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
@@ -57,6 +58,11 @@ const routes: Routes = [
   {
     path: 'requestTracker',
     component: RequestTrackerComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
     canActivate: [AuthGuard],
   },
   { path: '**', redirectTo: 'home' },
