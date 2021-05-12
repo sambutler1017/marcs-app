@@ -23,6 +23,7 @@ import { MapComponent } from './map/map.component';
 import { RegionalsComponent } from './regionals/regionals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
+import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 
 @NgModule({
@@ -45,6 +46,7 @@ import { StoresComponent } from './stores/stores.component';
     AddManagerComponent,
     EditInfoComponent,
     EditVacationsComponent,
+    StoresOverviewComponent
   ],
   imports: [
     BrowserModule,

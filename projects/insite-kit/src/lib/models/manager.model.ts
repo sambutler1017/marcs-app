@@ -1,4 +1,4 @@
-export class Manager {
+export interface Manager {
   id: number;
   regionalId: number;
   name: string;
@@ -8,7 +8,7 @@ export class Manager {
   endDate: Date | string;
 }
 
-export class ManagerDetail {
+export interface ManagerDetail {
   id: number;
   regionalId: number;
   name: string;
@@ -19,7 +19,7 @@ export class ManagerDetail {
   vacations: Vacation[];
 }
 
-export class Vacation {
+export interface Vacation {
   id: number;
   startDate: Date | string;
   endDate: Date | string;

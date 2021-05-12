@@ -3,7 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  Output,
+  Output
 } from '@angular/core';
 import { CommonService } from '../../service/common/common.service';
 
@@ -51,12 +51,14 @@ export class GridComponent implements OnChanges {
     this.getTotal();
   }
 
-  onSearch(value: any) {
-    if (value === '' || value === ' ') {
-      this.dataLoader = this.common.copyObject(this.cachedDataLoader);
-    } else {
-      this.dataLoader = this.dataLoader.filter((res) =>
-        Object.values(res).includes(value)
+  onSearch(value: string) {
+    this.resetGrid();
+
+    if (value.trim() !== '') {
+      this.resetGrid();
+      this.dataLoader = this.dataLoader.filter(
+        (res) =>
+          Object.values(res).filter((v: string) => v.includes(value)).length > 0
       );
     }
 
@@ -65,6 +67,10 @@ export class GridComponent implements OnChanges {
 
     this.getPageData();
     this.getTotal();
+  }
+
+  resetGrid() {
+    this.dataLoader = this.common.copyObject(this.cachedDataLoader);
   }
 
   excludeColumns() {

@@ -11,6 +11,7 @@ import { ManagerOverviewComponent } from './managers/manager-overview/manager-ov
 import { ManagersComponent } from './managers/managers.component';
 import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
+import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 
 // Other routes will be added here to account for other pages like Calendar, manager, stores, block dates, etc
@@ -42,7 +43,15 @@ const routes: Routes = [
       { path: 'details/:id/edit/vacations', component: EditVacationsComponent },
     ],
   },
-  { path: 'stores', component: StoresComponent, canActivate: [AuthGuard] },
+  {
+    path: 'stores',
+    component: StoresComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: StoresOverviewComponent },
+    ],
+  },
   {
     path: 'requestTracker',
     component: RequestTrackerComponent,

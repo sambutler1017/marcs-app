@@ -15,6 +15,6 @@ export class AuthService {
   authenticate(username: string, password: string) {
     return this.httpClient
       .post(`${this.urlService.getAPIUrl()}/authenticate`, { username, password })
-      .pipe(map((u) => this.jwt.setToken(`Bearer ${(u as any).token}`)));
+      .pipe(map((u) => this.jwt.setToken(`Bearer: ${(u as any).token}`)));
   }
 }
