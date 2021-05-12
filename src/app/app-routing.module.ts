@@ -11,6 +11,7 @@ import { ManagerOverviewComponent } from './managers/manager-overview/manager-ov
 import { ManagersComponent } from './managers/managers.component';
 import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
+import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 
@@ -50,6 +51,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: StoresOverviewComponent },
+      { path: 'details/:id', component: StoresDetailComponent },
     ],
   },
   {

@@ -23,6 +23,7 @@ import { MapComponent } from './map/map.component';
 import { RegionalsComponent } from './regionals/regionals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
+import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 
@@ -46,7 +47,8 @@ import { StoresComponent } from './stores/stores.component';
     AddManagerComponent,
     EditInfoComponent,
     EditVacationsComponent,
-    StoresOverviewComponent
+    StoresOverviewComponent,
+    StoresDetailComponent
   ],
   imports: [
     BrowserModule,

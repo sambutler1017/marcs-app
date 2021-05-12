@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { JwtService } from '../jwt-service/jwt-service.service';
-import { UrlService } from '../url-service/url.service';
+import { JwtService } from '../../../projects/insite-kit/src/lib/service/jwt-service/jwt-service.service';
+import { UrlService } from '../../../projects/insite-kit/src/lib/service/url-service/url.service';
 
 @Injectable({
   providedIn: 'root',

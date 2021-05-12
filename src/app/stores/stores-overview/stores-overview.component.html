@@ -1,12 +1,11 @@
-<ik-header [title]="storeJson.storeTitle">
-</ik-header>
+<ik-header [title]="storeJson.storeTitle"> </ik-header>
 
 <ik-grid
   [translationKey]="storeJson"
   [dataLoader]="dataLoader"
   [outputEventColumns]="outputEventColumns"
   [columnsToExclude]="excludedColumns"
-  [pageSize]="15"
+  [pageSize]="10"
   [searchEnabled]="true"
   [pagerEnabled]="true"
   (gridRowClick)="handleClick($event)"

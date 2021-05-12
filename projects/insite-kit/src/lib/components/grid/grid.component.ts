@@ -3,7 +3,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  Output
+  Output,
 } from '@angular/core';
 import { CommonService } from '../../service/common/common.service';
 
@@ -13,7 +13,7 @@ import { CommonService } from '../../service/common/common.service';
   styleUrls: ['./grid.component.scss'],
 })
 export class GridComponent implements OnChanges {
-  @Input() dataLoader: any;
+  @Input() dataLoader: any[];
   @Input() translationKey: any;
   @Input() outputEventColumns = [];
   @Input() columnsToExclude = [];
@@ -93,7 +93,7 @@ export class GridComponent implements OnChanges {
 
   rowClick(event: number) {
     this.gridRowClick.emit(
-      this.outputData[event + this.currentPageIndex - this.pageSize]
+      this.outputData[event + this.currentPageIndex - this.content.length]
     );
   }
 

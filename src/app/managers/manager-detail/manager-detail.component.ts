@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
 import {
   ManagerDetail,
-  Vacation,
+  Vacation
 } from 'projects/insite-kit/src/lib/models/manager.model';
-import { ManagerService } from 'projects/insite-kit/src/lib/service/manager-service/manager-service.service';
+import { ManagerService } from 'src/service/manager-service/manager-service.service';
 
 @Component({
   selector: 'app-manager-detail',

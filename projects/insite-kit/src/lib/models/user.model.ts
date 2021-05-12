@@ -1,13 +1,13 @@
+import { StoreRegion, WebRole } from "./common.model";
+
 export interface User {
-  personal: {
-    firstName: string;
-    lastName: string;
-    region: string;
-    email: string;
-  };
-  security: {
-    question: string;
-    answer: string;
-    webRole: string;
-  };
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  webRole: WebRole;
+  storeRegion: StoreRegion;
+  appAccess: boolean;
+  username: string;
+  password: string;
 }

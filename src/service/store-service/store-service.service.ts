@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UrlService } from '../url-service/url.service';
+import { UrlService } from '../../../projects/insite-kit/src/lib/service/url-service/url.service';
 
 @Injectable({
   providedIn: 'root',
