@@ -48,7 +48,7 @@
       "icon": "request-tracker",
       "page": "requestTracker"
     },
-    "Contact": {
+    "contact": {
       "title": "Contact",
       "message": "Contact admin with any issues or questions about the app.",
       "icon": "contact",

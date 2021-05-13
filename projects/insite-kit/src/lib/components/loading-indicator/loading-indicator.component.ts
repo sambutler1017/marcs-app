@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ik-loading-indicator',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./loading-indicator.component.scss'],
 })
 export class LoadingIndicatorComponent {
-
+  @Input() size = '110px';
+  @Input() thickness = '10px';
 }

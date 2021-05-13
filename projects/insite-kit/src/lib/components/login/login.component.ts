@@ -12,17 +12,20 @@ export class LoginComponent {
   @ViewChild('password') password: ElementRef;
 
   userLoggedIn = false;
+  loading = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
   public login() {
     const username = this.username.nativeElement.value;
     const password = this.password.nativeElement.value;
+    this.loading = true;
 
     this.auth.authenticate(username, password).subscribe(
       () => {
         this.userLoggedIn = true;
         this.router.navigate(['/home']);
+        this.loading = false;
       },
       (error) => console.log('Invalid Username or Password')
     );

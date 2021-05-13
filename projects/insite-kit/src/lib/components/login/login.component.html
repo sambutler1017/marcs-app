@@ -36,7 +36,17 @@
                 <a href="#" class="left">Forgot Password?</a>
               </div>
               <div class="row">
-                <input (click)="login()" value="Submit" class="btn" />
+                <input
+                  *ngIf="!loading"
+                  (click)="login()"
+                  value="Submit"
+                  class="btn"
+                />
+                <ik-loading-indicator
+                  *ngIf="loading"
+                  size="30px"
+                  thickness="5px"
+                ></ik-loading-indicator>
               </div>
             </form>
           </div>

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
 
   buildApps() {
-    const data = Object.values(json.appIcons);
-    data.forEach((app: App) => this.apps.push(app));
+    const data = Object.values(json)[0];
+    this.jwt.get('apps').forEach((v: string) => this.apps.push(data[v]));
   }
 }
