@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/lib/models/store.model';
+import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt-service.service';
 import { StoreService } from 'src/service/store-service/store-service.service';
 
 @Component({
@@ -14,11 +15,15 @@ export class StoresOverviewComponent implements OnInit {
   excludedColumns = ['id', 'regionalId', 'managerId'];
   dataLoader: Store[];
 
-  constructor(private storeService: StoreService, private router: Router) {}
+  constructor(
+    private storeService: StoreService,
+    private router: Router,
+    private jwt: JwtService
+  ) {}
 
   ngOnInit() {
     let params: Map<string, string> = new Map<string, string>();
-    params.set('regionalId', '1');
+    params.set('regionalId', this.jwt.get('userId'));
     this.storeService
       .getStores(params)
       .subscribe((res: Store[]) => (this.dataLoader = res));
