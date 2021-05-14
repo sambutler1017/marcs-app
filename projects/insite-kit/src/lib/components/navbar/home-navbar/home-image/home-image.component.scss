@@ -15,3 +15,19 @@
   width: 1000px;
   color: white;
 }
+
+@media screen and (max-width: 1200px) {
+  .welcome-img {
+    height: 300px;
+  }
+
+  .centered-text-image {
+    margin-left: 360px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .welcome-img {
+    display: none;
+  }
+}

@@ -7,6 +7,7 @@
   position: fixed;
   width: 100%;
   overflow: hidden;
+  z-index: 9999;
 }
 
 .app-logo {
@@ -42,20 +43,4 @@
   margin-right: 5px;
   cursor: pointer;
   transition: transform 0.2s; /* Animation */
-}
-
-@media screen and (max-width: 1200px) {
-  .welcome-img {
-    height: 300px;
-  }
-
-  .centered-text-image {
-    margin-left: 360px;
-  }
-}
-
-@media screen and (max-width: 900px) {
-  .welcome-img {
-    display: none;
-  }
 }
