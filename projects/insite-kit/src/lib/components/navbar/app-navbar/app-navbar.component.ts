@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtService } from '../../../service/jwt-service/jwt-service.service';
+import { JwtService } from '../../../service/jwt-service/jwt.service';
 
 @Component({
   selector: 'ik-app-navbar',

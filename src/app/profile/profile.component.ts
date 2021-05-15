@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt-service.service';
+import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -10,6 +11,8 @@ import { UserService } from 'src/service/user-service/user.service';
 })
 export class ProfileComponent implements OnInit {
   user: User;
+  webRole = WebRole;
+
   constructor(
     private userService: UserService,
     private jwtService: JwtService
@@ -18,9 +21,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService
       .getUserById(this.jwtService.get('userId'))
-      .subscribe((v: User) => {
-        this.user = v[0];
-        console.log(v);
-      });
+      .subscribe((v: User) => (this.user = v[0]));
   }
 }

@@ -1,7 +1,7 @@
 <ik-loading-indicator *ngIf="!storeInfo || !userInfo"></ik-loading-indicator>
 <div *ngIf="storeInfo && userInfo">
   <ik-header
-    [title]="storeInfo.name + '  (' + storeInfo.tag + ')'"
+    [title]="storeInfo.name + '  (' + storeInfo.id + ')'"
     [backEnabled]="true"
   >
   </ik-header>
@@ -12,7 +12,7 @@
           header="Store Name"
           [text]="storeInfo.name"
         ></ik-card-info>
-        <ik-card-info header="Store Id" [text]="storeInfo.tag"></ik-card-info>
+        <ik-card-info header="Store Id" [text]="storeInfo.id"></ik-card-info>
         <ik-card-info
           header="Regional"
           [text]="userInfo.firstName + ' ' + userInfo.lastName"

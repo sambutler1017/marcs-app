@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/lib/models/store.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt-service.service';
+import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
 import { StoreService } from 'src/service/store-service/store-service.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class StoresOverviewComponent implements OnInit {
     params.set('regionalId', this.jwt.get('userId'));
     this.storeService
       .getStores(params)
-      .subscribe((res: Store[]) => (this.dataLoader = res));
+      .subscribe((res) => (this.dataLoader = res));
   }
 
   handleClick(event: any) {

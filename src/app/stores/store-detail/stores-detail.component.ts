@@ -28,7 +28,7 @@ export class StoresDetailComponent implements OnInit {
     this.storeService
       .getStores(new Map<string, string>().set('id', params.value.id))
       .pipe(
-        tap((res: any) => (this.storeInfo = res[0])),
+        tap((res) => (this.storeInfo = res[0])),
         switchMap((result) =>
           this.userService.getUserById(this.storeInfo.regionalId)
         )
