@@ -102,14 +102,6 @@
   transition: transform 0.5s; /* Animation */
 }
 
-.profile:hover {
-  -moz-transform: translate(0, -8px);
-  -ms-transform: translate(0, -8px);
-  -o-transform: translate(0, -8px);
-  -webkit-transform: translate(0, -8px);
-  transform: translate(0, -8px);
-}
-
 .bell {
   content: url(../../../assets/images/nav-icons/notification-bell.png);
   height: 40px;
@@ -119,12 +111,4 @@
   margin-right: 5px;
   cursor: pointer;
   transition: transform 0.2s; /* Animation */
-}
-
-.bell:hover {
-  -moz-transform: translate(0, -8px);
-  -ms-transform: translate(0, -8px);
-  -o-transform: translate(0, -8px);
-  -webkit-transform: translate(0, -8px);
-  transform: translate(0, -8px);
 }

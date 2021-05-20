@@ -4,7 +4,8 @@
   },
   "grid": {
     "columns": {
-      "name": "Manager",
+      "firstName": "First Name",
+      "lastName": "Last Name",
       "storeId": "Store ID",
       "storeName": "Store Name",
       "startDate": "Start Date",
@@ -19,7 +20,10 @@
     "storeId": "Store ID",
     "storeName": "Store Name",
     "hireDate": "Hire Date",
-    "storeManager": "Store Manager"
+    "storeManager": "Store Manager",
+    "email": "Email",
+    "role": "Web Role",
+    "username": "Username"
   },
   "vacations": {
     "card": {

@@ -1,4 +1,4 @@
-import { StoreRegion, WebRole } from "./common.model";
+import { StoreRegion, WebRole } from './common.model';
 
 export interface User {
   id: number;
@@ -10,4 +10,8 @@ export interface User {
   appAccess: boolean;
   username: string;
   password: string;
+  storeId?: string;
+  storeName?: string;
+  hireDate: Date;
+  insertDate: Date;
 }

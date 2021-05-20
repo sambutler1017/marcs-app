@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { RequestService } from 'projects/insite-kit/src/lib/service/request-service/request.service';
 import { Observable } from 'rxjs';
 import { UrlService } from '../../../projects/insite-kit/src/lib/service/url-service/url.service';
 
@@ -8,7 +9,7 @@ import { UrlService } from '../../../projects/insite-kit/src/lib/service/url-ser
 })
 export class UserService {
   constructor(
-    private http: HttpClient,
+    private request: RequestService,
     private readonly urlService: UrlService
   ) {}
 
@@ -18,13 +19,8 @@ export class UserService {
    * @param params to filter on
    * @returns User object
    */
-  getUser(params?: Map<string, string>): Observable<any> {
-    let endpoint = `${this.urlService.getAPIUrl()}/api/user-app/users?`;
-    params.forEach((value, key) => {
-      endpoint = `${endpoint}${key}=${value}&`;
-    });
-
-    return this.http.get(endpoint.slice(0, -1));
+  getUser(params?: Map<string, string>): Observable<User[]> {
+    return this.request.get<User[]>('api/user-app/users', params);
   }
 
   /**
@@ -33,9 +29,10 @@ export class UserService {
    * @param params user id for the user to get
    * @returns User object
    */
-  getUserById(id: number): Observable<any> {
-    return this.http.get(
-      `${this.urlService.getAPIUrl()}/api/user-app/users?id=${id}`
+  getUserById(id: number): Observable<User[]> {
+    return this.request.get<User[]>(
+      'api/user-app/users',
+      new Map<string, string>().set('id', id.toString())
     );
   }
 }

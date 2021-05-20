@@ -46,6 +46,8 @@
   content: url(../../projects/insite-kit/src/lib/assets/images/icons/left-arrow-icon-page.png);
   transition: transform 0.2s;
   cursor: pointer;
+  width: 30px;
+  margin: 8px 5px;
 }
 
 .left-arrow:hover {
@@ -56,6 +58,8 @@
   content: url(../../projects/insite-kit/src/lib/assets/images/icons/right-arrow-icon-page.png);
   transition: transform 0.2s;
   cursor: pointer;
+  width: 30px;
+  margin: 8px 5px;
 }
 
 .right-arrow:hover {

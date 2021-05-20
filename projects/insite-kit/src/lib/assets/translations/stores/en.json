@@ -5,7 +5,7 @@
   "grid": {
     "columns": {
       "name": "Store Name",
-      "tag": "Store ID"
+      "id": "Store ID"
     },
     "total": "Stores"
   },

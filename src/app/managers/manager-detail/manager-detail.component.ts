@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
-import {
-  ManagerDetail,
-  Vacation
-} from 'projects/insite-kit/src/lib/models/manager.model';
-import { ManagerService } from 'src/service/manager-service/manager-service.service';
+import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
+import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-manager-detail',
@@ -13,15 +11,14 @@ import { ManagerService } from 'src/service/manager-service/manager-service.serv
   styleUrls: ['./manager-detail.component.scss'],
 })
 export class ManagerDetailComponent implements OnInit {
-  manager: ManagerDetail;
-  vacations: Vacation[];
+  userData: User;
   managerJson = json;
-  excludedColumns = ['id'];
   infoEditRoute: string;
-  vacationEditRoute: string;
+
+  WebRole = WebRole;
 
   constructor(
-    private managerService: ManagerService,
+    private userService: UserService,
     private activeRoute: ActivatedRoute,
     private router: Router
   ) {}
@@ -29,18 +26,10 @@ export class ManagerDetailComponent implements OnInit {
   ngOnInit(): void {
     const params: any = this.activeRoute.params;
     this.infoEditRoute = `/managers/details/${params.value.id}/edit/info`;
-    this.vacationEditRoute = `/managers/details/${params.value.id}/edit/vacations`;
 
-    this.managerService
-      .getManagerDetail(params.value.id)
-      .subscribe((res: ManagerDetail) => {
-        this.manager = res;
-        this.vacations = res.vacations;
-
-        delete this.manager.vacations;
-        delete this.manager.regionalId;
-        delete this.manager.id;
-      });
+    this.userService
+      .getUserById(params.value.id)
+      .subscribe((res) => (this.userData = res[0]));
   }
 
   onMoveClick() {

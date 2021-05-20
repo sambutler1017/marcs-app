@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/lib/models/store.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -28,10 +28,9 @@ export class StoresDetailComponent implements OnInit {
     this.storeService
       .getStores(new Map<string, string>().set('id', params.value.id))
       .pipe(
-        tap((res) => (this.storeInfo = res[0])),
-        switchMap((result) =>
-          this.userService.getUserById(this.storeInfo.regionalId)
-        )
+        map((res) => res[0]),
+        tap((res) => (this.storeInfo = res)),
+        switchMap((result) => this.userService.getUserById(result.regionalId))
       )
       .subscribe((res) => (this.userInfo = res[0]));
   }

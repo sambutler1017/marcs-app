@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
-import { Manager } from 'projects/insite-kit/src/lib/models/manager.model';
-import { ManagerService } from 'src/service/manager-service/manager-service.service';
+import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
+import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-manager-content',
@@ -11,15 +13,35 @@ import { ManagerService } from 'src/service/manager-service/manager-service.serv
 })
 export class ManagerOverviewComponent implements OnInit {
   managerJson = json;
-  outputEventColumns = ['id', 'regionalId'];
-  excludedColumns = ['id', 'regionalId'];
-  dataLoader: Manager[];
-  constructor(private managerService: ManagerService, private router: Router) {}
+  outputEventColumns = ['id'];
+  excludedColumns = [
+    'id',
+    'email',
+    'storeRegion',
+    'username',
+    'appAccess',
+    'webRole',
+    'hireDate',
+    'insertDate',
+    'password',
+  ];
+  dataLoader: User[];
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private jwt: JwtService
+  ) {}
 
   ngOnInit() {
-    this.managerService.getManagers().subscribe((res: Manager[]) => {
-      this.dataLoader = res;
-    });
+    this.userService
+      .getUser(
+        new Map<string, string>()
+          .set('webRole', WebRole.MANAGER.toUpperCase())
+          .set('regionalId', this.jwt.get('userId'))
+      )
+      .subscribe((res: User[]) => {
+        this.dataLoader = res;
+      });
   }
 
   handleClick(event: any) {

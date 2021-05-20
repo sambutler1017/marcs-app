@@ -12,7 +12,7 @@ import { StoreService } from 'src/service/store-service/store-service.service';
 export class StoresOverviewComponent implements OnInit {
   storeJson = json;
   outputEventColumns = ['id', 'regionalId'];
-  excludedColumns = ['id', 'regionalId', 'managerId'];
+  excludedColumns = ['regionalId', 'managerId'];
   dataLoader: Store[];
 
   constructor(
