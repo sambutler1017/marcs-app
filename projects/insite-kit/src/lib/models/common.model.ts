@@ -29,10 +29,10 @@ export enum Application {
 }
 
 export enum Access {
-  CREATE = 'CREATE',
-  READ = 'READ',
-  UPDATE = 'UPDATE',
-  DELETE = 'DELETE',
+  CREATE = 'c',
+  READ = 'r',
+  UPDATE = 'u',
+  DELETE = 'd',
 }
 
 export enum Feature {

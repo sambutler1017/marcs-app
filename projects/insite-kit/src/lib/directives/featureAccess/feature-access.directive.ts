@@ -1,35 +1,44 @@
 import {
   Directive,
   Input,
+  OnDestroy,
   OnInit,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { Subject } from 'rxjs';
+import { distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Access } from '../../models/common.model';
-import { FeatureAccessService } from '../../service/feature-service/feature-access.service';
+import { AuthService } from '../../service/auth-service/auth.service';
 
 @Directive({
   selector: '[featureAccess]',
 })
-export class FeatureAccessDirective implements OnInit {
+export class FeatureAccessDirective implements OnInit, OnDestroy {
   app: string;
   feature: string;
   type: Access;
+  destroy = new Subject();
   hasPermission: boolean = false;
 
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private featureService: FeatureAccessService
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    this.featureService
-      .hasFeatureAccess(this.app, this.feature, this.type)
+    this.authService
+      .hasAccess(this.app, this.feature, this.type)
+      .pipe(distinctUntilChanged(), takeUntil(this.destroy))
       .subscribe((v) => {
         this.hasPermission = v;
         this.updateView();
       });
+  }
+
+  ngOnDestroy() {
+    this.destroy.next();
   }
 
   @Input() set featureAccess(value: any) {
