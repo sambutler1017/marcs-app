@@ -65,6 +65,32 @@
 .text-default {
   color: #33333f;
 }
+
+.leftColumn {
+  float: left;
+  padding-right: 50px;
+}
+
+.rightColumn {
+  float: right;
+}
+
+.column-wide {
+  width: 60%;
+}
+
+.column-narrow {
+  width: 40%;
+}
+
+.column-half {
+  width: 50%;
+}
+
+.content__card-padding-none .card .padding-card {
+  padding: 0;
+}
+
 button,
 input {
   outline: none !important;

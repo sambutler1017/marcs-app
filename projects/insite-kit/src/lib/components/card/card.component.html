@@ -1,7 +1,3 @@
-<div class="card" [ngClass]="{ 'padding-card': !title }">
-  <div *ngIf="title" class="header">
-    <div class="title">{{ title }}</div>
-    <div *ngIf="editRoute" class="edit-icon" (click)="onEditClick()"></div>
-  </div>
+<div class="card" [ngClass]="{ 'padding-card': padding }">
   <ng-content></ng-content>
 </div>

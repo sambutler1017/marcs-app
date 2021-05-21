@@ -28,3 +28,47 @@
   word-wrap: break-word;
   text-align: left;
 }
+
+.icon {
+  margin: 15px 22px 15px 10px;
+  float: left;
+  height: 100px;
+  width: 100px;
+  border-radius: 20%;
+  background: linear-gradient(to bottom, #1e90ff 12%, #3399ff 73%);
+  &.manager {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/manager-icon.png);
+  }
+  &.store {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/store-icon.png);
+  }
+  &.calendar {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/calendar-icon.png);
+  }
+  &.block {
+    content: url(../../assets/images/app-icons/block-icon.png);
+  }
+  &.map {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/map-icon.png);
+  }
+  &.report {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/report-icon.png);
+  }
+  &.request-tracker {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/request-tracker-icon.png);
+  }
+  &.contact {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/contact-icon.png);
+  }
+  &.regional {
+    padding: 8px;
+    content: url(../../assets/images/app-icons/regional-icon.png);
+  }
+}

@@ -10,7 +10,8 @@
     </ik-header>
     <div class="detail">
       <div class="leftColumn column-wide">
-        <ik-card title="Personal Info">
+        <ik-card [padding]="false">
+          <ik-card-header title="Personal Info"></ik-card-header>
           <ik-card-info
             header="First Name"
             [text]="user.firstName"
@@ -32,7 +33,8 @@
         </ik-card>
       </div>
       <div class="rightColumn column-narrow">
-        <ik-card title="Application Access">
+        <ik-card [padding]="false">
+          <ik-card-header title="Application Access"></ik-card-header>
           <ik-card-info text="None"></ik-card-info>
         </ik-card>
       </div>

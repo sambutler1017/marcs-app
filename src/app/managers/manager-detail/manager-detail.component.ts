@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
-import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
+import {
+  Access,
+  Application,
+  Feature,
+  WebRole,
+} from 'projects/insite-kit/src/lib/models/common.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -16,6 +21,9 @@ export class ManagerDetailComponent implements OnInit {
   infoEditRoute: string;
 
   WebRole = WebRole;
+  Feature = Feature;
+  Application = Application;
+  Access = Access;
 
   constructor(
     private userService: UserService,
@@ -34,9 +42,5 @@ export class ManagerDetailComponent implements OnInit {
 
   onMoveClick() {
     this.router.navigate(['/managers/move-manager']);
-  }
-
-  onDeleteVacation(event: any) {
-    console.log(event);
   }
 }

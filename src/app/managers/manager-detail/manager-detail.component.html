@@ -1,4 +1,4 @@
-<div *ngIf="!userData" class="loader"></div>
+<ik-loading-indicator *ngIf="!userData"></ik-loading-indicator>
 <div *ngIf="userData">
   <ik-header
     [title]="
@@ -6,61 +6,75 @@
     "
     [backEnabled]="true"
   >
-    <button class="btn btn-danger btn-xl btn-right">Delete Manager</button>
-    <button class="btn btn-primary btn-xl btn-right" (click)="onMoveClick()">
+    <button
+      class="btn btn-danger btn-xl btn-right"
+      *featureAccess="[
+        Application.MANAGER,
+        Feature.MANAGER_DETAIL,
+        Access.DELETE
+      ]"
+    >
+      Delete Manager
+    </button>
+    <button
+      class="btn btn-primary btn-xl btn-right"
+      *featureAccess="[
+        Application.MANAGER,
+        Feature.MANAGER_DETAIL,
+        Access.UPDATE
+      ]"
+      (click)="onMoveClick()"
+    >
       Move Manager
     </button>
   </ik-header>
-  <div class="detail">
-    <div class="leftColumn column-wide">
-      <ik-card [title]="managerJson.detail.title" [editRoute]="infoEditRoute">
-        <ik-card-info
-          [header]="managerJson.detail.name"
-          [text]="userData.firstName + ' ' + userData.lastName"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.username"
-          [text]="userData.username"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.email"
-          [text]="userData.email ? userData.email : '-'"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.role"
-          [text]="WebRole[userData.webRole]"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.storeId"
-          [text]="userData.storeId"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.storeName"
-          [text]="userData.storeName"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="managerJson.detail.hireDate"
-          [text]="userData.hireDate | date: 'mediumDate'"
-        ></ik-card-info>
-        <ik-card-info
-          [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
-          header="Application Access"
-          [text]="
-            userData.appAccess ? 'Has App Access' : 'Does not have App Access'
-          "
-        ></ik-card-info>
-      </ik-card>
-    </div>
+  <div class="leftColumn column-wide">
+    <ik-card [padding]="false">
+      <ik-card-header [title]="managerJson.detail.title">
+        <ik-icon
+          icon="edit"
+          *featureAccess="[
+            Application.MANAGER,
+            Feature.MANAGER_DETAIL,
+            Access.UPDATE
+          ]"
+        ></ik-icon>
+      </ik-card-header>
+      <ik-card-info
+        [header]="managerJson.detail.name"
+        [text]="userData.firstName + ' ' + userData.lastName"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.username"
+        [text]="userData.username"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.email"
+        [text]="userData.email ? userData.email : '-'"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.role"
+        [text]="WebRole[userData.webRole]"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.storeId"
+        [text]="userData.storeId"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.storeName"
+        [text]="userData.storeName"
+      ></ik-card-info>
+      <ik-card-info
+        [header]="managerJson.detail.hireDate"
+        [text]="userData.hireDate | date: 'mediumDate'"
+      ></ik-card-info>
+      <ik-card-info
+        [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
+        header="Application Access"
+        [text]="
+          userData.appAccess ? 'Has App Access' : 'Does not have App Access'
+        "
+      ></ik-card-info>
+    </ik-card>
   </div>
-  <!-- <div class="detail">
-    <div class="rightColumn column-narrow">
-      <ik-grid-card
-        [dataLoader]="vacations"
-        [excludedColumns]="excludedColumns"
-        [translationKey]="managerJson.vacations"
-        [editRoute]="vacationEditRoute"
-        (deleteClick)="onDeleteVacation($event)"
-      ></ik-grid-card>
-    </div>
-  </div> -->
 </div>

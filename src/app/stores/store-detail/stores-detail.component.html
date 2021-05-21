@@ -7,7 +7,8 @@
   </ik-header>
   <div class="detail">
     <div class="leftColumn column-wide">
-      <ik-card [title]="storeJson.detail.title">
+      <ik-card [padding]="false">
+        <ik-card-header [title]="storeJson.detail.title"></ik-card-header>
         <ik-card-info
           header="Store Name"
           [text]="storeInfo.name"
@@ -19,12 +20,6 @@
         ></ik-card-info>
         <ik-card-info header="Manger" text="Fake User"></ik-card-info>
       </ik-card>
-    </div>
-    <div class="rightColumn column-narrow">
-      <ik-grid-card
-        [dataLoader]="managers"
-        [translationKey]="storeJson.managers"
-      ></ik-grid-card>
     </div>
   </div>
 </div>

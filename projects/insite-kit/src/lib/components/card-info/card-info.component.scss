@@ -1,0 +1,25 @@
+.left-column {
+  padding-right: 24px;
+  float: left;
+}
+
+.right-column {
+  float: right;
+}
+
+.content {
+  padding: 24px;
+  width: 50%;
+  display: inline-block;
+}
+
+.label-header {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.content .label-text {
+  font-size: 20px;
+  font-weight: 400;
+  padding-left: 10px;
+}

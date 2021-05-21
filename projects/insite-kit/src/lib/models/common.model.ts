@@ -15,3 +15,27 @@ export enum StoreRegion {
   ALL = 5,
   NONE = 6,
 }
+
+export enum Application {
+  MANAGER = 'manager',
+  STORE = 'store',
+  calendar = 'calendar',
+  BLOCK_DATES = 'blockDates',
+  MAP = 'map',
+  REPORT = 'report',
+  REGIONAL = 'regional',
+  REQUEST_TRACKER = 'requestTracker',
+  CONTACT = 'contact',
+}
+
+export enum Access {
+  CREATE = 'CREATE',
+  READ = 'READ',
+  UPDATE = 'UPDATE',
+  DELETE = 'DELETE',
+}
+
+export enum Feature {
+  MANAGER_DETAIL = 'detail',
+  MANAGER_VACATION = 'vacation',
+}

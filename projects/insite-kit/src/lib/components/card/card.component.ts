@@ -1,19 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ik-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @Input() title: string;
-  @Input() editRoute: string;
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {}
-
-  onEditClick() {
-    this.router.navigate([this.editRoute]);
-  }
+  @Input() padding = true;
 }

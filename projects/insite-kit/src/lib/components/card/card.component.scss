@@ -1,0 +1,62 @@
+.detail {
+  width: 100%;
+}
+
+.detail .left-column {
+  padding-right: 24px;
+  float: left;
+}
+
+.detail .right-column {
+  float: right;
+}
+
+.card {
+  width: 100%;
+  display: inline-block;
+  height: auto;
+  border-radius: 8px;
+  background: linear-gradient(to bottom, #ffffff 12%, #fffff5 100%);
+}
+
+.padding-card {
+  padding: 20px;
+}
+
+.detail .content {
+  padding: 24px;
+  width: 50%;
+  display: inline-block;
+}
+
+.detail .label-header {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.content .label-text {
+  font-size: 20px;
+  font-weight: 400;
+  padding-left: 10px;
+}
+
+.leftColumn {
+  float: left;
+  padding-right: 50px;
+}
+
+.rightColumn {
+  float: right;
+}
+
+.column-wide {
+  width: 60%;
+}
+
+.column-narrow {
+  width: 40%;
+}
+
+.column-half {
+  width: 50%;
+}
