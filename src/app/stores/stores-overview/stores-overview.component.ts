@@ -30,7 +30,6 @@ export class StoresOverviewComponent implements OnInit {
   }
 
   handleClick(event: any) {
-    console.log(event);
     this.router.navigate([`/stores/details/${event.id}`]);
   }
 }

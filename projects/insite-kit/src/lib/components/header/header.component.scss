@@ -5,6 +5,7 @@
   text-align: center;
   font-size: 45px;
   font-weight: 600;
+  padding: 8px;
 }
 
 .header-margin {
@@ -23,4 +24,28 @@
 
 .back-arrow:hover {
   transform: scale(1.1);
+}
+
+@media screen and (max-width: 1030px) {
+  .header-title {
+    font-size: 35px;
+  }
+
+  .back-arrow {
+    width: 25px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header-title {
+    font-size: 25px;
+  }
+
+  .back-arrow {
+    width: 18px;
+  }
+
+  .header-margin {
+    margin-bottom: 15px;
+  }
 }
