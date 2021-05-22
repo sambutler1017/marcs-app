@@ -12,30 +12,38 @@
       <div class="leftColumn column-wide">
         <ik-card [padding]="false">
           <ik-card-header title="Personal Info"></ik-card-header>
-          <ik-card-info
-            header="First Name"
-            [text]="user.firstName"
-          ></ik-card-info>
-          <ik-card-info
-            header="Last Name"
-            [text]="user.lastName"
-          ></ik-card-info>
-          <ik-card-info header="Username" [text]="user.username"></ik-card-info>
-          <ik-card-info header="Email" [text]="user.email"></ik-card-info>
-          <ik-card-info
-            header="Web Role"
-            [text]="webRole[user.webRole]"
-          ></ik-card-info>
-          <ik-card-info
-            header="Region"
-            [text]="user.storeRegion"
-          ></ik-card-info>
+          <div class="left-column">
+            <ik-card-info
+              header="First Name"
+              [text]="user.firstName"
+            ></ik-card-info>
+            <ik-card-info header="Email" [text]="user.email"></ik-card-info>
+            <ik-card-info
+              header="Web Role"
+              [text]="webRole[user.webRole]"
+            ></ik-card-info>
+          </div>
+          <div class="right-column">
+            <ik-card-info
+              header="Last Name"
+              [text]="user.lastName"
+            ></ik-card-info>
+            <ik-card-info
+              header="Username"
+              [text]="user.username"
+            ></ik-card-info>
+
+            <ik-card-info
+              header="Region"
+              [text]="user.storeRegion"
+            ></ik-card-info>
+          </div>
         </ik-card>
       </div>
       <div class="rightColumn column-narrow">
         <ik-card [padding]="false">
           <ik-card-header title="Application Access"></ik-card-header>
-          <ik-card-info text="None"></ik-card-info>
+          <ik-card-info [text]="applications"></ik-card-info>
         </ik-card>
       </div>
     </div>

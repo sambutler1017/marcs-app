@@ -33,7 +33,6 @@ export class RequestService {
         endpoint = `${endpoint}${key}=${value}&`;
       });
     }
-    console.log(endpoint.slice(0, -1));
     return this.http.get<T>(endpoint.slice(0, -1));
   }
 

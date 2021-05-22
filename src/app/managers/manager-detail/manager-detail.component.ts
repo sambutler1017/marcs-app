@@ -43,4 +43,8 @@ export class ManagerDetailComponent implements OnInit {
   onMoveClick() {
     this.router.navigate(['/managers/move-manager']);
   }
+
+  onEditClick() {
+    this.router.navigate([this.infoEditRoute]);
+  }
 }

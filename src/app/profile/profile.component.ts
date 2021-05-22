@@ -12,6 +12,7 @@ import { UserService } from 'src/service/user-service/user.service';
 export class ProfileComponent implements OnInit {
   user: User;
   webRole = WebRole;
+  applications = '';
 
   constructor(
     private userService: UserService,
@@ -22,5 +23,12 @@ export class ProfileComponent implements OnInit {
     this.userService
       .getUserById(this.jwtService.get('userId'))
       .subscribe((v: User[]) => (this.user = v[0]));
+    this.generateApplicationString();
+  }
+
+  generateApplicationString() {
+    const apps: [] = this.jwtService.get('apps');
+    apps.forEach((v) => (this.applications += `${v}, `));
+    this.applications.slice(0, -1).slice(0, -1);
   }
 }
