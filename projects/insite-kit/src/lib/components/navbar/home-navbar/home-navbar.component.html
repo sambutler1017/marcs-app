@@ -1,5 +1,14 @@
 <nav class="app-navbar">
-  <div class="app-logo inline-block" (click)="onLogoClick()">Marc's</div>
-  <div class="profile inline-block" (click)="onProfileClick()"></div>
-  <div class="bell inline-block"></div>
+  <div class="app-logo inline-block" (click)="onLogoClick()">
+    Marc's
+  </div>
+  <div
+    class="profile inline-block"
+    *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
+    (click)="onProfileClick()"
+  ></div>
+  <div
+    class="bell inline-block"
+    *featureAccess="[Application.GLOBAL, Feature.NOTIFICATION, Access.READ]"
+  ></div>
 </nav>

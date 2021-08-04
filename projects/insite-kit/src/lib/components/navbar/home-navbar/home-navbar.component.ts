@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Access, Application, Feature } from '../../../models/common.model';
 import { JwtService } from '../../../service/jwt-service/jwt.service';
 
 @Component({
@@ -9,6 +10,10 @@ import { JwtService } from '../../../service/jwt-service/jwt.service';
 })
 export class HomeNavbarComponent implements OnInit {
   name: string;
+
+  Feature = Feature;
+  Application = Application;
+  Access = Access;
 
   constructor(private jwt: JwtService, private router: Router) {}
 

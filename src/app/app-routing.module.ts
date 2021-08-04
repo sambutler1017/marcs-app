@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from 'projects/insite-kit/src/lib/components/login/login.component';
+import {
+  Access,
+  Application,
+  Feature,
+} from 'projects/insite-kit/src/lib/models/common.model';
+import { FeatureAccessGuard } from 'projects/insite-kit/src/lib/service/auth-service/feature-access.guard';
 import { AuthGuard } from '../../projects/insite-kit/src/lib/service/auth-service/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { AddManagerComponent } from './managers/add-manager/add-manager.component';
@@ -29,7 +35,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   {
-    path: 'managers',
+    path: 'manager',
     component: ManagersComponent,
     canActivate: [AuthGuard],
     children: [
@@ -41,12 +47,19 @@ const routes: Routes = [
       },
       { path: 'move-manager', component: MoveManagerComponent },
       { path: 'add-manager', component: AddManagerComponent },
-      { path: 'details/:id/edit/info', component: EditInfoComponent },
+      {
+        path: 'details/:id/edit/info',
+        component: EditInfoComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [Application.MANAGER, Feature.MANAGER_DETAIL, Access.UPDATE],
+        },
+      },
       { path: 'details/:id/edit/vacations', component: EditVacationsComponent },
     ],
   },
   {
-    path: 'stores',
+    path: 'store',
     component: StoresComponent,
     canActivate: [AuthGuard],
     children: [

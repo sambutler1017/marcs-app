@@ -4,13 +4,13 @@
       "title": "Manager's",
       "message": "Track's a managers details and the their associated vacations.",
       "icon": "manager",
-      "page": "managers"
+      "page": "manager"
     },
     "store": {
       "title": "Store's",
       "message": "Regional's stores they oversee, containing the store manager and manager count.",
       "icon": "store",
-      "page": "stores"
+      "page": "store"
     },
     "calendar": {
       "title": "Calendar",

@@ -26,6 +26,7 @@ export enum Application {
   REGIONAL = 'regional',
   REQUEST_TRACKER = 'requestTracker',
   CONTACT = 'contact',
+  GLOBAL = 'global',
 }
 
 export enum Access {
@@ -38,4 +39,6 @@ export enum Access {
 export enum Feature {
   MANAGER_DETAIL = 'detail',
   MANAGER_VACATION = 'vacation',
+  PROFILE = 'profile',
+  NOTIFICATION = 'notification',
 }

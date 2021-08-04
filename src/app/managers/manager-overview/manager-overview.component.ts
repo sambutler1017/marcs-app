@@ -45,10 +45,10 @@ export class ManagerOverviewComponent implements OnInit {
   }
 
   handleClick(event: any) {
-    this.router.navigate([`/managers/details/${event.id}`]);
+    this.router.navigate([`/manager/details/${event.id}`]);
   }
 
   onAddManager() {
-    this.router.navigate(['/managers/add-manager']);
+    this.router.navigate(['/manager/add-manager']);
   }
 }
