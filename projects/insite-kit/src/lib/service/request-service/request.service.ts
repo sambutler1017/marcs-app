@@ -44,6 +44,7 @@ export class RequestService {
    * @returns observable of the passed in object
    */
   post<T>(url: string, body?: any): Observable<T> {
-    return this.http.post<T>(url, body);
+    let endpoint = `${this.urlService.getAPIUrl()}/${url}`;
+    return this.http.post<T>(endpoint, body);
   }
 }

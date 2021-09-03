@@ -1,1 +1,47 @@
-<p>add-manager works!</p>
+<ik-header title="Add Manager" [backEnabled]="true"> </ik-header>
+<ng-container *ngIf="!loading; else loadingIcon">
+  <ik-card [padding]="false">
+    <ik-card-info header="First Name"
+      ><input #firstName class="search" placeholder="First Name"
+    /></ik-card-info>
+
+    <ik-card-info header="Last Name"
+      ><input #lastName class="search" placeholder="Last Name"
+    /></ik-card-info>
+
+    <ik-card-info header="Web Role"
+      ><input
+        #webRole
+        class="search"
+        placeholder="Web Role"
+        readonly
+        [value]="WebRole.MANAGER"
+    /></ik-card-info>
+
+    <ik-card-info header="Store Name"
+      ><input
+        #storeName
+        class="search"
+        placeholder="Store Name"
+        (change)="onStoreSearch($event.srcElement.value)"
+    /></ik-card-info>
+
+    <ik-card-info header="Store ID"
+      ><input #storeId class="search" placeholder="Store ID"
+    /></ik-card-info>
+
+    <ik-card-info header="Hire Date"
+      ><input #hireDate type="date" class="search" placeholder="Hire Date"
+    /></ik-card-info>
+  </ik-card>
+  <button class="btn btn-default btn-size btn-left" (click)="onCancelClick()">
+    Cancel
+  </button>
+  <button class="btn btn-warning btn-size btn-right" (click)="onSaveClick()">
+    Save Manager
+  </button>
+</ng-container>
+
+<ng-template #loadingIcon>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

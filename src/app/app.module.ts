@@ -1,7 +1,9 @@
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 import { InsiteKitModule } from 'projects/insite-kit/src/lib/insite-kit.module';
 import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/lib/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { LoginComponent } from '../../projects/insite-kit/src/lib/components/login/login.component';
@@ -58,6 +60,10 @@ import { StoresComponent } from './stores/stores.component';
     AppRoutingModule,
     HttpClientModule,
     InsiteKitModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-left',
+    }),
   ],
   providers: [
     {
@@ -65,6 +71,7 @@ import { StoresComponent } from './stores/stores.component';
       useClass: BasicAuthHtppInterceptorService,
       multi: true,
     },
+
     AuthGuard,
   ],
   bootstrap: [AppComponent],

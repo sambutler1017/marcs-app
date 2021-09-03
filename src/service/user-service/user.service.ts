@@ -35,4 +35,8 @@ export class UserService {
       new Map<string, string>().set('id', id.toString())
     );
   }
+
+  createUser(user: User) {
+    return this.request.post<User>('api/user-app/users', user);
+  }
 }
