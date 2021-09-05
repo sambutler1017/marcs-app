@@ -8,10 +8,10 @@ export interface User {
   webRole: WebRole | any;
   storeRegion?: StoreRegion;
   appAccess?: boolean;
-  username?: string;
   password?: string;
   storeId?: string;
   storeName?: string;
   hireDate?: Date;
   insertDate?: Date;
+  salt?: number;
 }

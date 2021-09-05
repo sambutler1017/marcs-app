@@ -5,8 +5,7 @@
     placeholder="Search"
     (change)="onSearch($event.srcElement.value)"
   />
-  <ik-loading-indicator *ngIf="!dataLoader"></ik-loading-indicator>
-  <table *ngIf="dataLoader">
+  <table *ngIf="dataLoader; else loader">
     <thead>
       <tr>
         <td *ngFor="let column of columns" class="column-header">
@@ -49,3 +48,7 @@
     <label class="label-text right">{{ dataCountTranslation }}</label>
   </div>
 </ik-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

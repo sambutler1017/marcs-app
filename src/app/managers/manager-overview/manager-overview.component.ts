@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
-import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -33,15 +32,9 @@ export class ManagerOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userService
-      .getUser(
-        new Map<string, string>()
-          .set('webRole', WebRole.MANAGER.toUpperCase())
-          .set('regionalId', this.jwt.get('userId'))
-      )
-      .subscribe((res: User[]) => {
-        this.dataLoader = res;
-      });
+    this.getUsers(
+      new Map<string, string>().set('regionalId', this.jwt.get('userId'))
+    ).subscribe((res) => (this.dataLoader = res));
   }
 
   handleClick(event: any) {
@@ -50,5 +43,30 @@ export class ManagerOverviewComponent implements OnInit {
 
   onAddManager() {
     this.router.navigate(['/manager/add-manager']);
+  }
+
+  getUsers(params?: Map<string, string>) {
+    return this.userService.getUsers(params);
+  }
+
+  onSearch(value: any) {
+    if (value.trim() === '') {
+      this.getUsers(
+        new Map<string, string>().set('regionalId', this.jwt.get('userId'))
+      ).subscribe((res) => (this.dataLoader = res));
+    } else {
+      this.getUsers(this.generateSearchParams(value)).subscribe(
+        (res) => (this.dataLoader = res)
+      );
+    }
+  }
+
+  generateSearchParams(value: any) {
+    return new Map<string, string>()
+      .set('regionalId', this.jwt.get('userId'))
+      .set('firstName', value)
+      .set('lastName', value)
+      .set('storeId', value)
+      .set('storeName', value);
   }
 }

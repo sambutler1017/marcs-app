@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
+import { AuthToken } from '../../models/auth-token.model';
 import { Access, Application, Feature } from '../../models/common.model';
 import { JwtService } from '../jwt-service/jwt.service';
 import { RequestService } from '../request-service/request.service';
-import { UrlService } from '../url-service/url.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(
-    private request: RequestService,
-    private jwt: JwtService,
-    private readonly urlService: UrlService
-  ) {}
+  constructor(private request: RequestService, private jwt: JwtService) {}
 
   /**
    * Authenticate a user and get a token for the user
@@ -23,13 +19,13 @@ export class AuthService {
    * @param password associated to the user
    * @returns
    */
-  authenticate(username: string, password: string) {
+  authenticate(email: string, password: string): Observable<AuthToken> {
     return this.request
-      .post(`${this.urlService.getAPIUrl()}/authenticate`, {
-        username,
+      .post<AuthToken>('authenticate', {
+        email,
         password,
       })
-      .pipe(map((u) => this.jwt.setToken(`Bearer: ${(u as any).token}`)));
+      .pipe(tap((u) => this.jwt.setToken(`Bearer: ${(u as any).token}`)));
   }
 
   /**

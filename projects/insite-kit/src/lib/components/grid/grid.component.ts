@@ -21,6 +21,7 @@ export class GridComponent implements OnChanges {
   @Input() searchEnabled = false;
   @Input() pagerEnabled = false;
   @Output() gridRowClick = new EventEmitter<any>();
+  @Output() search = new EventEmitter<any>();
 
   columns = [];
   content = [[]];
@@ -52,25 +53,16 @@ export class GridComponent implements OnChanges {
   }
 
   onSearch(value: string) {
-    this.resetGrid();
-
-    if (value.trim() !== '') {
-      this.resetGrid();
-      this.dataLoader = this.dataLoader.filter(
-        (res) =>
-          Object.values(res).filter((v: string) => v.includes(value)).length > 0
-      );
-    }
-
-    this.currentPageIndex = 0;
-    this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
-
-    this.getPageData();
-    this.getTotal();
+    this.resetData();
+    this.search.emit(value);
   }
 
-  resetGrid() {
-    this.dataLoader = this.common.copyObject(this.cachedDataLoader);
+  resetData() {
+    this.columns = [];
+    this.content = [[]];
+    this.outputData = [{}];
+    this.currentPageIndex = 0;
+    this.currentPageRowCount = 0;
   }
 
   excludeColumns() {

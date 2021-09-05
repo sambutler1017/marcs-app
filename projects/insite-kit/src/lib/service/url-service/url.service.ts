@@ -7,8 +7,8 @@ import { Environment } from '../../assets/globals';
  * @author Sam Butler
  * @since Dec 15, 2020
  */
- @Injectable({
-    providedIn: 'root',
+@Injectable({
+  providedIn: 'root',
 })
 export class UrlService {
   private urlPath: string;
@@ -25,7 +25,7 @@ export class UrlService {
   getHost(): string {
     if (this.urlPath.includes(Environment.PRODUCTION_PATH)) {
       return Environment.PRODUCTION_HOST;
-    } 
+    }
     return Environment.LOCAL_HOST;
   }
 
@@ -37,7 +37,7 @@ export class UrlService {
   getPath(): string {
     if (this.urlPath.includes(Environment.PRODUCTION_PATH)) {
       return Environment.PRODUCTION_PATH;
-    } 
+    }
     return Environment.LOCAL_PATH;
   }
 
@@ -67,21 +67,6 @@ export class UrlService {
       return `http://${this.getHost()}`;
     }
     return `http://${this.getHost()}.${Environment.HEROKU_URI}`;
-  }
-
-  /**
-   * Get's the socket environment
-   *
-   * @returns string of the socket path
-   */
-  getSocketPath(): string {
-    const socketType = this.isHttps() ? 'wss://' : 'ws://';
-    if (this.isLocal()) {
-      return `${socketType}${this.getHost()}${Environment.SOCKET_ENDPOINT}`;
-    }
-    return `${socketType}${this.getHost()}.${Environment.HEROKU_URI}${
-      Environment.SOCKET_ENDPOINT
-    }`;
   }
 
   /**

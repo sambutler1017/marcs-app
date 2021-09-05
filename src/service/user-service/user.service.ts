@@ -2,16 +2,13 @@ import { Injectable } from '@angular/core';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
 import { RequestService } from 'projects/insite-kit/src/lib/service/request-service/request.service';
 import { Observable } from 'rxjs';
-import { UrlService } from '../../../projects/insite-kit/src/lib/service/url-service/url.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(
-    private request: RequestService,
-    private readonly urlService: UrlService
-  ) {}
+  readonly BASE_USER_PATH = 'api/user-app/users';
+  constructor(private request: RequestService) {}
 
   /**
    * Get a list of users based on the given request
@@ -19,8 +16,8 @@ export class UserService {
    * @param params to filter on
    * @returns User object
    */
-  getUser(params?: Map<string, string>): Observable<User[]> {
-    return this.request.get<User[]>('api/user-app/users', params);
+  getUsers(params?: Map<string, string>): Observable<User[]> {
+    return this.request.get<User[]>(this.BASE_USER_PATH, params);
   }
 
   /**
@@ -31,12 +28,12 @@ export class UserService {
    */
   getUserById(id: number): Observable<User[]> {
     return this.request.get<User[]>(
-      'api/user-app/users',
+      this.BASE_USER_PATH,
       new Map<string, string>().set('id', id.toString())
     );
   }
 
   createUser(user: User) {
-    return this.request.post<User>('api/user-app/users', user);
+    return this.request.post<User>(this.BASE_USER_PATH, user);
   }
 }

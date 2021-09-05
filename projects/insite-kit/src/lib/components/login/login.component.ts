@@ -8,7 +8,7 @@ import { AuthService } from '../../service/auth-service/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  @ViewChild('username') username: ElementRef;
+  @ViewChild('email') email: ElementRef;
   @ViewChild('password') password: ElementRef;
 
   userLoggedIn = false;
@@ -17,17 +17,17 @@ export class LoginComponent {
   constructor(private auth: AuthService, private router: Router) {}
 
   public login() {
-    const username = this.username.nativeElement.value;
+    const email = this.email.nativeElement.value;
     const password = this.password.nativeElement.value;
     this.loading = true;
 
-    this.auth.authenticate(username, password).subscribe(
+    this.auth.authenticate(email, password).subscribe(
       () => {
         this.userLoggedIn = true;
         this.router.navigate(['/home']);
         this.loading = false;
       },
-      (error) => console.log('Invalid Username or Password')
+      (error) => console.log('Invalid Email or Password')
     );
   }
 }
