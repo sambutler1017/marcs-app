@@ -19,6 +19,23 @@ export class ManagerDetailComponent implements OnInit {
   userData: User;
   managerJson = json;
   infoEditRoute: string;
+  dataLoader = [
+    {
+      startDate: 'January 1, 2021',
+      endDate: 'January 6, 2021',
+      status: 'APPROVED',
+    },
+    {
+      startDate: 'December 1, 2021',
+      endDate: 'December 6, 2021',
+      status: 'DENIED',
+    },
+    {
+      startDate: 'November 1, 2021',
+      endDate: 'November 6, 2021',
+      status: 'PENDING',
+    },
+  ];
 
   WebRole = WebRole;
   Feature = Feature;
@@ -47,4 +64,6 @@ export class ManagerDetailComponent implements OnInit {
   onEditClick() {
     this.router.navigate([this.infoEditRoute]);
   }
+
+  onRowClick(event: any) {}
 }

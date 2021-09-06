@@ -30,7 +30,7 @@
       </button>
     </div>
   </ik-header>
-  <div class="leftColumn column-wide">
+  <div class="leftColumn column-half">
     <ik-card [padding]="false">
       <ik-card-header [title]="managerJson.detail.title">
         <ik-icon
@@ -79,5 +79,26 @@
         ></ik-card-info>
       </div>
     </ik-card>
+  </div>
+  <div class="rightColumn column-half">
+    <ik-grid
+      [translationKey]="managerJson.vacations"
+      [dataLoader]="dataLoader"
+      title="Vacations"
+      [padding]="false"
+      (gridRowClick)="onRowClick($event)"
+    >
+      <ik-card-header title="Vacations">
+        <ik-icon
+          icon="edit"
+          *featureAccess="[
+            Application.MANAGER,
+            Feature.MANAGER_DETAIL,
+            Access.UPDATE
+          ]"
+          (click)="onEditClick()"
+        ></ik-icon>
+      </ik-card-header>
+    </ik-grid>
   </div>
 </div>

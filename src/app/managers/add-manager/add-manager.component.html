@@ -1,5 +1,5 @@
 <ik-header title="Add Manager" [backEnabled]="true"> </ik-header>
-<ng-container *ngIf="!loading; else loadingIcon">
+<ng-container *ngIf="!loading; else loadingIcon" class="padding_bottom--small">
   <ik-card [padding]="false">
     <ik-card-info header="First Name"
       ><input #firstName class="search" placeholder="First Name"
@@ -7,6 +7,10 @@
 
     <ik-card-info header="Last Name"
       ><input #lastName class="search" placeholder="Last Name"
+    /></ik-card-info>
+
+    <ik-card-info header="Email"
+      ><input #email class="search" placeholder="Email"
     /></ik-card-info>
 
     <ik-card-info header="Web Role"

@@ -1,4 +1,5 @@
-<ik-card>
+<ik-card [padding]="padding">
+  <ng-content></ng-content>
   <input
     *ngIf="searchEnabled"
     class="search"

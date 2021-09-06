@@ -23,12 +23,12 @@ import { ManagersComponent } from './managers/managers.component';
 import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
 import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RegionalsComponent } from './regionals/regionals.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import { StoresComponent } from './stores/stores.component';
     BlockDatesComponent,
     MapComponent,
     ReportsComponent,
-    RegionalsComponent,
+    UsersComponent,
     RequestTrackerComponent,
     ContactComponent,
     ManagerOverviewComponent,

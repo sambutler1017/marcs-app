@@ -26,12 +26,11 @@
     "username": "Username"
   },
   "vacations": {
-    "card": {
-      "grid": {
-        "columns": {
-          "startDate": "Start Date",
-          "endDate": "End Date"
-        }
+    "grid": {
+      "columns": {
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "status": "Status"
       }
     },
     "title": "Vacations"
