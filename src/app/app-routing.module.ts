@@ -8,6 +8,8 @@ import {
 } from 'projects/insite-kit/src/lib/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/lib/service/auth-service/feature-access.guard';
 import { AuthGuard } from '../../projects/insite-kit/src/lib/service/auth-service/auth.guard';
+import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
+import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
 import { AddManagerComponent } from './managers/add-manager/add-manager.component';
 import { EditInfoComponent } from './managers/edit-info/edit-info.component';
@@ -77,6 +79,15 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: CalendarOverviewComponent },
+    ],
   },
   { path: '**', redirectTo: 'home' },
 ];

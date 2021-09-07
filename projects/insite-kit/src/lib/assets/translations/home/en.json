@@ -16,7 +16,7 @@
       "title": "Calendar",
       "message": "Shows a visual display of a calendar with all of the managers vacations.",
       "icon": "calendar",
-      "page": ""
+      "page": "calendar"
     },
     "blockDates": {
       "title": "Block Dates",

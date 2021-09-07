@@ -25,6 +25,7 @@ export class ManagerOverviewComponent implements OnInit {
     'password',
   ];
   dataLoader: User[];
+
   constructor(
     private userService: UserService,
     private router: Router,
