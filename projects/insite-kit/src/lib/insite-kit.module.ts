@@ -32,7 +32,7 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeImageComponent,
     FeatureAccessDirective,
     CardHeaderComponent,
-    IconComponent,
+    IconComponent
   ],
   imports: [BrowserModule],
   exports: [
@@ -49,7 +49,7 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeImageComponent,
     FeatureAccessDirective,
     CardHeaderComponent,
-    IconComponent,
+    IconComponent
   ],
 })
-export class InsiteKitModule {}
+export class InsiteKitModule { }

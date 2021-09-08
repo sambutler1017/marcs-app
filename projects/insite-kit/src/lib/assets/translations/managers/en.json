@@ -23,7 +23,11 @@
     "storeManager": "Store Manager",
     "email": "Email",
     "role": "Web Role",
-    "username": "Username"
+    "addManager": {
+      "form": {
+        "required": "This is a required field."
+      }
+    }
   },
   "vacations": {
     "grid": {

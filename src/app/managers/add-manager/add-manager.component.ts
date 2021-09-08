@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
 import { Store } from 'projects/insite-kit/src/lib/models/store.model';
@@ -14,16 +15,10 @@ import { UserService } from 'src/service/user-service/user.service';
   styleUrls: ['./add-manager.component.scss'],
 })
 export class AddManagerComponent implements OnInit {
-  @ViewChild('firstName') firstName: ElementRef;
-  @ViewChild('lastName') lastName: ElementRef;
-  @ViewChild('webRole') webRole: ElementRef;
-  @ViewChild('storeName') storeName: ElementRef;
-  @ViewChild('storeId') storeId: ElementRef;
-  @ViewChild('hireDate') hireDate: ElementRef;
+  addManagerForm: FormGroup;
 
   stores: Store[];
   loading = true;
-
   WebRole = WebRole;
 
   constructor(
@@ -31,17 +26,42 @@ export class AddManagerComponent implements OnInit {
     private storeService: StoreService,
     private jwt: JwtService,
     private toastService: ToastrService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private readonly fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.loading = true;
+    this.buildForm();
     let params: Map<string, string> = new Map<string, string>();
     params.set('regionalId', this.jwt.get('userId'));
+
     this.storeService.getStores(params).subscribe((res) => {
       this.stores = res;
       this.loading = false;
     });
+  }
+
+  buildForm() {
+    this.addManagerForm = this.fb.group({
+      firstName: '',
+      lastName: '',
+      email: ['', [Validators.required, Validators.email]],
+      webRole: WebRole.MANAGER.toUpperCase(),
+      storeId: [''],
+      storeName: '',
+      hireDate: ''
+    });
+    this.onStoreIdChange();
+  }
+
+  onStoreIdChange() {
+    this.addManagerForm.controls.storeId.valueChanges.subscribe(v => {
+      console.log(this.addManagerForm.controls.email.errors);
+      const storeSelected = this.stores.find(store => store.id.toLowerCase() === v.toLowerCase());
+      this.addManagerForm.patchValue({ storeName: storeSelected ? storeSelected.name : '' });
+    });
+
   }
 
   onCancelClick() {
@@ -50,17 +70,17 @@ export class AddManagerComponent implements OnInit {
 
   onSaveClick() {
     this.loading = true;
-    let role: string = this.webRole.nativeElement.value;
 
     let user: User = {
-      firstName: this.firstName.nativeElement.value,
-      lastName: this.lastName.nativeElement.value,
-      webRole: WebRole[role.toUpperCase()].toUpperCase(),
-      storeId: this.storeId.nativeElement.value,
-      hireDate: this.hireDate.nativeElement.value,
+      firstName: this.addManagerForm.value.firstName,
+      lastName: this.addManagerForm.value.lastName,
+      email: this.addManagerForm.value.email,
+      webRole: this.addManagerForm.value.webRole,
+      storeId: this.addManagerForm.value.storeId.toUpperCase(),
+      hireDate: this.addManagerForm.value.hireDate,
     };
 
-    this.userService.createUser(user).subscribe(
+    this.userService.addUser(user).subscribe(
       () => {
         this.onCancelClick();
         this.toastService.success('Manager Successfully created!');
@@ -70,11 +90,5 @@ export class AddManagerComponent implements OnInit {
         this.loading = false;
       }
     );
-  }
-
-  onStoreSearch(value: string) {
-    this.storeId.nativeElement.value = this.stores.find(
-      (v) => v.name.toLowerCase() === value.toLowerCase()
-    ).id;
   }
 }
