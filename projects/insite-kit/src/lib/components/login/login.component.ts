@@ -27,7 +27,10 @@ export class LoginComponent {
         this.router.navigate(['/home']);
         this.loading = false;
       },
-      (error) => console.log('Invalid Email or Password')
+      (error) => {
+        console.log('Invalid Email or Password');
+        this.loading = false;
+      }
     );
   }
 }

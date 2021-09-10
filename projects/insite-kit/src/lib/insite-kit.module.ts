@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppIconCardComponent } from './components/app-icon-card/app-icon-card.component';
 import { AppPageComponent } from './components/app-page/app-page.component';
@@ -32,9 +33,9 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeImageComponent,
     FeatureAccessDirective,
     CardHeaderComponent,
-    IconComponent
+    IconComponent,
   ],
-  imports: [BrowserModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
     AppIconCardComponent,
     HomeNavbarComponent,
@@ -49,7 +50,7 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeImageComponent,
     FeatureAccessDirective,
     CardHeaderComponent,
-    IconComponent
+    IconComponent,
   ],
 })
-export class InsiteKitModule { }
+export class InsiteKitModule {}

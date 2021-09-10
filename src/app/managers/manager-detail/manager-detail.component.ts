@@ -50,11 +50,11 @@ export class ManagerDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const params: any = this.activeRoute.params;
-    this.infoEditRoute = `/managers/details/${params.value.id}/edit/info`;
+    this.infoEditRoute = `/manager/details/${params.value.id}/edit/info`;
 
     this.userService
       .getUserById(params.value.id)
-      .subscribe((res) => (this.userData = res[0]));
+      .subscribe((res) => (this.userData = res));
   }
 
   onMoveClick() {

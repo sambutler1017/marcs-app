@@ -22,7 +22,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.userService
       .getUserById(this.jwtService.get('userId'))
-      .subscribe((v: User[]) => (this.user = v[0]));
+      .subscribe((v) => (this.user = v));
     this.generateApplicationString();
   }
 

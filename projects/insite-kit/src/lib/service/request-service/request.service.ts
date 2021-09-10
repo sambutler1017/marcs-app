@@ -45,7 +45,18 @@ export class RequestService {
    */
   post<T>(url: string, body?: any): Observable<T> {
     let endpoint = `${this.urlService.getAPIUrl()}/${url}`;
-    console.log(endpoint);
     return this.http.post<T>(endpoint, body);
+  }
+
+  /**
+   * Put the given body to the passed in endpoint
+   *
+   * @param url to post body too
+   * @param body to be posted to the endpoint
+   * @returns observable of the passed in object
+   */
+  put<T>(url: string, body?: any): Observable<T> {
+    let endpoint = `${this.urlService.getAPIUrl()}/${url}`;
+    return this.http.put<T>(endpoint, body);
   }
 }

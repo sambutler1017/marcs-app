@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   readonly BASE_USER_PATH = 'api/user-app/users';
-  constructor(private request: RequestService) { }
+  constructor(private request: RequestService) {}
 
   /**
    * Get a list of users based on the given request
@@ -26,16 +26,27 @@ export class UserService {
    * @param params user id for the user to get
    * @returns User object
    */
-  getUserById(id: number): Observable<User[]> {
-    return this.request.get<User[]>(
-      this.BASE_USER_PATH,
-      new Map<string, string>().set('id', id.toString())
+  getUserById(id: number): Observable<User> {
+    return this.request.get<User>(`${this.BASE_USER_PATH}/${id.toString()}`);
+  }
+
+  /**
+   * Update the given user data for the given user id
+   *
+   * @param id of the user to update.
+   * @param user The user object to update
+   * @returns User object
+   */
+  updateUserById(id: number, user: User): Observable<User> {
+    return this.request.put<User>(
+      `${this.BASE_USER_PATH}/${id.toString()}`,
+      user
     );
   }
 
   /**
    * This will create a user for the given object, but will default to a user web role object.
-   * 
+   *
    * @param user The user to be created.
    * @returns The user that was created.
    */
@@ -45,7 +56,7 @@ export class UserService {
 
   /**
    * This will create a user for the given object.
-   * 
+   *
    * @param user The user to be created.
    * @returns The user that was created.
    */

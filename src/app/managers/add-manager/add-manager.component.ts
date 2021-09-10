@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
@@ -28,7 +28,7 @@ export class AddManagerComponent implements OnInit {
     private toastService: ToastrService,
     private userService: UserService,
     private readonly fb: FormBuilder
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loading = true;
@@ -50,18 +50,20 @@ export class AddManagerComponent implements OnInit {
       webRole: WebRole.MANAGER.toUpperCase(),
       storeId: [''],
       storeName: '',
-      hireDate: ''
+      hireDate: '',
     });
     this.onStoreIdChange();
   }
 
   onStoreIdChange() {
-    this.addManagerForm.controls.storeId.valueChanges.subscribe(v => {
-      console.log(this.addManagerForm.controls.email.errors);
-      const storeSelected = this.stores.find(store => store.id.toLowerCase() === v.toLowerCase());
-      this.addManagerForm.patchValue({ storeName: storeSelected ? storeSelected.name : '' });
+    this.addManagerForm.controls.storeId.valueChanges.subscribe((v) => {
+      const storeSelected = this.stores.find(
+        (store) => store.id.toLowerCase() === v.toLowerCase()
+      );
+      this.addManagerForm.patchValue({
+        storeName: storeSelected ? storeSelected.name : '',
+      });
     });
-
   }
 
   onCancelClick() {
