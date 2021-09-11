@@ -1,0 +1,69 @@
+<form [formGroup]="form" *ngIf="!loading; else loadingIcon">
+  <ik-card [padding]="false">
+    <ik-card-info header="First Name*"
+      ><input
+        class="search"
+        placeholder="First Name"
+        formControlName="firstName"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Last Name*"
+      ><input
+        class="search"
+        placeholder="Last Name"
+        formControlName="lastName"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Email*">
+      <input class="search" placeholder="Email" formControlName="email" />
+    </ik-card-info>
+
+    <ik-card-info header="Web Role"
+      ><input
+        class="search"
+        placeholder="Web Role"
+        readonly
+        formControlName="webRole"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Store ID*"
+      ><input
+        class="search"
+        placeholder="Store ID"
+        formControlName="storeId"
+        maxlength="4"
+        style="text-transform: uppercase;"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Store Name"
+      ><input
+        class="search"
+        placeholder="Store Name"
+        formControlName="storeName"
+        readonly
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Hire Date"
+      ><input
+        type="date"
+        class="search"
+        placeholder="Hire Date"
+        formControlName="hireDate"
+      />
+    </ik-card-info>
+  </ik-card>
+</form>
+<button class="btn btn-default btn-size btn-left" (click)="onCancelClick()">
+  {{ leftActionButton }}
+</button>
+<button class="btn btn-warning btn-size btn-right" (click)="onSaveClick()">
+  {{ rightActionButton }}
+</button>
+<ng-template #loadingIcon>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

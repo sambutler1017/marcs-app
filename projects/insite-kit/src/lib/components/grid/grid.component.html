@@ -24,7 +24,7 @@
       </td>
     </tr>
   </table>
-  <div *ngIf="dataLoader && pagerEnabled" class="grid-footer">
+  <div *ngIf="dataLoader && pagerEnabled && !noItems" class="grid-footer">
     <div
       class="left-arrow inline-block left"
       (click)="onPreviousPageClick()"
@@ -48,6 +48,9 @@
     ></div>
     <label class="label-text right">{{ dataCountTranslation }}</label>
   </div>
+  <ng-container *ngIf="noItems">
+    <label class="label-text left no-data-margin">{{ noDataText }}</label>
+  </ng-container>
 </ik-card>
 
 <ng-template #loader>

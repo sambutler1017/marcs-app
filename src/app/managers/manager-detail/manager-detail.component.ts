@@ -13,7 +13,6 @@ import { UserService } from 'src/service/user-service/user.service';
 @Component({
   selector: 'app-manager-detail',
   templateUrl: './manager-detail.component.html',
-  styleUrls: ['./manager-detail.component.scss'],
 })
 export class ManagerDetailComponent implements OnInit {
   userData: User;

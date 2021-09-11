@@ -14,6 +14,7 @@ import { CommonService } from '../../service/common/common.service';
 })
 export class GridComponent implements OnChanges {
   @Input() dataLoader: any[];
+  @Input() noDataText = 'No Items';
   @Input() translationKey: any;
   @Input() outputEventColumns = [];
   @Input() columnsToExclude = [];
@@ -32,6 +33,7 @@ export class GridComponent implements OnChanges {
   currentPageIndex = 0;
   currentPageRowCount = 0;
   dataCountTranslation = 'No Items';
+  noItems = false;
 
   pages: any;
   totalPages = 0;
@@ -39,6 +41,11 @@ export class GridComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (!this.dataLoader) {
+      return;
+    }
+
+    if (this.dataLoader.length <= 0) {
+      this.noItems = true;
       return;
     }
 
