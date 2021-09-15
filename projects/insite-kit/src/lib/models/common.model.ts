@@ -16,6 +16,13 @@ export enum StoreRegion {
   NONE = 6,
 }
 
+export enum VacationStatus {
+  APPROVED = 'APPROVED',
+  DENIED = 'DENIED',
+  PENDING = "PENDING"
+}
+
+
 export enum Application {
   MANAGER = 'manager',
   STORE = 'store',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
 import {
@@ -8,61 +8,61 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/lib/models/common.model';
 import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { Vacation } from 'projects/insite-kit/src/lib/models/vacation.model';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
+import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
   selector: 'app-manager-detail',
   templateUrl: './manager-detail.component.html',
 })
-export class ManagerDetailComponent implements OnInit {
+export class ManagerDetailComponent implements OnInit, OnDestroy {
   userData: User;
+  vacationData: Vacation;
   managerJson = json;
-  infoEditRoute: string;
-  dataLoader = [
-    {
-      startDate: 'January 1, 2021',
-      endDate: 'January 6, 2021',
-      status: 'APPROVED',
-    },
-    {
-      startDate: 'December 1, 2021',
-      endDate: 'December 6, 2021',
-      status: 'DENIED',
-    },
-    {
-      startDate: 'November 1, 2021',
-      endDate: 'November 6, 2021',
-      status: 'PENDING',
-    },
-  ];
+  vacationEditRoute: string;
+
+  excludedColumns = ['id', 'userId', 'insertDate'];
 
   WebRole = WebRole;
   Feature = Feature;
   Application = Application;
   Access = Access;
+  destroy = new Subject();
 
   constructor(
-    private userService: UserService,
-    private activeRoute: ActivatedRoute,
-    private router: Router
-  ) {}
+    private readonly userService: UserService,
+    private readonly vacationService: VacationService,
+    private readonly activeRoute: ActivatedRoute,
+    private readonly router: Router
+  ) { }
 
   ngOnInit(): void {
-    const params: any = this.activeRoute.params;
-    this.infoEditRoute = `/manager/details/${params.value.id}/edit/info`;
+    this.activeRoute.params.pipe(
+      switchMap(res => this.userService.getUserById(res.id)),
+      tap(res => this.userData = res),
+      switchMap(res => this.vacationService.getVacationsByUserId(res.id)),
+      takeUntil(this.destroy))
+      .subscribe(res => this.vacationData = res);
+  }
 
-    this.userService
-      .getUserById(params.value.id)
-      .subscribe((res) => (this.userData = res));
+  ngOnDestroy() {
+    this.destroy.next();
   }
 
   onMoveClick() {
     this.router.navigate(['/managers/move-manager']);
   }
 
-  onEditClick() {
-    this.router.navigate([this.infoEditRoute]);
+  onManageEditClick() {
+    this.router.navigate([`/manager/details/${this.userData.id}/edit/info`]);
   }
 
-  onRowClick(event: any) {}
+  onVacationEditClick() {
+    this.router.navigate([`/manager/details/${this.userData.id}/edit/vacations`]);
+  }
+
+  onRowClick(event: any) { }
 }

@@ -24,12 +24,6 @@ import { StoresDetailComponent } from './stores/store-detail/stores-detail.compo
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 
-// Other routes will be added here to account for other pages like Calendar, manager, stores, block dates, etc
-// Each one will have a canActivate on it to check if the user's jwt to is valid and if the user has access to
-// that page.
-//
-// User Access to page is later improvement.
-
 /**
  * Make sure to add back CanActivate on Home
  */
@@ -96,4 +90,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -37,7 +37,7 @@ export class GridComponent implements OnChanges {
 
   pages: any;
   totalPages = 0;
-  constructor(private common: CommonService) {}
+  constructor(private common: CommonService) { }
 
   ngOnChanges(): void {
     if (!this.dataLoader) {

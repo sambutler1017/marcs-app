@@ -7,8 +7,7 @@ import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-manager-content',
-  templateUrl: './manager-overview.component.html',
-  styleUrls: ['./manager-overview.component.scss'],
+  templateUrl: './manager-overview.component.html'
 })
 export class ManagerOverviewComponent implements OnInit {
   managerJson = json;
@@ -30,7 +29,7 @@ export class ManagerOverviewComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private jwt: JwtService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getUsers(
