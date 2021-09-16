@@ -13,7 +13,8 @@ import { UserService } from 'src/service/user-service/user.service';
 })
 export class StoresDetailComponent implements OnInit {
   storeInfo: Store;
-  userInfo: User;
+  regionalInfo: User;
+  managerInfo: User;
   storeJson = json;
   managers = [];
 
@@ -21,7 +22,7 @@ export class StoresDetailComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private readonly storeService: StoreService,
     private readonly userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const params: any = this.activeRoute.params;
@@ -30,8 +31,10 @@ export class StoresDetailComponent implements OnInit {
       .pipe(
         map((res) => res[0]),
         tap((res) => (this.storeInfo = res)),
-        switchMap((result) => this.userService.getUserById(result.regionalId))
+        switchMap(() => this.userService.getUserById(this.storeInfo.regionalId)),
+        tap(res => this.regionalInfo = res),
+        switchMap(() => this.userService.getUserById(this.storeInfo.managerId)),
       )
-      .subscribe((res) => (this.userInfo = res[0]));
+      .subscribe((res) => (this.managerInfo = res));
   }
 }
