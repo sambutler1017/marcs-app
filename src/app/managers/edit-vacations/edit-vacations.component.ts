@@ -13,8 +13,9 @@ import { Vacation } from 'projects/insite-kit/src/lib/models/vacation.model';
   styleUrls: ['./edit-vacations.component.scss']
 })
 export class EditVacationsComponent implements OnInit, OnDestroy {
-  loading = true;
+  loading: boolean = true;
   destroy = new Subject();
+  updatingVacations: Vacation[];
   userId: number;
 
   constructor(
@@ -25,16 +26,18 @@ export class EditVacationsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    // this.route.params
-    //   .pipe(
-    //     map((p) => p.id),
-    //     tap((id) => (this.userId = id)),
-    //     switchMap((id) => this.vacationService.getUserById(id)),
-    //     takeUntil(this.destroy)
-    //   )
-    //   .subscribe((user) => {
-    //     this.userUpdating = user;
-    //   });
+    this.route.params
+      .pipe(
+        map((p) => Number(p.id)),
+        tap(id => this.userId = id),
+        switchMap((id) => this.vacationService.getVacationsByUserId(id)),
+        takeUntil(this.destroy)
+      )
+      .subscribe((vacations) => {
+        this.loading = false;
+        this.updatingVacations = vacations;
+      }
+      );
   }
 
   ngOnDestroy() {
@@ -45,7 +48,18 @@ export class EditVacationsComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  onSaveClick(user: Vacation) {
+  onSaveClick(vacations: Vacation[]) {
+    this.loading = true;
+    vacations.forEach(v => v.userId = this.userId);
 
+    this.vacationService.deleteAllVacationsByUserId(this.userId).pipe(
+      switchMap(() => this.vacationService.createBatchVacations(this.userId, vacations)),
+      takeUntil(this.destroy)).subscribe(
+        res => {
+          this.toastService.success("User Vacations Successfully Updated!");
+          this.onCancelClick();
+        },
+        () => this.toastService.error("Could not update vacations! Try again later.")
+      );
   }
 }

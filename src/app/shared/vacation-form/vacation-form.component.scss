@@ -1,0 +1,40 @@
+.search {
+  border-radius: 10px;
+  background: #e9e7e7;
+  padding: 15px;
+  font-size: 20px;
+  width: 100%;
+}
+
+.label-header {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.padding-card {
+  padding: 100px !important;
+}
+
+.form-padding {
+  padding: 15px;
+}
+
+input {
+  border-style: hidden;
+}
+
+@media screen and (max-width: 500px) {
+  .form-padding {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .search {
+    padding-left: 5px;
+    padding-right: 5px;
+  }
+
+  .label-header {
+    text-align: center;
+  }
+}

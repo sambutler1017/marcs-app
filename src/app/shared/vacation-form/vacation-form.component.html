@@ -1,0 +1,49 @@
+<ng-container *ngIf="!loading; else loadingIcon">
+  <form [formGroup]="form">
+    <ik-card [padding]="false">
+      <div class="form-padding">
+        <div class="row">
+          <div class="col-xs-6 col-sm-6">
+            <div class="label-header">Start Date</div>
+            <ik-card-info [padding]="false">
+              <input type="date" class="search inline-block" placeholder="Start Date" formControlName="startDate1" />
+            </ik-card-info>
+          </div>
+          <div class="col-xs-6 col-sm-6">
+            <div class="label-header">End Date</div>
+            <ik-card-info [padding]="false">
+              <input type="date" class="search inline-block" placeholder="End Date" formControlName="endDate1" />
+            </ik-card-info>
+          </div>
+        </div>
+
+        <ng-container *ngFor="let in of [2,3,4,5]">
+          <div class="row">
+            <div class="col-xs-6 col-sm-6">
+              <ik-card-info [padding]="false">
+                <input type="date" class="search inline-block" placeholder="Start Date"
+                  [formControlName]="'startDate' + in" />
+              </ik-card-info>
+            </div>
+            <div class="col-xs-6 col-sm-6">
+              <ik-card-info [padding]="false">
+                <input type="date" class="search inline-block" placeholder="End Date"
+                  [formControlName]="'endDate' + in" />
+              </ik-card-info>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ik-card>
+  </form>
+  <button class="btn btn-default btn-size btn-left" (click)="onCancelClick()">
+    {{ leftActionButton }}
+  </button>
+  <button class="btn btn-warning btn-size btn-right" (click)="onSaveClick()">
+    {{ rightActionButton }}
+  </button>
+</ng-container>
+
+<ng-template #loadingIcon>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

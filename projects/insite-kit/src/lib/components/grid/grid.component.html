@@ -11,7 +11,13 @@
     </thead>
     <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
       <td *ngFor="let value of row" class="grid-content" (click)="rowClick(rowIndex)">
-        {{ value }}
+        <ng-container *ngIf="isDate(value); else notDate">
+          {{ value | date:'longDate'}}
+        </ng-container>
+        <ng-template #notDate>
+          {{value}}
+        </ng-template>
+
       </td>
     </tr>
   </table>

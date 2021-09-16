@@ -9,7 +9,8 @@ export class CardInfoComponent implements OnInit {
   @Input() header: string;
   @Input() text: string;
   @Input() contentColor = 'text-default';
-  constructor() {}
+  @Input() padding = true;
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

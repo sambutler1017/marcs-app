@@ -1,14 +1,8 @@
-<!-- <ik-header title="Edit Manager" [backEnabled]="true"></ik-header>
-<app-user-form
-  *ngIf="userUpdating; else loading"
-  [userData]="userUpdating"
-  rightActionButton="Update Manager"
-  leftActionButton="Cancel"
-  [loading]="loading"
-  (cancel)="onCancelClick()"
-  (save)="onSaveClick($event)"
->
-</app-user-form>
-<ng-template #loading>
+<ik-header title="Edit Vacations" [backEnabled]="true"></ik-header>
+<app-vacation-form *ngIf="updatingVacations && !loading; else loader" [vacationData]="updatingVacations"
+  rightActionButton="Update Manager" [loading]="loading" leftActionButton="Cancel" (cancel)="onCancelClick()"
+  (save)="onSaveClick($event)">
+</app-vacation-form>
+<ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>
-</ng-template> -->
+</ng-template>

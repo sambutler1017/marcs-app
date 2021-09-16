@@ -20,7 +20,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class ManagerDetailComponent implements OnInit, OnDestroy {
   userData: User;
-  vacationData: Vacation;
+  vacationData: Vacation[];
   managerJson = json;
   vacationEditRoute: string;
 

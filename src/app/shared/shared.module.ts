@@ -9,9 +9,10 @@ import { InsiteKitModule } from 'projects/insite-kit/src/lib/insite-kit.module';
 import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/lib/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { UserFormComponent } from './user-form/user-form.component';
+import { VacationFormComponent } from './vacation-form/vacation-form.component';
 
 @NgModule({
-  declarations: [UserFormComponent],
+  declarations: [UserFormComponent, VacationFormComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -34,6 +35,7 @@ import { UserFormComponent } from './user-form/user-form.component';
     ReactiveFormsModule,
     ToastrModule,
     UserFormComponent,
+    VacationFormComponent
   ],
   providers: [
     {
@@ -43,4 +45,4 @@ import { UserFormComponent } from './user-form/user-form.component';
     },
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

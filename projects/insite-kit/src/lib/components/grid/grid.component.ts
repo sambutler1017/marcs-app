@@ -192,4 +192,9 @@ export class GridComponent implements OnChanges {
       this.dataCountTranslation = `${this.dataLoader.length} ${this.translationKey.grid.total}`;
     }
   }
+
+  isDate(value: any) {
+    let dateWrapper = new Date(value);
+    return !isNaN(dateWrapper.getDate());
+  }
 }
