@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({

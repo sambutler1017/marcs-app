@@ -5,8 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
-import { InsiteKitModule } from 'projects/insite-kit/src/lib/insite-kit.module';
-import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/lib/service/http-interceptor/basic-auth-htpp-interceptor.service';
+import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
+import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { AppRoutingModule } from '../app-routing.module';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationFormComponent } from './vacation-form/vacation-form.component';
@@ -35,7 +35,7 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     ReactiveFormsModule,
     ToastrModule,
     UserFormComponent,
-    VacationFormComponent
+    VacationFormComponent,
   ],
   providers: [
     {
@@ -45,4 +45,4 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     },
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

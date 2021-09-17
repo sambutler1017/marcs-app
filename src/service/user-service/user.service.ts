@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { RequestService } from 'projects/insite-kit/src/lib/service/request-service/request.service';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
 
 @Injectable({

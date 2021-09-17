@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';

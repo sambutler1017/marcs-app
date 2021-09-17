@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({

@@ -15,7 +15,6 @@ import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.co
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-navbar.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
-import { InsiteKitComponent } from './insite-kit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +23,6 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeNavbarComponent,
     AppNavbarComponent,
     GridComponent,
-    InsiteKitComponent,
     HeaderComponent,
     CardComponent,
     CardInfoComponent,
@@ -41,7 +39,6 @@ import { InsiteKitComponent } from './insite-kit.component';
     HomeNavbarComponent,
     AppPageComponent,
     GridComponent,
-    InsiteKitComponent,
     HeaderComponent,
     CardComponent,
     CardInfoComponent,

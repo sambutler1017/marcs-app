@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { default as json } from 'projects/insite-kit/src/assets/translations/managers/en.json';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-manager-content',
-  templateUrl: './manager-overview.component.html'
+  templateUrl: './manager-overview.component.html',
 })
 export class ManagerOverviewComponent implements OnInit {
   managerJson = json;
@@ -29,7 +29,7 @@ export class ManagerOverviewComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private jwt: JwtService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getUsers(

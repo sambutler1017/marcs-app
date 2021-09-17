@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from 'projects/insite-kit/src/lib/components/login/login.component';
+import { LoginComponent } from 'projects/insite-kit/src/components/login/login.component';
 import {
   Access,
   Application,
   Feature,
-} from 'projects/insite-kit/src/lib/models/common.model';
-import { FeatureAccessGuard } from 'projects/insite-kit/src/lib/service/auth-service/feature-access.guard';
-import { AuthGuard } from '../../projects/insite-kit/src/lib/service/auth-service/auth.guard';
+} from 'projects/insite-kit/src/models/common.model';
+import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
+import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
@@ -90,4 +90,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

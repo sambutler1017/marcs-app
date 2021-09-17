@@ -88,24 +88,6 @@
             "browserTarget": "marcs-app:build"
           }
         },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.spec.json",
-            "karmaConfig": "karma.conf.js",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
-            ],
-            "scripts": []
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -149,14 +131,6 @@
             "production": {
               "tsConfig": "projects/insite-kit/tsconfig.lib.prod.json"
             }
-          }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/insite-kit/src/test.ts",
-            "tsConfig": "projects/insite-kit/tsconfig.spec.json",
-            "karmaConfig": "projects/insite-kit/karma.conf.js"
           }
         },
         "lint": {

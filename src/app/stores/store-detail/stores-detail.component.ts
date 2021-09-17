@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
-import { Store } from 'projects/insite-kit/src/lib/models/store.model';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { iff, of } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
+import { Store } from 'projects/insite-kit/src/models/store.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -24,7 +23,7 @@ export class StoresDetailComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private readonly storeService: StoreService,
     private readonly userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.loading = true;
@@ -34,13 +33,16 @@ export class StoresDetailComponent implements OnInit {
       .pipe(
         map((res) => res[0]),
         tap((res) => (this.storeInfo = res)),
-        switchMap(() => this.userService.getUserById(this.storeInfo.regionalId)),
-        tap(res => this.regionalInfo = res),
-        switchMap(() => iff(() => !!this.storeInfo.managerId, this.userService.getUserById(this.storeInfo.managerId), of(null)),
-        )
-          .subscribe((res) => {
-            this.loading = false;
-            this.managerInfo = res;
-          });
+        switchMap(() =>
+          this.userService.getUserById(this.storeInfo.regionalId)
+        ),
+        tap((res) => (this.regionalInfo = res)),
+        filter(() => !!this.storeInfo.managerId),
+        switchMap(() => this.userService.getUserById(this.storeInfo.managerId))
+      )
+      .subscribe((res) => {
+        this.loading = false;
+        this.managerInfo = res;
+      });
   }
 }

@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { WebRole } from 'projects/insite-kit/src/lib/models/common.model';
-import { Store } from 'projects/insite-kit/src/lib/models/store.model';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
+import { Store } from 'projects/insite-kit/src/models/store.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { StoreService } from 'src/service/store-service/store-service.service';
 
 @Component({

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/stores/en.json';
-import { Store } from 'projects/insite-kit/src/lib/models/store.model';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
+import { Store } from 'projects/insite-kit/src/models/store.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { StoreService } from 'src/service/store-service/store-service.service';
 
 @Component({

@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
+import { default as json } from 'projects/insite-kit/src/assets/translations/managers/en.json';
 import {
   Access,
   Application,
   Feature,
   WebRole,
-} from 'projects/insite-kit/src/lib/models/common.model';
-import { User } from 'projects/insite-kit/src/lib/models/user.model';
-import { Vacation } from 'projects/insite-kit/src/lib/models/vacation.model';
+} from 'projects/insite-kit/src/models/common.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
+import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -37,15 +37,17 @@ export class ManagerDetailComponent implements OnInit, OnDestroy {
     private readonly vacationService: VacationService,
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.activeRoute.params.pipe(
-      switchMap(res => this.userService.getUserById(res.id)),
-      tap(res => this.userData = res),
-      switchMap(res => this.vacationService.getVacationsByUserId(res.id)),
-      takeUntil(this.destroy))
-      .subscribe(res => this.vacationData = res);
+    this.activeRoute.params
+      .pipe(
+        switchMap((res) => this.userService.getUserById(res.id)),
+        tap((res) => (this.userData = res)),
+        switchMap((res) => this.vacationService.getVacationsByUserId(res.id)),
+        takeUntil(this.destroy)
+      )
+      .subscribe((res) => (this.vacationData = res));
   }
 
   ngOnDestroy() {
@@ -61,8 +63,10 @@ export class ManagerDetailComponent implements OnInit, OnDestroy {
   }
 
   onVacationEditClick() {
-    this.router.navigate([`/manager/details/${this.userData.id}/edit/vacations`]);
+    this.router.navigate([
+      `/manager/details/${this.userData.id}/edit/vacations`,
+    ]);
   }
 
-  onRowClick(event: any) { }
+  onRowClick(event: any) {}
 }

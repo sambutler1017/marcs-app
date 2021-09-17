@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { JwtService } from 'projects/insite-kit/src/lib/service/jwt-service/jwt.service';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 
 @Component({
   selector: 'ik-home-image',

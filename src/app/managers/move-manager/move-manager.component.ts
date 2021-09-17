@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/managers/en.json';
+import { default as json } from 'projects/insite-kit/src/assets/translations/managers/en.json';
 
 @Component({
   selector: 'app-move-manager',

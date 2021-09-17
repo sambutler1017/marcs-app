@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { default as json } from 'projects/insite-kit/src/lib/assets/translations/request-tracker/en.json';
+import { default as json } from 'projects/insite-kit/src/assets/translations/request-tracker/en.json';
 
 @Component({
   selector: 'app-request-tracker',
