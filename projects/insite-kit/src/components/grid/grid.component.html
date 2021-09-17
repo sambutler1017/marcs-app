@@ -1,42 +1,67 @@
-<ik-card [padding]="padding">
-  <ng-content></ng-content>
-  <input *ngIf="searchEnabled" class="search" placeholder="Search" (change)="onSearch($event.srcElement.value)" />
-  <table *ngIf="!loading; else loader">
-    <thead>
-      <tr>
-        <td *ngFor="let column of columns" class="column-header">
-          <strong>{{ column }}</strong>
+<ik-card [padding]="false">
+  <div [ngClass]="{ 'grid-padding': padding }">
+    <ng-content></ng-content>
+    <input
+      *ngIf="searchEnabled"
+      class="search"
+      placeholder="Search"
+      (change)="onSearch($event.srcElement.value)"
+    />
+    <table *ngIf="!loading; else loader">
+      <thead>
+        <tr>
+          <td *ngFor="let column of columns" class="column-header">
+            <strong>{{ column }}</strong>
+          </td>
+        </tr>
+      </thead>
+      <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
+        <td
+          *ngFor="let value of row"
+          class="grid-content"
+          (click)="rowClick(rowIndex)"
+        >
+          <ng-container *ngIf="isDate(value); else notDate">
+            {{ value | date: "longDate" }}
+          </ng-container>
+          <ng-template #notDate>
+            {{ value }}
+          </ng-template>
         </td>
       </tr>
-    </thead>
-    <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
-      <td *ngFor="let value of row" class="grid-content" (click)="rowClick(rowIndex)">
-        <ng-container *ngIf="isDate(value); else notDate">
-          {{ value | date:'longDate'}}
-        </ng-container>
-        <ng-template #notDate>
-          {{value}}
-        </ng-template>
-
-      </td>
-    </tr>
-  </table>
-  <div *ngIf="dataLoader && pagerEnabled && !noItems" class="grid-footer">
-    <div class="left-arrow inline-block left" (click)="onPreviousPageClick()"></div>
-    <div *ngFor="let page of pages" class="inline-block left" [ngClass]="{
-        active: page.active,
-        'page-number': page.pageNum <= this.totalPages && page.pageNum > 0
-      }" (click)="pageClick(page.pageNum)">
-      <div *ngIf="page.pageNum <= this.totalPages && page.pageNum > 0">
-        {{ page.pageNum }}
+    </table>
+    <div *ngIf="dataLoader && pagerEnabled && !noItems" class="grid-footer">
+      <div
+        class="left-arrow inline-block left"
+        (click)="onPreviousPageClick()"
+      ></div>
+      <div
+        *ngFor="let page of pages"
+        class="inline-block left"
+        [ngClass]="{
+          active: page.active,
+          'page-number': page.pageNum <= this.totalPages && page.pageNum > 0
+        }"
+        (click)="pageClick(page.pageNum)"
+      >
+        <div *ngIf="page.pageNum <= this.totalPages && page.pageNum > 0">
+          {{ page.pageNum }}
+        </div>
       </div>
+      <div
+        class="right-arrow inline-block left"
+        (click)="onNextPageClick()"
+      ></div>
+      <label class="item-label-margin label-text right">{{
+        dataCountTranslation
+      }}</label>
     </div>
-    <div class="right-arrow inline-block left" (click)="onNextPageClick()"></div>
-    <label class="label-text right">{{ dataCountTranslation }}</label>
+    <ng-container *ngIf="noItems">
+      <label class="item-label-margin label-text left no-data-margin">{{
+        noDataText
+      }}</label>
+    </ng-container>
   </div>
-  <ng-container *ngIf="noItems">
-    <label class="label-text left no-data-margin">{{ noDataText }}</label>
-  </ng-container>
 </ik-card>
 
 <ng-template #loader>

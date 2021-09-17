@@ -15,6 +15,7 @@ import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.co
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-navbar.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
+import { UsernamePipe } from './service/pipe/format-user-name.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { FeatureAccessDirective } from './directives/featureAccess/feature-acces
     FeatureAccessDirective,
     CardHeaderComponent,
     IconComponent,
+    UsernamePipe,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -48,6 +50,7 @@ import { FeatureAccessDirective } from './directives/featureAccess/feature-acces
     FeatureAccessDirective,
     CardHeaderComponent,
     IconComponent,
+    UsernamePipe,
   ],
 })
 export class InsiteKitModule {}
