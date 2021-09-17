@@ -1,4 +1,4 @@
-<div *ngIf="storeInfo && regionalInfo && managerInfo; else loader">
+<div *ngIf="!loading; else loader">
   <ik-header [title]="storeInfo.name + '  (' + storeInfo.id + ')'" [backEnabled]="true">
   </ik-header>
   <div class="detail">
