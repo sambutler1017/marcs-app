@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { of } from 'rxjs';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -33,16 +34,23 @@ export class StoresDetailComponent implements OnInit {
       .pipe(
         map((res) => res[0]),
         tap((res) => (this.storeInfo = res)),
-        switchMap(() =>
-          this.userService.getUserById(this.storeInfo.regionalId)
-        ),
+        switchMap(() => this.getRegionalInfo()),
         tap((res) => (this.regionalInfo = res)),
-        filter(() => !!this.storeInfo.managerId),
-        switchMap(() => this.userService.getUserById(this.storeInfo.managerId))
+        switchMap(() => this.getManagerInfo())
       )
       .subscribe((res) => {
         this.loading = false;
         this.managerInfo = res;
       });
+  }
+
+  getManagerInfo() {
+    return !!this.storeInfo.managerId
+      ? this.userService.getUserById(this.storeInfo.managerId)
+      : of(null);
+  }
+
+  getRegionalInfo() {
+    return this.userService.getUserById(this.storeInfo.regionalId);
   }
 }

@@ -34,6 +34,7 @@ export class GridComponent implements OnChanges {
   currentPageRowCount = 0;
   dataCountTranslation = 'No Items';
   noItems = false;
+  loading = true;
 
   pages: any;
   totalPages = 0;
@@ -41,12 +42,17 @@ export class GridComponent implements OnChanges {
 
   ngOnChanges(): void {
     if (!this.dataLoader) {
+      this.loading = true;
       return;
     }
 
     if (this.dataLoader.length <= 0) {
       this.noItems = true;
+      this.loading = false;
       return;
+    } else {
+      this.loading = false;
+      this.noItems = false;
     }
 
     this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
@@ -62,6 +68,7 @@ export class GridComponent implements OnChanges {
   }
 
   onSearch(value: string) {
+    this.loading = true;
     this.resetData();
     this.search.emit(value);
   }

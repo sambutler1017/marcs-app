@@ -7,11 +7,11 @@
         <ik-card-header [title]="storeJson.detail.title"></ik-card-header>
         <div class="left-column">
           <ik-card-info header="Store Name" [text]="storeInfo.name"></ik-card-info>
-          <ik-card-info header="Regional" [text]="regionalInfo.firstName + ' ' + regionalInfo.lastName"></ik-card-info>
+          <ik-card-info header="Regional" [text]="regionalInfo ? regionalInfo.firstName + ' ' + regionalInfo.lastName : '-'"></ik-card-info>
         </div>
         <div class="right-column">
           <ik-card-info header="Store Id" [text]="storeInfo.id"></ik-card-info>
-          <ik-card-info header="Manger" [text]="managerInfo.firstName + ' ' + managerInfo.lastName"></ik-card-info>
+          <ik-card-info header="Manger" [text]="managerInfo ? managerInfo.firstName + ' ' + managerInfo.lastName : '-'"></ik-card-info>
         </div>
       </ik-card>
     </div>

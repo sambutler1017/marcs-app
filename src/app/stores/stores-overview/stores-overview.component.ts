@@ -1,19 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
 
 @Component({
   selector: 'ik-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
-export class StoresOverviewComponent implements OnInit {
+export class StoresOverviewComponent implements OnInit, OnDestroy {
   storeJson = json;
   outputEventColumns = ['id', 'regionalId'];
   excludedColumns = ['regionalId', 'managerId'];
   dataLoader: Store[];
+
+  destroy = new Subject();
 
   constructor(
     private storeService: StoreService,
@@ -22,14 +26,40 @@ export class StoresOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    let params: Map<string, string> = new Map<string, string>();
-    params.set('regionalId', this.jwt.get('userId'));
-    this.storeService
-      .getStores(params)
+    this.getStores()
+      .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.dataLoader = res));
+  }
+
+  ngOnDestroy() {
+    this.destroy.next();
   }
 
   handleClick(event: any) {
     this.router.navigate([`/store/details/${event.id}`]);
+  }
+
+  onSearch(value: string) {
+    const params = new Map<string, string>();
+
+    if (value.trim() !== '') {
+      params.set('name', value);
+    }
+
+    this.getStores(params)
+      .pipe(takeUntil(this.destroy))
+      .subscribe((res) => (this.dataLoader = res));
+  }
+
+  getStores(params?: Map<string, string>) {
+    if (params) {
+      return this.storeService.getStores(
+        params.set('regionalId', this.jwt.get('userId'))
+      );
+    } else {
+      return this.storeService.getStores(
+        new Map<string, string>().set('regionalId', this.jwt.get('userId'))
+      );
+    }
   }
 }
