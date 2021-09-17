@@ -28,4 +28,8 @@ export class HomeNavbarComponent implements OnInit {
   onProfileClick() {
     this.router.navigate(['/profile']);
   }
+
+  onBellClick() {
+    this.jwt.logOut();
+  }
 }

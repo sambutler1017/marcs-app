@@ -10,5 +10,6 @@
   <div
     class="bell inline-block"
     *featureAccess="[Application.GLOBAL, Feature.NOTIFICATION, Access.READ]"
+    (click)="onBellClick()"
   ></div>
 </nav>
