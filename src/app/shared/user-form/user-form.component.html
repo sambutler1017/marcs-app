@@ -20,13 +20,10 @@
       <input class="search" placeholder="Email" formControlName="email" />
     </ik-card-info>
 
-    <ik-card-info header="Web Role"
-      ><input
-        class="search"
-        placeholder="Web Role"
-        readonly
-        formControlName="webRole"
-      />
+    <ik-card-info header="Web Role">
+      <select class="search" formControlName="webRole">
+        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+      </select>
     </ik-card-info>
 
     <ik-card-info header="Store ID*"
@@ -61,7 +58,11 @@
 <button class="btn btn-default btn-size btn-left" (click)="onCancelClick()">
   {{ leftActionButton }}
 </button>
-<button class="btn btn-warning btn-size btn-right" (click)="onSaveClick()">
+<button
+  class="btn btn-warning btn-size btn-right"
+  (click)="onSaveClick()"
+  [disabled]="form.invalid"
+>
   {{ rightActionButton }}
 </button>
 <ng-template #loadingIcon>

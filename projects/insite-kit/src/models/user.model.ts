@@ -1,4 +1,5 @@
 import { StoreRegion, WebRole } from './common.model';
+import { Vacation } from './vacation.model';
 
 export interface User {
   id?: number;
@@ -14,4 +15,5 @@ export interface User {
   hireDate?: Date;
   insertDate?: Date;
   salt?: number;
+  vacations?: Vacation[];
 }

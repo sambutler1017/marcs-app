@@ -19,6 +19,8 @@ export class UserFormComponent implements OnInit {
   @Output() cancel = new EventEmitter<any>();
   @Output() save = new EventEmitter<User>();
 
+  roles: string[];
+
   form: FormGroup;
 
   stores: Store[];
@@ -31,6 +33,7 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.roles = Object.keys(WebRole);
     this.loading = true;
     this.buildForm();
 
@@ -46,17 +49,26 @@ export class UserFormComponent implements OnInit {
 
   buildForm() {
     this.form = this.fb.group({
-      firstName: this.userData ? this.userData.firstName : '',
-      lastName: this.userData ? this.userData.lastName : '',
-      email: [
-        this.userData ? this.userData.email : '',
-        [Validators.required, Validators.email],
+      firstName: [
+        this.userData ? this.userData.firstName : '',
+        Validators.required,
       ],
+      lastName: [
+        this.userData ? this.userData.lastName : '',
+        Validators.required,
+      ],
+      email: [this.userData ? this.userData.email : ''],
       webRole: this.userData
         ? this.userData.webRole.toUpperCase()
         : WebRole.USER.toUpperCase(),
-      storeId: [this.userData ? this.userData.storeId : ''],
-      storeName: this.userData ? this.userData.storeName : '',
+      storeId: [
+        this.userData ? this.userData.storeId : '',
+        Validators.required,
+      ],
+      storeName: [
+        this.userData ? this.userData.storeName : '',
+        Validators.required,
+      ],
       hireDate: this.userData ? this.userData.hireDate : '',
     });
     this.onStoreIdChange();
