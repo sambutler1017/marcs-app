@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
@@ -69,7 +70,26 @@ export class VacationFormComponent implements OnInit {
           ? this.vacationData[4].endDate
           : '',
     });
+    this.onFormChange();
     this.loading = false;
+  }
+
+  onFormChange() {
+    this.form.controls.startDate1.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate1: this.vacationChange(v) })
+    );
+    this.form.controls.startDate2.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate2: this.vacationChange(v) })
+    );
+    this.form.controls.startDate3.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate3: this.vacationChange(v) })
+    );
+    this.form.controls.startDate4.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate4: this.vacationChange(v) })
+    );
+    this.form.controls.startDate5.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate5: this.vacationChange(v) })
+    );
   }
 
   onCancelClick() {
@@ -117,5 +137,11 @@ export class VacationFormComponent implements OnInit {
       });
     }
     return vacations;
+  }
+
+  vacationChange(value: string) {
+    const endDate = new Date(value);
+    endDate.setDate(endDate.getDate() + 8);
+    return formatDate(endDate, 'yyyy-MM-dd', 'en-US');
   }
 }

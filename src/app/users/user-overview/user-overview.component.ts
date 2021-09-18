@@ -75,7 +75,6 @@ export class UserOverviewComponent implements OnInit {
 
   generateSearchParams(value: any) {
     return new Map<string, [string]>()
-      .set('regionalId', [value])
       .set('firstName', [value])
       .set('lastName', [value])
       .set('storeId', [value])
