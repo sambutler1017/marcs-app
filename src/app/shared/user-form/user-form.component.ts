@@ -72,6 +72,7 @@ export class UserFormComponent implements OnInit {
       hireDate: this.userData ? this.userData.hireDate : '',
     });
     this.onStoreIdChange();
+    this.onWebRoleChange();
   }
 
   onStoreIdChange() {
@@ -83,6 +84,26 @@ export class UserFormComponent implements OnInit {
         storeName: storeSelected ? storeSelected.name : '',
       });
     });
+  }
+
+  onWebRoleChange() {
+    this.setStoreStatus(
+      WebRole[WebRole[this.form.value.webRole]] === WebRole[WebRole.MANAGER]
+    );
+    this.form.controls.webRole.valueChanges.subscribe((v) =>
+      this.setStoreStatus(WebRole[WebRole[v]] === WebRole[WebRole.MANAGER])
+    );
+  }
+
+  setStoreStatus(isManager: boolean) {
+    if (isManager) {
+      this.form.controls.storeId.enable({ emitEvent: false });
+      this.form.controls.storeName.enable({ emitEvent: false });
+    } else {
+      this.form.controls.storeId.disable({ emitEvent: false });
+      this.form.controls.storeName.disable({ emitEvent: false });
+    }
+    console.log(this.form.invalid);
   }
 
   onCancelClick() {
@@ -104,11 +125,10 @@ export class UserFormComponent implements OnInit {
 
   setAllowedRoles() {
     const userRole = WebRole[this.jwt.get('webRole')];
-    console.log(userRole);
     this.roles = Object.keys(WebRole)
       .map((key) => WebRole[key])
       .filter(
-        (value) => typeof value === 'string' && WebRole[value] < userRole
+        (value) => typeof value === 'string' && WebRole[value] <= userRole
       ) as string[];
   }
 }

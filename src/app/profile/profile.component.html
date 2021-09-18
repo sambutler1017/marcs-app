@@ -11,7 +11,9 @@
     <div class="detail">
       <div class="leftColumn column-wide">
         <ik-card [padding]="false">
-          <ik-card-header title="Personal Info"></ik-card-header>
+          <ik-card-header title="Personal Info">
+            <ik-icon icon="edit" (click)="onEditProfile()"></ik-icon>
+          </ik-card-header>
           <div class="left-column">
             <ik-card-info
               header="First Name"

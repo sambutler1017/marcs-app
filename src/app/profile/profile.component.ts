@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
@@ -15,8 +16,9 @@ export class ProfileComponent implements OnInit {
   applications = '';
 
   constructor(
-    private userService: UserService,
-    private jwtService: JwtService
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -30,5 +32,11 @@ export class ProfileComponent implements OnInit {
     const apps: [] = this.jwtService.get('apps');
     apps.forEach((v) => (this.applications += `${v}, `));
     this.applications.slice(0, -1).slice(0, -1);
+  }
+
+  onEditProfile() {
+    this.router.navigate([
+      `/user/details/${this.jwtService.get('userId')}/edit/info`,
+    ]);
   }
 }
