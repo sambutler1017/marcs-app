@@ -1,4 +1,15 @@
 <ik-header title="Edit Manager" [backEnabled]="true"></ik-header>
-<app-user-form *ngIf="userUpdating" [userData]="userUpdating" rightActionButton="Update Manager"
-  leftActionButton="Cancel" [loading]="loading" (cancel)="onCancelClick()" (save)="onSaveClick($event)">
+<app-user-form
+  *ngIf="!loading; else loader"
+  [userData]="userUpdating"
+  rightActionButton="Update Manager"
+  leftActionButton="Cancel"
+  [loading]="loading"
+  (cancel)="onCancelClick()"
+  (save)="onSaveClick($event)"
+>
 </app-user-form>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

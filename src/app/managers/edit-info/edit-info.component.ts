@@ -35,6 +35,7 @@ export class EditInfoComponent implements OnInit, OnDestroy {
       )
       .subscribe((user) => {
         this.userUpdating = user;
+        this.loading = false;
       });
   }
 
