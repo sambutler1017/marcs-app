@@ -18,4 +18,8 @@ export class AppNavbarComponent {
   onWaffleClick() {
     this.router.navigate(['home']);
   }
+
+  onBellClick() {
+    this.jwt.logOut();
+  }
 }

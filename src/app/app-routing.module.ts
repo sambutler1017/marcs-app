@@ -11,18 +11,17 @@ import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/au
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
-import { AddManagerComponent } from './managers/add-manager/add-manager.component';
-import { EditInfoComponent } from './managers/edit-info/edit-info.component';
-import { EditVacationsComponent } from './managers/edit-vacations/edit-vacations.component';
-import { ManagerDetailComponent } from './managers/manager-detail/manager-detail.component';
-import { ManagerOverviewComponent } from './managers/manager-overview/manager-overview.component';
-import { ManagersComponent } from './managers/managers.component';
-import { MoveManagerComponent } from './managers/move-manager/move-manager.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
+import { AddUserComponent } from './shared/add-user/add-user.component';
+import { EditUserComponent } from './shared/edit-user/edit-user.component';
+import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
+import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserOverviewComponent } from './users/user-overview/user-overview.component';
+import { UserComponent } from './users/user.component';
 
 /**
  * Make sure to add back CanActivate on Home
@@ -31,24 +30,23 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   {
-    path: 'manager',
-    component: ManagersComponent,
+    path: 'user',
+    component: UserComponent,
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
-      { path: 'overview', component: ManagerOverviewComponent },
+      { path: 'overview', component: UserOverviewComponent },
       {
         path: 'details/:id',
-        component: ManagerDetailComponent,
+        component: UserDetailComponent,
       },
-      { path: 'move-manager', component: MoveManagerComponent },
-      { path: 'add-manager', component: AddManagerComponent },
+      { path: 'add-user', component: AddUserComponent },
       {
         path: 'details/:id/edit/info',
-        component: EditInfoComponent,
+        component: EditUserComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [Application.MANAGER, Feature.MANAGER_DETAIL, Access.UPDATE],
+          feature: [Application.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
       },
       { path: 'details/:id/edit/vacations', component: EditVacationsComponent },

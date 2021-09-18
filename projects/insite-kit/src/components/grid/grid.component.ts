@@ -14,10 +14,11 @@ import { CommonService } from '../../service/common/common.service';
 })
 export class GridComponent implements OnChanges {
   @Input() dataLoader: any[];
-  @Input() noDataText = 'No Items';
-  @Input() translationKey: any;
   @Input() outputEventColumns = [];
   @Input() columnsToExclude = [];
+  @Input() columns = [];
+  @Input() noDataText = 'No Items';
+  @Input() translationKey: any;
   @Input() pageSize = 25;
   @Input() searchEnabled = false;
   @Input() pagerEnabled = false;
@@ -26,7 +27,6 @@ export class GridComponent implements OnChanges {
   @Output() gridRowClick = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
 
-  columns = [];
   content = [[]];
   outputData = [{}];
   cachedDataLoader: any;
@@ -58,11 +58,6 @@ export class GridComponent implements OnChanges {
     this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
 
     this.excludeColumns();
-
-    Object.keys(this.dataLoader[0]).forEach((value) =>
-      this.columns.push(this.translationKey.grid.columns[value])
-    );
-
     this.getPageData();
     this.getTotal();
   }
@@ -74,7 +69,6 @@ export class GridComponent implements OnChanges {
   }
 
   resetData() {
-    this.columns = [];
     this.content = [[]];
     this.outputData = [{}];
     this.currentPageIndex = 0;
@@ -129,11 +123,21 @@ export class GridComponent implements OnChanges {
       i++
     ) {
       this.content.push(
-        Object.values(this.dataLoader[this.currentPageIndex++])
+        Object.values(this.getRowData(this.currentPageIndex++))
       );
       this.currentPageRowCount++;
     }
     this.updatePageFooter();
+  }
+
+  getRowData(index: number) {
+    const arrayData = [];
+    this.columns.forEach((col) =>
+      arrayData.push(
+        this.dataLoader[index][col] ? this.dataLoader[index][col] : '-'
+      )
+    );
+    return arrayData;
   }
 
   updatePageFooter() {

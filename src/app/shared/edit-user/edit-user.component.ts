@@ -8,11 +8,11 @@ import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
-  selector: 'app-manager-edit',
-  templateUrl: './edit-info.component.html',
-  styleUrls: ['./edit-info.component.scss'],
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.scss'],
 })
-export class EditInfoComponent implements OnInit, OnDestroy {
+export class EditUserComponent implements OnInit, OnDestroy {
   loading = true;
   destroy = new Subject();
   userId: number;

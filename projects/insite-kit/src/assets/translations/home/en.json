@@ -1,10 +1,10 @@
 {
   "appIcons": {
-    "manager": {
-      "title": "Manager's",
-      "message": "Track's a managers details and the their associated vacations.",
-      "icon": "manager",
-      "page": "manager"
+    "user": {
+      "title": "User's",
+      "message": "Track's a users details and the their associated vacations.",
+      "icon": "user",
+      "page": "user"
     },
     "store": {
       "title": "Store's",
@@ -14,13 +14,13 @@
     },
     "calendar": {
       "title": "Calendar",
-      "message": "Shows a visual display of a calendar with all of the managers vacations.",
+      "message": "Shows a visual display of a calendar with all of the users vacations.",
       "icon": "calendar",
       "page": "calendar"
     },
     "blockDates": {
       "title": "Block Dates",
-      "message": "List of dates that a manager is not able to take a vacation on.",
+      "message": "List of dates that a user is not able to take a vacation on.",
       "icon": "block",
       "page": ""
     },
@@ -32,7 +32,7 @@
     },
     "report": {
       "title": "Reports",
-      "message": "Report information of stores, managers, and the managers vacations.",
+      "message": "Report information of stores, users, and the users vacations.",
       "icon": "report",
       "page": ""
     },
@@ -44,7 +44,7 @@
     },
     "requestTracker": {
       "title": "Request Tracker",
-      "message": "All requested vacations from managers show up here to be approved or declined.",
+      "message": "All requested vacations from users show up here to be approved or declined.",
       "icon": "request-tracker",
       "page": "requestTracker"
     },

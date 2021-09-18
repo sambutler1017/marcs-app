@@ -5,11 +5,11 @@ import { User } from 'projects/insite-kit/src/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
-  selector: 'app-add-manager',
-  templateUrl: './add-manager.component.html',
-  styleUrls: ['./add-manager.component.scss'],
+  selector: 'app-add-user',
+  templateUrl: './add-user.component.html',
+  styleUrls: ['./add-user.component.scss'],
 })
-export class AddManagerComponent {
+export class AddUserComponent {
   loading = true;
 
   constructor(
@@ -28,10 +28,10 @@ export class AddManagerComponent {
     this.userService.addUser(user).subscribe(
       () => {
         this.onCancelClick();
-        this.toastService.success('Manager Successfully created!');
+        this.toastService.success('User Successfully created!');
       },
       (err) => {
-        this.toastService.error('Manager could not be created!');
+        this.toastService.error('User could not be created!');
         this.loading = false;
       }
     );

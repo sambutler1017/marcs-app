@@ -1,10 +1,10 @@
 export enum WebRole {
-  USER = 'User',
-  ADMIN = 'Admin',
-  SITEADMIN = 'Site Admin',
-  REGIONAL = 'Regional Manager',
-  MANAGER = 'Manager',
-  DISTRICTMANAGER = 'District Manager',
+  USER = 1,
+  MANAGER = 2,
+  DISTRICTMANAGER = 3,
+  REGIONAL = 4,
+  SITEADMIN = 5,
+  ADMIN = 6,
 }
 
 export enum StoreRegion {
@@ -19,12 +19,11 @@ export enum StoreRegion {
 export enum VacationStatus {
   APPROVED = 'APPROVED',
   DENIED = 'DENIED',
-  PENDING = "PENDING"
+  PENDING = 'PENDING',
 }
 
-
 export enum Application {
-  MANAGER = 'manager',
+  USER = 'user',
   STORE = 'store',
   calendar = 'calendar',
   BLOCK_DATES = 'blockDates',
@@ -44,8 +43,8 @@ export enum Access {
 }
 
 export enum Feature {
-  MANAGER_DETAIL = 'detail',
-  MANAGER_VACATION = 'vacation',
+  USER_DETAIL = 'detail',
+  USER_VACATION = 'vacation',
   PROFILE = 'profile',
   NOTIFICATION = 'notification',
 }

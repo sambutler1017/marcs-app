@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
-import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 
 @Component({

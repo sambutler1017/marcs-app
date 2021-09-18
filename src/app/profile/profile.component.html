@@ -18,10 +18,6 @@
               [text]="user.firstName"
             ></ik-card-info>
             <ik-card-info header="Email" [text]="user.email"></ik-card-info>
-            <ik-card-info
-              header="Web Role"
-              [text]="webRole[user.webRole]"
-            ></ik-card-info>
           </div>
           <div class="right-column">
             <ik-card-info
@@ -29,8 +25,8 @@
               [text]="user.lastName"
             ></ik-card-info>
             <ik-card-info
-              header="Region"
-              [text]="user.storeRegion"
+              header="Web Role"
+              [text]="webRole[webRole[user.webRole]]"
             ></ik-card-info>
           </div>
         </ik-card>

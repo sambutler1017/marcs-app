@@ -1,5 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from '../../service/auth-service/auth.service';
 
 @Component({
@@ -14,7 +15,11 @@ export class LoginComponent {
   userLoggedIn = false;
   loading = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private readonly toastService: ToastrService
+  ) {}
 
   public login() {
     const email = this.email.nativeElement.value;
@@ -28,7 +33,9 @@ export class LoginComponent {
         this.loading = false;
       },
       (error) => {
-        console.log('Invalid Email or Password');
+        this.toastService.error('Invalid email or password!', '', {
+          positionClass: 'toast-top-right',
+        });
         this.loading = false;
       }
     );

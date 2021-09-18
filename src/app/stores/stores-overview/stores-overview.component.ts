@@ -15,6 +15,7 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
   storeJson = json;
   outputEventColumns = ['id', 'regionalId'];
   excludedColumns = ['regionalId', 'managerId'];
+  columns = ['id', 'name'];
   dataLoader: Store[];
 
   destroy = new Subject();
@@ -26,7 +27,8 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getStores()
+    this.storeService
+      .getStores()
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.dataLoader = res));
   }
@@ -40,25 +42,26 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
   }
 
   onSearch(value: string) {
-    const params = new Map<string, string>();
+    const params = new Map<string, string[]>();
 
     if (value.trim() !== '') {
-      params.set('name', value);
+      params.set('name', [value]).set('id', [value]);
     }
 
-    this.getStores(params)
+    this.storeService
+      .getStores(params)
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.dataLoader = res));
   }
 
-  getStores(params?: Map<string, string>) {
+  getStores(params?: Map<string, string[]>) {
     if (params) {
       return this.storeService.getStores(
-        params.set('regionalId', this.jwt.get('userId'))
+        params.set('regionalId', [this.jwt.get('userId')])
       );
     } else {
       return this.storeService.getStores(
-        new Map<string, string>().set('regionalId', this.jwt.get('userId'))
+        new Map<string, string[]>().set('regionalId', [this.jwt.get('userId')])
       );
     }
   }

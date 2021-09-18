@@ -8,10 +8,10 @@
       (change)="onSearch($event.srcElement.value)"
     />
     <table *ngIf="!loading; else loader" class="grid-table">
-      <thead>
+      <thead *ngIf="!noItems">
         <tr>
           <td *ngFor="let column of columns" class="column-header">
-            <strong>{{ column }}</strong>
+            <strong>{{ this.translationKey.grid.columns[column] }}</strong>
           </td>
         </tr>
       </thead>

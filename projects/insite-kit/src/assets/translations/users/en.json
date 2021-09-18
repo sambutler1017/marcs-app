@@ -1,6 +1,6 @@
 {
   "global": {
-    "title": "Managers"
+    "title": "Users"
   },
   "grid": {
     "columns": {
@@ -11,12 +11,12 @@
       "startDate": "Start Date",
       "endDate": "End Date"
     },
-    "total": "Managers"
+    "total": "Users"
   },
   "detail": {
     "title": "Details",
     "regionalId": "Regional ID",
-    "name": "Manager Name",
+    "name": "User Name",
     "storeId": "Store ID",
     "storeName": "Store Name",
     "hireDate": "Hire Date",
@@ -39,6 +39,6 @@
     },
     "title": "Vacations"
   },
-  "moveManager": "Move Manager",
-  "managerTitle": "Managers"
+  "moveUser": "Move User",
+  "userTitle": "Users"
 }

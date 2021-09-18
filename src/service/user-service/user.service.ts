@@ -16,7 +16,7 @@ export class UserService {
    * @param params to filter on
    * @returns User object
    */
-  getUsers(params?: Map<string, string>): Observable<User[]> {
+  getUsers(params?: Map<string, string[]>): Observable<User[]> {
     return this.request.get<User[]>(this.BASE_USER_PATH, params);
   }
 

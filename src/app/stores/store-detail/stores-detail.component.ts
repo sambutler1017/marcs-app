@@ -4,7 +4,7 @@ import { default as json } from 'projects/insite-kit/src/assets/translations/sto
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { of } from 'rxjs';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -30,7 +30,7 @@ export class StoresDetailComponent implements OnInit {
     this.loading = true;
     const params: any = this.activeRoute.params;
     this.storeService
-      .getStores(new Map<string, string>().set('id', params.value.id))
+      .getStores(new Map<string, string[]>().set('id', [params.value.id]))
       .pipe(
         map((res) => res[0]),
         tap((res) => (this.storeInfo = res)),

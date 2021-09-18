@@ -10,10 +10,6 @@ import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar
 import { CalendarComponent } from './calendar/calendar.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
-import { EditInfoComponent } from './managers/edit-info/edit-info.component';
-import { EditVacationsComponent } from './managers/edit-vacations/edit-vacations.component';
-import { ManagersComponent } from './managers/managers.component';
-import { ManagersModule } from './managers/managers.module';
 import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReportsComponent } from './reports/reports.component';
@@ -22,24 +18,20 @@ import { SharedModule } from './shared/shared.module';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
-import { UsersComponent } from './users/users.component';
+import { UserModule } from './users/user.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
-    ManagersComponent,
     StoresComponent,
     CalendarComponent,
     BlockDatesComponent,
     MapComponent,
     ReportsComponent,
-    UsersComponent,
     RequestTrackerComponent,
     ContactComponent,
-    EditInfoComponent,
-    EditVacationsComponent,
     StoresOverviewComponent,
     StoresDetailComponent,
     ProfileComponent,
@@ -47,7 +39,7 @@ import { UsersComponent } from './users/users.component';
   ],
   imports: [
     SharedModule,
-    ManagersModule,
+    UserModule,
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-left',
     }),

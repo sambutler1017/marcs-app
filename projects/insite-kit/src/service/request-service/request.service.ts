@@ -16,7 +16,7 @@ export class RequestService {
   constructor(
     private readonly urlService: UrlService,
     private readonly http: HttpClient
-  ) { }
+  ) {}
 
   /**
    * Get request service that will add the given parameters provided
@@ -26,7 +26,7 @@ export class RequestService {
    * @param params params to add to endpoint
    * @returns observable of the passed in object
    */
-  get<T>(url: string, params?: Map<string, string>): Observable<T> {
+  get<T>(url: string, params?: Map<string, string[]>): Observable<T> {
     let endpoint = `${this.urlService.getAPIUrl()}/${url}?`;
     if (params) {
       params.forEach((value, key) => {
@@ -62,7 +62,7 @@ export class RequestService {
 
   /**
    * Delete the given data for the url.
-   * 
+   *
    * @param url The url to delete from.
    * @returns observable of the passed in object
    */

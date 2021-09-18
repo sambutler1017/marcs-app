@@ -4,35 +4,20 @@
     <div class="padding_bottom--small inline-display">
       <button
         class="btn btn-danger btn-size btn-right"
-        *featureAccess="[
-          Application.MANAGER,
-          Feature.MANAGER_DETAIL,
-          Access.DELETE
-        ]"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
         Delete Manager
-      </button>
-      <button
-        class="btn btn-primary btn-size btn-right"
-        *featureAccess="[
-          Application.MANAGER,
-          Feature.MANAGER_DETAIL,
-          Access.UPDATE
-        ]"
-        (click)="onMoveClick()"
-      >
-        Move Manager
       </button>
     </div>
   </ik-header>
   <div class="leftColumn column-half">
     <ik-card [padding]="false">
-      <ik-card-header [title]="managerJson.detail.title">
+      <ik-card-header [title]="userJson.detail.title">
         <ik-icon
           icon="edit"
           *featureAccess="[
-            Application.MANAGER,
-            Feature.MANAGER_DETAIL,
+            Application.USER,
+            Feature.USER_DETAIL,
             Access.UPDATE
           ]"
           (click)="onManageEditClick()"
@@ -44,27 +29,27 @@
           text="{{ userData | formatUserName }}"
         ></ik-card-info>
         <ik-card-info
-          [header]="managerJson.detail.storeId"
-          [text]="userData.storeId"
+          [header]="userJson.detail.storeId"
+          [text]="userData.storeId ? userData.storeId : '-'"
         ></ik-card-info>
         <ik-card-info
-          [header]="managerJson.detail.role"
-          [text]="WebRole[userData.webRole]"
+          [header]="userJson.detail.role"
+          [text]="WebRole[WebRole[userData.webRole]]"
         ></ik-card-info>
         <ik-card-info
-          [header]="managerJson.detail.hireDate"
+          [header]="userJson.detail.hireDate"
           [text]="userData.hireDate | date: 'mediumDate'"
         >
         </ik-card-info>
       </div>
       <div class="right-column">
         <ik-card-info
-          [header]="managerJson.detail.email"
+          [header]="userJson.detail.email"
           [text]="userData.email ? userData.email : '-'"
         ></ik-card-info>
         <ik-card-info
-          [header]="managerJson.detail.storeName"
-          [text]="userData.storeName"
+          [header]="userJson.detail.storeName"
+          [text]="userData.storeName ? userData.storeName : '-'"
         ></ik-card-info>
         <ik-card-info
           [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
@@ -79,7 +64,7 @@
   <div class="rightColumn column-half">
     <ik-grid
       noDataText="No Vacations"
-      [translationKey]="managerJson.vacations"
+      [translationKey]="userJson.vacations"
       [dataLoader]="vacationData"
       title="Vacations"
       [padding]="false"
@@ -90,8 +75,8 @@
         <ik-icon
           icon="edit"
           *featureAccess="[
-            Application.MANAGER,
-            Feature.MANAGER_DETAIL,
+            Application.USER,
+            Feature.USER_DETAIL,
             Access.UPDATE
           ]"
           (click)="onVacationEditClick()"

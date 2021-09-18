@@ -8,11 +8,20 @@ import { ToastrModule } from 'ngx-toastr';
 import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
 import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { AppRoutingModule } from '../app-routing.module';
+import { AddUserComponent } from './add-user/add-user.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { EditVacationsComponent } from './edit-vacations/edit-vacations.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationFormComponent } from './vacation-form/vacation-form.component';
 
 @NgModule({
-  declarations: [UserFormComponent, VacationFormComponent],
+  declarations: [
+    UserFormComponent,
+    VacationFormComponent,
+    AddUserComponent,
+    EditVacationsComponent,
+    EditUserComponent,
+  ],
   imports: [
     BrowserModule,
     RouterModule,
@@ -36,6 +45,9 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     ToastrModule,
     UserFormComponent,
     VacationFormComponent,
+    AddUserComponent,
+    EditUserComponent,
+    EditVacationsComponent,
   ],
   providers: [
     {

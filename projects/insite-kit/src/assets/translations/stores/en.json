@@ -15,7 +15,7 @@
   "manager": {
     "title": "Mangers"
   },
-  "managers": {
+  "users": {
     "card": {
       "grid": {
         "columns": {

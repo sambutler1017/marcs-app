@@ -15,7 +15,7 @@ export class StoreService {
    * @param params to filter request on
    * @returns observable of the returned request
    */
-  getStores(params?: Map<string, string>): Observable<Store[]> {
+  getStores(params?: Map<string, string[]>): Observable<Store[]> {
     return this.requestService.get<Store[]>('api/store-app/stores', params);
   }
 }

@@ -33,13 +33,13 @@ export class UserFormComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.roles = Object.keys(WebRole);
+    this.setAllowedRoles();
     this.loading = true;
     this.buildForm();
 
     this.storeService
       .getStores(
-        new Map<string, string>().set('regionalId', this.jwt.get('userId'))
+        new Map<string, string[]>().set('regionalId', [this.jwt.get('userId')])
       )
       .subscribe((res) => {
         this.stores = res;
@@ -60,7 +60,7 @@ export class UserFormComponent implements OnInit {
       email: [this.userData ? this.userData.email : ''],
       webRole: this.userData
         ? this.userData.webRole.toUpperCase()
-        : WebRole.USER.toUpperCase(),
+        : WebRole[WebRole.USER].toUpperCase(),
       storeId: [
         this.userData ? this.userData.storeId : '',
         Validators.required,
@@ -100,5 +100,15 @@ export class UserFormComponent implements OnInit {
     };
 
     this.save.emit(user);
+  }
+
+  setAllowedRoles() {
+    const userRole = WebRole[this.jwt.get('webRole')];
+    console.log(userRole);
+    this.roles = Object.keys(WebRole)
+      .map((key) => WebRole[key])
+      .filter(
+        (value) => typeof value === 'string' && WebRole[value] < userRole
+      ) as string[];
   }
 }

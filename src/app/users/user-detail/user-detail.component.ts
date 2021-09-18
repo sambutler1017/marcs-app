@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/assets/translations/managers/en.json';
+import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
 import {
   Access,
   Application,
@@ -15,13 +15,13 @@ import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
-  selector: 'app-manager-detail',
-  templateUrl: './manager-detail.component.html',
+  selector: 'app-user-detail',
+  templateUrl: './user-detail.component.html',
 })
-export class ManagerDetailComponent implements OnInit, OnDestroy {
+export class UserDetailComponent implements OnInit, OnDestroy {
   userData: User;
   vacationData: Vacation[];
-  managerJson = json;
+  userJson = json;
   vacationEditRoute: string;
 
   excludedColumns = ['id', 'userId', 'insertDate'];
@@ -55,17 +55,15 @@ export class ManagerDetailComponent implements OnInit, OnDestroy {
   }
 
   onMoveClick() {
-    this.router.navigate(['/managers/move-manager']);
+    this.router.navigate(['/user/move-manager']);
   }
 
   onManageEditClick() {
-    this.router.navigate([`/manager/details/${this.userData.id}/edit/info`]);
+    this.router.navigate([`/user/details/${this.userData.id}/edit/info`]);
   }
 
   onVacationEditClick() {
-    this.router.navigate([
-      `/manager/details/${this.userData.id}/edit/vacations`,
-    ]);
+    this.router.navigate([`/user/details/${this.userData.id}/edit/vacations`]);
   }
 
   onRowClick(event: any) {}
