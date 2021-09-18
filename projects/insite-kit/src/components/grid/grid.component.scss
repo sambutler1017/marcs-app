@@ -30,7 +30,6 @@ input {
   font-size: 25px;
   font-weight: 500px;
   text-align: left;
-  padding-left: 15px;
 }
 
 .content-row:nth-child(even) {
@@ -141,7 +140,8 @@ table {
   }
 
   .column-header {
-    font-size: 13px;
+    font-size: 15px;
+    padding-left: 2px;
   }
 
   .grid-padding {
