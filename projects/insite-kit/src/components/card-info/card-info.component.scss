@@ -6,19 +6,19 @@
 .label-header {
   font-size: 22px;
   font-weight: 600;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .padding-info {
   padding: 24px;
 }
 
-.content .label-text {
+.label-text {
   font-size: 20px;
   font-weight: 400;
   padding-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media screen and (max-width: 500px) {
@@ -26,7 +26,7 @@
     font-size: 18px;
   }
 
-  .content .label-text {
+  .label-text {
     font-size: 16px;
   }
 }
