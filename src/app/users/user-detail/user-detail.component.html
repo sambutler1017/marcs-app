@@ -4,6 +4,7 @@
     <div class="padding_bottom--small inline-display">
       <button
         class="btn btn-danger btn-size btn-right"
+        (click)="onDeleteUser()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
         Delete Manager
@@ -85,3 +86,12 @@
     </ik-grid>
   </div>
 </div>
+<ik-modal header="Delete User?" type="danger">
+  <div>
+    Deleting this user will result in their personal info and vacations to be
+    deleted. Do you want to continue?
+  </div>
+  <button class="btn btn-danger btn-size btn-right">
+    Continue
+  </button>
+</ik-modal>

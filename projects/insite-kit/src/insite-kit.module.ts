@@ -11,6 +11,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { ModalComponent } from './components/modal/modal.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-navbar.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
@@ -34,6 +35,7 @@ import { UsernamePipe } from './service/pipe/format-user-name.pipe';
     CardHeaderComponent,
     IconComponent,
     UsernamePipe,
+    ModalComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -51,6 +53,8 @@ import { UsernamePipe } from './service/pipe/format-user-name.pipe';
     CardHeaderComponent,
     IconComponent,
     UsernamePipe,
+    ModalComponent,
   ],
+  entryComponents: [ModalComponent],
 })
 export class InsiteKitModule {}

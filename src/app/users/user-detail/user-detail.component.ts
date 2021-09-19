@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
+import { ModalService } from 'projects/insite-kit/src/components/modal/modal.service';
 import {
   Access,
   Application,
@@ -36,7 +37,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly vacationService: VacationService,
     private readonly activeRoute: ActivatedRoute,
-    private readonly router: Router
+    private readonly router: Router,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +66,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   onVacationEditClick() {
     this.router.navigate([`/user/details/${this.userData.id}/edit/vacations`]);
+  }
+
+  onDeleteUser() {
+    this.modalService.open();
   }
 
   onRowClick(event: any) {}
