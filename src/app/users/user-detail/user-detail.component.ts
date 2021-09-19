@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
 import { ModalService } from 'projects/insite-kit/src/components/modal/modal.service';
 import {
@@ -18,14 +19,17 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.scss'],
 })
 export class UserDetailComponent implements OnInit, OnDestroy {
   userData: User;
   vacationData: Vacation[];
   userJson = json;
   vacationEditRoute: string;
+  loading = true;
 
   excludedColumns = ['id', 'userId', 'insertDate'];
+  columns = ['startDate', 'endDate', 'status'];
 
   WebRole = WebRole;
   Feature = Feature;
@@ -38,7 +42,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private readonly vacationService: VacationService,
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
-    private modalService: ModalService
+    private readonly toastService: ToastrService,
+    public modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -49,7 +54,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         switchMap((res) => this.vacationService.getVacationsByUserId(res.id)),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => (this.vacationData = res));
+      .subscribe((res) => {
+        this.vacationData = res;
+        this.loading = false;
+      });
   }
 
   ngOnDestroy() {
@@ -74,6 +82,15 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   onDeleteUser() {
     this.modalService.close();
+    this.loading = true;
+    this.userService.deleteUser(this.userData.id).subscribe(
+      () => {
+        this.toastService.success('User successfully deleted!');
+        this.router.navigate(['/user']);
+      },
+      (err) =>
+        this.toastService.success('User could not be deleted at this time!')
+    );
   }
 
   onRowClick(event: any) {}

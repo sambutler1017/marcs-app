@@ -33,9 +33,7 @@ export class LoginComponent {
         this.loading = false;
       },
       (error) => {
-        this.toastService.error('Invalid email or password!', '', {
-          positionClass: 'toast-top-right',
-        });
+        this.toastService.error('Invalid email or password!');
         this.loading = false;
       }
     );

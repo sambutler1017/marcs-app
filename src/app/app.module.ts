@@ -41,7 +41,7 @@ import { UserModule } from './users/user.module';
     SharedModule,
     UserModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-bottom-left',
+      positionClass: 'toast-top-right',
     }),
     CalendarModule.forRoot({
       provide: DateAdapter,

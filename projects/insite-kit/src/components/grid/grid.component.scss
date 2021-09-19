@@ -32,6 +32,10 @@ input {
   text-align: left;
 }
 
+.header-padding {
+  padding-left: 15px;
+}
+
 .content-row:nth-child(even) {
   background-color: #f1e8dc;
 }
@@ -151,5 +155,11 @@ table {
   .page-number {
     width: 32px;
     height: 32px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .column-header {
+    text-align: center;
   }
 }

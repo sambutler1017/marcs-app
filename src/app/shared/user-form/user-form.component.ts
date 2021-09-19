@@ -37,14 +37,10 @@ export class UserFormComponent implements OnInit {
     this.loading = true;
     this.buildForm();
 
-    this.storeService
-      .getStores(
-        new Map<string, string[]>().set('regionalId', [this.jwt.get('userId')])
-      )
-      .subscribe((res) => {
-        this.stores = res;
-        this.loading = false;
-      });
+    this.storeService.getStores().subscribe((res) => {
+      this.stores = res;
+      this.loading = false;
+    });
   }
 
   buildForm() {
@@ -116,9 +112,12 @@ export class UserFormComponent implements OnInit {
       lastName: this.form.value.lastName,
       email: this.form.value.email,
       webRole: this.form.value.webRole,
-      storeId: this.form.value.storeId.toUpperCase(),
       hireDate: this.form.value.hireDate,
     };
+
+    if (this.form.value.storeId) {
+      user.storeId = this.form.value.storeId.toUpperCase();
+    }
 
     this.save.emit(user);
   }

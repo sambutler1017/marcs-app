@@ -1,5 +1,5 @@
-<ik-loading-indicator *ngIf="!userData"></ik-loading-indicator>
-<div *ngIf="userData">
+<!-- <ik-loading-indicator *ngIf="!userData"></ik-loading-indicator> -->
+<div *ngIf="!loading; else loader">
   <ik-header title="{{ userData | formatUserName }}" [backEnabled]="true">
     <div class="padding_bottom--small inline-display">
       <button
@@ -66,9 +66,11 @@
     <ik-grid
       noDataText="No Vacations"
       [translationKey]="userJson.vacations"
+      [columns]="columns"
       [dataLoader]="vacationData"
       title="Vacations"
       [padding]="false"
+      [headerPadding]="true"
       (gridRowClick)="onRowClick($event)"
       [columnsToExclude]="excludedColumns"
     >
@@ -91,7 +93,13 @@
     Deleting this user will result in their personal info and vacations to be
     deleted. Do you want to continue?
   </div>
+
   <button class="btn btn-danger btn-size btn-right" (click)="onDeleteUser()">
     Continue
   </button>
+  <div class="cancel-link" (click)="modalService.close()">Cancel</div>
 </ik-modal>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

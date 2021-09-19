@@ -10,7 +10,11 @@
     <table *ngIf="!loading; else loader" class="grid-table">
       <thead *ngIf="!noItems">
         <tr>
-          <td *ngFor="let column of columns" class="column-header">
+          <td
+            *ngFor="let column of columns"
+            class="column-header"
+            [ngClass]="{ 'header-padding': headerPadding }"
+          >
             <strong>{{ this.translationKey.grid.columns[column] }}</strong>
           </td>
         </tr>

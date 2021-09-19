@@ -63,4 +63,13 @@ export class UserService {
   addUser(user: User) {
     return this.request.post<User>(`${this.BASE_USER_PATH}/add-user`, user);
   }
+
+  /**
+   * Delete the user associated to the given id.
+   *
+   * @param id of the user to be deleted.
+   */
+  deleteUser(id: number): Observable<any> {
+    return this.request.delete<any>(`${this.BASE_USER_PATH}/${id}`);
+  }
 }

@@ -24,6 +24,7 @@ export class GridComponent implements OnChanges {
   @Input() pagerEnabled = false;
   @Input() title;
   @Input() padding = true;
+  @Input() headerPadding = false;
   @Output() gridRowClick = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
 
