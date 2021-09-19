@@ -51,6 +51,8 @@ export class StoresDetailComponent implements OnInit {
   }
 
   getRegionalInfo() {
-    return this.userService.getUserById(this.storeInfo.regionalId);
+    return !!this.storeInfo.regionalId
+      ? this.userService.getUserById(this.storeInfo.regionalId)
+      : of(null);
   }
 }
