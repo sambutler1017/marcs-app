@@ -1,6 +1,4 @@
-<ik-home-navbar></ik-home-navbar>
-
-<div class="app-container">
+<ik-app-page appName="Profile">
   <ik-loading-indicator *ngIf="!user"></ik-loading-indicator>
   <div *ngIf="user">
     <ik-header
@@ -41,4 +39,4 @@
       </div>
     </div>
   </div>
-</div>
+</ik-app-page>
