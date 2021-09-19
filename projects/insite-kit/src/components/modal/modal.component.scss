@@ -25,6 +25,8 @@ section {
     top: 20%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 60%;
+    margin: 0 auto;
 
     background: white;
 
@@ -64,6 +66,22 @@ section {
   section {
     > .ik-modal {
       top: 12%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  section {
+    > .ik-modal {
+      width: 70%;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  section {
+    > .ik-modal {
+      width: 85%;
     }
   }
 }
