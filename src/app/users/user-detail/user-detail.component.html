@@ -4,7 +4,7 @@
     <div class="padding_bottom--small inline-display">
       <button
         class="btn btn-danger btn-size btn-right"
-        (click)="onDeleteUser()"
+        (click)="deleteModal()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
         Delete Manager
@@ -91,7 +91,7 @@
     Deleting this user will result in their personal info and vacations to be
     deleted. Do you want to continue?
   </div>
-  <button class="btn btn-danger btn-size btn-right">
+  <button class="btn btn-danger btn-size btn-right" (click)="onDeleteUser()">
     Continue
   </button>
 </ik-modal>

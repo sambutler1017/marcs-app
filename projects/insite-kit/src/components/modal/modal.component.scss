@@ -19,6 +19,7 @@ section {
 
   background: rgba(0, 0, 0, 0.2);
   transition: opacity 250ms ease-in;
+  pointer-events: none;
 
   > .ik-modal {
     position: absolute;
@@ -29,6 +30,7 @@ section {
     margin: 0 auto;
 
     background: white;
+    pointer-events: all;
 
     border-radius: 8px;
 

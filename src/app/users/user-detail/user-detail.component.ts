@@ -68,8 +68,12 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.router.navigate([`/user/details/${this.userData.id}/edit/vacations`]);
   }
 
-  onDeleteUser() {
+  deleteModal() {
     this.modalService.open();
+  }
+
+  onDeleteUser() {
+    this.modalService.close();
   }
 
   onRowClick(event: any) {}
