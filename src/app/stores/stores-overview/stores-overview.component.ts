@@ -6,6 +6,7 @@ import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.serv
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store-service.service';
+import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'ik-stores-overview',
@@ -22,13 +23,14 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private storeService: StoreService,
+    private userService: UserService,
     private router: Router,
     private jwt: JwtService
   ) {}
 
   ngOnInit() {
     this.storeService
-      .getStores()
+      .getStores(this.userService.managersOnlyMap())
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.dataLoader = res));
   }
@@ -42,9 +44,12 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
   }
 
   onSearch(value: string) {
-    const params = new Map<string, string[]>();
+    let params = this.userService.managersOnlyMap();
 
-    if (value.trim() !== '') {
+    if (params) {
+      params.set('name', [value]).set('id', [value]);
+    } else {
+      params = new Map<string, string[]>();
       params.set('name', [value]).set('id', [value]);
     }
 
@@ -52,17 +57,5 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
       .getStores(params)
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.dataLoader = res));
-  }
-
-  getStores(params?: Map<string, string[]>) {
-    if (params) {
-      return this.storeService.getStores(
-        params.set('regionalId', [this.jwt.get('userId')])
-      );
-    } else {
-      return this.storeService.getStores(
-        new Map<string, string[]>().set('regionalId', [this.jwt.get('userId')])
-      );
-    }
   }
 }

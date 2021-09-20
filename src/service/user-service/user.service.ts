@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
 
@@ -8,7 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   readonly BASE_USER_PATH = 'api/user-app/users';
-  constructor(private request: RequestService) {}
+  constructor(
+    private readonly request: RequestService,
+    private readonly jwt: JwtService
+  ) {}
 
   /**
    * Get a list of users based on the given request
@@ -71,5 +75,17 @@ export class UserService {
    */
   deleteUser(id: number): Observable<any> {
     return this.request.delete<any>(`${this.BASE_USER_PATH}/${id}`);
+  }
+
+  /**
+   * If the user has mangersOnly set. The will only see their managers at the stores they own.
+   * This feature is really only for regionals incase they don't want to see everyone else's managers.
+   *
+   * @returns Map with the regionalId set.
+   */
+  managersOnlyMap() {
+    return this.jwt.get('managersOnly')
+      ? new Map<string, string[]>().set('regionalId', this.jwt.get('userId'))
+      : null;
   }
 }

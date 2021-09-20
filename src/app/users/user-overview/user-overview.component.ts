@@ -35,10 +35,7 @@ export class UserOverviewComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getWebRoleParams();
-    this.getUsers(this.getWebRoleParams()).subscribe(
-      (res) => (this.dataLoader = res)
-    );
+    this.getUsers(this.getParams()).subscribe((res) => (this.dataLoader = res));
   }
 
   handleClick(event: any) {
@@ -53,20 +50,9 @@ export class UserOverviewComponent implements OnInit {
     return this.userService.getUsers(params);
   }
 
-  getWebRoleParams() {
-    const currentUserRole = WebRole[this.jwt.get('webRole')];
-    const roles = Object.keys(WebRole)
-      .map((key) => WebRole[key])
-      .filter(
-        (value) =>
-          typeof value === 'string' && WebRole[value] <= currentUserRole
-      ) as string[];
-    return new Map<string, string[]>().set('webRole', roles);
-  }
-
   onSearch(value: any) {
     if (value.trim() === '') {
-      this.getUsers(this.getWebRoleParams()).subscribe(
+      this.getUsers(this.getParams()).subscribe(
         (res) => (this.dataLoader = res)
       );
     } else {
@@ -76,8 +62,28 @@ export class UserOverviewComponent implements OnInit {
     }
   }
 
+  getParams() {
+    let params = this.userService.managersOnlyMap();
+
+    if (params !== null) {
+      return params;
+    } else {
+      params = new Map<string, string[]>();
+    }
+
+    const currentUserRole = WebRole[this.jwt.get('webRole')];
+    const roles = Object.keys(WebRole)
+      .map((key) => WebRole[key])
+      .filter(
+        (value) =>
+          typeof value === 'string' && WebRole[value] <= currentUserRole
+      ) as string[];
+
+    return params.set('webRole', roles);
+  }
+
   generateSearchParams(value: any) {
-    return new Map<string, [string]>()
+    return this.getParams()
       .set('firstName', [value])
       .set('lastName', [value])
       .set('storeId', [value])
