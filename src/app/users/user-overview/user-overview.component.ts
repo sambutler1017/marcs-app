@@ -2,7 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
-import { WebRole } from 'projects/insite-kit/src/models/common.model';
+import {
+  Access,
+  Application,
+  Feature,
+  WebRole,
+} from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -27,6 +32,10 @@ export class UserOverviewComponent implements OnInit {
   ];
   columns = ['firstName', 'lastName', 'storeId', 'storeName'];
   dataLoader: User[];
+
+  Feature = Feature;
+  Application = Application;
+  Access = Access;
 
   constructor(
     private userService: UserService,

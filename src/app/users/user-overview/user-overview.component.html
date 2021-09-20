@@ -1,5 +1,9 @@
 <ik-header title="Overview">
-  <button class="btn btn-info btn-size btn-right" (click)="onAddManager()">
+  <button
+    class="btn btn-info btn-size btn-right"
+    (click)="onAddManager()"
+    *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.CREATE]"
+  >
     Create User
   </button>
 </ik-header>
