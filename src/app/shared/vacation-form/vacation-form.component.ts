@@ -140,6 +140,10 @@ export class VacationFormComponent implements OnInit {
   }
 
   vacationChange(value: string) {
+    if (value.trim() === '') {
+      return '';
+    }
+
     const endDate = new Date(value);
     endDate.setDate(endDate.getDate() + 8);
     return formatDate(endDate, 'yyyy-MM-dd', 'en-US');

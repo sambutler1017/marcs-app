@@ -1,11 +1,12 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { VacationStatus } from 'projects/insite-kit/src/models/common.model';
+import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
-import { Location } from '@angular/common';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
-import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 
 @Component({
   selector: 'app-edit-vacations',
@@ -48,6 +49,8 @@ export class EditVacationsComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick(vacations: Vacation[]) {
+    vacations.forEach((v) => (v.status = VacationStatus.APPROVED));
+
     this.loading = true;
     vacations.forEach((v) => (v.userId = this.userId));
 
