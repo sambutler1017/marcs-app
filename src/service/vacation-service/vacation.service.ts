@@ -11,14 +11,21 @@ export class VacationService {
   constructor(private request: RequestService) {}
 
   /**
+   * Get the vacations for the given request
+   *
+   * @returns User object
+   */
+  getVacations(params?: Map<string, string[]>): Observable<Vacation[]> {
+    return this.request.get<Vacation[]>(`${this.BASE_USER_PATH}`, params);
+  }
+
+  /**
    * Get the vacations for the currently logged in user.
    *
    * @returns User object
    */
-  getCurrentUserVacations(
-    params?: Map<string, string>
-  ): Observable<Vacation[]> {
-    return this.request.get<Vacation[]>(this.BASE_USER_PATH);
+  getCurrentUserVacations(): Observable<Vacation[]> {
+    return this.request.get<Vacation[]>(`${this.BASE_USER_PATH}/current-user`);
   }
 
   /**
