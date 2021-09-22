@@ -38,10 +38,10 @@
     <div class="btn-group">
       <div
         class="btn btn-flat btn-primary button-width indiv-button-right"
-        (click)="setView(CalendarView.Month)"
-        [class.active]="view === CalendarView.Month"
+        (click)="setView(CalendarView.Day)"
+        [class.active]="view === CalendarView.Day"
       >
-        Month
+        Day
       </div>
       <div
         class="btn btn-flat btn-primary button-width indiv-button-right"
@@ -52,10 +52,10 @@
       </div>
       <div
         class="btn btn-flat btn-primary button-width indiv-button-right"
-        (click)="setView(CalendarView.Day)"
-        [class.active]="view === CalendarView.Day"
+        (click)="setView(CalendarView.Month)"
+        [class.active]="view === CalendarView.Month"
       >
-        Day
+        Month
       </div>
     </div>
   </div>
