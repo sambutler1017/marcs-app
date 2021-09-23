@@ -6,6 +6,7 @@ import { LoginComponent } from '../../projects/insite-kit/src/components/login/l
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { AppComponent } from './app.component';
 import { BlockDatesComponent } from './block-dates/block-dates.component';
+import { CalendarHeaderComponent } from './calendar/calendar-header/calendar-header.component';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { ContactComponent } from './contact/contact.component';
@@ -36,6 +37,7 @@ import { UserModule } from './users/user.module';
     StoresDetailComponent,
     ProfileComponent,
     CalendarOverviewComponent,
+    CalendarHeaderComponent,
   ],
   imports: [
     SharedModule,

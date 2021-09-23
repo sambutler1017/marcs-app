@@ -1,0 +1,32 @@
+.month-title {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.buttons-right {
+  text-align: right;
+}
+
+.buttons-left {
+  text-align: left;
+}
+
+.indiv-button-right {
+  float: right;
+}
+
+.indiv-button-left {
+  float: left;
+}
+
+@media screen and (max-width: 700px) {
+  .button-width {
+    width: 80px;
+  }
+
+  .month-title {
+    margin-top: 40px;
+    margin-bottom: 10px;
+  }
+}
