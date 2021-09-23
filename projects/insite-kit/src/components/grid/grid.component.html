@@ -5,7 +5,7 @@
       *ngIf="searchEnabled"
       class="search"
       placeholder="Search"
-      (input)="onSearch($event.srcElement.value)"
+      (change)="onSearch($event.srcElement.value)"
     />
     <table *ngIf="!loading; else loader" class="grid-table">
       <thead *ngIf="!noItems">
