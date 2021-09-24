@@ -51,7 +51,7 @@ export class UserOverviewComponent implements OnInit {
     this.router.navigate([`/user/details/${event.id}`]);
   }
 
-  onAddManager() {
+  onAddUser() {
     this.router.navigate(['/user/add-user']);
   }
 
