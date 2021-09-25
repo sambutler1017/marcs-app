@@ -36,12 +36,6 @@
       "icon": "report",
       "page": ""
     },
-    "regional": {
-      "title": "Regional's",
-      "message": "Look at other regional vacation counts, and when a regional is on vacation.",
-      "icon": "regional",
-      "page": ""
-    },
     "requestTracker": {
       "title": "Request Tracker",
       "message": "All requested vacations from users show up here to be approved or declined.",
