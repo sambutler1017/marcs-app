@@ -7,16 +7,8 @@ import {
 import { startOfDay } from 'date-fns';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { from, of, Subject } from 'rxjs';
-import {
-  flatMap,
-  map,
-  mergeMap,
-  switchMap,
-  takeUntil,
-  tap,
-  toArray,
-} from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 import { CustomDateFormatter } from './custom-date.formatter';
