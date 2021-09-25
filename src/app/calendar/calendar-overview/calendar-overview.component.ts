@@ -71,6 +71,11 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
     this.viewDate = value;
   }
 
+  dayClicked(value: any) {
+    this.viewDate = value.date;
+    this.view = CalendarView.Day;
+  }
+
   getVacations() {
     let params = this.userService.managersOnlyMap();
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CalendarView } from 'angular-calendar';
 
 @Component({
@@ -7,10 +7,11 @@ import { CalendarView } from 'angular-calendar';
   styleUrls: ['./calendar-header.component.scss'],
 })
 export class CalendarHeaderComponent {
+  @Input() view: CalendarView = CalendarView.Month;
+  @Input() viewDate: Date = new Date();
   @Output() viewChange = new EventEmitter<CalendarView>();
   @Output() viewDateChange = new EventEmitter<Date>();
-  viewDate: Date = new Date();
-  view: CalendarView = CalendarView.Month;
+
   CalendarView = CalendarView;
 
   setView(view: CalendarView) {
