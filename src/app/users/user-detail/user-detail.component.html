@@ -7,7 +7,7 @@
         (click)="deleteModal()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
-        Delete Manager
+        Delete User
       </button>
     </div>
   </ik-header>
@@ -26,7 +26,7 @@
       </ik-card-header>
       <div class="left-column">
         <ik-card-info
-          header="Manager"
+          header="Name"
           text="{{ userData | formatUserName }}"
         ></ik-card-info>
         <ik-card-info

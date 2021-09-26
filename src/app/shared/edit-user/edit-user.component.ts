@@ -53,10 +53,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.userService.updateUserById(this.userId, user).subscribe(
       () => {
         this.onCancelClick();
-        this.toastService.success('Manager Successfully updated!');
+        this.toastService.success('User Successfully updated!');
       },
       (err) => {
-        this.toastService.error('Manager could not be updated at this time!');
+        this.toastService.error('User could not be updated at this time!');
         this.loading = false;
       }
     );
