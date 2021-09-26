@@ -64,7 +64,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.destroy.next();
   }
 
-  onManageEditClick() {
+  onUserEditClick() {
     this.router.navigate([`/user/details/${this.userData.id}/edit/info`]);
   }
 

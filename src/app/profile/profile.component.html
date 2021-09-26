@@ -34,7 +34,11 @@
       <div class="rightColumn column-narrow">
         <ik-card [padding]="false">
           <ik-card-header title="Application Access"></ik-card-header>
-          <ik-card-info [text]="applications"></ik-card-info>
+          <div class="app-text">
+            <ul>
+              <li *ngFor="let app of applications">{{ app }}</li>
+            </ul>
+          </div>
         </ik-card>
       </div>
     </div>

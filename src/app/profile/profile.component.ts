@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { default as json } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
@@ -13,7 +14,7 @@ import { UserService } from 'src/service/user-service/user.service';
 export class ProfileComponent implements OnInit {
   user: User;
   webRole = WebRole;
-  applications = '';
+  applications: string[] = [];
 
   constructor(
     private readonly userService: UserService,
@@ -29,9 +30,10 @@ export class ProfileComponent implements OnInit {
   }
 
   generateApplicationString() {
-    const apps: [] = this.jwtService.get('apps');
-    apps.forEach((v) => (this.applications += `${v}, `));
-    this.applications.slice(0, -1).slice(0, -1);
+    const apps: string[] = this.jwtService.get('apps');
+    const translations = Object.values(json)[0];
+    apps.forEach((v) => this.applications.push(translations[v]));
+    // this.applications = this.applications.slice(0, -1).slice(0, -1);
   }
 
   onEditProfile() {
@@ -39,4 +41,6 @@ export class ProfileComponent implements OnInit {
       `/user/details/${this.jwtService.get('userId')}/edit/info`,
     ]);
   }
+
+  onSaveClick() {}
 }

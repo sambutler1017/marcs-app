@@ -1,0 +1,12 @@
+{
+  "apps": {
+    "user": "User's",
+    "store": "Store's",
+    "calendar": "Calendar",
+    "blockDates": "Block Out Dates",
+    "map": "Map",
+    "report": "Report's",
+    "requestTracker": "Request Tracker",
+    "contact": "Contact"
+  }
+}
