@@ -16,6 +16,7 @@ import { RequestTrackerComponent } from './request-tracker/request-tracker.compo
 import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
+import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
@@ -44,6 +45,14 @@ const routes: Routes = [
       {
         path: 'details/:id/edit/info',
         component: EditUserComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [Application.USER, Feature.USER_DETAIL, Access.UPDATE],
+        },
+      },
+      {
+        path: 'details/:id/reset-password',
+        component: ResetPasswordComponent,
         canActivate: [FeatureAccessGuard],
         data: {
           feature: [Application.USER, Feature.USER_DETAIL, Access.UPDATE],

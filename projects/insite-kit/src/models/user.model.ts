@@ -3,10 +3,10 @@ import { Vacation } from './vacation.model';
 
 export interface User {
   id?: number;
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email?: string;
-  webRole: WebRole | any;
+  webRole?: WebRole | any;
   storeRegion?: StoreRegion;
   appAccess?: boolean;
   password?: string;

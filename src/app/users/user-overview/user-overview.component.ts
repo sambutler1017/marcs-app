@@ -84,8 +84,7 @@ export class UserOverviewComponent implements OnInit {
     const roles = Object.keys(WebRole)
       .map((key) => WebRole[key])
       .filter(
-        (value) =>
-          typeof value === 'string' && WebRole[value] <= currentUserRole
+        (value) => typeof value === 'string' && WebRole[value] < currentUserRole
       ) as string[];
 
     return params.set('webRole', roles);

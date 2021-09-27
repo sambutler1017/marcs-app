@@ -9,6 +9,13 @@
       >
         Delete User
       </button>
+      <button
+        class="btn btn-default btn-size btn-right"
+        (click)="onResetPassword()"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+      >
+        Reset Password
+      </button>
     </div>
   </ik-header>
   <div class="leftColumn column-half">

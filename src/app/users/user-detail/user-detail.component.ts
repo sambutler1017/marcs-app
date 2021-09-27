@@ -76,6 +76,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.modalService.open();
   }
 
+  onResetPassword() {
+    this.router.navigate([`/user/details/${this.userData.id}/reset-password`]);
+  }
+
   onDeleteUser() {
     this.modalService.close();
     this.loading = true;

@@ -11,6 +11,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditVacationsComponent } from './edit-vacations/edit-vacations.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationFormComponent } from './vacation-form/vacation-form.component';
 
@@ -21,6 +22,7 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     AddUserComponent,
     EditVacationsComponent,
     EditUserComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +50,7 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     AddUserComponent,
     EditUserComponent,
     EditVacationsComponent,
+    ResetPasswordComponent,
   ],
   providers: [
     {
