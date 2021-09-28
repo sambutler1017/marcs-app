@@ -1,20 +1,20 @@
 <!-- <ik-loading-indicator *ngIf="!userData"></ik-loading-indicator> -->
 <div *ngIf="!loading; else loader">
   <ik-header title="{{ userData | formatUserName }}" [backEnabled]="true">
-    <div class="padding_bottom--small inline-display">
+    <div class="inline-display header-buttons">
       <button
-        class="btn btn-danger btn-size btn-right"
-        (click)="deleteModal()"
-        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
-      >
-        Delete User
-      </button>
-      <button
-        class="btn btn-default btn-size btn-right"
+        class="btn btn-default btn-size btn-right right-header-button"
         (click)="onResetPassword()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
       >
         Reset Password
+      </button>
+      <button
+        class="btn btn-danger btn-size btn-right left-header-button"
+        (click)="deleteModal()"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
+      >
+        Delete User
       </button>
     </div>
   </ik-header>
@@ -101,7 +101,10 @@
     deleted. Do you want to continue?
   </div>
 
-  <button class="btn btn-danger btn-size btn-right" (click)="onDeleteUser()">
+  <button
+    class="btn btn-danger btn-size btn-right modal-button"
+    (click)="onDeleteUser()"
+  >
     Continue
   </button>
   <div class="cancel-link" (click)="modalService.close()">Cancel</div>

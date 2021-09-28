@@ -14,3 +14,23 @@
 a:link {
   text-decoration: none;
 }
+
+@media screen and (max-width: 500px) {
+  .left-header-button {
+    float: left;
+    margin-top: 0;
+  }
+
+  .right-header-button {
+    float: right;
+    margin-top: 0;
+  }
+
+  .header-buttons {
+    display: block;
+  }
+
+  .modal-button {
+    margin-top: 15px;
+  }
+}
