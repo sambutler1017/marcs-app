@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingIndicatorComponent {
   @Input() size = '110px';
-  @Input() thickness = '10px';
+  @Input() thickness = '8px';
 }

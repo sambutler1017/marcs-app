@@ -15,13 +15,13 @@ export class UserFormComponent implements OnInit {
   @Input() userData: User;
   @Input() rightActionButton: string;
   @Input() leftActionButton: string;
-  @Input() loading = true;
+  @Input() disableRoleUpdate = false;
   @Output() cancel = new EventEmitter<any>();
   @Output() save = new EventEmitter<User>();
 
   roles: string[];
-
   form: FormGroup;
+  storesLoading = true;
 
   stores: Store[];
   WebRole = WebRole;
@@ -34,12 +34,12 @@ export class UserFormComponent implements OnInit {
 
   ngOnInit() {
     this.setAllowedRoles();
-    this.loading = true;
+    this.storesLoading = true;
     this.buildForm();
 
     this.storeService.getStores().subscribe((res) => {
       this.stores = res;
-      this.loading = false;
+      this.storesLoading = false;
     });
   }
 
@@ -67,6 +67,11 @@ export class UserFormComponent implements OnInit {
       ],
       hireDate: this.userData ? this.userData.hireDate : '',
     });
+
+    if (this.disableRoleUpdate) {
+      this.form.controls.webRole.disable({ emitEvent: false });
+    }
+
     this.onStoreIdChange();
     this.onWebRoleChange();
   }
@@ -74,10 +79,10 @@ export class UserFormComponent implements OnInit {
   onStoreIdChange() {
     this.form.controls.storeId.valueChanges.subscribe((v) => {
       const storeSelected = this.stores.find(
-        (store) => store.id.toLowerCase() === v.toLowerCase()
+        (s) => s.id.toLowerCase() === v.toLowerCase()
       );
       this.form.patchValue({
-        storeName: storeSelected ? storeSelected.name : '',
+        storeName: storeSelected.name,
       });
     });
   }
@@ -96,10 +101,11 @@ export class UserFormComponent implements OnInit {
       this.form.controls.storeId.enable({ emitEvent: false });
       this.form.controls.storeName.enable({ emitEvent: false });
     } else {
+      this.form.controls.storeId.patchValue('');
+      this.form.controls.storeName.patchValue('');
       this.form.controls.storeId.disable({ emitEvent: false });
       this.form.controls.storeName.disable({ emitEvent: false });
     }
-    console.log(this.form.invalid);
   }
 
   onCancelClick() {
@@ -110,13 +116,16 @@ export class UserFormComponent implements OnInit {
     let user: User = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      email: this.form.value.email,
       webRole: this.form.value.webRole,
       hireDate: this.form.value.hireDate,
     };
 
     if (this.form.value.storeId) {
       user.storeId = this.form.value.storeId.toUpperCase();
+    }
+
+    if (this.form.value.email) {
+      user.email = this.form.value.email;
     }
 
     this.save.emit(user);
@@ -127,7 +136,9 @@ export class UserFormComponent implements OnInit {
     this.roles = Object.keys(WebRole)
       .map((key) => WebRole[key])
       .filter(
-        (value) => typeof value === 'string' && WebRole[value] <= userRole
+        (value) =>
+          (typeof value === 'string' && WebRole[value] < userRole) ||
+          this.disableRoleUpdate
       ) as string[];
   }
 }

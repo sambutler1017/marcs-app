@@ -29,6 +29,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.loading = true;
     this.route.params
       .pipe(
         map((p) => p.id),
@@ -50,7 +51,18 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.loading = false;
   }
 
+  onCancelClick() {
+    this.location.back();
+  }
+
   onResetClick() {
+    this.loading = true;
+
+    if (!this.validPassword()) {
+      this.loading = false;
+      return;
+    }
+
     const user: User = { password: this.form.value.password };
     this.userService.updateUserById(this.userId, user).subscribe(
       (res) => {
@@ -62,5 +74,28 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         this.location.back();
       }
     );
+  }
+
+  validPassword() {
+    if (!this.passwordsMatch()) {
+      this.toastService.error('Passwords do not match!');
+      return false;
+    }
+
+    if (this.form.value.password.toString().length < 8) {
+      this.toastService.error(
+        'Password needs to have a length of at least 8 characters.'
+      );
+      return false;
+    }
+    return true;
+  }
+
+  passwordsMatch(): boolean {
+    if (this.form.value.password === this.form.value.confirmPassword) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

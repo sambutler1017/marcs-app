@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
@@ -9,7 +9,7 @@ import { UserService } from 'src/service/user-service/user.service';
   templateUrl: './add-user.component.html',
   styleUrls: ['./add-user.component.scss'],
 })
-export class AddUserComponent {
+export class AddUserComponent implements OnInit {
   loading = true;
 
   constructor(
@@ -17,6 +17,10 @@ export class AddUserComponent {
     private toastService: ToastrService,
     private userService: UserService
   ) {}
+
+  ngOnInit() {
+    this.loading = false;
+  }
 
   onCancelClick() {
     this.location.back();

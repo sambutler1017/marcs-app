@@ -1,9 +1,13 @@
 <ik-header title="New User" [backEnabled]="true"> </ik-header>
 <app-user-form
+  *ngIf="!loading; else loader"
   rightActionButton="Save User"
   leftActionButton="Cancel"
-  [loading]="loading"
   (cancel)="onCancelClick()"
   (save)="onSaveClick($event)"
 >
 </app-user-form>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

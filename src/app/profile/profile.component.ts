@@ -33,7 +33,6 @@ export class ProfileComponent implements OnInit {
     const apps: string[] = this.jwtService.get('apps');
     const translations = Object.values(json)[0];
     apps.forEach((v) => this.applications.push(translations[v]));
-    // this.applications = this.applications.slice(0, -1).slice(0, -1);
   }
 
   onEditProfile() {

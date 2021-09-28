@@ -1,4 +1,4 @@
-<form [formGroup]="form" *ngIf="!loading; else loadingIcon">
+<form [formGroup]="form">
   <ik-card [padding]="false">
     <ik-card-info header="First Name*"
       ><input
@@ -26,14 +26,17 @@
       </select>
     </ik-card-info>
 
-    <ik-card-info header="Store ID*"
-      ><input
+    <ik-card-info header="Store ID*">
+      <select
         class="search"
-        placeholder="Store ID"
         formControlName="storeId"
-        maxlength="4"
-        style="text-transform: uppercase;"
-      />
+        *ngIf="!storesLoading; else loadingIcon"
+      >
+        <option value="" disabled selected hidden>Store ID</option>
+        <option *ngFor="let store of stores" [ngValue]="store.id">{{
+          store.id
+        }}</option>
+      </select>
     </ik-card-info>
 
     <ik-card-info header="Store Name"
@@ -66,5 +69,5 @@
   {{ rightActionButton }}
 </button>
 <ng-template #loadingIcon>
-  <ik-loading-indicator></ik-loading-indicator>
+  <ik-loading-indicator size="40px" thickness="3px"></ik-loading-indicator>
 </ng-template>

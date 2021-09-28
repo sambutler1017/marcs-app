@@ -2,7 +2,10 @@
 <ik-home-image></ik-home-image>
 <div class="center">
   <div class="row">
-    <div class="col col-sm-6 col-md-6 col-lg-4" *ngFor="let app of apps">
+    <div
+      class="col col-sm-6 col-md-6 col-lg-4 app-icon"
+      *ngFor="let app of apps"
+    >
       <ik-icon-card
         [paragraph]="app.message"
         [appName]="app.title"
