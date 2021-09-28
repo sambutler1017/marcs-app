@@ -3,14 +3,14 @@
   <ik-header title="{{ userData | formatUserName }}" [backEnabled]="true">
     <div class="inline-display header-buttons">
       <button
-        class="btn btn-default btn-size btn-right right-header-button"
+        class="btn btn-default btn-size btn-right h-button"
         (click)="onResetPassword()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
       >
         Reset Password
       </button>
       <button
-        class="btn btn-danger btn-size btn-right left-header-button"
+        class="btn btn-danger btn-size btn-right h-button"
         (click)="deleteModal()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
