@@ -22,4 +22,14 @@
   .centered-text-image {
     display: none;
   }
+
+  .home-margin {
+    margin-top: -10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .home-margin {
+    margin-top: 50px;
+  }
 }

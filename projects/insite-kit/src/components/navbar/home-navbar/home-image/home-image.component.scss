@@ -28,6 +28,17 @@
 
 @media screen and (max-width: 900px) {
   .welcome-img {
+    height: 250px;
+  }
+
+  .centered-text-image {
+    font-size: 55px;
+    transform: translate(-57%, -40%);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .welcome-img {
     display: none;
   }
 }
