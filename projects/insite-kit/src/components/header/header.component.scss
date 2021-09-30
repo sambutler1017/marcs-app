@@ -14,11 +14,11 @@
 
 .back-arrow {
   content: url(../../assets/images/icons/back-arrow-icon.png);
-  width: 34px;
+  width: 30px;
   height: auto;
   display: inline-block;
   transition: transform 0.2s;
-  margin-right: 15px;
+  margin-right: 10px;
   margin-left: 5px;
   cursor: pointer;
 }
@@ -35,11 +35,15 @@
   .back-arrow {
     width: 25px;
   }
+
+  .header-margin {
+    margin-bottom: 15px;
+  }
 }
 
 @media screen and (max-width: 500px) {
   .header-title {
-    font-size: 20px;
+    font-size: 25px;
     padding-top: 10px;
   }
 
