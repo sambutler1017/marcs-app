@@ -5,6 +5,12 @@
       [title]="user.firstName + ' ' + user.lastName"
       [backEnabled]="true"
     >
+      <button
+        class="btn btn-default btn-size btn-right right-header-button"
+        (click)="onResetPassword()"
+      >
+        Reset Password
+      </button>
     </ik-header>
     <div class="detail">
       <div class="leftColumn column-wide">

@@ -41,5 +41,9 @@ export class ProfileComponent implements OnInit {
     ]);
   }
 
-  onSaveClick() {}
+  onResetPassword() {
+    this.router.navigate([
+      `/user/details/${this.jwtService.get('userId')}/reset-password`,
+    ]);
+  }
 }
