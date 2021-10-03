@@ -78,6 +78,10 @@ export class UserFormComponent implements OnInit {
 
   onStoreIdChange() {
     this.form.controls.storeId.valueChanges.subscribe((v) => {
+      if (v.trim() === '') {
+        return;
+      }
+
       const storeSelected = this.stores.find(
         (s) => s.id.toLowerCase() === v.toLowerCase()
       );
