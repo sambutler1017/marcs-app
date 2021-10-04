@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthToken } from '../../models/auth-token.model';
-import { Access, Application, Feature } from '../../models/common.model';
+import { Access, App, Feature } from '../../models/common.model';
 import { JwtService } from '../jwt-service/jwt.service';
 import { RequestService } from '../request-service/request.service';
 
@@ -37,7 +37,7 @@ export class AuthService {
    * @returns boolean
    */
   hasAccess(
-    app: Application | string,
+    app: App | string,
     key: Feature | string,
     level: Access | 'c' | 'r' | 'u' | 'd' = Access.READ
   ): Observable<boolean> {

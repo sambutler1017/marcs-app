@@ -17,3 +17,10 @@ export interface User {
   salt?: number;
   vacations?: Vacation[];
 }
+
+export interface Application {
+  id: number;
+  name: string;
+  access: boolean;
+  enabled: boolean;
+}

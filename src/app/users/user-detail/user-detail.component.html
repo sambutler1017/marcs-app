@@ -93,6 +93,14 @@
         ></ik-icon>
       </ik-card-header>
     </ik-grid>
+    <ik-card [padding]="false">
+      <ik-card-header title="Application Access"></ik-card-header>
+      <div class="app-text">
+        <ul>
+          <li *ngFor="let app of applications">{{ app }}</li>
+        </ul>
+      </div>
+    </ik-card>
   </div>
 </div>
 <ik-modal header="Delete User?" type="danger">

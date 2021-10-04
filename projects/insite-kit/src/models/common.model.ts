@@ -22,7 +22,7 @@ export enum VacationStatus {
   PENDING = 'PENDING',
 }
 
-export enum Application {
+export enum App {
   USER = 'user',
   STORE = 'store',
   calendar = 'calendar',

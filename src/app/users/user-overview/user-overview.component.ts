@@ -4,7 +4,7 @@ import { default as json } from 'projects/insite-kit/src/assets/translations/use
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
-  Application,
+  App,
   Feature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
@@ -34,7 +34,7 @@ export class UserOverviewComponent implements OnInit {
   dataLoader: User[];
 
   Feature = Feature;
-  Application = Application;
+  Application = App;
   Access = Access;
 
   constructor(
