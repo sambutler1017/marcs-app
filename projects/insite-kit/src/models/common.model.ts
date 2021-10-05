@@ -1,19 +1,13 @@
 export enum WebRole {
   USER = 1,
-  MANAGER = 2,
-  DISTRICTMANAGER = 3,
-  REGIONAL = 4,
-  SITEADMIN = 5,
-  ADMIN = 6,
-}
-
-export enum StoreRegion {
-  EAST = 1,
-  WEST = 2,
-  SOUTH = 3,
-  SOUTHCENTRAL = 4,
-  ALL = 5,
-  NONE = 6,
+  CORPORATE_USER = 2,
+  CUSTOMER_SERVICE_MANAGER = 3,
+  ASSISTANT_MANAGER = 4,
+  MANAGER = 5,
+  DISTRICT_MANAGER = 6,
+  REGIONAL = 7,
+  SITE_ADMIN = 8,
+  ADMIN = 9,
 }
 
 export enum VacationStatus {

@@ -31,42 +31,60 @@
           (click)="onUserEditClick()"
         ></ik-icon>
       </ik-card-header>
-      <div class="left-column">
-        <ik-card-info
-          header="Name"
-          text="{{ userData | formatUserName }}"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="userJson.detail.storeId"
-          [text]="userData.storeId ? userData.storeId : '-'"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="userJson.detail.role"
-          [text]="WebRole[WebRole[userData.webRole]]"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="userJson.detail.hireDate"
-          [text]="userData.hireDate | date: 'mediumDate'"
-        >
-        </ik-card-info>
-      </div>
-      <div class="right-column">
-        <ik-card-info
-          [header]="userJson.detail.email"
-          [text]="userData.email ? userData.email : '-'"
-        ></ik-card-info>
-        <ik-card-info
-          [header]="userJson.detail.storeName"
-          [text]="userData.storeName ? userData.storeName : '-'"
-        ></ik-card-info>
-        <ik-card-info
-          [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
-          header="Access"
-          [text]="
-            userData.appAccess ? 'Has Access' : 'Does not have App Access'
-          "
-        ></ik-card-info>
-      </div>
+      <ng-container>
+        <div class="left-column">
+          <ik-card-info
+            header="Name"
+            text="{{ userData | formatUserName }}"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [header]="userJson.detail.email"
+            [text]="userData.email ? userData.email : '-'"
+          ></ik-card-info>
+        </div>
+      </ng-container>
+      <ng-container>
+        <div class="left-column">
+          <ik-card-info
+            [header]="userJson.detail.storeId"
+            [text]="userData.storeId ? userData.storeId : '-'"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [header]="userJson.detail.storeName"
+            [text]="userData.storeName ? userData.storeName : '-'"
+          ></ik-card-info>
+        </div>
+      </ng-container>
+      <ng-container>
+        <div class="left-column">
+          <ik-card-info
+            [header]="userJson.detail.role"
+            [text]="userData.webRole | webRoleTranslate"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
+            header="Access"
+            [text]="
+              userData.appAccess ? 'Has Access' : 'Does not have App Access'
+            "
+          ></ik-card-info>
+        </div>
+      </ng-container>
+      <ng-container>
+        <div class="left-column float-none">
+          <ik-card-info
+            [header]="userJson.detail.hireDate"
+            [text]="userData.hireDate | date: 'mediumDate'"
+          >
+          </ik-card-info>
+        </div>
+      </ng-container>
     </ik-card>
   </div>
   <div class="rightColumn column-half">

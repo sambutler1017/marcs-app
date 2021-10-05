@@ -39,6 +39,16 @@
     },
     "title": "Vacations"
   },
-  "moveUser": "Move User",
-  "userTitle": "Users"
+  "userTitle": "Users",
+  "webRoles": {
+    "USER": "User",
+    "CORPORATE_USER": "Corporate User",
+    "CUSTOMER_SERVICE_MANAGER": "Customer Service Manager",
+    "ASSISTANT_MANAGER": "Assistant Manager",
+    "MANAGER": "Manager",
+    "DISTRICT_MANAGER": "District Manager",
+    "REGIONAL": "Regional",
+    "SITE_ADMIN": "Site Admin",
+    "ADMIN": "Admin"
+  }
 }

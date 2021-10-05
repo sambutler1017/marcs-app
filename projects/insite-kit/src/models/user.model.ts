@@ -1,4 +1,4 @@
-import { StoreRegion, WebRole } from './common.model';
+import { WebRole } from './common.model';
 import { Vacation } from './vacation.model';
 
 export interface User {
@@ -7,7 +7,6 @@ export interface User {
   lastName?: string;
   email?: string;
   webRole?: WebRole | any;
-  storeRegion?: StoreRegion;
   appAccess?: boolean;
   password?: string;
   storeId?: string;

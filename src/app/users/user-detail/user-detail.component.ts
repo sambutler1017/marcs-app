@@ -10,7 +10,7 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
-import { User, Application } from 'projects/insite-kit/src/models/user.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
