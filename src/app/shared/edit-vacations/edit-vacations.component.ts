@@ -67,10 +67,12 @@ export class EditVacationsComponent implements OnInit, OnDestroy {
           this.toastService.success('User Vacations Successfully Updated!');
           this.onCancelClick();
         },
-        () =>
+        () => {
           this.toastService.error(
             'Could not update vacations! Try again later.'
-          )
+          );
+          this.loading = false;
+        }
       );
   }
 }
