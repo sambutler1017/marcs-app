@@ -22,7 +22,9 @@
 
     <ik-card-info header="Web Role">
       <select class="search" formControlName="webRole">
-        <option *ngFor="let role of roles" [ngValue]="role">{{ role }}</option>
+        <option *ngFor="let role of roles" [ngValue]="role">{{
+          role | webRoleTranslate
+        }}</option>
       </select>
     </ik-card-info>
 

@@ -16,6 +16,7 @@ import { HomeImageComponent } from './components/navbar/home-navbar/home-image/h
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
+import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { UsernamePipe } from './service/pipe/format-user-name.pipe';
     IconComponent,
     UsernamePipe,
     ModalComponent,
+    WebRoleTranslationPipe,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -51,6 +53,7 @@ import { UsernamePipe } from './service/pipe/format-user-name.pipe';
     IconComponent,
     UsernamePipe,
     ModalComponent,
+    WebRoleTranslationPipe,
   ],
   entryComponents: [ModalComponent],
 })

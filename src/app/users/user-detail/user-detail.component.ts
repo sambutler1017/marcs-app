@@ -5,10 +5,11 @@ import { default as json } from 'projects/insite-kit/src/assets/translations/use
 import { ModalService } from 'projects/insite-kit/src/components/modal/modal.service';
 import {
   Access,
-  Application,
+  App,
   Feature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
+import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
@@ -24,6 +25,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 export class UserDetailComponent implements OnInit, OnDestroy {
   userData: User;
   vacationData: Vacation[];
+  applications: string[] = [];
   userJson = json;
   vacationEditRoute: string;
   loading = true;
@@ -33,7 +35,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   WebRole = WebRole;
   Feature = Feature;
-  Application = Application;
+  Application = App;
   Access = Access;
   destroy = new Subject();
 
@@ -52,10 +54,15 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         switchMap((res) => this.userService.getUserById(res.id)),
         tap((res) => (this.userData = res)),
         switchMap((res) => this.vacationService.getVacationsByUserId(res.id)),
+        tap((res) => (this.vacationData = res)),
+        switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
-        this.vacationData = res;
+        const translations = Object.values(appJson)[0];
+        res
+          .filter((v) => v.access)
+          .forEach((v) => this.applications.push(translations[v.name]));
         this.loading = false;
       });
   }

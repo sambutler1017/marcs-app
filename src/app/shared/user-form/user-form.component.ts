@@ -22,6 +22,11 @@ export class UserFormComponent implements OnInit {
   roles: string[];
   form: FormGroup;
   storesLoading = true;
+  validManagers: any = [
+    WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
+    WebRole[WebRole.ASSISTANT_MANAGER],
+    WebRole[WebRole.MANAGER],
+  ];
 
   stores: Store[];
   WebRole = WebRole;
@@ -92,16 +97,15 @@ export class UserFormComponent implements OnInit {
   }
 
   onWebRoleChange() {
-    this.setStoreStatus(
-      WebRole[WebRole[this.form.value.webRole]] === WebRole[WebRole.MANAGER]
-    );
+    this.setStoreStatus(WebRole[WebRole[this.form.value.webRole]]);
+
     this.form.controls.webRole.valueChanges.subscribe((v) =>
-      this.setStoreStatus(WebRole[WebRole[v]] === WebRole[WebRole.MANAGER])
+      this.setStoreStatus(WebRole[WebRole[v]])
     );
   }
 
-  setStoreStatus(isManager: boolean) {
-    if (isManager) {
+  setStoreStatus(role: WebRole) {
+    if (this.isManager(role)) {
       this.form.controls.storeId.enable({ emitEvent: false });
       this.form.controls.storeName.enable({ emitEvent: false });
     } else {
@@ -144,5 +148,9 @@ export class UserFormComponent implements OnInit {
           (typeof value === 'string' && WebRole[value] < userRole) ||
           this.disableRoleUpdate
       ) as string[];
+  }
+
+  isManager(value: WebRole) {
+    return this.validManagers.includes(value);
   }
 }

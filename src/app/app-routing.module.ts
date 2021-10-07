@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
+import { ApplicationInitStatus, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from 'projects/insite-kit/src/components/login/login.component';
 import {
   Access,
-  Application,
+  App,
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
@@ -47,7 +47,7 @@ const routes: Routes = [
         component: EditUserComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [Application.USER, Feature.USER_DETAIL, Access.UPDATE],
+          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
       },
       {
@@ -55,7 +55,7 @@ const routes: Routes = [
         component: ResetPasswordComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [Application.USER, Feature.USER_DETAIL, Access.UPDATE],
+          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
       },
       { path: 'details/:id/edit/vacations', component: EditVacationsComponent },

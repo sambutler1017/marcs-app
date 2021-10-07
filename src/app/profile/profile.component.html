@@ -32,7 +32,7 @@
             ></ik-card-info>
             <ik-card-info
               header="Web Role"
-              [text]="webRole[webRole[user.webRole]]"
+              [text]="user.webRole | webRoleTranslate"
             ></ik-card-info>
           </div>
         </ik-card>

@@ -11,8 +11,19 @@
   cursor: pointer;
 }
 
+.app-text {
+  padding: 12px 5px;
+  font-size: 20px;
+}
+
 a:link {
   text-decoration: none;
+}
+
+ul {
+  columns: 2;
+  -webkit-columns: 2;
+  -moz-columns: 2;
 }
 
 @media screen and (max-width: 500px) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User } from 'projects/insite-kit/src/models/user.model';
+import { User, Application } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
@@ -32,6 +32,18 @@ export class UserService {
    */
   getUserById(id: number): Observable<User> {
     return this.request.get<User>(`${this.BASE_USER_PATH}/${id.toString()}`);
+  }
+
+  /**
+   * Gets the users applications that they have access too for the given user id.
+   *
+   * @param id The id of the user to get applications for.
+   * @returns List of Application object
+   */
+  getUserAppsById(id: number): Observable<Application[]> {
+    return this.request.get<Application[]>(
+      `${this.BASE_USER_PATH}/${id}/application-access`
+    );
   }
 
   /**
