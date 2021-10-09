@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { User, Application } from 'projects/insite-kit/src/models/user.model';
+import { Application, User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserService {
-  readonly BASE_USER_PATH = 'api/user-app/users';
+  readonly BASE_USER_PATH = 'api/user-app/user-profile';
   constructor(
     private readonly request: RequestService,
     private readonly jwt: JwtService

@@ -87,6 +87,7 @@ export class UserOverviewComponent implements OnInit {
         (value) => typeof value === 'string' && WebRole[value] < currentUserRole
       ) as string[];
 
+    params.set('accountStatus', ['APPROVED']);
     return params.set('webRole', roles);
   }
 
