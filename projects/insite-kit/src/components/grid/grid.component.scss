@@ -24,9 +24,7 @@ input {
   font-weight: 500;
   padding: 15px;
   text-align: left;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  overflow-wrap: break-word;
 }
 
 .column-header {
@@ -144,7 +142,7 @@ table {
 @media screen and (max-width: 570px) {
   .grid-content {
     font-size: 15px;
-    padding: 12px 5px;
+    padding: 12px 5px 12px 12px;
   }
 
   .column-header {
