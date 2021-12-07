@@ -129,13 +129,13 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
     const currentYear = new Date().getFullYear();
     let hourCount: any = {};
 
-    hourCount[(currentYear - 1).toString()] = new Array(12)
+    hourCount[(currentYear - 1).toString()] = new Array(13)
       .fill(0)
       .map(() => new Array(31).fill(0));
-    hourCount[currentYear.toString()] = new Array(12)
+    hourCount[currentYear.toString()] = new Array(13)
       .fill(0)
       .map(() => new Array(31).fill(0));
-    hourCount[(currentYear + 1).toString()] = new Array(12)
+    hourCount[(currentYear + 1).toString()] = new Array(13)
       .fill(0)
       .map(() => new Array(31).fill(0));
 
