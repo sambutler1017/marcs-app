@@ -2,7 +2,7 @@
 <app-vacation-form
   *ngIf="updatingVacations && !loading; else loader"
   [vacationData]="updatingVacations"
-  rightActionButton="Update User"
+  rightActionButton="Update Vacations"
   [loading]="loading"
   leftActionButton="Cancel"
   (cancel)="onCancelClick()"
