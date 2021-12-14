@@ -2,53 +2,49 @@
   <form [formGroup]="form">
     <ik-card [padding]="false">
       <div class="form-padding">
-        <div class="row">
-          <div class="col-xs-6 col-sm-6">
-            <div class="label-header">Start Date</div>
+        <div class="col-xs-6 col-sm-6 vaction-input-padding">
+          <div class="label-header">Start Date</div>
+          <ik-card-info [padding]="false">
+            <input
+              type="date"
+              class="search inline-block"
+              placeholder="Start Date"
+              formControlName="startDate1"
+            />
+          </ik-card-info>
+        </div>
+        <div class="col-xs-6 col-sm-6 vaction-input-padding">
+          <div class="label-header">End Date</div>
+          <ik-card-info [padding]="false">
+            <input
+              type="date"
+              class="search inline-block"
+              placeholder="End Date"
+              formControlName="endDate1"
+            />
+          </ik-card-info>
+        </div>
+
+        <ng-container *ngFor="let in of [2, 3, 4, 5]">
+          <div class="col-xs-6 col-sm-6 vaction-input-padding">
             <ik-card-info [padding]="false">
               <input
                 type="date"
                 class="search inline-block"
                 placeholder="Start Date"
-                formControlName="startDate1"
+                [formControlName]="'startDate' + in"
               />
             </ik-card-info>
           </div>
-          <div class="col-xs-6 col-sm-6">
-            <div class="label-header">End Date</div>
+          <div class="col-xs-6 col-sm-6 vaction-input-padding">
             <ik-card-info [padding]="false">
               <input
                 type="date"
                 class="search inline-block"
                 placeholder="End Date"
-                formControlName="endDate1"
+                [formControlName]="'endDate' + in"
               />
             </ik-card-info>
-          </div>
-        </div>
-
-        <ng-container *ngFor="let in of [2, 3, 4, 5]">
-          <div class="row">
-            <div class="col-xs-6 col-sm-6">
-              <ik-card-info [padding]="false">
-                <input
-                  type="date"
-                  class="search inline-block"
-                  placeholder="Start Date"
-                  [formControlName]="'startDate' + in"
-                />
-              </ik-card-info>
-            </div>
-            <div class="col-xs-6 col-sm-6">
-              <ik-card-info [padding]="false">
-                <input
-                  type="date"
-                  class="search inline-block"
-                  placeholder="End Date"
-                  [formControlName]="'endDate' + in"
-                />
-              </ik-card-info>
-            </div>
           </div>
         </ng-container>
       </div>
