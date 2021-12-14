@@ -2,7 +2,7 @@
   <form [formGroup]="form">
     <ik-card [padding]="false">
       <div class="form-padding">
-        <div class="vacation-row-padding">
+        <div>
           <div class="col-xs-6 col-sm-6 vaction-input-padding">
             <div class="label-header">Start Date</div>
           </div>
@@ -12,7 +12,7 @@
         </div>
 
         <ng-container *ngFor="let in of [1, 2, 3, 4, 5]">
-          <div class="vacation-row-padding">
+          <div>
             <div
               class="col-xs-6 col-sm-6"
               [ngClass]="
