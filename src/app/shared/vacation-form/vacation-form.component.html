@@ -5,49 +5,43 @@
         <div class="vacation-row-padding">
           <div class="col-xs-6 col-sm-6 vaction-input-padding">
             <div class="label-header">Start Date</div>
-            <ik-card-info [padding]="false">
+          </div>
+          <div class="col-xs-6 col-sm-6 vaction-input-padding">
+            <div class="label-header">End Date</div>
+          </div>
+        </div>
+
+        <ng-container *ngFor="let in of [1, 2, 3, 4, 5]">
+          <div class="vacation-row-padding">
+            <div
+              class="col-xs-6 col-sm-6"
+              [ngClass]="
+                in === 1
+                  ? 'vaction-input-padding-first'
+                  : 'vaction-input-padding-other'
+              "
+            >
               <input
                 type="date"
                 class="search inline-block"
                 placeholder="Start Date"
-                formControlName="startDate1"
+                [formControlName]="'startDate' + in"
               />
-            </ik-card-info>
-          </div>
-          <div class="col-xs-6 col-sm-6 vaction-input-padding">
-            <div class="label-header">End Date</div>
-            <ik-card-info [padding]="false">
+            </div>
+            <div
+              class="col-xs-6 col-sm-6"
+              [ngClass]="
+                in === 1
+                  ? 'vaction-input-padding-first'
+                  : 'vaction-input-padding-other'
+              "
+            >
               <input
                 type="date"
                 class="search inline-block"
                 placeholder="End Date"
-                formControlName="endDate1"
+                [formControlName]="'endDate' + in"
               />
-            </ik-card-info>
-          </div>
-        </div>
-
-        <ng-container *ngFor="let in of [2, 3, 4, 5]">
-          <div class="vacation-row-padding">
-            <div class="col-xs-6 col-sm-6 vaction-input-padding">
-              <ik-card-info [padding]="false">
-                <input
-                  type="date"
-                  class="search inline-block"
-                  placeholder="Start Date"
-                  [formControlName]="'startDate' + in"
-                />
-              </ik-card-info>
-            </div>
-            <div class="col-xs-6 col-sm-6 vaction-input-padding">
-              <ik-card-info [padding]="false">
-                <input
-                  type="date"
-                  class="search inline-block"
-                  placeholder="End Date"
-                  [formControlName]="'endDate' + in"
-                />
-              </ik-card-info>
             </div>
           </div>
         </ng-container>
