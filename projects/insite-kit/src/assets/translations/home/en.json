@@ -7,7 +7,7 @@
       "page": "user"
     },
     "store": {
-      "title": "Store's",
+      "title": "Stores",
       "message": "Regional's stores they oversee, containing the store manager and manager count.",
       "icon": "store",
       "page": "store"
