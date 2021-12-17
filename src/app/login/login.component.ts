@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { AuthService } from '../../service/auth-service/auth.service';
+import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 
 @Component({
   selector: 'ik-login',

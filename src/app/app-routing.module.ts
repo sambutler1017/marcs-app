@@ -1,6 +1,5 @@
-import { ApplicationInitStatus, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from 'projects/insite-kit/src/components/login/login.component';
 import {
   Access,
   App,
@@ -11,6 +10,7 @@ import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/au
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { AddUserComponent } from './shared/add-user/add-user.component';
