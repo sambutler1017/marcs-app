@@ -5,6 +5,7 @@
   margin: 8em auto;
   display: flex;
 }
+
 .company__info {
   background-color: #1e90ff;
   border-top-left-radius: 20px;
@@ -56,6 +57,7 @@
 .row > h2 {
   color: #1e90ff;
 }
+
 .login_form {
   background-color: #fff;
   border-top-right-radius: 20px;
@@ -63,9 +65,11 @@
   border-top: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
+
 form {
   padding: 0 2em;
 }
+
 .form__input {
   width: 100%;
   border: 0px solid transparent;
@@ -77,11 +81,13 @@ form {
   margin: 1.5em auto;
   transition: all 0.5s ease;
 }
+
 .form__input:focus {
   border-bottom-color: #1e90ff;
   box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
   border-radius: 4px;
 }
+
 .btn {
   transition: all 0.5s ease;
   width: 70%;

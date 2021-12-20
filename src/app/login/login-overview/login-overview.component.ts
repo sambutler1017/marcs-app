@@ -4,7 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 
 @Component({
-  selector: 'ik-login-overview',
+  selector: 'app-login-overview',
   templateUrl: './login-overview.component.html',
   styleUrls: ['./login-overview.component.scss'],
 })
