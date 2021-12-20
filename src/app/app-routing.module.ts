@@ -10,6 +10,9 @@ import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/au
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
+import { CreateAccountComponent } from './login/create-account/create-account.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
@@ -29,7 +32,17 @@ import { UserComponent } from './users/user.component';
  */
 const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: LoginOverviewComponent },
+      { path: 'create-account', component: CreateAccountComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+    ],
+  },
   {
     path: 'user',
     component: UserComponent,

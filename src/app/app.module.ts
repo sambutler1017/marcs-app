@@ -10,6 +10,9 @@ import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar
 import { CalendarComponent } from './calendar/calendar.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
+import { CreateAccountComponent } from './login/create-account/create-account.component';
+import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
+import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -26,6 +29,9 @@ import { UserModule } from './users/user.module';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    LoginOverviewComponent,
+    ForgotPasswordComponent,
+    CreateAccountComponent,
     StoresComponent,
     CalendarComponent,
     BlockDatesComponent,
