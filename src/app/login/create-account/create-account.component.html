@@ -7,7 +7,7 @@
   </div>
   <ik-card [marginBottom]="false">
     <div class="row">
-      <h2 class="company-title large login-label">Sign Up</h2>
+      <h2 class="company-title large">Sign Up</h2>
     </div>
     <div class="row">
       <form [formGroup]="form" class="form-group">
@@ -68,17 +68,12 @@
         </div>
         <div class="row">
           <input
-            *ngIf="!loading"
+            *ngIf="!loading; else saveLoading"
             (click)="onCreateAccount()"
             value="Create Account"
             class="btn"
             [disabled]="form.invalid"
           />
-          <ik-loading-indicator
-            *ngIf="loading"
-            size="30px"
-            thickness="5px"
-          ></ik-loading-indicator>
         </div>
       </form>
     </div>
@@ -93,4 +88,8 @@
 
 <ng-template #loadingIcon>
   <ik-loading-indicator size="40px" thickness="3px"></ik-loading-indicator>
+</ng-template>
+
+<ng-template #saveLoading>
+  <ik-loading-indicator size="30px" thickness="5px"></ik-loading-indicator>
 </ng-template>

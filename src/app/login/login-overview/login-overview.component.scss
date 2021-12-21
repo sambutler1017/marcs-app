@@ -17,7 +17,8 @@
 }
 
 .company-title {
-  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
 
   &.medium {
     font-size: 18px;
@@ -70,13 +71,16 @@ form {
   padding: 0 2em;
 }
 
+input {
+  padding: 0.75em 0.75em 0.75em 2em;
+}
+
 .form__input {
   width: 100%;
+  box-shadow: 1px 1px 4px #888888;
   border: 0px solid transparent;
   border-radius: 10px;
   border-bottom: 1px solid #aaa;
-  padding: 1em 0.5em 0.5em;
-  padding-left: 2em;
   outline: none;
   margin: 1.5em auto;
   transition: all 0.5s ease;

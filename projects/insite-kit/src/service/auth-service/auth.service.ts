@@ -21,19 +21,14 @@ export class AuthService {
    */
   authenticate(email: string, password: string): Observable<AuthToken> {
     return this.request
-      .post<AuthToken>('authenticate', {
-        email,
-        password,
-      })
+      .post<AuthToken>('authenticate', { email, password })
       .pipe(tap((u) => this.jwt.setToken(`Bearer: ${(u as any).token}`)));
   }
 
   /**
-   * Authenticate a user and get a token for the user
+   * Re-Authenticates a user. Only works if they have an existing token.
    *
-   * @param username of the user
-   * @param password associated to the user
-   * @returns
+   * @returns The new Auth Token object
    */
   reauthenticate(): Observable<AuthToken> {
     return this.request

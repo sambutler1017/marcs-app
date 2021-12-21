@@ -74,7 +74,9 @@ export class UserService {
    * @returns Boolean of the status of the email.
    */
   doesEmailExist(email: string): Observable<boolean> {
-    return this.request.get<boolean>(`${this.BASE_USER_PATH}/check-email`);
+    return this.request.get<boolean>(
+      `${this.BASE_USER_PATH}/check-email?email=${email}`
+    );
   }
 
   /**
