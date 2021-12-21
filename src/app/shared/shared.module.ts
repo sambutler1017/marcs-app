@@ -12,6 +12,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { EditVacationsComponent } from './edit-vacations/edit-vacations.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationFormComponent } from './vacation-form/vacation-form.component';
 
@@ -23,6 +24,7 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     EditVacationsComponent,
     EditUserComponent,
     ResetPasswordComponent,
+    UpdatePasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,6 +53,7 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     EditUserComponent,
     EditVacationsComponent,
     ResetPasswordComponent,
+    UpdatePasswordComponent,
   ],
   providers: [
     {

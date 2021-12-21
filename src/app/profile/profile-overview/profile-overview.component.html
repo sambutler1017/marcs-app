@@ -1,0 +1,53 @@
+<div *ngIf="user; else loadingIcon">
+  <ik-header
+    [title]="user.firstName + ' ' + user.lastName"
+    [backEnabled]="true"
+  >
+    <button
+      class="btn btn-default btn-size btn-right right-header-button"
+      (click)="onResetPassword()"
+    >
+      Update Password
+    </button>
+  </ik-header>
+  <div class="detail">
+    <div class="leftColumn column-wide">
+      <ik-card [padding]="false">
+        <ik-card-header title="Personal Info">
+          <ik-icon icon="edit" (click)="onEditProfile()"></ik-icon>
+        </ik-card-header>
+        <div class="left-column">
+          <ik-card-info
+            header="First Name"
+            [text]="user.firstName"
+          ></ik-card-info>
+          <ik-card-info header="Email" [text]="user.email"></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            header="Last Name"
+            [text]="user.lastName"
+          ></ik-card-info>
+          <ik-card-info
+            header="Web Role"
+            [text]="user.webRole | webRoleTranslate"
+          ></ik-card-info>
+        </div>
+      </ik-card>
+    </div>
+    <div class="rightColumn column-narrow">
+      <ik-card [padding]="false">
+        <ik-card-header title="Application Access"></ik-card-header>
+        <div class="app-text">
+          <ul>
+            <li *ngFor="let app of applications">{{ app }}</li>
+          </ul>
+        </div>
+      </ik-card>
+    </div>
+  </div>
+</div>
+
+<ng-template #loadingIcon>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

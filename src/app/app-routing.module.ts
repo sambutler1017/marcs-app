@@ -14,12 +14,15 @@ import { CreateAccountComponent } from './login/create-account/create-account.co
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
+import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
@@ -93,6 +96,12 @@ const routes: Routes = [
     path: 'profile',
     component: ProfileComponent,
     canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: ProfileOverviewComponent },
+      { path: 'edit', component: ProfileEditComponent },
+      { path: 'update-password', component: UpdatePasswordComponent },
+    ],
   },
   {
     path: 'calendar',

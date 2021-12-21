@@ -1,0 +1,15 @@
+<ik-header title="Edit User" [backEnabled]="true"></ik-header>
+<app-user-form
+  *ngIf="userUpdating && !loading; else loader"
+  [userData]="userUpdating"
+  rightActionButton="Update User"
+  leftActionButton="Cancel"
+  [disableRoleUpdate]="true"
+  (cancel)="onCancelClick()"
+  (save)="onSaveClick($event)"
+>
+</app-user-form>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

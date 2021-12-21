@@ -29,6 +29,19 @@ export class AuthService {
   }
 
   /**
+   * Authenticate a user and get a token for the user
+   *
+   * @param username of the user
+   * @param password associated to the user
+   * @returns
+   */
+  reauthenticate(): Observable<AuthToken> {
+    return this.request
+      .post<AuthToken>('reauthenticate')
+      .pipe(tap((u) => this.jwt.setToken(`Bearer: ${(u as any).token}`)));
+  }
+
+  /**
    * Determines if a user has access to a given feature for the given level
    *
    * @param app to check feature on

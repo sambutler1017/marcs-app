@@ -8,11 +8,11 @@ import { map, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss'],
+  selector: 'app-update-password',
+  templateUrl: './update-password.component.html',
+  styleUrls: ['./update-password.component.scss'],
 })
-export class ResetPasswordComponent implements OnInit, OnDestroy {
+export class UpdatePasswordComponent implements OnInit, OnDestroy {
   loading = true;
 
   form: FormGroup;
@@ -35,7 +35,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         tap((id) => (this.userId = id)),
         takeUntil(this.destroy)
       )
-      .subscribe((user) => this.buildForm());
+      .subscribe(() => this.buildForm());
   }
 
   ngOnDestroy() {
@@ -44,8 +44,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   buildForm() {
     this.form = this.fb.group({
-      password: ['', Validators.required],
-      confirmPassword: ['', Validators.required],
+      currentPassword: ['', Validators.required],
+      newPassword: ['', Validators.required],
+      confirmNewPassword: ['', Validators.required],
     });
     this.loading = false;
   }
@@ -62,8 +63,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const passUpdate = { newPassword: this.form.value.password };
-    this.userService.updateUserPasswordById(this.userId, passUpdate).subscribe(
+    const passUpdate = {
+      newPassword: this.form.value.newPassword,
+      currentPassword: this.form.value.currentPassword,
+    };
+    this.userService.updateUserPassword(passUpdate).subscribe(
       (res) => {
         this.toastService.success('User password successfully reset!');
         this.location.back();
@@ -76,12 +80,17 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   validPassword() {
+    if (this.form.value.currentPassword.toString().trim().length <= 0) {
+      this.toastService.error('Current Password is a required field!');
+      return false;
+    }
+
     if (!this.passwordsMatch()) {
       this.toastService.error('Passwords do not match!');
       return false;
     }
 
-    if (this.form.value.password.toString().length < 8) {
+    if (this.form.value.newPassword.toString().length < 8) {
       this.toastService.error(
         'Password needs to have a length of at least 8 characters.'
       );
@@ -91,10 +100,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   passwordsMatch(): boolean {
-    if (this.form.value.password === this.form.value.confirmPassword) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.form.value.newPassword === this.form.value.confirmNewPassword;
   }
 }

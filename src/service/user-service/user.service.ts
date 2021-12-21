@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { PasswordUpdate } from 'projects/insite-kit/src/models/password-update.model';
 import { Application, User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
@@ -25,6 +26,15 @@ export class UserService {
   }
 
   /**
+   * This will get the user object of the current user that is logged in.
+   *
+   * @returns User object of the current user.
+   */
+  getCurrentUser(): Observable<User> {
+    return this.request.get<User>(`${this.BASE_USER_PATH}/current-user`);
+  }
+
+  /**
    * Get a user for a given user id
    *
    * @param params user id for the user to get
@@ -47,17 +57,24 @@ export class UserService {
   }
 
   /**
-   * Update the given user data for the given user id
+   * This will get the User object of the regional that is in charge of that store.
    *
-   * @param id of the user to update.
-   * @param user The user object to update
-   * @returns User object
+   * @param storeId The store id to get the regional for.
+   * @returns User object of the regional.
    */
-  updateUserById(id: number, user: User): Observable<User> {
-    return this.request.put<User>(
-      `${this.BASE_USER_PATH}/${id.toString()}`,
-      user
-    );
+  getRegionalOfStoreById(storeId: string): Observable<User> {
+    return this.request.get<User>(`${this.BASE_USER_PATH}/regional/${storeId}`);
+  }
+
+  /**
+   * This will check to see if the email exists already. Used to see if a user can create
+   * an account with the email they have chosen.
+   *
+   * @param email The email to check.
+   * @returns Boolean of the status of the email.
+   */
+  doesEmailExist(email: string): Observable<boolean> {
+    return this.request.get<boolean>(`${this.BASE_USER_PATH}/check-email`);
   }
 
   /**
@@ -66,7 +83,7 @@ export class UserService {
    * @param user The user to be created.
    * @returns The user that was created.
    */
-  createUser(user: User) {
+  createUser(user: User): Observable<User> {
     return this.request.post<User>(this.BASE_USER_PATH, user);
   }
 
@@ -76,8 +93,91 @@ export class UserService {
    * @param user The user to be created.
    * @returns The user that was created.
    */
-  addUser(user: User) {
+  addUser(user: User): Observable<User> {
     return this.request.post<User>(`${this.BASE_USER_PATH}/add-user`, user);
+  }
+
+  /**
+   * This will send a forgot password link to the user for the given email so that
+   * they can reset their password.
+   *
+   * @param email The email that needs to have the password reset
+   * @returns User object of the user that is being reset, if exists.
+   */
+  forgotPassword(email: string): Observable<User> {
+    return this.request.post<User>(
+      `${this.BASE_USER_PATH}/forgot-password`,
+      email
+    );
+  }
+
+  /**
+   * This will update the current user information for the given user object.
+   *
+   * @param user The user information that needs updated.
+   * @returns User object with the updated user object.
+   */
+  updateUserProfile(user: User): Observable<User> {
+    return this.request.put<User>(`${this.BASE_USER_PATH}`, user);
+  }
+
+  /**
+   * Update the given user data for the given user id
+   *
+   * @param id of the user to update.
+   * @param user The user object to update
+   * @returns User object
+   */
+  updateUserProfileById(id: number, user: User): Observable<User> {
+    return this.request.put<User>(
+      `${this.BASE_USER_PATH}/${id.toString()}`,
+      user
+    );
+  }
+
+  /**
+   * This will update the current users password for the given password update
+   * object
+   *
+   * @param passUpdate The object that contains the current password and new password.
+   * @returns The user object of the user that was updated.
+   */
+  updateUserPassword(passUpdate: PasswordUpdate): Observable<User> {
+    return this.request.put<User>(
+      `${this.BASE_USER_PATH}/password`,
+      passUpdate
+    );
+  }
+
+  /**
+   * This will update the users password for the given password update
+   * object and user id.
+   *
+   * @param userId The user that needs updated.
+   * @param passUpdate The object that contains the current password and new password.
+   * @returns The user object of the user that was updated.
+   */
+  updateUserPasswordById(
+    userId: number,
+    passUpdate: PasswordUpdate
+  ): Observable<User> {
+    return this.request.put<User>(
+      `${this.BASE_USER_PATH}/password${userId.toString()}`,
+      passUpdate
+    );
+  }
+
+  /**
+   * This will reset the users password for the given password update object
+   *
+   * @param passUpdate The password update object the password needs to be.
+   * @returns User Object of the user that was updated.
+   */
+  resetUserPassword(passUpdate: PasswordUpdate): Observable<User> {
+    return this.request.put<User>(
+      `${this.BASE_USER_PATH}/password/reset`,
+      passUpdate
+    );
   }
 
   /**
