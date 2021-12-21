@@ -91,10 +91,6 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   }
 
   passwordsMatch(): boolean {
-    if (this.form.value.password === this.form.value.confirmPassword) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.form.value.password === this.form.value.confirmPassword;
   }
 }

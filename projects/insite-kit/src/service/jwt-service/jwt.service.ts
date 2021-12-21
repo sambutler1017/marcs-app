@@ -52,8 +52,9 @@ export class JwtService {
     return jwt_decode(this.getToken());
   }
 
-  get(value: any) {
-    const decoded = jwt_decode(this.getToken());
+  get(value: any, tokenOverride?: string) {
+    const reviewToken = tokenOverride ? tokenOverride : this.getToken();
+    const decoded = jwt_decode(reviewToken);
     return decoded[value];
   }
 

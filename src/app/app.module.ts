@@ -11,6 +11,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
 import { CreateAccountComponent } from './login/create-account/create-account.component';
+import { ForgotPasswordResetComponent } from './login/forgot-password-reset/forgot-password-reset.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
@@ -34,6 +35,7 @@ import { UserModule } from './users/user.module';
     LoginOverviewComponent,
     ForgotPasswordComponent,
     CreateAccountComponent,
+    ForgotPasswordResetComponent,
     StoresComponent,
     CalendarComponent,
     BlockDatesComponent,

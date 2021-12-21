@@ -11,6 +11,7 @@ import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
 import { CreateAccountComponent } from './login/create-account/create-account.component';
+import { ForgotPasswordResetComponent } from './login/forgot-password-reset/forgot-password-reset.component';
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: 'overview', component: LoginOverviewComponent },
       { path: 'create-account', component: CreateAccountComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'reset-password/:id', component: ForgotPasswordResetComponent },
     ],
   },
   {
