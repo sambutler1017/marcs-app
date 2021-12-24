@@ -9,7 +9,6 @@ import { StoreService } from 'src/service/store-service/store-service.service';
 @Component({
   selector: 'app-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss'],
 })
 export class UserFormComponent implements OnInit {
   @Input() userData: User;

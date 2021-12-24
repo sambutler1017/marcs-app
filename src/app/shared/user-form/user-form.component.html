@@ -1,8 +1,8 @@
 <form [formGroup]="form">
-  <ik-card [padding]="false">
+  <ik-card [padding]="false" [marginBottom]="false">
     <ik-card-info header="First Name*"
       ><input
-        class="search"
+        class="form-input__normal"
         placeholder="First Name"
         formControlName="firstName"
       />
@@ -10,18 +10,22 @@
 
     <ik-card-info header="Last Name*"
       ><input
-        class="search"
+        class="form-input__normal"
         placeholder="Last Name"
         formControlName="lastName"
       />
     </ik-card-info>
 
     <ik-card-info header="Email*">
-      <input class="search" placeholder="Email" formControlName="email" />
+      <input
+        class="form-input__normal"
+        placeholder="Email"
+        formControlName="email"
+      />
     </ik-card-info>
 
     <ik-card-info header="Web Role">
-      <select class="search" formControlName="webRole">
+      <select class="form-input__normal" formControlName="webRole">
         <option *ngFor="let role of roles" [ngValue]="role">{{
           role | webRoleTranslate
         }}</option>
@@ -30,7 +34,7 @@
 
     <ik-card-info header="Store ID*">
       <select
-        class="search"
+        class="form-input__normal"
         formControlName="storeId"
         *ngIf="!storesLoading; else loadingIcon"
       >
@@ -43,7 +47,7 @@
 
     <ik-card-info header="Store Name"
       ><input
-        class="search"
+        class="form-input__normal"
         placeholder="Store Name"
         formControlName="storeName"
         readonly
@@ -53,7 +57,7 @@
     <ik-card-info header="Hire Date"
       ><input
         type="date"
-        class="search"
+        class="form-input__normal"
         placeholder="Hire Date"
         formControlName="hireDate"
       />

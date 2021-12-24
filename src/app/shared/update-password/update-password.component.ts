@@ -10,7 +10,6 @@ import { UserService } from 'src/service/user-service/user.service';
 @Component({
   selector: 'app-update-password',
   templateUrl: './update-password.component.html',
-  styleUrls: ['./update-password.component.scss'],
 })
 export class UpdatePasswordComponent implements OnInit, OnDestroy {
   loading = true;

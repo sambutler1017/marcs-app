@@ -11,7 +11,6 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
   selector: 'app-edit-vacations',
   templateUrl: './edit-vacations.component.html',
-  styleUrls: ['./edit-vacations.component.scss'],
 })
 export class EditVacationsComponent implements OnInit, OnDestroy {
   loading: boolean = true;

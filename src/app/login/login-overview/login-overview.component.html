@@ -19,7 +19,7 @@
                 <input
                   type="text"
                   #email
-                  class="form__input margin-top-none"
+                  class="form-input__shadow margin-top-none"
                   placeholder="Email"
                 />
               </div>
@@ -28,7 +28,7 @@
                 <input
                   type="password"
                   #password
-                  class="form__input margin-top-none"
+                  class="form-input__shadow margin-top-none"
                   placeholder="Password"
                 />
               </div>
@@ -37,21 +37,21 @@
                   >Forgot Password?</a
                 >
               </div>
-              <div class="row">
-                <input
-                  *ngIf="!loading; else loadingIcon"
+              <div class="row" *ngIf="!loading; else loadingIcon">
+                <button
+                  class="btn btn-round__swap btn-primary width-half"
                   (click)="login()"
-                  value="Login"
-                  class="btn"
-                />
+                >
+                  Login
+                </button>
+              </div>
+              <div class="row">
+                <p>
+                  Don't have an account?
+                  <a routerLink="/login/create-account">Register Here</a>
+                </p>
               </div>
             </form>
-          </div>
-          <div class="row">
-            <p>
-              Don't have an account?
-              <a routerLink="/login/create-account">Register Here</a>
-            </p>
           </div>
         </div>
       </div>

@@ -17,7 +17,7 @@
             <input
               type="text"
               formControlName="firstName"
-              class="form__input margin-top-none"
+              class="form-input__shadow margin-top-none"
               placeholder="First Name"
             />
           </div>
@@ -26,7 +26,7 @@
             <input
               type="text"
               formControlName="lastName"
-              class="form__input margin-top-none"
+              class="form-input__shadow margin-top-none"
               placeholder="Last Name"
             />
           </div>
@@ -37,7 +37,7 @@
             <input
               type="text"
               formControlName="email"
-              class="form__input margin-top-none"
+              class="form-input__shadow margin-top-none"
               placeholder="Email"
             />
           </div>
@@ -46,7 +46,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label class="left">Store ID Location</label>
             <select
-              class="form__input margin-top-none"
+              class="form-input__shadow margin-top-none"
               formControlName="storeId"
             >
               <option value="" disabled selected hidden>Store ID</option>
@@ -60,28 +60,28 @@
             <input
               type="text"
               formControlName="storeName"
-              class="form__input margin-top-none"
+              class="form-input__shadow margin-top-none"
               placeholder="Store Name"
               readonly
             />
           </div>
         </div>
-        <div class="row">
-          <input
-            *ngIf="!loading; else saveLoading"
+        <div class="row" *ngIf="!loading; else saveLoading">
+          <button
             (click)="onCreateAccount()"
-            value="Create Account"
-            class="btn"
+            class="btn btn-round__swap btn-primary width-half"
             [disabled]="form.invalid"
-          />
+          >
+            Create Account
+          </button>
+        </div>
+        <div class="row">
+          <p>
+            Already have an account?
+            <a routerLink="/login/overview">Sign In</a>
+          </p>
         </div>
       </form>
-    </div>
-    <div class="row">
-      <p>
-        Already have an account?
-        <a routerLink="/login/overview">Sign In</a>
-      </p>
     </div>
   </ik-card>
 </div>

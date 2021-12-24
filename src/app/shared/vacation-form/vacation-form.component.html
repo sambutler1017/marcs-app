@@ -1,6 +1,6 @@
 <ng-container *ngIf="!loading; else loadingIcon">
   <form [formGroup]="form">
-    <ik-card [padding]="false">
+    <ik-card [padding]="false" [marginBottom]="false">
       <div class="form-padding">
         <div>
           <div class="col-xs-6 col-sm-6 vaction-input-padding">
@@ -23,7 +23,7 @@
             >
               <input
                 type="date"
-                class="search inline-block"
+                class="form-input__normal inline-block"
                 placeholder="Start Date"
                 [formControlName]="'startDate' + in"
               />
@@ -38,7 +38,7 @@
             >
               <input
                 type="date"
-                class="search inline-block"
+                class="form-input__normal inline-block"
                 placeholder="End Date"
                 [formControlName]="'endDate' + in"
               />

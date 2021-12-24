@@ -12,7 +12,7 @@
   text-decoration: none;
   user-select: none;
   font-weight: 600;
-  margin: 5px 0;
+  margin: 15px 0;
 
   &,
   &:active,
@@ -47,6 +47,16 @@
 .btn-size {
   padding: 8px 16px;
   font-size: 2.1rem;
+}
+
+.btn-right {
+  float: right;
+  margin: 9px 5px 8px 5px;
+}
+
+.btn-left {
+  float: left;
+  margin: 9px 5px 8px 5px;
 }
 
 @mixin btn-variant(
@@ -114,6 +124,45 @@
   }
 }
 
+@mixin btn-round(
+  $active,
+  $hover,
+  $normal,
+  $active-color,
+  $color,
+  $disabled,
+  $border
+) {
+  border-radius: 30px;
+  color: $color;
+  border-color: $border;
+  background: $normal;
+  box-shadow: none;
+  transition: all 0.5s ease;
+
+  &:hover {
+    border-color: transparent;
+    color: #fff;
+    background: $hover;
+    box-shadow: none;
+  }
+
+  &:active,
+  &.active {
+    border-color: $active;
+    color: $active-color;
+    background: $active;
+    box-shadow: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    background: $disabled;
+    border-color: $disabled;
+  }
+}
+
 .btn-default {
   @include btn-variant(
     #546e7a,
@@ -130,16 +179,6 @@
   }
 }
 
-.btn-right {
-  float: right;
-  margin: 9px 5px 8px 5px;
-}
-
-.btn-left {
-  float: left;
-  margin: 9px 5px 8px 5px;
-}
-
 .btn-primary {
   @include btn-variant(
     #1e88e5,
@@ -153,6 +192,30 @@
 
   &.btn-flat {
     @include btn-flat(#1e88e5, #64b5f6, #42a5f5, #bbdefb, #e3f2fd, #90caf9);
+  }
+
+  &.btn-round {
+    @include btn-round(
+      #1e88e5,
+      #64b5f6,
+      #42a5f5,
+      #bbdefb,
+      #e3f2fd,
+      #90caf9,
+      transparent
+    );
+
+    &__swap {
+      @include btn-round(
+        #ffffff,
+        #1e88e5,
+        #ffffff,
+        #ffffff,
+        #1e88e5,
+        #c9e4fd,
+        #1e88e5
+      );
+    }
   }
 }
 
