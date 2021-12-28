@@ -3,6 +3,7 @@
 <div class="home-margin row">
   <div class="col-12 col-sm-6 col-md-4 app-icon" *ngFor="let app of apps">
     <ik-icon-card
+      *ngIf="app?.title"
       class=""
       [paragraph]="app.message"
       [appName]="app.title"

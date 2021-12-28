@@ -15,10 +15,11 @@ import { ForgotPasswordResetComponent } from './login/forgot-password-reset/forg
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
+import { NotificationOverviewComponent } from './notification/notification-overview/notification-overview.component';
+import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
 import { ProfileComponent } from './profile/profile.component';
-import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
@@ -90,9 +91,20 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'requestTracker',
-    component: RequestTrackerComponent,
+    path: 'notification',
+    component: NotificationComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
+      {
+        path: 'overview',
+        component: NotificationOverviewComponent,
+      },
+    ],
   },
   {
     path: 'profile',

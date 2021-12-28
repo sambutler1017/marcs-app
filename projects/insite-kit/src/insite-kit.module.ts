@@ -12,7 +12,7 @@ import { IconComponent } from './components/icon/icon.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
-import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-navbar.component';
+import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-image.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';

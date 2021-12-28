@@ -16,11 +16,12 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
+import { NotificationOverviewComponent } from './notification/notification-overview/notification-overview.component';
+import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReportsComponent } from './reports/reports.component';
-import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { SharedModule } from './shared/shared.module';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
@@ -41,7 +42,6 @@ import { UserModule } from './users/user.module';
     BlockDatesComponent,
     MapComponent,
     ReportsComponent,
-    RequestTrackerComponent,
     ContactComponent,
     StoresOverviewComponent,
     StoresDetailComponent,
@@ -50,6 +50,8 @@ import { UserModule } from './users/user.module';
     ProfileEditComponent,
     CalendarOverviewComponent,
     CalendarHeaderComponent,
+    NotificationComponent,
+    NotificationOverviewComponent,
   ],
   imports: [
     SharedModule,

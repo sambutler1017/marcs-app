@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { JwtService } from '../../../service/jwt-service/jwt.service';
 
 @Component({
   selector: 'ik-app-navbar',
@@ -9,7 +8,7 @@ import { JwtService } from '../../../service/jwt-service/jwt.service';
 })
 export class AppNavbarComponent {
   @Input() appName: string;
-  constructor(private jwt: JwtService, private router: Router) {}
+  constructor(private router: Router) {}
 
   onProfileClick() {
     this.router.navigate(['/profile']);
@@ -20,6 +19,6 @@ export class AppNavbarComponent {
   }
 
   onBellClick() {
-    this.jwt.logOut();
+    this.router.navigate(['/notification']);
   }
 }

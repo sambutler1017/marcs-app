@@ -24,7 +24,6 @@ export enum App {
   MAP = 'map',
   REPORT = 'report',
   REGIONAL = 'regional',
-  REQUEST_TRACKER = 'requestTracker',
   CONTACT = 'contact',
   GLOBAL = 'global',
 }
