@@ -6,6 +6,7 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
+import { NotificationResolverService } from 'projects/insite-kit/src/service/notification/notification-resolver.service';
 import { UserResolverService } from 'src/service/user-service/user-resolver.service';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
@@ -16,6 +17,7 @@ import { ForgotPasswordResetComponent } from './login/forgot-password-reset/forg
 import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
+import { NotificationDetailComponent } from './notification/notification-detail/notification-detail.component';
 import { NotificationOverviewComponent } from './notification/notification-overview/notification-overview.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
@@ -106,6 +108,11 @@ const routes: Routes = [
       {
         path: 'overview',
         component: NotificationOverviewComponent,
+      },
+      {
+        path: 'details/:id',
+        resolve: { notification: NotificationResolverService },
+        component: NotificationDetailComponent,
       },
     ],
   },

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { StoreService } from 'src/service/store-service/store-service.service';
+import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -30,7 +30,6 @@ export class CreateAccountComponent implements OnInit {
     this.loading = false;
     this.storesLoading = true;
     this.buildForm();
-    console.log(this.form.valid);
 
     this.storeService.getStores().subscribe(
       (res) => {

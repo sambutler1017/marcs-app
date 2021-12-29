@@ -1,0 +1,13 @@
+{
+    "global": {
+        "title": "Users"
+    },
+    "grid": {
+        "columns": {
+            "type": "Notification",
+            "linkId": "Link ID",
+            "insertDate": "Insert Date"
+        },
+        "total": "Notifications"
+    }
+}

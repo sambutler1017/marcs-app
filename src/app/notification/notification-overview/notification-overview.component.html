@@ -1,1 +1,15 @@
-<p>Notifications Page</p>
+<ik-header title="Overview"> </ik-header>
+
+<ik-grid
+  noDataText="No Users"
+  [translationKey]="notificationJson"
+  [dataLoader]="dataLoader"
+  [columns]="columns"
+  [outputEventColumns]="outputEventColumns"
+  [columnsToExclude]="excludedColumns"
+  [padding]="true"
+  [pageSize]="15"
+  [searchEnabled]="true"
+  [pagerEnabled]="true"
+  (gridRowClick)="gridRowClick($event)"
+></ik-grid>

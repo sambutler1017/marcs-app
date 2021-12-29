@@ -16,6 +16,7 @@ import { ForgotPasswordComponent } from './login/forgot-password/forgot-password
 import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
 import { LoginComponent } from './login/login.component';
 import { MapComponent } from './map/map.component';
+import { NotificationDetailComponent } from './notification/notification-detail/notification-detail.component';
 import { NotificationOverviewComponent } from './notification/notification-overview/notification-overview.component';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
@@ -52,6 +53,7 @@ import { UserModule } from './users/user.module';
     CalendarHeaderComponent,
     NotificationComponent,
     NotificationOverviewComponent,
+    NotificationDetailComponent,
   ],
   imports: [
     SharedModule,

@@ -11,7 +11,6 @@ import { UserService } from './user.service';
 export class UserResolverService implements Resolve<any> {
   constructor(private userService: UserService) {}
   resolve(route: ActivatedRouteSnapshot): Observable<User> {
-    console.log('In resolver');
     return this.userService.getUserById(route.params.id).pipe(
       catchError(() => {
         return of(null);

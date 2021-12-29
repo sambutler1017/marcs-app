@@ -5,7 +5,7 @@ import { Store } from 'projects/insite-kit/src/models/store.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { StoreService } from 'src/service/store-service/store-service.service';
+import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({

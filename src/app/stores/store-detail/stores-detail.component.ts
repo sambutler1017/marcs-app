@@ -5,7 +5,7 @@ import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { StoreService } from 'src/service/store-service/store-service.service';
+import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({

@@ -206,7 +206,11 @@ export class GridComponent implements OnChanges {
   }
 
   isDate(value: any) {
-    let dateWrapper = new Date(value);
-    return !isNaN(dateWrapper.getDate());
+    if (typeof value === 'number') {
+      return false;
+    } else {
+      let dateWrapper = new Date(value);
+      return !isNaN(dateWrapper.getDate());
+    }
   }
 }

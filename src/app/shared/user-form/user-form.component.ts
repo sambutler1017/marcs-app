@@ -4,7 +4,7 @@ import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
-import { StoreService } from 'src/service/store-service/store-service.service';
+import { StoreService } from 'src/service/store-service/store.service';
 
 @Component({
   selector: 'app-user-form',
