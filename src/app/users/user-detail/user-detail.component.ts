@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
 import { ModalService } from 'projects/insite-kit/src/components/modal/modal.service';
 import {
@@ -9,7 +10,6 @@ import {
   Feature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
-import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
@@ -48,12 +48,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     public modalService: ModalService
   ) {}
 
-  ngOnInit(): void {
-    this.activeRoute.params
+  ngOnInit() {
+    this.activeRoute.data
       .pipe(
-        switchMap((res) => this.userService.getUserById(res.id)),
-        tap((res) => (this.userData = res)),
-        switchMap((res) => this.vacationService.getVacationsByUserId(res.id)),
+        tap((res) => (this.userData = res.user)),
+        switchMap(() =>
+          this.vacationService.getVacationsByUserId(this.userData.id)
+        ),
         tap((res) => (this.vacationData = res)),
         switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)

@@ -6,6 +6,7 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
+import { UserResolverService } from 'src/service/user-service/user-resolver.service';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
@@ -58,6 +59,7 @@ const routes: Routes = [
       { path: 'overview', component: UserOverviewComponent },
       {
         path: 'details/:id',
+        resolve: { user: UserResolverService },
         component: UserDetailComponent,
       },
       { path: 'add-user', component: AddUserComponent },
@@ -65,6 +67,7 @@ const routes: Routes = [
         path: 'details/:id/edit/info',
         component: EditUserComponent,
         canActivate: [FeatureAccessGuard],
+        resolve: { user: UserResolverService },
         data: {
           feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
