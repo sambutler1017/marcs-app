@@ -48,14 +48,27 @@
 }
 
 .bell {
-  content: url(../../../assets/images/nav-icons/notification-bell.png);
+  position: relative;
+  display: block;
   height: 40px;
   width: 40px;
   float: right;
   margin-top: 19px;
   margin-right: 5px;
+  background: url(../../../assets/images/nav-icons/notification-bell.png);
+  background-size: contain;
   cursor: pointer;
-  transition: transform 0.2s; /* Animation */
+}
+
+.bell-num {
+  position: absolute;
+  right: -3px;
+  top: -5px;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
 }
 
 /**
@@ -84,6 +97,16 @@
     height: 30px !important;
     width: 30px !important;
     margin-top: 27px !important;
+  }
+
+  .bell-num {
+    right: -3px;
+    top: -5px;
+    color: #fff;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    font-size: 12px;
   }
 }
 
@@ -153,6 +176,16 @@
     height: 22px !important;
     width: 22px !important;
     margin-top: 22px !important;
+  }
+
+  .bell-num {
+    right: -3px;
+    top: -5px;
+    color: #fff;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    font-size: 9px;
   }
 
   .app-navbar {

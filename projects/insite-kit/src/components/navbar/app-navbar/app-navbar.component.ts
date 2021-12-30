@@ -1,14 +1,44 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
+import { Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ik-app-navbar',
   templateUrl: './app-navbar.component.html',
   styleUrls: ['./app-navbar.component.scss'],
 })
-export class AppNavbarComponent {
+export class AppNavbarComponent implements OnInit, OnDestroy {
   @Input() appName: string;
-  constructor(private router: Router) {}
+  notificationCount = 0;
+  destroy = new Subject();
+
+  constructor(
+    private readonly router: Router,
+    private readonly notificationService: NotificationService,
+    private readonly jwt: JwtService
+  ) {}
+
+  ngOnInit() {
+    this.getNotifications(this.getParams()).subscribe(
+      (res) => (this.notificationCount = res.length)
+    );
+
+    this.notificationService
+      .notificationChange()
+      .pipe(
+        switchMap(() => this.getNotifications(this.getParams())),
+        takeUntil(this.destroy)
+      )
+      .subscribe((res) => (this.notificationCount = res.length));
+  }
+
+  ngOnDestroy() {
+    this.destroy.next();
+  }
 
   onProfileClick() {
     this.router.navigate(['/profile']);
@@ -20,5 +50,21 @@ export class AppNavbarComponent {
 
   onBellClick() {
     this.router.navigate(['/notification']);
+  }
+
+  getNotifications(params?: Map<string, string[]>) {
+    return this.notificationService.getNotifications(params);
+  }
+
+  getParams() {
+    const currentUserRole = WebRole[this.jwt.get('webRole')];
+
+    if (Number(currentUserRole) >= WebRole.SITE_ADMIN.valueOf()) {
+      return new Map().set('read', false);
+    } else {
+      return new Map()
+        .set('receiverId', this.jwt.get('userId'))
+        .set('read', false);
+    }
   }
 }

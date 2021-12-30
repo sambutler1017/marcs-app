@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -17,6 +18,14 @@ export class CreateAccountComponent implements OnInit {
   stores: Store[];
   storesLoading = true;
   form: FormGroup;
+  roles: string[];
+  validManagers: any = [
+    WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
+    WebRole[WebRole.ASSISTANT_MANAGER],
+    WebRole[WebRole.MANAGER],
+  ];
+
+  WebRole = WebRole;
 
   constructor(
     private readonly storeService: StoreService,
@@ -30,6 +39,7 @@ export class CreateAccountComponent implements OnInit {
     this.loading = false;
     this.storesLoading = true;
     this.buildForm();
+    this.setAllowedRoles();
 
     this.storeService.getStores().subscribe(
       (res) => {
@@ -52,8 +62,12 @@ export class CreateAccountComponent implements OnInit {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
       email: this.form.value.email,
-      storeId: this.form.value.storeId.toUpperCase(),
+      webRole: this.form.value.positionTitle,
     };
+
+    if (this.form.value.storeId) {
+      user.storeId = this.form.value.storeId.toUpperCase();
+    }
 
     this.userService.createUser(user).subscribe((res) => {
       this.loading = false;
@@ -69,11 +83,33 @@ export class CreateAccountComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      storeId: ['', Validators.required],
-      storeName: ['', Validators.required],
+      positionTitle: ['', Validators.required],
+      storeId: '',
+      storeName: '',
     });
 
     this.onStoreIdChange();
+    this.onWebRoleChange();
+  }
+
+  onWebRoleChange() {
+    this.setStoreStatus(WebRole[WebRole[this.form.value.webRole]]);
+
+    this.form.controls.positionTitle.valueChanges.subscribe((v) =>
+      this.setStoreStatus(WebRole[WebRole[v]])
+    );
+  }
+
+  setStoreStatus(role: WebRole) {
+    if (this.isManager(role)) {
+      this.form.controls.storeId.enable({ emitEvent: false });
+      this.form.controls.storeName.enable({ emitEvent: false });
+    } else {
+      this.form.controls.storeId.patchValue('');
+      this.form.controls.storeName.patchValue('');
+      this.form.controls.storeId.disable({ emitEvent: false });
+      this.form.controls.storeName.disable({ emitEvent: false });
+    }
   }
 
   onStoreIdChange() {
@@ -89,5 +125,18 @@ export class CreateAccountComponent implements OnInit {
         storeName: storeSelected.name,
       });
     });
+  }
+
+  isManager(value: WebRole) {
+    return this.validManagers.includes(value);
+  }
+
+  setAllowedRoles() {
+    this.roles = Object.keys(WebRole)
+      .map((key) => WebRole[key])
+      .filter(
+        (value) =>
+          typeof value === 'string' && WebRole[value] < WebRole.SITE_ADMIN
+      ) as string[];
   }
 }

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { Access, App, Feature } from '../../../models/common.model';
+import { Access, App, Feature, WebRole } from '../../../models/common.model';
 import { JwtService } from '../../../service/jwt-service/jwt.service';
 
 @Component({
@@ -12,24 +12,22 @@ import { JwtService } from '../../../service/jwt-service/jwt.service';
 export class HomeNavbarComponent implements OnInit {
   @Input() titleName = "Marc's";
   name: string;
+  notificationCount = 0;
 
   Feature = Feature;
   Application = App;
   Access = Access;
 
   constructor(
-    private jwt: JwtService,
-    private router: Router,
-    private readonly notificationService: NotificationService
+    private readonly router: Router,
+    private readonly notificationService: NotificationService,
+    private readonly jwt: JwtService
   ) {}
 
   ngOnInit() {
-    this.name = this.jwt.get('firstName');
-    this.notificationService
-      .getNotifications(new Map().set('receiverId', this.jwt.get('userId')))
-      .subscribe((res) => {
-        console.log(res);
-      });
+    this.getNotifications(this.getParams()).subscribe(
+      (res) => (this.notificationCount = res.length)
+    );
   }
 
   onLogoClick() {
@@ -42,5 +40,21 @@ export class HomeNavbarComponent implements OnInit {
 
   onBellClick() {
     this.router.navigate(['/notification']);
+  }
+
+  getNotifications(params?: Map<string, string[]>) {
+    return this.notificationService.getNotifications(params);
+  }
+
+  getParams() {
+    const currentUserRole = WebRole[this.jwt.get('webRole')];
+
+    if (Number(currentUserRole) >= WebRole.SITE_ADMIN.valueOf()) {
+      return new Map().set('read', false);
+    } else {
+      return new Map()
+        .set('receiverId', this.jwt.get('userId'))
+        .set('read', false);
+    }
   }
 }

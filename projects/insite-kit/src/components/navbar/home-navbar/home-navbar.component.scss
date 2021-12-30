@@ -27,18 +27,32 @@
   height: 50px;
   width: 50px;
   float: right;
-  margin-top: 10px;
+  margin-top: 14px;
   margin-right: 5px;
   cursor: pointer;
   color: black;
 }
 
 .bell {
-  content: url(../../../assets/images/nav-icons/notification-bell.png);
+  position: relative;
+  display: block;
   height: 40px;
   width: 40px;
   float: right;
-  margin-top: 15px;
+  margin-top: 19px;
   margin-right: 5px;
+  background: url(../../../assets/images/nav-icons/notification-bell.png);
+  background-size: contain;
   cursor: pointer;
+}
+
+.bell-num {
+  position: absolute;
+  right: -3px;
+  top: -5px;
+  color: #fff;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
 }

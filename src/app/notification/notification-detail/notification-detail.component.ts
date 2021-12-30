@@ -1,12 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
+  Access,
+  App,
+  Feature,
+  WebRole,
+} from 'projects/insite-kit/src/models/common.model';
+import {
   Notification,
   NotificationType,
 } from 'projects/insite-kit/src/models/notification.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { iif, Subject } from 'rxjs';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
+import { iif, of, Subject } from 'rxjs';
 import { concatMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -21,16 +28,32 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   activeNotification: Notification;
   notificationData: User | Vacation;
 
+  NotificationType = NotificationType;
+  WebRole = WebRole;
+  Feature = Feature;
+  Application = App;
+  Access = Access;
+
   constructor(
     private readonly activeRoute: ActivatedRoute,
     private readonly userService: UserService,
-    private readonly vacationService: VacationService
+    private readonly vacationService: VacationService,
+    private readonly notificationService: NotificationService
   ) {}
 
   ngOnInit() {
     this.activeRoute.data
       .pipe(
         tap((data) => (this.activeNotification = data.notification)),
+        concatMap(() =>
+          iif(
+            () => this.activeNotification.read,
+            of(null),
+            this.notificationService.markNotificationRead(
+              this.activeNotification.id
+            )
+          )
+        ),
         concatMap(() =>
           iif(
             () => this.activeNotification.type === NotificationType.USER,
@@ -42,11 +65,15 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.notificationData = res;
-        console.log(res);
+        this.notificationService.notificationObserver();
       });
   }
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  onReviewRequest() {
+    console.log('Review Clicked');
   }
 }

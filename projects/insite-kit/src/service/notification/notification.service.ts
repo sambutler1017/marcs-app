@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Notification } from '../../models/notification.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Notification } from '../../models/notification.model';
 })
 export class NotificationService {
   readonly BASE_PATH = 'api/notification-app/notifications';
+  private notificationListener: Subject<any> = new Subject<any>();
 
   constructor(private readonly requestService: RequestService) {}
 
@@ -29,5 +30,25 @@ export class NotificationService {
    */
   getNotificationById(id: number): Observable<Notification> {
     return this.requestService.get<Notification>(`${this.BASE_PATH}/${id}`);
+  }
+
+  /**
+   * This will mark the notification as read for the given id.
+   *
+   * @param id The id of the notitificaiton to read.
+   * @returns Notification object that was read.
+   */
+  markNotificationRead(id: number): Observable<Notification> {
+    return this.requestService.put<Notification>(
+      `${this.BASE_PATH}/${id}/read`
+    );
+  }
+
+  notificationChange() {
+    return this.notificationListener.asObservable();
+  }
+
+  notificationObserver() {
+    this.notificationListener.next();
   }
 }

@@ -42,6 +42,19 @@
             />
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="left">Position Title</label>
+            <select
+              class="form-input__shadow margin-top-none"
+              formControlName="positionTitle"
+            >
+              <option *ngFor="let role of roles" [ngValue]="role">{{
+                role | webRoleTranslate
+              }}</option>
+            </select>
+          </div>
+        </div>
         <div class="row" *ngIf="!storesLoading; else loadingIcon">
           <div class="col-md-6 col-sm-6 col-xs-12">
             <label class="left">Store ID Location</label>

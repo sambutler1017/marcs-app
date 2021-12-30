@@ -7,9 +7,14 @@
     *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
     (click)="onProfileClick()"
   ></div>
+
   <div
-    class="bell inline-block"
+    class="bell"
     *featureAccess="[Application.GLOBAL, Feature.NOTIFICATION, Access.READ]"
     (click)="onBellClick()"
-  ></div>
+  >
+    <span class="bell-num" *ngIf="notificationCount > 0">{{
+      notificationCount
+    }}</span>
+  </div>
 </nav>
