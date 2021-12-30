@@ -9,7 +9,7 @@
   </div>
 </ik-header>
 
-<ng-container *ngIf="activeNotification; else loadingIcon">
+<ng-container *ngIf="notificationData; else loadingIcon">
   <div
     class="leftColumn column-wide"
     *ngIf="activeNotification?.type === NotificationType.VACATION"
