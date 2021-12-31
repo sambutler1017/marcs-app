@@ -55,9 +55,10 @@ export class UserDetailComponent extends BaseComponent
   }
 
   ngOnInit() {
-    this.activeRoute.data
+    this.activeRoute.params
       .pipe(
-        tap((res) => (this.userData = res.user)),
+        switchMap((res) => this.userService.getUserById(res.id)),
+        tap((res) => (this.userData = res)),
         switchMap(() =>
           this.vacationService.getVacationsByUserId(this.userData.id)
         ),

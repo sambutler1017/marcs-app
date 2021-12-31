@@ -61,7 +61,6 @@ const routes: Routes = [
       { path: 'overview', component: UserOverviewComponent },
       {
         path: 'details/:id',
-        resolve: { user: UserResolverService },
         component: UserDetailComponent,
       },
       { path: 'add-user', component: AddUserComponent },
