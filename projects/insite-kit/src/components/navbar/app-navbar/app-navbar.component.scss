@@ -62,11 +62,12 @@
 
 .bell-num {
   position: absolute;
-  right: -3px;
+  right: -4px;
   top: -5px;
   color: #fff;
-  width: 20px;
-  height: 20px;
+  width: auto;
+  height: auto;
+  padding: 1px 5px;
   background: red;
   border-radius: 50%;
 }
@@ -103,10 +104,8 @@
     right: -3px;
     top: -5px;
     color: #fff;
-    width: 15px;
-    height: 15px;
     border-radius: 50%;
-    font-size: 12px;
+    font-size: 11.5px;
   }
 }
 
@@ -182,10 +181,8 @@
     right: -3px;
     top: -5px;
     color: #fff;
-    width: 12px;
-    height: 12px;
     border-radius: 50%;
-    font-size: 9px;
+    font-size: 11.5px;
   }
 
   .app-navbar {
