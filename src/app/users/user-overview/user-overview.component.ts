@@ -51,7 +51,7 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.getUsers(this.getParams()).subscribe((res) => {
       this.dataLoader = res;
-      this.triggerNotificationUpdate();
+      // this.triggerNotificationUpdate();
     });
   }
 
