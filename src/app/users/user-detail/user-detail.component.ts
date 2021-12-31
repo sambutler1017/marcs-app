@@ -10,7 +10,7 @@ import {
   Feature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
-import { User } from 'projects/insite-kit/src/models/user.model';
+import { Application, User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
@@ -67,17 +67,21 @@ export class UserDetailComponent extends BaseComponent
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
-        const translations = Object.values(appJson)[0];
-        res
-          .filter((v) => v.access)
-          .forEach((v) => this.applications.push(translations[v.name]));
-        this.loading = false;
+        this.setApplications(res);
         this.triggerNotificationUpdate();
+        this.loading = false;
       });
   }
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  setApplications(apps: Application[]) {
+    const translations = Object.values(appJson)[0];
+    apps
+      .filter((v) => v.access)
+      .forEach((v) => this.applications.push(translations[v.name]));
   }
 
   onUserEditClick() {

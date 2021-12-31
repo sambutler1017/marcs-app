@@ -6,7 +6,6 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
-import { NotificationResolverService } from 'projects/insite-kit/src/service/notification/notification-resolver.service';
 import { UserResolverService } from 'src/service/user-service/user-resolver.service';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
@@ -110,7 +109,6 @@ const routes: Routes = [
       },
       {
         path: 'details/:id',
-        resolve: { notification: NotificationResolverService },
         component: NotificationDetailComponent,
       },
     ],

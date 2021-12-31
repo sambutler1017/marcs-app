@@ -46,25 +46,14 @@ export class NotificationDetailComponent extends BaseComponent
   }
 
   ngOnInit() {
-    this.activeRoute.data
+    this.activeRoute.params
       .pipe(
-        tap((data) => (this.activeNotification = data.notification)),
-        concatMap(() =>
-          iif(
-            () => this.activeNotification.read,
-            of(null),
-            this.notificationService.markNotificationRead(
-              this.activeNotification.id
-            )
-          )
+        concatMap((res) =>
+          this.notificationService.getNotificationById(res.id)
         ),
-        concatMap(() =>
-          iif(
-            () => this.activeNotification.type === NotificationType.USER,
-            this.userService.getUserById(this.activeNotification.linkId),
-            this.vacationService.getVacationById(this.activeNotification.linkId)
-          )
-        ),
+        tap((res) => (this.activeNotification = res)),
+        concatMap(() => this.markNotification()),
+        concatMap(() => this.getNotificationData()),
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
@@ -75,6 +64,22 @@ export class NotificationDetailComponent extends BaseComponent
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  markNotification() {
+    return iif(
+      () => this.activeNotification.read,
+      of(null),
+      this.notificationService.markNotificationRead(this.activeNotification.id)
+    );
+  }
+
+  getNotificationData() {
+    return iif(
+      () => this.activeNotification.type === NotificationType.USER,
+      this.userService.getUserById(this.activeNotification.linkId),
+      this.vacationService.getVacationById(this.activeNotification.linkId)
+    );
   }
 
   onReviewRequest() {
