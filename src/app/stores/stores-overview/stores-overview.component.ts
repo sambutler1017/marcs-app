@@ -2,9 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
-import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -12,7 +13,8 @@ import { UserService } from 'src/service/user-service/user.service';
   selector: 'ik-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
-export class StoresOverviewComponent implements OnInit, OnDestroy {
+export class StoresOverviewComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   storeJson = json;
   outputEventColumns = ['id', 'regionalId'];
   excludedColumns = ['regionalId', 'managerId'];
@@ -25,14 +27,19 @@ export class StoresOverviewComponent implements OnInit, OnDestroy {
     private storeService: StoreService,
     private userService: UserService,
     private router: Router,
-    private jwt: JwtService
-  ) {}
+    public notificationService: NotificationService
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
     this.storeService
       .getStores(this.userService.managersOnlyMap())
       .pipe(takeUntil(this.destroy))
-      .subscribe((res) => (this.dataLoader = res));
+      .subscribe((res) => {
+        this.dataLoader = res;
+        this.triggerNotificationUpdate();
+      });
   }
 
   ngOnDestroy() {

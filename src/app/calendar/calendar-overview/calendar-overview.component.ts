@@ -7,8 +7,10 @@ import {
 import { startOfDay } from 'date-fns';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { of, Subject } from 'rxjs';
 import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 import { CustomDateFormatter } from './custom-date.formatter';
@@ -25,7 +27,8 @@ import { CustomDateFormatter } from './custom-date.formatter';
     },
   ],
 })
-export class CalendarOverviewComponent implements OnInit, OnDestroy {
+export class CalendarOverviewComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -37,8 +40,11 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly vacationService: VacationService,
-    private readonly userService: UserService
-  ) {}
+    private readonly userService: UserService,
+    public notificationService: NotificationService
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
     this.loading = true;
@@ -51,6 +57,7 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.mapEvents(res);
+        this.triggerNotificationUpdate();
         this.loading = false;
       });
   }

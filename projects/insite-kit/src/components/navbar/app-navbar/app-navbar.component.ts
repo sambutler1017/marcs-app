@@ -23,10 +23,6 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.getNotifications(this.getParams()).subscribe(
-      (res) => (this.notificationCount = res.length)
-    );
-
     this.notificationService
       .notificationChange()
       .pipe(

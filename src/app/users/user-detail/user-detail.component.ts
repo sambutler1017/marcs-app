@@ -12,8 +12,10 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
@@ -22,7 +24,8 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss'],
 })
-export class UserDetailComponent implements OnInit, OnDestroy {
+export class UserDetailComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   userData: User;
   vacationData: Vacation[];
   applications: string[] = [];
@@ -45,8 +48,11 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly toastService: ToastrService,
-    public modalService: ModalService
-  ) {}
+    public modalService: ModalService,
+    public notificationService: NotificationService
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
     this.activeRoute.data
@@ -65,6 +71,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           .filter((v) => v.access)
           .forEach((v) => this.applications.push(translations[v.name]));
         this.loading = false;
+        this.triggerNotificationUpdate();
       });
   }
 

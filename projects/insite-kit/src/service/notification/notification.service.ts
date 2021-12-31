@@ -48,7 +48,7 @@ export class NotificationService {
     return this.notificationListener.asObservable();
   }
 
-  notificationObserver() {
+  triggerNotificationUpdate() {
     this.notificationListener.next();
   }
 }

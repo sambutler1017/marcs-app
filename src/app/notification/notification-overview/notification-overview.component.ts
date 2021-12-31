@@ -5,12 +5,14 @@ import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 @Component({
   selector: 'app-notification-overview',
   templateUrl: './notification-overview.component.html',
   styleUrls: ['./notification-overview.component.scss'],
 })
-export class NotificationOverviewComponent implements OnInit {
+export class NotificationOverviewComponent extends BaseComponent
+  implements OnInit {
   notificationJson = json;
   outputEventColumns = ['id'];
   excludedColumns = ['id', 'read', 'receiverId'];
@@ -18,15 +20,18 @@ export class NotificationOverviewComponent implements OnInit {
   dataLoader: Notification[];
 
   constructor(
-    private readonly notificationService: NotificationService,
+    public notificationService: NotificationService,
     private readonly jwt: JwtService,
     private readonly router: Router
-  ) {}
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
-    this.getNotifications(this.getParams()).subscribe(
-      (res) => (this.dataLoader = res)
-    );
+    this.getNotifications(this.getParams()).subscribe((res) => {
+      this.dataLoader = res;
+      this.triggerNotificationUpdate();
+    });
   }
 
   getNotifications(params?: Map<string, string[]>) {

@@ -15,6 +15,7 @@ import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { iif, of, Subject } from 'rxjs';
 import { concatMap, takeUntil, tap } from 'rxjs/operators';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
@@ -23,7 +24,8 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './notification-detail.component.html',
   styleUrls: ['./notification-detail.component.scss'],
 })
-export class NotificationDetailComponent implements OnInit, OnDestroy {
+export class NotificationDetailComponent extends BaseComponent
+  implements OnInit, OnDestroy {
   destroy = new Subject();
   activeNotification: Notification;
   notificationData: User | Vacation;
@@ -38,8 +40,10 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     private readonly activeRoute: ActivatedRoute,
     private readonly userService: UserService,
     private readonly vacationService: VacationService,
-    private readonly notificationService: NotificationService
-  ) {}
+    public notificationService: NotificationService
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
     this.activeRoute.data
@@ -65,7 +69,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.notificationData = res;
-        this.notificationService.notificationObserver();
+        this.triggerNotificationUpdate();
       });
   }
 

@@ -10,13 +10,15 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
+import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-overview.component.html',
 })
-export class UserOverviewComponent implements OnInit {
+export class UserOverviewComponent extends BaseComponent implements OnInit {
   @ViewChild(ModalComponent) modal: ModalComponent;
 
   userJson = json;
@@ -40,11 +42,17 @@ export class UserOverviewComponent implements OnInit {
   constructor(
     private userService: UserService,
     private router: Router,
-    private jwt: JwtService
-  ) {}
+    private jwt: JwtService,
+    public notificationService: NotificationService
+  ) {
+    super(notificationService);
+  }
 
   ngOnInit() {
-    this.getUsers(this.getParams()).subscribe((res) => (this.dataLoader = res));
+    this.getUsers(this.getParams()).subscribe((res) => {
+      this.dataLoader = res;
+      this.triggerNotificationUpdate();
+    });
   }
 
   handleClick(event: any) {
