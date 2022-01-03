@@ -1,11 +1,7 @@
-<ng-container *ngIf="display$ | async as display">
-  <section [class.open]="display === 'open'" (click)="close()">
-    <div class="ik-modal" (click)="$event.stopPropagation()">
-      <div [class]="'ik-modal-header ' + type">{{ header }}</div>
-
-      <div class="ik-modal-content">
-        <ng-content></ng-content>
-      </div>
+<div #baseModal class="modal fade" id="baseModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <ng-content></ng-content>
     </div>
-  </section>
-</ng-container>
+  </div>
+</div>

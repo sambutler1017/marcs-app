@@ -51,10 +51,6 @@
   &.block {
     content: url(../../assets/images/app-icons/block-icon.png);
   }
-  &.map {
-    padding: 8px;
-    content: url(../../assets/images/app-icons/map-icon.png);
-  }
   &.report {
     padding: 8px;
     content: url(../../assets/images/app-icons/report-icon.png);
@@ -63,8 +59,8 @@
     padding: 8px;
     content: url(../../assets/images/app-icons/contact-icon.png);
   }
-  &.regional {
+  &.request-tracker {
     padding: 8px;
-    content: url(../../assets/images/app-icons/regional-icon.png);
+    content: url(../../assets/images/app-icons/request-tracker-icon.png);
   }
 }

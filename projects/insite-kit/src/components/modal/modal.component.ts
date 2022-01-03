@@ -1,24 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ModalService } from './modal.service';
+import { Component } from '@angular/core';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'ik-modal',
   templateUrl: './modal.component.html',
-  styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnInit {
-  @Input() header = '';
-  @Input() type: 'warning' | 'info' | 'danger' = 'info';
-  display$: Observable<'open' | 'close'>;
+export class ModalComponent {
+  bootstrap = bootstrap;
 
-  constructor(private modalService: ModalService) {}
-
-  ngOnInit() {
-    this.display$ = this.modalService.watch();
+  open() {
+    $('#baseModal').modal('show');
   }
 
   close() {
-    this.modalService.close();
+    $('#baseModal').modal('hide');
   }
 }

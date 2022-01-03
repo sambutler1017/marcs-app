@@ -112,21 +112,31 @@
     </ik-card>
   </div>
 </div>
-<ik-modal header="Delete User?" type="danger">
-  <div>
-    Deleting this user will result in their personal info and vacations to be
-    deleted. Do you want to continue?
-  </div>
-
-  <button
-    class="btn btn-danger btn-size btn-right modal-button"
-    (click)="onDeleteUser()"
-  >
-    Delete User
-  </button>
-  <div class="cancel-link" (click)="modalService.close()">Cancel</div>
-</ik-modal>
 
 <ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
+
+<ik-modal #deleteUserModal>
+  <ik-modal-header title="Delete User?" type="danger"></ik-modal-header>
+  <ik-modal-body>
+    <div>
+      Deleting this user will result in their personal info and vacations to be
+      deleted. Do you want to continue?
+    </div>
+  </ik-modal-body>
+  <ik-modal-action-bar>
+    <button
+      class="btn btn-danger btn-right modal-button"
+      (click)="onDeleteUser()"
+    >
+      Delete User
+    </button>
+    <button
+      class="btn btn-default btn-right modal-button"
+      (click)="deleteUserModal.close()"
+    >
+      Cancel
+    </button>
+  </ik-modal-action-bar>
+</ik-modal>

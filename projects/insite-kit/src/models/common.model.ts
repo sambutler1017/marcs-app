@@ -1,5 +1,5 @@
 export enum WebRole {
-  USER = 1,
+  EMPLOYEE = 1,
   CORPORATE_USER = 2,
   CUSTOMER_SERVICE_MANAGER = 3,
   ASSISTANT_MANAGER = 4,

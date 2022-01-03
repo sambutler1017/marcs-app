@@ -4,8 +4,8 @@
     "store": "Stores",
     "calendar": "Calendar",
     "blockDates": "Block Out Dates",
-    "map": "Map",
     "report": "Report's",
+    "requestTracker": "Request Tracker",
     "contact": "Contact",
     "notification": "Notifications"
   }

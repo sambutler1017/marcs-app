@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
-import { ModalService } from 'projects/insite-kit/src/components/modal/modal.service';
+import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
   App,
@@ -26,6 +26,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class UserDetailComponent extends BaseComponent
   implements OnInit, OnDestroy {
+  @ViewChild(ModalComponent) deleteUserModal: ModalComponent;
   userData: User;
   vacationData: Vacation[];
   applications: string[] = [];
@@ -48,7 +49,6 @@ export class UserDetailComponent extends BaseComponent
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly toastService: ToastrService,
-    public modalService: ModalService,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -93,7 +93,7 @@ export class UserDetailComponent extends BaseComponent
   }
 
   deleteModal() {
-    this.modalService.open();
+    this.deleteUserModal.open();
   }
 
   onResetPassword() {
@@ -101,7 +101,7 @@ export class UserDetailComponent extends BaseComponent
   }
 
   onDeleteUser() {
-    this.modalService.close();
+    this.deleteUserModal.close();
     this.loading = true;
     this.userService.deleteUser(this.userData.id).subscribe(
       () => {

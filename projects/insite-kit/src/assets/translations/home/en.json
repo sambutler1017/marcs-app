@@ -36,6 +36,12 @@
       "icon": "report",
       "page": ""
     },
+    "requestTracker": {
+      "title": "Request Tracker",
+      "message": "All requested vacations from users show up here to be approved or declined.",
+      "icon": "request-tracker",
+      "page": "requestTracker"
+    },
     "contact": {
       "title": "Contact",
       "message": "Contact admin with any issues or questions about the app.",

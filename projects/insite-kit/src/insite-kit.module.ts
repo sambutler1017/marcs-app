@@ -10,6 +10,9 @@ import { GridComponent } from './components/grid/grid.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { ModalActionBarComponent } from './components/modal/modal-action-bar/modal-action-bar.component';
+import { ModalBodyComponent } from './components/modal/modal-body/modal-body.component';
+import { ModalHeaderComponent } from './components/modal/modal-header/modal-header.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-image.component';
@@ -36,6 +39,9 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     UsernamePipe,
     ModalComponent,
     WebRoleTranslationPipe,
+    ModalActionBarComponent,
+    ModalBodyComponent,
+    ModalHeaderComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -53,6 +59,9 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     IconComponent,
     UsernamePipe,
     ModalComponent,
+    ModalActionBarComponent,
+    ModalBodyComponent,
+    ModalHeaderComponent,
     WebRoleTranslationPipe,
   ],
   entryComponents: [ModalComponent],

@@ -22,6 +22,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
 import { ProfileComponent } from './profile/profile.component';
+import { RequestTrackerOverviewComponent } from './request-tracker/request-tracker-overview/request-tracker-overview.component';
+import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
@@ -111,6 +113,15 @@ const routes: Routes = [
         path: 'details/:id',
         component: NotificationDetailComponent,
       },
+    ],
+  },
+  {
+    path: 'requestTracker',
+    component: RequestTrackerComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: RequestTrackerOverviewComponent },
     ],
   },
   {

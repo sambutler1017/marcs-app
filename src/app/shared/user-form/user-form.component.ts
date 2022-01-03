@@ -22,6 +22,7 @@ export class UserFormComponent implements OnInit {
   form: FormGroup;
   storesLoading = true;
   validManagers: any = [
+    WebRole[WebRole.EMPLOYEE],
     WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
     WebRole[WebRole.ASSISTANT_MANAGER],
     WebRole[WebRole.MANAGER],
@@ -60,7 +61,7 @@ export class UserFormComponent implements OnInit {
       email: [this.userData ? this.userData.email : ''],
       webRole: this.userData
         ? this.userData.webRole.toUpperCase()
-        : WebRole[WebRole.USER].toUpperCase(),
+        : WebRole[WebRole.EMPLOYEE].toUpperCase(),
       storeId: [
         this.userData ? this.userData.storeId : '',
         Validators.required,

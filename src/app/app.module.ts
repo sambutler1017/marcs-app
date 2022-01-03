@@ -1,74 +1,34 @@
 import { NgModule } from '@angular/core';
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { ToastrModule } from 'ngx-toastr';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { AppComponent } from './app.component';
-import { BlockDatesComponent } from './block-dates/block-dates.component';
-import { CalendarHeaderComponent } from './calendar/calendar-header/calendar-header.component';
-import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
-import { CalendarComponent } from './calendar/calendar.component';
-import { ContactComponent } from './contact/contact.component';
-import { HomeComponent } from './home/home.component';
-import { CreateAccountComponent } from './login/create-account/create-account.component';
-import { ForgotPasswordResetComponent } from './login/forgot-password-reset/forgot-password-reset.component';
-import { ForgotPasswordComponent } from './login/forgot-password/forgot-password.component';
-import { LoginOverviewComponent } from './login/login-overview/login-overview.component';
-import { LoginComponent } from './login/login.component';
-import { MapComponent } from './map/map.component';
-import { NotificationDetailUserComponent } from './notification/notification-detail/detail-user/detail-user.component';
-import { NotificationDetailVactionComponent } from './notification/notification-detail/detail-vacation/detail-vacation.component';
-import { NotificationDetailComponent } from './notification/notification-detail/notification-detail.component';
-import { NotificationOverviewComponent } from './notification/notification-overview/notification-overview.component';
-import { NotificationComponent } from './notification/notification.component';
-import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
-import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ReportsComponent } from './reports/reports.component';
+import { BlockDatesModule } from './block-dates/block-dates.module';
+import { CalendarManagerModule } from './calendar/calendar.module';
+import { ContactModule } from './contact/contact.module';
+import { HomeModule } from './home/home.module';
+import { LoginModule } from './login/login.module';
+import { NotificationModule } from './notification/notification.module';
+import { ProfileModule } from './profile/profile.module';
+import { ReportsModule } from './reports/reports.module';
+import { RequestTrackerModule } from './request-tracker/request-tracker.module';
 import { SharedModule } from './shared/shared.module';
-import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
-import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
-import { StoresComponent } from './stores/stores.component';
+import { StoresModule } from './stores/stores.module';
 import { UserModule } from './users/user.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LoginComponent,
-    LoginOverviewComponent,
-    ForgotPasswordComponent,
-    CreateAccountComponent,
-    ForgotPasswordResetComponent,
-    StoresComponent,
-    CalendarComponent,
-    BlockDatesComponent,
-    MapComponent,
-    ReportsComponent,
-    ContactComponent,
-    StoresOverviewComponent,
-    StoresDetailComponent,
-    ProfileComponent,
-    ProfileOverviewComponent,
-    ProfileEditComponent,
-    CalendarOverviewComponent,
-    CalendarHeaderComponent,
-    NotificationComponent,
-    NotificationOverviewComponent,
-    NotificationDetailComponent,
-    NotificationDetailUserComponent,
-    NotificationDetailVactionComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     SharedModule,
+    LoginModule,
+    StoresModule,
     UserModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-top-right',
-    }),
-    CalendarModule.forRoot({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
+    RequestTrackerModule,
+    NotificationModule,
+    CalendarManagerModule,
+    ProfileModule,
+    BlockDatesModule,
+    HomeModule,
+    ContactModule,
+    ReportsModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent],

@@ -36,6 +36,9 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     FormsModule,
     ReactiveFormsModule,
     ToastrModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
+    }),
   ],
   exports: [
     BrowserModule,

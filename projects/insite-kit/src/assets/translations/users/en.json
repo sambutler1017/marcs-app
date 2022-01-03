@@ -41,7 +41,7 @@
   },
   "userTitle": "Users",
   "webRoles": {
-    "USER": "User",
+    "EMPLOYEE": "Employee",
     "CORPORATE_USER": "Corporate User",
     "CUSTOMER_SERVICE_MANAGER": "Customer Service Manager",
     "ASSISTANT_MANAGER": "Assistant Manager",
