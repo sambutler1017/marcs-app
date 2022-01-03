@@ -7,6 +7,7 @@ export interface User {
   lastName?: string;
   email?: string;
   webRole?: WebRole | any;
+  accountStatus?: UserStatus;
   appAccess?: boolean;
   password?: string;
   storeId?: string;
@@ -22,4 +23,16 @@ export interface Application {
   name: string;
   access: boolean;
   enabled: boolean;
+}
+
+export interface UserStatus {
+  accountStatus: AccountStatus | any;
+  appAccess: boolean;
+  updatedUserId?: number;
+}
+
+export enum AccountStatus {
+  APPROVED = 'APPROVED',
+  DENIED = 'DENIED',
+  PENDING = 'PENDING',
 }

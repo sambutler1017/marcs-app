@@ -6,6 +6,7 @@ export interface Vacation {
   userId?: number;
   fullName?: string;
   storeId?: string;
+  notes?: string;
   startDate?: Date | string;
   endDate?: Date | string;
   insertDate?: Date;

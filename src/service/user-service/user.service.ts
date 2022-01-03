@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { PasswordUpdate } from 'projects/insite-kit/src/models/password-update.model';
-import { Application, User } from 'projects/insite-kit/src/models/user.model';
+import {
+  Application,
+  User,
+  UserStatus,
+} from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
@@ -10,6 +14,8 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
   readonly BASE_USER_PATH = 'api/user-app/user-profile';
+  readonly BASE_USER_STATUS_PATH = 'api/user-app/user-status';
+
   constructor(
     private readonly request: RequestService,
     private readonly jwt: JwtService
@@ -164,8 +170,25 @@ export class UserService {
     passUpdate: PasswordUpdate
   ): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_PATH}/password${userId.toString()}`,
+      `${this.BASE_USER_PATH}/password/${userId.toString()}`,
       passUpdate
+    );
+  }
+
+  /**
+   * This will update the user status of the user.
+   *
+   * @param userId The user to be updated.
+   * @param status The status to update the user too.
+   * @returns The user object that needs returned.
+   */
+  updateUserStatus(
+    userId: number,
+    dataStatus: UserStatus
+  ): Observable<UserStatus> {
+    return this.request.put<UserStatus>(
+      `${this.BASE_USER_STATUS_PATH}/${userId}`,
+      dataStatus
     );
   }
 

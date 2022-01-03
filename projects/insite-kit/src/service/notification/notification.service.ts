@@ -45,6 +45,16 @@ export class NotificationService {
   }
 
   /**
+   * This will delete the notification for the given id.
+   *
+   * @param id The notification id that needs deleted.
+   * @returns Any object that is has completed.
+   */
+  deleteNotification(id: number): Observable<any> {
+    return this.requestService.delete<any>(`${this.BASE_PATH}/${id}`);
+  }
+
+  /**
    * The listener for the update
    *
    * @returns Observable with the update

@@ -83,6 +83,7 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
     let params = this.userService.managersOnlyMap();
 
     if (params !== null) {
+      params.set('accountStatus', ['APPROVED']);
       return params;
     } else {
       params = new Map<string, string[]>();

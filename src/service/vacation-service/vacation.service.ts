@@ -57,7 +57,7 @@ export class VacationService {
    *
    * @param userId  The user id to get vacations for.
    * @param vacation The vacation to be inserted.
-   * @return {@link Lst<Vacation>} for the user.
+   * @return {@link List<Vacation>} for the user.
    */
   public createVacation(
     userId: number,
@@ -83,6 +83,33 @@ export class VacationService {
     return this.request.post<Vacation[]>(
       `${this.BASE_USER_PATH}/${userId.toString()}/user/batch`,
       vacations
+    );
+  }
+
+  /**
+   * Request a vacation to be approved.
+   *
+   * @param vac The vacation that needs approved
+   * @returns Vacation object that was created
+   */
+  public requestVacation(vac: Vacation): Observable<Vacation> {
+    return this.request.post<Vacation>(`${this.BASE_USER_PATH}/request`, vac);
+  }
+
+  /**
+   * Update the status of a vacation by id
+   *
+   * @param vacId The vacation id that needs to be updated
+   * @param vac The vacation object containing the status to update it too.
+   * @returns Vacation object with the updated information
+   */
+  public updateVacationStatus(
+    vacId: number,
+    vac: Vacation
+  ): Observable<Vacation> {
+    return this.request.put<Vacation>(
+      `${this.BASE_USER_PATH}/${vacId}/status`,
+      vac
     );
   }
 

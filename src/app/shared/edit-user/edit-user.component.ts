@@ -32,6 +32,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.route.data
       .pipe(
         map((res) => res.user),
+        tap((res) => (this.userId = res.id)),
         tap(
           () =>
             (this.disableWebRoleUpdate =
