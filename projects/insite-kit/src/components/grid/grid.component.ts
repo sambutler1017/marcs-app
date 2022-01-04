@@ -5,6 +5,7 @@ import {
   OnChanges,
   Output,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../service/common/common.service';
 
 @Component({
@@ -39,13 +40,29 @@ export class GridComponent implements OnChanges {
 
   pages: any;
   totalPages = 0;
-  constructor(private common: CommonService) {}
+  constructor(
+    private common: CommonService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnChanges(): void {
     if (!this.dataLoader) {
       this.loading = true;
       return;
     }
+
+    this.route.queryParams.subscribe((params) => {
+      if (params.currentPage) {
+        this.currentPageIndex = Number(params.currentPage);
+      } else {
+        this.currentPageIndex = 0;
+        if (this.pagerEnabled) {
+          this.updateRoute(this.currentPageIndex);
+        }
+      }
+      this.getPageData();
+    });
 
     if (this.dataLoader.length <= 0) {
       this.noItems = true;
@@ -59,13 +76,22 @@ export class GridComponent implements OnChanges {
     this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
 
     this.excludeColumns();
-    this.getPageData();
+    // this.getPageData();
     this.getTotal();
+  }
+
+  updateRoute(value: number) {
+    this.router.navigate([], {
+      queryParams: {
+        currentPage: value,
+      },
+    });
   }
 
   onSearch(value: string) {
     this.loading = true;
     this.resetData();
+    this.updateRoute(0);
     this.search.emit(value);
   }
 
@@ -102,7 +128,7 @@ export class GridComponent implements OnChanges {
 
   onNextPageClick() {
     if (this.currentPageIndex < this.dataLoader.length) {
-      this.getPageData();
+      this.updateRoute(this.currentPageIndex);
     }
   }
 
@@ -110,7 +136,7 @@ export class GridComponent implements OnChanges {
     if (this.currentPageIndex > this.pageSize) {
       this.currentPageIndex =
         this.currentPageIndex - this.pageSize - this.currentPageRowCount;
-      this.getPageData();
+      this.updateRoute(this.currentPageIndex);
     }
   }
 
@@ -194,7 +220,7 @@ export class GridComponent implements OnChanges {
 
   pageClick(page: number) {
     this.currentPageIndex = page * this.pageSize - this.pageSize;
-    this.getPageData();
+    this.updateRoute(this.currentPageIndex);
   }
 
   getTotal() {
