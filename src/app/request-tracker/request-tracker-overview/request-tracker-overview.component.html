@@ -16,7 +16,7 @@
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
 
-<ik-modal #vacationModal>
+<ik-modal #vacationModal name="vacationModal">
   <ik-modal-header title="New Vacation?" type="info"></ik-modal-header>
   <ng-container *ngIf="!loading; else modalLoader">
     <ik-modal-body>
@@ -51,6 +51,47 @@
         (click)="onCreateRequest()"
       >
         Request Vacation
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ik-modal #vacationDetailsModal name="vacationDetailsModal">
+  <ik-modal-header title="Vacation Details" type="info"></ik-modal-header>
+  <ng-container *ngIf="!vacationInfoModalLoading; else modalLoader">
+    <ik-modal-body>
+      <div class="left-column">
+        <ik-card-info
+          header="Start Date"
+          [text]="vacationInfo?.startDate | date: 'mediumDate'"
+        ></ik-card-info>
+      </div>
+      <div class="right-column">
+        <ik-card-info
+          header="End Date"
+          [text]="vacationInfo?.endDate | date: 'mediumDate'"
+        ></ik-card-info>
+      </div>
+      <div class="left-column">
+        <ik-card-info
+          header="Status"
+          [text]="vacationInfo?.status"
+          [contentColor]="vacationInfo?.status"
+        ></ik-card-info>
+      </div>
+      <div class="left-column">
+        <ik-card-info
+          header="Notes"
+          [text]="vacationInfo?.notes ? vacationInfo?.notes : '-'"
+        ></ik-card-info>
+      </div>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-default btn-right modal-button"
+        (click)="vacationDetailsModal.close()"
+      >
+        Close
       </button>
     </ik-modal-action-bar>
   </ng-container>

@@ -18,7 +18,8 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class RequestTrackerOverviewComponent extends BaseComponent
   implements OnInit, OnDestroy {
-  @ViewChild(ModalComponent) requestModal: ModalComponent;
+  @ViewChild('vacationModal') requestModal: ModalComponent;
+  @ViewChild('vacationDetailsModal') vacationDetailsModal: ModalComponent;
   @ViewChild(GridComponent) grid: GridComponent;
 
   loading = false;
@@ -29,6 +30,8 @@ export class RequestTrackerOverviewComponent extends BaseComponent
   dataLoader: Vacation[];
   destroy = new Subject();
   form: FormGroup;
+  vacationInfo: Vacation;
+  vacationInfoModalLoading = false;
 
   constructor(
     private readonly vacationService: VacationService,
@@ -108,5 +111,12 @@ export class RequestTrackerOverviewComponent extends BaseComponent
       );
   }
 
-  handleRowClick(event: any) {}
+  handleRowClick(event: any) {
+    this.vacationInfoModalLoading = true;
+    this.vacationDetailsModal.open();
+    this.vacationService.getVacationById(event.id).subscribe((res) => {
+      this.vacationInfo = res;
+      this.vacationInfoModalLoading = false;
+    });
+  }
 }
