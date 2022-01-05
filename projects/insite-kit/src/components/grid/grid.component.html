@@ -66,6 +66,9 @@
       }}</label>
     </ng-container>
   </div>
+  <div *ngIf="showAllEnabled" class="showAll__link" (click)="onShowAllClick()">
+    Show All
+  </div>
 </ik-card>
 
 <ng-template #loader>

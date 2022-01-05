@@ -1,5 +1,10 @@
 <div *ngIf="!loading; else loader">
-  <ik-header [title]="storeInfo.name" [backEnabled]="true"> </ik-header>
+  <ik-header
+    [title]="storeInfo.name"
+    [backEnabled]="true"
+    (backClick)="onBackClick()"
+  >
+  </ik-header>
   <div class="detail">
     <div class="leftColumn column-wide">
       <ik-card [padding]="false">

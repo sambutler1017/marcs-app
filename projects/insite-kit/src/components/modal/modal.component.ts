@@ -6,7 +6,7 @@ import * as bootstrap from 'bootstrap';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
-  bootstrap = bootstrap;
+  private readonly bootstrap = bootstrap;
 
   open() {
     $('#baseModal').modal('show');

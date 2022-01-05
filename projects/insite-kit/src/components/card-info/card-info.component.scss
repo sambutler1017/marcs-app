@@ -12,6 +12,21 @@
   padding: 24px;
 }
 
+.APPROVED {
+  color: #20c283;
+  font-weight: bold !important;
+}
+
+.DENIED {
+  color: #ff3648;
+  font-weight: bold !important;
+}
+
+.PENDING {
+  color: #f0ae4c;
+  font-weight: bold !important;
+}
+
 .label-text {
   font-size: 20px;
   font-weight: 400;

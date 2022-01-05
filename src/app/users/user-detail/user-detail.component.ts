@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -49,6 +50,7 @@ export class UserDetailComponent extends BaseComponent
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly toastService: ToastrService,
+    private readonly location: Location,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -85,11 +87,11 @@ export class UserDetailComponent extends BaseComponent
   }
 
   onUserEditClick() {
-    this.router.navigate([`/user/details/${this.userData.id}/edit/info`]);
+    this.router.navigate([`/user/${this.userData.id}/details/edit/info`]);
   }
 
   onVacationEditClick() {
-    this.router.navigate([`/user/details/${this.userData.id}/edit/vacations`]);
+    this.router.navigate([`/user/${this.userData.id}/details/vacations/edit`]);
   }
 
   deleteModal() {
@@ -97,7 +99,7 @@ export class UserDetailComponent extends BaseComponent
   }
 
   onResetPassword() {
-    this.router.navigate([`/user/details/${this.userData.id}/reset-password`]);
+    this.router.navigate([`/user/${this.userData.id}/details/reset-password`]);
   }
 
   onDeleteUser() {
@@ -111,6 +113,14 @@ export class UserDetailComponent extends BaseComponent
       (err) =>
         this.toastService.success('User could not be deleted at this time!')
     );
+  }
+
+  onShowAllClick() {
+    this.router.navigate([`/user/${this.userData.id}/details/vacations`]);
+  }
+
+  onBackClick() {
+    this.location.back();
   }
 
   onRowClick(event: any) {}

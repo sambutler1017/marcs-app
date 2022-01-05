@@ -2,6 +2,7 @@
   <ik-header
     [title]="user.firstName + ' ' + user.lastName"
     [backEnabled]="true"
+    (backClick)="onBackClick()"
   >
     <button
       class="btn btn-default btn-size btn-right right-header-button"

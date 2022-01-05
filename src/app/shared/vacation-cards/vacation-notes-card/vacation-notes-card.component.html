@@ -1,0 +1,10 @@
+<ik-card [padding]="false" *ngIf="data">
+  <ik-card-header title="Notes">
+    <ik-icon
+      icon="edit"
+      *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+      (click)="onEditNotes()"
+    ></ik-icon>
+  </ik-card-header>
+  <ik-card-info [text]="data"></ik-card-info>
+</ik-card>

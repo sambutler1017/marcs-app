@@ -53,6 +53,10 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  onBackClick() {
+    this.location.back();
+  }
+
   onResetClick() {
     this.loading = true;
 

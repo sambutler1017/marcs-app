@@ -56,7 +56,7 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
   }
 
   handleClick(event: any) {
-    this.router.navigate([`/user/details/${event.id}`]);
+    this.router.navigate([`/user/${event.id}/details`]);
   }
 
   onAddUser() {

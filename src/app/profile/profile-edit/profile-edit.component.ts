@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
@@ -25,6 +26,7 @@ export class ProfileEditComponent extends BaseComponent
     private toastService: ToastrService,
     private userService: UserService,
     private readonly authService: AuthService,
+    private readonly router: Router,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -63,5 +65,9 @@ export class ProfileEditComponent extends BaseComponent
           this.loading = false;
         }
       );
+  }
+
+  onBackClick() {
+    this.router.navigate(['/profile']);
   }
 }

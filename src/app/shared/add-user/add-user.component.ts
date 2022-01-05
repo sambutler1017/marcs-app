@@ -39,4 +39,8 @@ export class AddUserComponent implements OnInit {
       }
     );
   }
+
+  onBackClick() {
+    this.location.back();
+  }
 }

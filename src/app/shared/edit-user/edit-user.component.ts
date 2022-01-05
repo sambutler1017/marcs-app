@@ -68,4 +68,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+  onBackClick() {
+    this.location.back();
+  }
 }

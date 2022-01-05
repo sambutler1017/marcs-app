@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
@@ -26,6 +26,7 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private readonly storeService: StoreService,
     private readonly userService: UserService,
+    private readonly router: Router,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -60,5 +61,9 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
     return !!this.storeInfo.regionalId
       ? this.userService.getUserById(this.storeInfo.regionalId)
       : of(null);
+  }
+
+  onBackClick() {
+    this.router.navigate(['/store']);
   }
 }

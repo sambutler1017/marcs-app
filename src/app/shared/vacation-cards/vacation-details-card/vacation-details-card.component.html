@@ -1,0 +1,94 @@
+<ik-card [padding]="false">
+  <ik-card-header title="Details">
+    <ik-icon
+      icon="edit"
+      *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+      (click)="vacationEditModal.open()"
+    ></ik-icon>
+  </ik-card-header>
+  <div class="left-column">
+    <ik-card-info header="Store ID" [text]="data?.storeId"></ik-card-info>
+  </div>
+  <div class="right-column">
+    <ik-card-info
+      header="Status"
+      [text]="data?.status"
+      [contentColor]="data?.status"
+    ></ik-card-info>
+  </div>
+  <div class="left-column">
+    <ik-card-info
+      header="Start Date"
+      [text]="data?.startDate | date: 'mediumDate'"
+    ></ik-card-info>
+  </div>
+  <div class="right-column">
+    <ik-card-info
+      header="End Date"
+      [text]="data?.endDate | date: 'mediumDate'"
+    ></ik-card-info>
+  </div>
+</ik-card>
+
+<ng-template #modalLoader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>
+
+<ik-modal #vacationEditModal>
+  <ik-modal-header title="New Vacation?" type="info"></ik-modal-header>
+  <ng-container *ngIf="!loading; else modalLoader">
+    <ik-modal-body>
+      <form [formGroup]="form">
+        <div class="form-padding">
+          <div class="col-xs-6 col-sm-6">
+            <div class="label-header">Start Date</div>
+            <input
+              type="date"
+              class="form-input__shadow input-margin"
+              placeholder="Start Date"
+              formControlName="startDate"
+            />
+          </div>
+
+          <div class="col-xs-6 col-sm-6">
+            <div class="label-header">End Date</div>
+            <input
+              type="date"
+              class="form-input__shadow input-margin"
+              placeholder="Start Date"
+              formControlName="endDate"
+            />
+          </div>
+        </div>
+      </form>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        *ngIf="
+          data?.status === VacationStatus.DENIED ||
+          data?.status === VacationStatus.PENDING
+        "
+        [disabled]="form.invalid"
+        class="btn btn-success btn-left modal-button"
+        (click)="onApproveVacation()"
+      >
+        Approve
+      </button>
+      <button
+        *ngIf="data?.status === VacationStatus.APPROVED"
+        [disabled]="form.invalid"
+        class="btn btn-danger btn-left modal-button"
+        (click)="onDenyVacation()"
+      >
+        Deny
+      </button>
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary btn-right modal-button"
+        (click)="onSaveVacation()"
+      >
+        Save Vacation
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>

@@ -26,8 +26,10 @@ export class GridComponent implements OnChanges {
   @Input() title;
   @Input() padding = true;
   @Input() headerPadding = false;
+  @Input() showAllEnabled = false;
   @Output() gridRowClick = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
+  @Output() showAll = new EventEmitter<any>();
 
   content = [[]];
   outputData = [{}];
@@ -221,6 +223,10 @@ export class GridComponent implements OnChanges {
   pageClick(page: number) {
     this.currentPageIndex = page * this.pageSize - this.pageSize;
     this.updateRoute(this.currentPageIndex);
+  }
+
+  onShowAllClick() {
+    this.showAll.emit();
   }
 
   getTotal() {

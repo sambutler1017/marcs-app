@@ -1,0 +1,13 @@
+<ik-grid
+  noDataText="No Vacations"
+  [translationKey]="requestTrackerJson"
+  [dataLoader]="dataLoader"
+  [columns]="columns"
+  [outputEventColumns]="outputEventColumns"
+  [columnsToExclude]="excludedColumns"
+  [padding]="true"
+  [pageSize]="15"
+  [searchEnabled]="false"
+  [pagerEnabled]="true"
+  (gridRowClick)="handleRowClick($event)"
+></ik-grid>

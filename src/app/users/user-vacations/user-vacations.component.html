@@ -1,0 +1,16 @@
+<ng-container *ngIf="user; else loader">
+  <ik-header
+    title="{{ user | formatUserName }} - Vacations"
+    [backEnabled]="true"
+    (backClick)="onBackClick()"
+  >
+  </ik-header>
+  <app-request-tracker-grid
+    [dataLoader]="dataLoader"
+    (rowClick)="onVacationClick($event)"
+  ></app-request-tracker-grid>
+</ng-container>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

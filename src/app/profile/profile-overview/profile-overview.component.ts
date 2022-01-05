@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/application/en.json';
@@ -22,6 +23,7 @@ export class ProfileOverviewComponent extends BaseComponent implements OnInit {
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     private readonly router: Router,
+    private readonly location: Location,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -49,5 +51,9 @@ export class ProfileOverviewComponent extends BaseComponent implements OnInit {
 
   onResetPassword() {
     this.router.navigate(['/profile/update-password']);
+  }
+
+  onBackClick() {
+    this.location.back();
   }
 }

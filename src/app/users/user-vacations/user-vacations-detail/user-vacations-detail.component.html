@@ -1,0 +1,19 @@
+<ng-container *ngIf="vacationData; else loader"> </ng-container>
+<ik-header
+  title="{{ vacationData?.fullName }} ({{ vacationId }})"
+  [backEnabled]="true"
+  (backClick)="onBackClick()"
+>
+</ik-header>
+<app-vacation-details-card
+  class="leftColumn column-wide"
+  [data]="vacationData"
+></app-vacation-details-card>
+<app-vacation-notes-card
+  [data]="vacationData?.notes"
+  class="leftColumn column-narrow"
+></app-vacation-notes-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

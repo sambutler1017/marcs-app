@@ -10,21 +10,23 @@ import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/service
 import { AppRoutingModule } from '../app-routing.module';
 import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
-import { EditVacationsComponent } from './edit-vacations/edit-vacations.component';
+import { RequestTrackerGridComponent } from './request-tracker-grid/request-tracker-grid.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { UserFormComponent } from './user-form/user-form.component';
-import { VacationFormComponent } from './vacation-form/vacation-form.component';
+import { VacationDetailsCardComponent } from './vacation-cards/vacation-details-card/vacation-details-card.component';
+import { VacationNotesCardComponent } from './vacation-cards/vacation-notes-card/vacation-notes-card.component';
 
 @NgModule({
   declarations: [
     UserFormComponent,
-    VacationFormComponent,
     AddUserComponent,
-    EditVacationsComponent,
     EditUserComponent,
     ResetPasswordComponent,
     UpdatePasswordComponent,
+    RequestTrackerGridComponent,
+    VacationDetailsCardComponent,
+    VacationNotesCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,12 +53,13 @@ import { VacationFormComponent } from './vacation-form/vacation-form.component';
     ReactiveFormsModule,
     ToastrModule,
     UserFormComponent,
-    VacationFormComponent,
     AddUserComponent,
     EditUserComponent,
-    EditVacationsComponent,
     ResetPasswordComponent,
     UpdatePasswordComponent,
+    RequestTrackerGridComponent,
+    VacationDetailsCardComponent,
+    VacationNotesCardComponent,
   ],
   providers: [
     {

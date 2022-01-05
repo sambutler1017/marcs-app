@@ -7,19 +7,10 @@
   </button>
 </ik-header>
 
-<ik-grid
-  noDataText="No Vacations"
-  [translationKey]="requestTrackerJson"
+<app-request-tracker-grid
   [dataLoader]="dataLoader"
-  [columns]="columns"
-  [outputEventColumns]="outputEventColumns"
-  [columnsToExclude]="excludedColumns"
-  [padding]="true"
-  [pageSize]="15"
-  [searchEnabled]="false"
-  [pagerEnabled]="true"
-  (gridRowClick)="handleRowClick($event)"
-></ik-grid>
+  (rowClick)="handleRowClick($event)"
+></app-request-tracker-grid>
 
 <ng-template #modalLoader>
   <ik-loading-indicator></ik-loading-indicator>

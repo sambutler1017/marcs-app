@@ -1,5 +1,9 @@
 <div *ngIf="!loading; else loader">
-  <ik-header title="{{ userData | formatUserName }}" [backEnabled]="true">
+  <ik-header
+    title="{{ userData | formatUserName }}"
+    [backEnabled]="true"
+    (backClick)="onBackClick()"
+  >
     <div class="inline-display header-buttons">
       <button
         class="btn btn-default btn-size btn-right h-button"
@@ -80,27 +84,19 @@
   </div>
   <div class="rightColumn column-half">
     <ik-grid
+      title="Vacations"
       noDataText="No Vacations"
       [translationKey]="userJson.vacations"
       [columns]="columns"
+      [columnsToExclude]="excludedColumns"
       [dataLoader]="vacationData"
-      title="Vacations"
       [padding]="false"
       [headerPadding]="true"
+      [showAllEnabled]="true"
       (gridRowClick)="onRowClick($event)"
-      [columnsToExclude]="excludedColumns"
+      (showAll)="onShowAllClick()"
     >
-      <ik-card-header title="Vacations">
-        <ik-icon
-          icon="edit"
-          *featureAccess="[
-            Application.USER,
-            Feature.USER_DETAIL,
-            Access.UPDATE
-          ]"
-          (click)="onVacationEditClick()"
-        ></ik-icon>
-      </ik-card-header>
+      <ik-card-header title="Vacations"> </ik-card-header>
     </ik-grid>
     <ik-card [padding]="false" *ngIf="applications.length > 0">
       <ik-card-header title="Application Access"></ik-card-header>

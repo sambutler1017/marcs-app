@@ -26,7 +26,6 @@ import { RequestTrackerOverviewComponent } from './request-tracker/request-track
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
-import { EditVacationsComponent } from './shared/edit-vacations/edit-vacations.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
@@ -34,6 +33,8 @@ import { StoresOverviewComponent } from './stores/stores-overview/stores-overvie
 import { StoresComponent } from './stores/stores.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserOverviewComponent } from './users/user-overview/user-overview.component';
+import { UserVacationsDetailComponent } from './users/user-vacations/user-vacations-detail/user-vacations-detail.component';
+import { UserVacationsComponent } from './users/user-vacations/user-vacations.component';
 import { UserComponent } from './users/user.component';
 
 /**
@@ -61,12 +62,12 @@ const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: UserOverviewComponent },
       {
-        path: 'details/:id',
+        path: ':id/details',
         component: UserDetailComponent,
       },
       { path: 'add-user', component: AddUserComponent },
       {
-        path: 'details/:id/edit/info',
+        path: ':id/details/edit/info',
         component: EditUserComponent,
         canActivate: [FeatureAccessGuard],
         resolve: { user: UserResolverService },
@@ -75,14 +76,18 @@ const routes: Routes = [
         },
       },
       {
-        path: 'details/:id/reset-password',
+        path: ':id/details/reset-password',
         component: ResetPasswordComponent,
         canActivate: [FeatureAccessGuard],
         data: {
           feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
       },
-      { path: 'details/:id/edit/vacations', component: EditVacationsComponent },
+      { path: ':id/details/vacations', component: UserVacationsComponent },
+      {
+        path: ':id/details/vacations/:vacId/details',
+        component: UserVacationsDetailComponent,
+      },
     ],
   },
   {

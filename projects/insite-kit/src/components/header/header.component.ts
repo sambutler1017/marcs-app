@@ -1,5 +1,4 @@
-import { Location } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'ik-header',
@@ -9,10 +8,11 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
   @Input() title: string;
   @Input() backEnabled = false;
+  @Output() backClick = new EventEmitter<any>();
 
-  constructor(private location: Location) {}
+  constructor() {}
 
   onBackClick() {
-    this.location.back();
+    this.backClick.emit();
   }
 }

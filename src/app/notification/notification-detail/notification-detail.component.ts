@@ -162,4 +162,8 @@ export class NotificationDetailComponent extends BaseComponent
       );
     }
   }
+
+  onBackClick() {
+    this.router.navigate(['/notification']);
+  }
 }
