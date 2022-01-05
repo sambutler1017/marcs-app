@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'projects/insite-kit/src/models/user.model';
@@ -24,6 +25,7 @@ export class UserVacationsComponent extends BaseComponent
     private readonly vacationService: VacationService,
     private readonly userService: UserService,
     private readonly router: Router,
+    private readonly location: Location,
     public readonly notificationService: NotificationService
   ) {
     super(notificationService);
@@ -48,7 +50,7 @@ export class UserVacationsComponent extends BaseComponent
   }
 
   onBackClick() {
-    this.router.navigate([`/user/${this.user.id}/details`]);
+    this.location.back();
   }
 
   onVacationClick(event: any) {

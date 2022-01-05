@@ -23,6 +23,7 @@ export class GridComponent implements OnChanges {
   @Input() pageSize = 25;
   @Input() searchEnabled = false;
   @Input() pagerEnabled = false;
+  @Input() routeUpdateEnabled = true;
   @Input() title;
   @Input() padding = true;
   @Input() headerPadding = false;
@@ -59,7 +60,7 @@ export class GridComponent implements OnChanges {
         this.currentPageIndex = Number(params.currentPage);
       } else {
         this.currentPageIndex = 0;
-        if (this.pagerEnabled) {
+        if (this.routeUpdateEnabled) {
           this.updateRoute(this.currentPageIndex);
         }
       }
@@ -78,12 +79,12 @@ export class GridComponent implements OnChanges {
     this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
 
     this.excludeColumns();
-    // this.getPageData();
     this.getTotal();
   }
 
   updateRoute(value: number) {
     this.router.navigate([], {
+      replaceUrl: false,
       queryParams: {
         currentPage: value,
       },
