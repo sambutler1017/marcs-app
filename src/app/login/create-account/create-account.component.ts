@@ -56,6 +56,11 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onCreateAccount() {
+    if (this.form.value.password.toString().trim().length < 8) {
+      this.toastService.error('Password must be at least 8 characters long.');
+      return;
+    }
+
     this.loading = true;
 
     let user: User = {
@@ -63,6 +68,7 @@ export class CreateAccountComponent implements OnInit {
       lastName: this.form.value.lastName,
       email: this.form.value.email,
       webRole: this.form.value.positionTitle,
+      password: this.form.value.password,
     };
 
     if (this.form.value.storeId) {
@@ -72,7 +78,7 @@ export class CreateAccountComponent implements OnInit {
     this.userService.createUser(user).subscribe((res) => {
       this.loading = false;
       this.toastService.success(
-        'Account created Successfully! You will receieve an email with information about your account status.'
+        'Account created Successfully! Once your account is approved, you will then be able to login with the email and password you provided'
       );
       this.router.navigate(['/overview']);
     });
@@ -84,6 +90,7 @@ export class CreateAccountComponent implements OnInit {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       positionTitle: ['', Validators.required],
+      password: ['', Validators.required],
       storeId: '',
       storeName: '',
     });

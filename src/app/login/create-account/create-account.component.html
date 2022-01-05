@@ -79,6 +79,17 @@
             />
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="left">Password</label>
+            <input
+              type="text"
+              formControlName="password"
+              class="form-input__shadow margin-top-none"
+              placeholder="Password"
+            />
+          </div>
+        </div>
         <div class="row" *ngIf="!loading; else saveLoading">
           <button
             (click)="onCreateAccount()"

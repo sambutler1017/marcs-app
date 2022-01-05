@@ -40,6 +40,7 @@ export class NotificationDetailComponent extends BaseComponent
   activeNotification: Notification;
   notificationData: User | Vacation;
   form: FormGroup;
+  modalLoading = false;
 
   NotificationType = NotificationType;
   WebRole = WebRole;
@@ -108,6 +109,7 @@ export class NotificationDetailComponent extends BaseComponent
   }
 
   onRequestDecision(status: string) {
+    this.modalLoading = true;
     const observableRequest: Observable<any> =
       status === 'APPROVED' ? this.onRequestApproved() : this.onRequestDenied();
     observableRequest
@@ -121,11 +123,13 @@ export class NotificationDetailComponent extends BaseComponent
       )
       .subscribe(
         (res) => {
+          this.modalLoading = false;
           this.requestModal.close();
           this.router.navigate(['/notification/overview']);
           this.toastService.success(`Request has been successfully ${status}`);
         },
         (err) => {
+          this.modalLoading = false;
           this.requestModal.close();
           this.toastService.error(
             'Request can not be reviewed at this time. Try again later.'

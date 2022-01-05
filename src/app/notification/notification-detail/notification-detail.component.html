@@ -58,40 +58,42 @@
 
 <ik-modal #requestModal>
   <ik-modal-header title="Approved or Denied?" type="info"></ik-modal-header>
-  <ik-modal-body>
-    <form [formGroup]="form">
-      <div *ngIf="activeNotification?.type === NotificationType.USER">
-        Do you wish to Approve or Deny this request?
-      </div>
-      <div *ngIf="activeNotification?.type === NotificationType.VACATION">
-        Do you wish to Approve or Deny this request? You can also add notes in
-        the text area below to give a reason why this request was approved,
-        denied or created.
-      </div>
-      <textarea
-        *ngIf="activeNotification?.type === NotificationType.VACATION"
-        formControlName="notes"
-        rows="4"
-        cols="50"
-        class="form-input__shadow"
-        style="resize: none; margin: 15px 0 0 0;"
-      ></textarea>
-    </form>
-  </ik-modal-body>
-  <ik-modal-action-bar>
-    <button
-      class="btn btn-danger btn-left modal-button"
-      (click)="onRequestDecision('DENIED')"
-    >
-      Deny
-    </button>
-    <button
-      class="btn btn-primary btn-right modal-button"
-      (click)="onRequestDecision('APPROVED')"
-    >
-      Approve
-    </button>
-  </ik-modal-action-bar>
+  <ng-container *ngIf="!modalLoading; else loadingIcon">
+    <ik-modal-body>
+      <form [formGroup]="form">
+        <div *ngIf="activeNotification?.type === NotificationType.USER">
+          Do you wish to Approve or Deny this request?
+        </div>
+        <div *ngIf="activeNotification?.type === NotificationType.VACATION">
+          Do you wish to Approve or Deny this request? You can also add notes in
+          the text area below to give a reason why this request was approved,
+          denied or created.
+        </div>
+        <textarea
+          *ngIf="activeNotification?.type === NotificationType.VACATION"
+          formControlName="notes"
+          rows="4"
+          cols="50"
+          class="form-input__shadow"
+          style="resize: none; margin: 15px 0 0 0;"
+        ></textarea>
+      </form>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-danger btn-left modal-button"
+        (click)="onRequestDecision('DENIED')"
+      >
+        Deny
+      </button>
+      <button
+        class="btn btn-primary btn-right modal-button"
+        (click)="onRequestDecision('APPROVED')"
+      >
+        Approve
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
 </ik-modal>
 
 <ng-template #loadingIcon>
