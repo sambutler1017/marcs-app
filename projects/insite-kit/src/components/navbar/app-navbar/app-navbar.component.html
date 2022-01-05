@@ -1,7 +1,16 @@
 <nav class="app-navbar">
   <div class="waffle inline-block" (click)="onWaffleClick()"></div>
   <div class="app-title inline-block">{{ appName }}</div>
-  <div class="profile inline-block" (click)="onProfileClick()"></div>
+  <div
+    class="dropdown"
+    *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
+  >
+    <div class="profile inline-block"></div>
+    <div class="dropdown-content">
+      <div (click)="onProfileClick()">Profile</div>
+      <div (click)="onLogOutClick()">Log Out</div>
+    </div>
+  </div>
   <div class="bell" (click)="onBellClick()">
     <span class="bell-num" *ngIf="notificationCount > 0">{{
       notificationCount

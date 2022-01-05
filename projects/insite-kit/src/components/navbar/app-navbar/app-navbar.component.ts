@@ -1,6 +1,11 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WebRole } from 'projects/insite-kit/src/models/common.model';
+import {
+  Access,
+  App,
+  Feature,
+  WebRole,
+} from 'projects/insite-kit/src/models/common.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
@@ -15,6 +20,10 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   @Input() appName: string;
   notificationCount = 0;
   destroy = new Subject();
+
+  Feature = Feature;
+  Application = App;
+  Access = Access;
 
   constructor(
     private readonly router: Router,
@@ -38,6 +47,10 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
 
   onProfileClick() {
     this.router.navigate(['/profile']);
+  }
+
+  onLogOutClick() {
+    this.jwt.logOut();
   }
 
   onWaffleClick() {

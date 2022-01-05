@@ -3,11 +3,15 @@
     {{ titleName }}
   </div>
   <div
-    class="profile inline-block"
+    class="dropdown"
     *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
-    (click)="onProfileClick()"
-  ></div>
-
+  >
+    <div class="profile inline-block"></div>
+    <div class="dropdown-content">
+      <div (click)="onProfileClick()">Profile</div>
+      <div (click)="onLogOutClick()">Log Out</div>
+    </div>
+  </div>
   <div
     class="bell"
     *featureAccess="[Application.GLOBAL, Feature.NOTIFICATION, Access.READ]"
