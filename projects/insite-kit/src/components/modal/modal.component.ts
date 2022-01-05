@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import * as bootstrap from 'bootstrap';
 
 @Component({
@@ -6,13 +6,14 @@ import * as bootstrap from 'bootstrap';
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {
+  @Input() name = 'baseModal';
   private readonly bootstrap = bootstrap;
 
   open() {
-    $('#baseModal').modal('show');
+    $(`#${this.name}`).modal('show');
   }
 
   close() {
-    $('#baseModal').modal('hide');
+    $(`#${this.name}`).modal('hide');
   }
 }

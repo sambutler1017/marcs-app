@@ -1,6 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
@@ -14,14 +16,18 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class UserVacationsDetailComponent extends BaseComponent
   implements OnInit, OnDestroy {
+  @ViewChild('deleteVacationModal') deleteVacationModal: ModalComponent;
+
   destroy = new Subject();
   vacationId: number;
   vacationData: Vacation;
+  loading = false;
 
   constructor(
     private readonly location: Location,
     private readonly route: ActivatedRoute,
     private readonly vacationService: VacationService,
+    private readonly toastService: ToastrService,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -35,7 +41,6 @@ export class UserVacationsDetailComponent extends BaseComponent
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
-        console.log(res);
         this.vacationData = res;
         this.triggerNotificationUpdate();
       });
@@ -47,5 +52,29 @@ export class UserVacationsDetailComponent extends BaseComponent
 
   onBackClick() {
     this.location.back();
+  }
+
+  onOpenDeleteModal() {
+    console.log('In delete modal');
+    this.deleteVacationModal.open();
+  }
+
+  onDeleteVacation() {
+    this.loading = true;
+    this.vacationService.deleteVacationById(this.vacationId).subscribe(
+      (res) => {
+        this.loading = false;
+        this.deleteVacationModal.close();
+        this.toastService.success('Vacation sucessfully deleted!');
+        this.location.back();
+      },
+      (err) => {
+        this.loading = false;
+        this.deleteVacationModal.close();
+        this.toastService.success(
+          'Vacation could not be deleted. Try again later.'
+        );
+      }
+    );
   }
 }

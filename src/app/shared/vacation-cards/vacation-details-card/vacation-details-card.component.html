@@ -34,7 +34,7 @@
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
 
-<ik-modal #vacationEditModal>
+<ik-modal #vacationEditModal name="vacationEditModal">
   <ik-modal-header title="New Vacation?" type="info"></ik-modal-header>
   <ng-container *ngIf="!loading; else modalLoader">
     <ik-modal-body>

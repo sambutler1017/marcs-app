@@ -88,6 +88,7 @@
       noDataText="No Vacations"
       [translationKey]="userJson.vacations"
       [columns]="columns"
+      [outputEventColumns]="outputEventColumns"
       [columnsToExclude]="excludedColumns"
       [dataLoader]="vacationData"
       [padding]="false"
@@ -97,7 +98,17 @@
       (gridRowClick)="onRowClick($event)"
       (showAll)="onShowAllClick()"
     >
-      <ik-card-header title="Vacations"> </ik-card-header>
+      <ik-card-header title="Vacations">
+        <ik-icon
+          icon="plus"
+          *featureAccess="[
+            Application.USER,
+            Feature.USER_VACATION,
+            Access.CREATE
+          ]"
+          (click)="addVacationModal.open()"
+        ></ik-icon>
+      </ik-card-header>
     </ik-grid>
     <ik-card [padding]="false" *ngIf="applications.length > 0">
       <ik-card-header title="Application Access"></ik-card-header>
@@ -114,7 +125,7 @@
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
 
-<ik-modal #deleteUserModal>
+<ik-modal #deleteUserModal name="deleteUserModal">
   <ik-modal-header title="Delete User?" type="danger"></ik-modal-header>
   <ik-modal-body>
     <div>
@@ -136,4 +147,52 @@
       Cancel
     </button>
   </ik-modal-action-bar>
+</ik-modal>
+
+<ik-modal #addVacationModal name="addVacationModal">
+  <ik-modal-header title="Add Vacation" type="info"></ik-modal-header>
+  <ng-container *ngIf="!modalLoading; else loader">
+    <ik-modal-body>
+      <ik-modal-body>
+        <form [formGroup]="form">
+          <div class="form-padding">
+            <div class="col-xs-6 col-sm-6">
+              <div class="label-header">Start Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="startDate"
+              />
+            </div>
+
+            <div class="col-xs-6 col-sm-6">
+              <div class="label-header">End Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="endDate"
+              />
+            </div>
+          </div>
+        </form>
+      </ik-modal-body>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary btn-right modal-button"
+        (click)="onAddVacation()"
+      >
+        Add Vacation
+      </button>
+      <button
+        class="btn btn-default btn-right modal-button"
+        (click)="addVacationModal.close()"
+      >
+        Cancel
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
 </ik-modal>

@@ -66,7 +66,11 @@
       }}</label>
     </ng-container>
   </div>
-  <div *ngIf="showAllEnabled" class="showAll__link" (click)="onShowAllClick()">
+  <div
+    *ngIf="showAllEnabled && !noItems"
+    class="showAll__link"
+    (click)="onShowAllClick()"
+  >
     Show All
   </div>
 </ik-card>

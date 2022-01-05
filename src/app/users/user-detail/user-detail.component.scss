@@ -1,16 +1,3 @@
-.cancel-link {
-  font-size: 2.1rem;
-  float: right;
-  padding: 10px;
-  margin: 9px 5px 8px 5px;
-  color: #428bca;
-}
-
-.cancel-link:hover {
-  color: #78a1c5;
-  cursor: pointer;
-}
-
 .app-text {
   padding: 12px 5px;
   font-size: 20px;
@@ -24,6 +11,15 @@ ul {
   columns: 2;
   -webkit-columns: 2;
   -moz-columns: 2;
+}
+
+.input-margin {
+  margin: 0.5em auto;
+}
+
+.label-header {
+  font-size: 15px;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 500px) {

@@ -1,5 +1,6 @@
-import { Location } from '@angular/common';
+import { formatDate, Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
@@ -27,16 +28,20 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class UserDetailComponent extends BaseComponent
   implements OnInit, OnDestroy {
-  @ViewChild(ModalComponent) deleteUserModal: ModalComponent;
+  @ViewChild('deleteUserModal') deleteUserModal: ModalComponent;
+  @ViewChild('addVacationModal') addVacationModal: ModalComponent;
+
   userData: User;
   vacationData: Vacation[];
   applications: string[] = [];
   userJson = json;
   vacationEditRoute: string;
   loading = true;
-
+  outputEventColumns = ['id'];
   excludedColumns = ['id', 'userId', 'insertDate'];
   columns = ['startDate', 'endDate', 'status'];
+  form: FormGroup;
+  modalLoading = false;
 
   WebRole = WebRole;
   Feature = Feature;
@@ -51,12 +56,14 @@ export class UserDetailComponent extends BaseComponent
     private readonly router: Router,
     private readonly toastService: ToastrService,
     private readonly location: Location,
+    private readonly fb: FormBuilder,
     public notificationService: NotificationService
   ) {
     super(notificationService);
   }
 
   ngOnInit() {
+    this.buildForm();
     this.activeRoute.params
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
@@ -77,6 +84,31 @@ export class UserDetailComponent extends BaseComponent
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  buildForm() {
+    this.form = this.fb.group({
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    });
+
+    this.formChange();
+  }
+
+  formChange() {
+    this.form.controls.startDate.valueChanges.subscribe((v) =>
+      this.form.patchValue({ endDate: this.vacationChange(v) })
+    );
+  }
+
+  vacationChange(value: string) {
+    if (value.trim() === '') {
+      return '';
+    }
+
+    const endDate = new Date(value);
+    endDate.setDate(endDate.getDate() + 8);
+    return formatDate(endDate, 'yyyy-MM-dd', 'en-US');
   }
 
   setApplications(apps: Application[]) {
@@ -123,5 +155,39 @@ export class UserDetailComponent extends BaseComponent
     this.location.back();
   }
 
-  onRowClick(event: any) {}
+  onAddVacation() {
+    this.modalLoading = true;
+    this.vacationService
+      .createVacation(this.userData.id, {
+        startDate: this.form.value.startDate,
+        endDate: this.form.value.endDate,
+      })
+      .pipe(
+        switchMap(() =>
+          this.vacationService.getVacationsByUserId(this.userData.id)
+        )
+      )
+      .subscribe(
+        (res) => {
+          this.loading = false;
+          this.vacationData = res;
+          this.addVacationModal.close();
+          this.toastService.success('Vacation sucessfully added!');
+        },
+        (err) => {
+          this.loading = false;
+          this.addVacationModal.close();
+          this.toastService.success(
+            'Vacation could not be added. Please try again later.'
+          );
+        }
+      );
+  }
+
+  onRowClick(event: any) {
+    console.log(event);
+    this.router.navigate([
+      `/user/${this.userData.id}/details/vacations/${event.id}/details`,
+    ]);
+  }
 }
