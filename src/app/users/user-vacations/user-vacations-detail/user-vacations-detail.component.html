@@ -16,7 +16,7 @@
     [data]="vacationData"
   ></app-vacation-details-card>
   <app-vacation-notes-card
-    [data]="vacationData?.notes"
+    [data]="vacationData"
     class="leftColumn column-narrow"
   ></app-vacation-notes-card>
 </ng-container>
@@ -27,26 +27,24 @@
 
 <ik-modal #deleteVacationModal name="deleteVacationModal">
   <ik-modal-header title="Delete User?" type="danger"></ik-modal-header>
-  <ng-container>
-    <ik-modal-body>
-      <div>
-        Deleting this vacation will result in them no longer seeing this record.
-        Are you sure you want to continue?
-      </div>
-    </ik-modal-body>
-    <ik-modal-action-bar>
-      <button
-        class="btn btn-danger btn-right modal-button"
-        (click)="onDeleteVacation()"
-      >
-        Delete Vacation
-      </button>
-      <button
-        class="btn btn-default btn-right modal-button"
-        (click)="deleteVacationModal.close()"
-      >
-        Cancel
-      </button>
-    </ik-modal-action-bar>
-  </ng-container>
+  <ik-modal-body>
+    <div>
+      Deleting this vacation will result in them no longer seeing this record.
+      Are you sure you want to continue?
+    </div>
+  </ik-modal-body>
+  <ik-modal-action-bar>
+    <button
+      class="btn btn-danger btn-right modal-button"
+      (click)="onDeleteVacation()"
+    >
+      Delete Vacation
+    </button>
+    <button
+      class="btn btn-default btn-right modal-button"
+      (click)="deleteVacationModal.close()"
+    >
+      Cancel
+    </button>
+  </ik-modal-action-bar>
 </ik-modal>

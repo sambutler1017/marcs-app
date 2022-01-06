@@ -149,10 +149,10 @@ export class NotificationDetailComponent extends BaseComponent
         updateStatus
       );
     } else {
-      return this.vacationService.updateVacationStatus(
-        this.notificationData.id,
-        { status: VacationStatus.APPROVED, notes: this.form.value.notes }
-      );
+      return this.vacationService.updateVacationInfo(this.notificationData.id, {
+        status: VacationStatus.APPROVED,
+        notes: this.form.value.notes,
+      });
     }
   }
 
@@ -160,10 +160,10 @@ export class NotificationDetailComponent extends BaseComponent
     if (this.activeNotification.type === NotificationType.USER) {
       return this.userService.deleteUser(this.notificationData.id);
     } else {
-      return this.vacationService.updateVacationStatus(
-        this.notificationData.id,
-        { status: VacationStatus.DENIED, notes: this.form.value.notes }
-      );
+      return this.vacationService.updateVacationInfo(this.notificationData.id, {
+        status: VacationStatus.DENIED,
+        notes: this.form.value.notes,
+      });
     }
   }
 

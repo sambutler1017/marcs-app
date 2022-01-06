@@ -22,6 +22,7 @@ export class UserVacationsDetailComponent extends BaseComponent
   vacationId: number;
   vacationData: Vacation;
   loading = false;
+  notesModalLoading = false;
 
   constructor(
     private readonly location: Location,

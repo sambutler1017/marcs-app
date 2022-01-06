@@ -108,12 +108,12 @@ export class VacationService {
    * @param vac The vacation object containing the status to update it too.
    * @returns Vacation object with the updated information
    */
-  public updateVacationStatus(
+  public updateVacationInfo(
     vacId: number,
     vac: Vacation
   ): Observable<Vacation> {
     return this.request.put<Vacation>(
-      `${this.BASE_VACATION_PATH}/${vacId}/status`,
+      `${this.BASE_VACATION_PATH}/${vacId}/info`,
       vac
     );
   }

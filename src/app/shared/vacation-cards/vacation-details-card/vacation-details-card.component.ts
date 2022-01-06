@@ -94,7 +94,7 @@ export class VacationDetailsCardComponent extends BaseComponent
 
   onDenyVacation() {
     this.vacationService
-      .updateVacationStatus(this.data.id, {
+      .updateVacationInfo(this.data.id, {
         status: VacationStatus.DENIED,
       })
       .subscribe((res) => this.updateCard(res));
@@ -102,7 +102,7 @@ export class VacationDetailsCardComponent extends BaseComponent
 
   onApproveVacation() {
     this.vacationService
-      .updateVacationStatus(this.data.id, {
+      .updateVacationInfo(this.data.id, {
         status: VacationStatus.APPROVED,
       })
       .subscribe((res) => this.updateCard(res));
