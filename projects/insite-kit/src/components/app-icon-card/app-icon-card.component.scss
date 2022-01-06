@@ -64,3 +64,15 @@
     content: url(../../assets/images/app-icons/request-tracker-icon.png);
   }
 }
+
+@media screen and (max-width: 1100px) {
+  .chip:hover {
+    transform: scale(1.06);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .chip:hover {
+    transform: scale(1);
+  }
+}
