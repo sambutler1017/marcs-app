@@ -66,8 +66,4 @@ export class ProfileEditComponent extends BaseComponent
         }
       );
   }
-
-  onBackClick() {
-    this.router.navigate(['/profile']);
-  }
 }

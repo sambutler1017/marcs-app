@@ -55,7 +55,6 @@ export class UserVacationsDetailComponent extends BaseComponent
   }
 
   onOpenDeleteModal() {
-    console.log('In delete modal');
     this.deleteVacationModal.open();
   }
 

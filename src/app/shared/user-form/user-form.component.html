@@ -24,35 +24,37 @@
       />
     </ik-card-info>
 
-    <ik-card-info header="Position">
-      <select class="form-input__normal" formControlName="webRole">
-        <option *ngFor="let role of roles" [ngValue]="role">{{
-          role | webRoleTranslate
-        }}</option>
-      </select>
-    </ik-card-info>
+    <ng-container *ngIf="!disableRoleUpdate">
+      <ik-card-info header="Position">
+        <select class="form-input__normal" formControlName="webRole">
+          <option *ngFor="let role of roles" [ngValue]="role">{{
+            role | webRoleTranslate
+          }}</option>
+        </select>
+      </ik-card-info>
 
-    <ik-card-info header="Store ID*">
-      <select
-        class="form-input__normal"
-        formControlName="storeId"
-        *ngIf="!storesLoading; else loadingIcon"
-      >
-        <option value="" disabled selected hidden>Store ID</option>
-        <option *ngFor="let store of stores" [ngValue]="store.id">{{
-          store.id
-        }}</option>
-      </select>
-    </ik-card-info>
+      <ik-card-info header="Store ID*">
+        <select
+          class="form-input__normal"
+          formControlName="storeId"
+          *ngIf="!storesLoading; else loadingIcon"
+        >
+          <option value="" disabled selected hidden>Store ID</option>
+          <option *ngFor="let store of stores" [ngValue]="store.id">{{
+            store.id
+          }}</option>
+        </select>
+      </ik-card-info>
 
-    <ik-card-info header="Store Name"
-      ><input
-        class="form-input__normal"
-        placeholder="Store Name"
-        formControlName="storeName"
-        readonly
-      />
-    </ik-card-info>
+      <ik-card-info header="Store Name"
+        ><input
+          class="form-input__normal"
+          placeholder="Store Name"
+          formControlName="storeName"
+          readonly
+        />
+      </ik-card-info>
+    </ng-container>
 
     <ik-card-info header="Hire Date"
       ><input

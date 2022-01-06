@@ -6,7 +6,6 @@ import {
   Access,
   App,
   Feature,
-  WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
@@ -80,24 +79,14 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
   }
 
   getParams() {
-    let params = this.userService.managersOnlyMap();
-
+    let params = this.userService.getUserAccessMap();
     if (params !== null) {
       params.set('accountStatus', ['APPROVED']);
       return params;
     } else {
       params = new Map<string, string[]>();
     }
-
-    const currentUserRole = WebRole[this.jwt.get('webRole')];
-    const roles = Object.keys(WebRole)
-      .map((key) => WebRole[key])
-      .filter(
-        (value) => typeof value === 'string' && WebRole[value] < currentUserRole
-      ) as string[];
-
-    params.set('accountStatus', ['APPROVED']);
-    return params.set('webRole', roles);
+    return params.set('accountStatus', ['APPROVED']);
   }
 
   generateSearchParams(value: any) {

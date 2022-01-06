@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { PasswordUpdate } from 'projects/insite-kit/src/models/password-update.model';
 import {
   Application,
@@ -224,5 +225,102 @@ export class UserService {
     return this.jwt.get('managersOnly')
       ? new Map<string, string[]>().set('regionalId', this.jwt.get('userId'))
       : null;
+  }
+
+  /**
+   * This will get what users the user is able to see.
+   */
+  getUserAccessMap() {
+    const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
+
+    // CORPORATE_USER, SITE_ADMIN, ADMIN
+    if ([2, 8, 9].includes(userRole)) {
+      return null;
+    }
+
+    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, MANAGER
+    if ([3, 4, 5].includes(userRole)) {
+      return new Map<string, string[]>().set(
+        'storeId',
+        this.jwt.get('storeId')
+      );
+    }
+
+    //DISTRICT_MANAGER, REGIONAL
+    if ([6, 7].includes(userRole)) {
+      return new Map<string, string[]>().set(
+        'regionalId',
+        this.jwt.get('userId')
+      );
+    }
+
+    // EMPLOYEE and other
+    return new Map<string, string[]>().set('id', this.jwt.get('userId'));
+  }
+
+  /**
+   * Helper method to determine if the currently logged in user is able to edit the current web role.
+   *
+   * @param editableUserRole The role to check if editable.
+   * @returns Boolean based on if the user can edit the role or not.
+   */
+  canEditUser(editableUserRole: WebRole): boolean {
+    const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
+
+    // MANAGER editing an EMPLOYEE
+    if (5 === userRole && Number(WebRole[editableUserRole]) === 1) {
+      return true;
+    }
+
+    // DISTRICT_MANAGER or REGIONAL editing user with role of MANAGER or lower
+    if ([6, 7].includes(userRole) && Number(WebRole[editableUserRole]) < 6) {
+      return true;
+    }
+
+    // SITE_ADMIN and ADMIN can edit anyone
+    if ([8, 9].includes(userRole)) {
+      return true;
+    }
+
+    //EMPLOYEE or other can edit anyone
+    return false;
+  }
+
+  /**
+   * Helper method to determine if the currently logged in user is able to edit the current web role.
+   *
+   * @param editableUserRole The role to check if editable.
+   * @returns Boolean based on if the user can edit the role or not.
+   */
+  getAllowedRolesToCreate(): string[] {
+    const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
+
+    // MANAGER editing an EMPLOYEE
+    if (5 === userRole) {
+      return [WebRole[WebRole.EMPLOYEE].toString()];
+    }
+
+    // DISTRICT_MANAGER or REGIONAL editing user with role of MANAGER or lower
+    if ([6, 7].includes(userRole)) {
+      return [
+        WebRole[WebRole.ASSISTANT_MANAGER].toString(),
+        WebRole[WebRole.CORPORATE_USER].toString(),
+        WebRole[WebRole.CUSTOMER_SERVICE_MANAGER].toString(),
+        WebRole[WebRole.MANAGER].toString(),
+        WebRole[WebRole.EMPLOYEE].toString(),
+      ];
+    }
+
+    // SITE_ADMIN and ADMIN can edit anyone
+    if ([8, 9].includes(userRole)) {
+      return Object.keys(WebRole)
+        .map((key) => WebRole[key])
+        .filter(
+          (value) => typeof value === 'string' && WebRole[value] < userRole
+        ) as string[];
+    }
+
+    //EMPLOYEE or other can edit anyone
+    return [];
   }
 }

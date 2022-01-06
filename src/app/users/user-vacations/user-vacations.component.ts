@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
@@ -16,9 +17,12 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class UserVacationsComponent extends BaseComponent
   implements OnInit, OnDestroy {
+  @ViewChild('vacationModalDetails') vacationDetailsModal: ModalComponent;
+
   destroy = new Subject();
   dataLoader: Vacation[];
   user: User;
+  selectedVacation: Vacation;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -54,8 +58,13 @@ export class UserVacationsComponent extends BaseComponent
   }
 
   onVacationClick(event: any) {
-    this.router.navigate([
-      `user/${this.user.id}/details/vacations/${event.id}/details`,
-    ]);
+    if (this.userService.canEditUser(this.user.webRole)) {
+      this.router.navigate([
+        `user/${this.user.id}/details/vacations/${event.id}/details`,
+      ]);
+    } else {
+      this.selectedVacation = this.dataLoader.find((v) => v.id === event.id);
+      this.vacationDetailsModal.open();
+    }
   }
 }

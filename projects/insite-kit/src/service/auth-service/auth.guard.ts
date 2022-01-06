@@ -47,10 +47,6 @@ export class AuthGuard implements CanActivate {
       path.includes(next.routeConfig.path)
     );
 
-    if (appAccess.length > 0) {
-      return true;
-    } else {
-      return false;
-    }
+    return appAccess.length > 0;
   }
 }

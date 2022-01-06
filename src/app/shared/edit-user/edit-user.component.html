@@ -1,7 +1,7 @@
 <ik-header
   title="Edit User"
   [backEnabled]="true"
-  (backClick)="onBackClick()"
+  (backClick)="onCancelClick()"
 ></ik-header>
 <app-user-form
   *ngIf="userUpdating && !loading; else loader"

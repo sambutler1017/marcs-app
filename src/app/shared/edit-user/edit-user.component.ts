@@ -51,6 +51,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick() {
+    console.log('In on cancel');
     this.location.back();
   }
 
@@ -67,9 +68,5 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     );
-  }
-
-  onBackClick() {
-    this.location.back();
   }
 }

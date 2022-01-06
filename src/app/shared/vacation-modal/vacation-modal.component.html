@@ -1,0 +1,41 @@
+<ik-modal name="defaultVacationDetails">
+  <ik-modal-header title="Vacation Details" type="info"></ik-modal-header>
+  <ng-container *ngIf="vacationData; else modalLoader">
+    <ik-modal-body>
+      <div class="left-column">
+        <ik-card-info
+          header="Start Date"
+          [text]="vacationData?.startDate | date: 'mediumDate'"
+        ></ik-card-info>
+      </div>
+      <div class="right-column">
+        <ik-card-info
+          header="End Date"
+          [text]="vacationData?.endDate | date: 'mediumDate'"
+        ></ik-card-info>
+      </div>
+      <div class="left-column">
+        <ik-card-info
+          header="Status"
+          [text]="vacationData?.status"
+          [contentColor]="vacationData?.status"
+        ></ik-card-info>
+      </div>
+      <div class="left-column">
+        <ik-card-info
+          header="Notes"
+          [text]="vacationData?.notes ? vacationData?.notes : '-'"
+        ></ik-card-info>
+      </div>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button class="btn btn-default btn-right modal-button" (click)="close()">
+        Close
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ng-template #modalLoader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

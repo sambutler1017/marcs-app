@@ -16,6 +16,7 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationDetailsCardComponent } from './vacation-cards/vacation-details-card/vacation-details-card.component';
 import { VacationNotesCardComponent } from './vacation-cards/vacation-notes-card/vacation-notes-card.component';
+import { VacationModalComponent } from './vacation-modal/vacation-modal.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { VacationNotesCardComponent } from './vacation-cards/vacation-notes-card
     RequestTrackerGridComponent,
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
+    VacationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { VacationNotesCardComponent } from './vacation-cards/vacation-notes-card
     RequestTrackerGridComponent,
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
+    VacationModalComponent,
   ],
   providers: [
     {

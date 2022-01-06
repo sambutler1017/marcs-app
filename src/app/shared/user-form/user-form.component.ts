@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { StoreService } from 'src/service/store-service/store.service';
+import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -33,12 +33,12 @@ export class UserFormComponent implements OnInit {
 
   constructor(
     private storeService: StoreService,
-    private jwt: JwtService,
+    private readonly userService: UserService,
     private readonly fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.setAllowedRoles();
+    this.roles = this.userService.getAllowedRolesToCreate();
     this.storesLoading = true;
     this.buildForm();
 
@@ -137,17 +137,6 @@ export class UserFormComponent implements OnInit {
     }
 
     this.save.emit(user);
-  }
-
-  setAllowedRoles() {
-    const userRole = WebRole[this.jwt.get('webRole')];
-    this.roles = Object.keys(WebRole)
-      .map((key) => WebRole[key])
-      .filter(
-        (value) =>
-          (typeof value === 'string' && WebRole[value] < userRole) ||
-          this.disableRoleUpdate
-      ) as string[];
   }
 
   isManager(value: WebRole) {

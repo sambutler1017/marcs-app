@@ -42,6 +42,7 @@ export class UserDetailComponent extends BaseComponent
   columns = ['startDate', 'endDate', 'status'];
   form: FormGroup;
   modalLoading = false;
+  canEdit = false;
 
   WebRole = WebRole;
   Feature = Feature;
@@ -68,6 +69,10 @@ export class UserDetailComponent extends BaseComponent
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
         tap((res) => (this.userData = res)),
+        tap(
+          () =>
+            (this.canEdit = this.userService.canEditUser(this.userData.webRole))
+        ),
         switchMap(() =>
           this.vacationService.getVacationsByUserId(this.userData.id)
         ),
@@ -185,7 +190,6 @@ export class UserDetailComponent extends BaseComponent
   }
 
   onRowClick(event: any) {
-    console.log(event);
     this.router.navigate([
       `/user/${this.userData.id}/details/vacations/${event.id}/details`,
     ]);

@@ -4,7 +4,7 @@
     [backEnabled]="true"
     (backClick)="onBackClick()"
   >
-    <div class="inline-display header-buttons">
+    <div class="inline-display header-buttons" *ngIf="canEdit">
       <button
         class="btn btn-default btn-size btn-right h-button"
         (click)="onResetPassword()"
@@ -24,15 +24,17 @@
   <div class="leftColumn column-half">
     <ik-card [padding]="false">
       <ik-card-header [title]="userJson.detail.title">
-        <ik-icon
-          icon="edit"
-          *featureAccess="[
-            Application.USER,
-            Feature.USER_DETAIL,
-            Access.UPDATE
-          ]"
-          (click)="onUserEditClick()"
-        ></ik-icon>
+        <ng-container *ngIf="canEdit">
+          <ik-icon
+            icon="edit"
+            *featureAccess="[
+              Application.USER,
+              Feature.USER_DETAIL,
+              Access.UPDATE
+            ]"
+            (click)="onUserEditClick()"
+          ></ik-icon>
+        </ng-container>
       </ik-card-header>
       <div class="left-column">
         <ik-card-info
@@ -99,15 +101,17 @@
       (showAll)="onShowAllClick()"
     >
       <ik-card-header title="Vacations">
-        <ik-icon
-          icon="plus"
-          *featureAccess="[
-            Application.USER,
-            Feature.USER_VACATION,
-            Access.CREATE
-          ]"
-          (click)="addVacationModal.open()"
-        ></ik-icon>
+        <ng-container *ngIf="canEdit">
+          <ik-icon
+            icon="plus"
+            *featureAccess="[
+              Application.USER,
+              Feature.USER_VACATION,
+              Access.CREATE
+            ]"
+            (click)="addVacationModal.open()"
+          ></ik-icon>
+        </ng-container>
       </ik-card-header>
     </ik-grid>
     <ik-card [padding]="false" *ngIf="applications.length > 0">
