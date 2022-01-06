@@ -19,10 +19,11 @@ export class CreateAccountComponent implements OnInit {
   storesLoading = true;
   form: FormGroup;
   roles: string[];
-  validManagers: any = [
+  validStoreUsers: any = [
     WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
     WebRole[WebRole.ASSISTANT_MANAGER],
     WebRole[WebRole.MANAGER],
+    WebRole[WebRole.EMPLOYEE],
   ];
 
   WebRole = WebRole;
@@ -108,7 +109,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   setStoreStatus(role: WebRole) {
-    if (this.isManager(role)) {
+    if (this.isStoreUser(role)) {
       this.form.controls.storeId.enable({ emitEvent: false });
       this.form.controls.storeName.enable({ emitEvent: false });
     } else {
@@ -134,8 +135,8 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
-  isManager(value: WebRole) {
-    return this.validManagers.includes(value);
+  isStoreUser(value: WebRole) {
+    return this.validStoreUsers.includes(value);
   }
 
   setAllowedRoles() {
