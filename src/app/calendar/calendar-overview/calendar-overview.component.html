@@ -27,6 +27,7 @@
       *ngSwitchCase="CalendarView.Day"
       [viewDate]="viewDate"
       [events]="events"
+      (eventClicked)="eventClicked($event)"
     >
     </mwl-calendar-day-view>
   </div>

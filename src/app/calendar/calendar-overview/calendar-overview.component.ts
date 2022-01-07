@@ -63,15 +63,6 @@ export class CalendarOverviewComponent extends BaseComponent
       });
   }
 
-  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
-    renderEvent.body.forEach((day) => {
-      const dayOfMonth = day.date.getMonth();
-      if (dayOfMonth === 11) {
-        day.cssClass = 'block-day-icon';
-      }
-    });
-  }
-
   ngOnDestroy() {
     this.destroy.next();
   }
@@ -91,6 +82,19 @@ export class CalendarOverviewComponent extends BaseComponent
   dayClicked(value: any) {
     this.viewDate = value.date;
     this.view = CalendarView.Day;
+  }
+
+  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
+    renderEvent.body.forEach((day) => {
+      const dayOfMonth = day.date.getMonth();
+      if (dayOfMonth === 11) {
+        day.cssClass = 'block-day-icon';
+      }
+    });
+  }
+
+  eventClicked({ event }: { event: CalendarEvent }): void {
+    console.log('Event clicked', event);
   }
 
   getVacations() {
@@ -137,6 +141,7 @@ export class CalendarOverviewComponent extends BaseComponent
       this.events.push({
         start: startDate,
         title: `${user.firstName} ${user.lastName} (${user.storeId})`,
+        meta: { vacation: v },
       });
       hourCount[dateString[0].toString()][dateString[1]][dateString[2]]++;
     });
