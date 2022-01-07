@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import {
   CalendarDateFormatter,
   CalendarEvent,
+  CalendarMonthViewBeforeRenderEvent,
   CalendarView,
 } from 'angular-calendar';
 import { startOfDay } from 'date-fns';
@@ -60,6 +61,15 @@ export class CalendarOverviewComponent extends BaseComponent
         this.triggerNotificationUpdate();
         this.loading = false;
       });
+  }
+
+  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
+    renderEvent.body.forEach((day) => {
+      const dayOfMonth = day.date.getMonth();
+      if (dayOfMonth === 11) {
+        day.cssClass = 'block-day-icon';
+      }
+    });
   }
 
   ngOnDestroy() {

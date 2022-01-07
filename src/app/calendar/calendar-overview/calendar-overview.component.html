@@ -12,6 +12,7 @@
       [viewDate]="viewDate"
       [events]="events"
       (dayClicked)="dayClicked($event.day)"
+      (beforeViewRender)="beforeMonthViewRender($event)"
     >
     </mwl-calendar-month-view>
 
