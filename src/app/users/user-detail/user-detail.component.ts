@@ -192,8 +192,10 @@ export class UserDetailComponent extends BaseComponent
   }
 
   onRowClick(event: any) {
-    this.router.navigate([
-      `/user/${this.userData.id}/details/vacations/${event.id}/details`,
-    ]);
+    if (this.canEdit) {
+      this.router.navigate([
+        `/user/${this.userData.id}/details/vacations/${event.id}/details`,
+      ]);
+    }
   }
 }
