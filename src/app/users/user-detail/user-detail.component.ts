@@ -10,6 +10,7 @@ import {
   Access,
   App,
   Feature,
+  VacationStatus,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Application, User } from 'projects/insite-kit/src/models/user.model';
@@ -166,6 +167,7 @@ export class UserDetailComponent extends BaseComponent
       .createVacation(this.userData.id, {
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
+        status: VacationStatus.APPROVED,
       })
       .pipe(
         switchMap(() =>

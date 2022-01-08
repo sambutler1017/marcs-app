@@ -93,6 +93,8 @@ export class VacationDetailsCardComponent extends BaseComponent
   }
 
   onDenyVacation() {
+    this.loading = true;
+
     this.vacationService
       .updateVacationInfo(this.data.id, {
         status: VacationStatus.DENIED,
@@ -101,6 +103,8 @@ export class VacationDetailsCardComponent extends BaseComponent
   }
 
   onApproveVacation() {
+    this.loading = true;
+
     this.vacationService
       .updateVacationInfo(this.data.id, {
         status: VacationStatus.APPROVED,
