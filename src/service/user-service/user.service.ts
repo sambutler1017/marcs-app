@@ -277,12 +277,17 @@ export class UserService {
       return true;
     }
 
-    // SITE_ADMIN and ADMIN can edit anyone
-    if ([8, 9].includes(userRole)) {
+    // SITE_ADMIN
+    if (8 === userRole && Number(WebRole[editableUserRole]) < 8) {
       return true;
     }
 
-    //EMPLOYEE or other can edit anyone
+    // ADMIN can edit anyone, but themselves
+    if (9 === userRole && Number(WebRole[editableUserRole]) < 9) {
+      return true;
+    }
+
+    //EMPLOYEE or other can't edit anyone
     return false;
   }
 
