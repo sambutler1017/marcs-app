@@ -235,27 +235,28 @@ export class UserService {
 
     // CORPORATE_USER, SITE_ADMIN, ADMIN
     if ([2, 8, 9].includes(userRole)) {
-      return null;
-    }
-
-    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, MANAGER
-    if ([3, 4, 5].includes(userRole)) {
       return new Map<string, string[]>().set(
-        'storeId',
-        this.jwt.get('storeId')
-      );
-    }
-
-    //DISTRICT_MANAGER, REGIONAL
-    if ([6, 7].includes(userRole)) {
-      return new Map<string, string[]>().set(
-        'regionalId',
+        'excludedUserIds',
         this.jwt.get('userId')
       );
     }
 
+    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, MANAGER
+    if ([3, 4, 5].includes(userRole)) {
+      return new Map<string, string[]>()
+        .set('storeId', this.jwt.get('storeId'))
+        .set('excludedUserIds', this.jwt.get('userId'));
+    }
+
+    //DISTRICT_MANAGER, REGIONAL
+    if ([6, 7].includes(userRole)) {
+      return new Map<string, string[]>()
+        .set('regionalId', this.jwt.get('userId'))
+        .set('excludedUserIds', this.jwt.get('userId'));
+    }
+
     // EMPLOYEE and other
-    return new Map<string, string[]>().set('id', this.jwt.get('userId'));
+    return new Map<string, string[]>().set('id', ['0']);
   }
 
   /**
