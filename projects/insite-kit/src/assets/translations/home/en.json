@@ -8,7 +8,7 @@
     },
     "store": {
       "title": "Stores",
-      "message": "Regional's stores they oversee, containing the store manager and manager count.",
+      "message": "Detailed information about the Marc's stores in the state of Ohio.",
       "icon": "store",
       "page": "store"
     },
@@ -38,7 +38,7 @@
     },
     "requestTracker": {
       "title": "Request Tracker",
-      "message": "All requested vacations from users show up here to be approved or declined.",
+      "message": "Tracks requested vacations and their review status.",
       "icon": "request-tracker",
       "page": "requestTracker"
     },
