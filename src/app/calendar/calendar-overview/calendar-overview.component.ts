@@ -98,7 +98,7 @@ export class CalendarOverviewComponent extends BaseComponent
   }
 
   getVacations() {
-    let params = this.userService.managersOnlyMap();
+    let params = this.userService.getUserAccessMap();
 
     if (params) {
       return this.vacationService.getVacations(params);

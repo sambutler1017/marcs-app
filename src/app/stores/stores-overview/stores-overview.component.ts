@@ -34,7 +34,7 @@ export class StoresOverviewComponent extends BaseComponent
 
   ngOnInit() {
     this.storeService
-      .getStores(this.userService.managersOnlyMap())
+      .getStores(this.userService.getUserAccessMap())
       .pipe(takeUntil(this.destroy))
       .subscribe((res) => {
         this.dataLoader = res;
@@ -51,7 +51,7 @@ export class StoresOverviewComponent extends BaseComponent
   }
 
   onSearch(value: string) {
-    let params = this.userService.managersOnlyMap();
+    let params = this.userService.getUserAccessMap();
 
     if (params) {
       params.set('name', [value]).set('id', [value]);

@@ -216,18 +216,6 @@ export class UserService {
   }
 
   /**
-   * If the user has mangersOnly set. The will only see their managers at the stores they own.
-   * This feature is really only for regionals incase they don't want to see everyone else's managers.
-   *
-   * @returns Map with the regionalId set.
-   */
-  managersOnlyMap() {
-    return this.jwt.get('managersOnly')
-      ? new Map<string, string[]>().set('regionalId', this.jwt.get('userId'))
-      : null;
-  }
-
-  /**
    * This will get what users the user is able to see.
    */
   getUserAccessMap() {
