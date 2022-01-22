@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
@@ -27,6 +28,7 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
     private readonly storeService: StoreService,
     private readonly userService: UserService,
     private readonly router: Router,
+    private readonly location: Location,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -64,6 +66,6 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
   }
 
   onBackClick() {
-    this.router.navigate(['/store']);
+    this.location.back();
   }
 }

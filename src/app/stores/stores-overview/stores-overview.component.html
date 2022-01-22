@@ -1,6 +1,7 @@
 <ik-header [title]="storeJson.storeTitle"> </ik-header>
 
 <ik-grid
+  noDataText="No Stores"
   [translationKey]="storeJson"
   [dataLoader]="dataLoader"
   [columns]="columns"
