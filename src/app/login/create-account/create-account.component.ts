@@ -76,13 +76,22 @@ export class CreateAccountComponent implements OnInit {
       user.storeId = this.form.value.storeId.toUpperCase();
     }
 
-    this.userService.createUser(user).subscribe((res) => {
-      this.loading = false;
-      this.toastService.success(
-        'Account created Successfully! Once your account is approved, you will then be able to login with the email and password you provided'
-      );
-      this.router.navigate(['/overview']);
-    });
+    this.userService.createUser(user).subscribe(
+      (res) => {
+        this.loading = false;
+        this.toastService.success(
+          'Account created Successfully! Once your account is approved, you will then be able to login with the email and password you provided'
+        );
+        this.router.navigate(['/overview']);
+      },
+      (err) => {
+        this.loading = false;
+        this.toastService.error(
+          'Account could not be created at this time. Please try again later.'
+        );
+        this.router.navigate(['/overview']);
+      }
+    );
   }
 
   buildForm() {
