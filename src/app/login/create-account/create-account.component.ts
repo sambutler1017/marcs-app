@@ -28,6 +28,10 @@ export class CreateAccountComponent implements OnInit {
 
   WebRole = WebRole;
 
+  emailIconLoading = false;
+  emailIconCheck = false;
+  emailIconClose = false;
+
   constructor(
     private readonly storeService: StoreService,
     private readonly userService: UserService,
@@ -94,6 +98,24 @@ export class CreateAccountComponent implements OnInit {
     );
   }
 
+  checkEmail() {
+    if (this.form.value.email) {
+      this.setEmailIconLoading();
+      this.userService
+        .doesEmailExist(this.form.value.email)
+        .subscribe((doesExist) => {
+          this.emailIconLoading = false;
+          if (doesExist) {
+            this.setEmailIconClose();
+          } else {
+            this.setEmailIconCheck();
+          }
+        });
+    } else {
+      this.setEmailIconClose();
+    }
+  }
+
   buildForm() {
     this.form = this.fb.group({
       firstName: ['', Validators.required],
@@ -155,5 +177,23 @@ export class CreateAccountComponent implements OnInit {
         (value) =>
           typeof value === 'string' && WebRole[value] < WebRole.SITE_ADMIN
       ) as string[];
+  }
+
+  setEmailIconLoading() {
+    this.emailIconLoading = true;
+    this.emailIconCheck = false;
+    this.emailIconClose = false;
+  }
+
+  setEmailIconCheck() {
+    this.emailIconLoading = false;
+    this.emailIconCheck = true;
+    this.emailIconClose = false;
+  }
+
+  setEmailIconClose() {
+    this.emailIconLoading = false;
+    this.emailIconCheck = false;
+    this.emailIconClose = true;
   }
 }
