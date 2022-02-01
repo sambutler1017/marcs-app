@@ -17,3 +17,30 @@
 <ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
+
+<ik-modal #managerChangeModal name="managerChangeModal">
+  <ik-modal-header title="Confirm New Manager" type="warning"></ik-modal-header>
+  <ng-container>
+    <ik-modal-body>
+      <div>
+        There is already a manager of this store. Updating the manager of the
+        store will cause the current manager to be demoted to an Assisstant
+        Manager. Do you want to continue?
+      </div>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-warning btn-right modal-button"
+        (click)="onManagerConfirm()"
+      >
+        Confirm
+      </button>
+      <button
+        class="btn btn-default btn-right modal-button"
+        (click)="managerChangeModal.close()"
+      >
+        Cancel
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>

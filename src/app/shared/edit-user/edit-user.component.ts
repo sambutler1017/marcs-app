@@ -1,7 +1,9 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { Subject } from 'rxjs';
@@ -13,6 +15,8 @@ import { UserService } from 'src/service/user-service/user.service';
   templateUrl: './edit-user.component.html',
 })
 export class EditUserComponent implements OnInit, OnDestroy {
+  @ViewChild('managerChangeModal') managerChangeModal: ModalComponent;
+
   loading = true;
   destroy = new Subject();
   userId: number;
@@ -51,13 +55,19 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick() {
-    console.log('In on cancel');
     this.location.back();
   }
 
   onSaveClick(user: User) {
-    this.loading = true;
+    // if (this.checkUserRoleManager(user)) {
+    //   this.managerChangeModal.open();
+    // } else {
+    this.userProfileSave(user);
+    // }
+  }
 
+  userProfileSave(user: User) {
+    this.loading = true;
     this.userService.updateUserProfileById(this.userId, user).subscribe(
       () => {
         this.onCancelClick();
@@ -68,5 +78,17 @@ export class EditUserComponent implements OnInit, OnDestroy {
         this.loading = false;
       }
     );
+  }
+
+  checkUserRoleManager(user: User): boolean {
+    return (
+      user.webRole === WebRole[WebRole.MANAGER] &&
+      this.userUpdating.webRole !== WebRole[WebRole.MANAGER]
+    );
+  }
+
+  onManagerConfirm() {
+    console.log('User profile updated and manager change complete!');
+    this.managerChangeModal.close();
   }
 }
