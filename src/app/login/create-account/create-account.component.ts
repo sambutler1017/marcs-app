@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -13,7 +15,7 @@ import { UserService } from 'src/service/user-service/user.service';
   templateUrl: './create-account.component.html',
   styleUrls: ['./create-account.component.scss'],
 })
-export class CreateAccountComponent implements OnInit {
+export class CreateAccountComponent implements OnInit, OnDestroy {
   loading = false;
   stores: Store[];
   storesLoading = true;
@@ -28,9 +30,10 @@ export class CreateAccountComponent implements OnInit {
 
   WebRole = WebRole;
 
-  emailIconLoading = false;
-  emailIconCheck = false;
-  emailIconClose = false;
+  destroy = new Subject();
+  emailInputStatus = '';
+  emailDirty = false;
+  emailExist = false;
 
   constructor(
     private readonly storeService: StoreService,
@@ -58,6 +61,10 @@ export class CreateAccountComponent implements OnInit {
         this.router.navigate(['/overview']);
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy.next();
   }
 
   onCreateAccount() {
@@ -99,13 +106,20 @@ export class CreateAccountComponent implements OnInit {
   }
 
   checkEmail() {
+    this.emailDirty = false;
     if (this.form.value.email) {
       this.setEmailIconLoading();
-      this.userService
-        .doesEmailExist(this.form.value.email)
+      this.emailValidatorObservable()
+        .pipe(takeUntil(this.destroy))
         .subscribe((doesExist) => {
-          this.emailIconLoading = false;
+          this.setEmailIconLoading();
+          this.emailExist = doesExist;
           if (doesExist) {
+            this.setEmailIconClose();
+            this.toastService.warning(
+              `The email already exists. Please sign in or choose forgot password to recover your account.`
+            );
+          } else if (this.form.controls.email.invalid) {
             this.setEmailIconClose();
           } else {
             this.setEmailIconCheck();
@@ -114,6 +128,14 @@ export class CreateAccountComponent implements OnInit {
     } else {
       this.setEmailIconClose();
     }
+  }
+
+  emailValidatorObservable() {
+    return this.userService.doesEmailExist(this.form.value.email);
+  }
+
+  setEmailStatus() {
+    this.emailDirty = true;
   }
 
   buildForm() {
@@ -180,20 +202,14 @@ export class CreateAccountComponent implements OnInit {
   }
 
   setEmailIconLoading() {
-    this.emailIconLoading = true;
-    this.emailIconCheck = false;
-    this.emailIconClose = false;
+    this.emailInputStatus = 'LOADING';
   }
 
   setEmailIconCheck() {
-    this.emailIconLoading = false;
-    this.emailIconCheck = true;
-    this.emailIconClose = false;
+    this.emailInputStatus = 'CHECK';
   }
 
   setEmailIconClose() {
-    this.emailIconLoading = false;
-    this.emailIconCheck = false;
-    this.emailIconClose = true;
+    this.emailInputStatus = 'CLOSE';
   }
 }

@@ -39,14 +39,18 @@
               <input
                 type="text"
                 (blur)="checkEmail()"
+                (keyup)="setEmailStatus()"
                 formControlName="email"
                 class="form-input__shadow margin-top-none"
                 placeholder="Email"
               />
               <div class="icon-container">
-                <i *ngIf="emailIconLoading" class="loader-email"></i>
-                <i *ngIf="emailIconClose" class="close-mark"></i>
-                <i *ngIf="emailIconCheck" class="check-mark"></i>
+                <i
+                  *ngIf="emailInputStatus === 'LOADING'"
+                  class="loader-email"
+                ></i>
+                <i *ngIf="emailInputStatus === 'CLOSE'" class="close-mark"></i>
+                <i *ngIf="emailInputStatus === 'CHECK'" class="check-mark"></i>
               </div>
             </div>
           </div>
@@ -92,7 +96,7 @@
           <div class="col-md-12">
             <label class="left">Password</label>
             <input
-              type="text"
+              type="password"
               formControlName="password"
               class="form-input__shadow margin-top-none"
               placeholder="Password"
@@ -103,7 +107,7 @@
           <button
             (click)="onCreateAccount()"
             class="btn btn-round__swap btn-primary width-half"
-            [disabled]="form.invalid"
+            [disabled]="form.invalid || emailExist || emailDirty"
           >
             Create Account
           </button>
