@@ -98,7 +98,7 @@ select {
 .loader-email::after,
 .loader-email::before {
   content: "";
-  background: white;
+  background: transparent;
   position: absolute;
   display: inline-block;
   width: 100%;
