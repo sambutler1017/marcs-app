@@ -230,7 +230,7 @@ export class UserService {
       );
     }
 
-    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, MANAGER
+    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER
     if ([3, 4, 5].includes(userRole)) {
       return new Map<string, string[]>()
         .set('storeId', this.jwt.get('storeId'))
@@ -264,7 +264,7 @@ export class UserService {
       return true;
     }
 
-    // DISTRICT_MANAGER or REGIONAL editing user with role of MANAGER or lower
+    // DISTRICT_MANAGER or REGIONAL editing user with role of STORE_MANAGER or lower
     if ([6, 7].includes(userRole) && Number(WebRole[editableUserRole]) < 6) {
       return true;
     }
@@ -292,18 +292,18 @@ export class UserService {
   getAllowedRolesToCreate(): string[] {
     const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
 
-    // MANAGER editing an EMPLOYEE
+    // STORE_MANAGER editing an EMPLOYEE
     if (5 === userRole) {
       return [WebRole[WebRole.EMPLOYEE].toString()];
     }
 
-    // DISTRICT_MANAGER or REGIONAL editing user with role of MANAGER or lower
+    // DISTRICT_MANAGER or REGIONAL editing user with role of STORE_MANAGER or lower
     if ([6, 7].includes(userRole)) {
       return [
         WebRole[WebRole.ASSISTANT_MANAGER].toString(),
         WebRole[WebRole.CORPORATE_USER].toString(),
         WebRole[WebRole.CUSTOMER_SERVICE_MANAGER].toString(),
-        WebRole[WebRole.MANAGER].toString(),
+        WebRole[WebRole.STORE_MANAGER].toString(),
         WebRole[WebRole.EMPLOYEE].toString(),
       ];
     }

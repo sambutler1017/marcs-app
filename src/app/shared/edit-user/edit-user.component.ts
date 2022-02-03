@@ -82,8 +82,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
   checkUserRoleManager(user: User): boolean {
     return (
-      user.webRole === WebRole[WebRole.MANAGER] &&
-      this.userUpdating.webRole !== WebRole[WebRole.MANAGER]
+      user.webRole === WebRole[WebRole.STORE_MANAGER] &&
+      this.userUpdating.webRole !== WebRole[WebRole.STORE_MANAGER]
     );
   }
 

@@ -25,7 +25,7 @@ export class UserFormComponent implements OnInit {
     WebRole[WebRole.EMPLOYEE],
     WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
     WebRole[WebRole.ASSISTANT_MANAGER],
-    WebRole[WebRole.MANAGER],
+    WebRole[WebRole.STORE_MANAGER],
   ];
 
   stores: Store[];

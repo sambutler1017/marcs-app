@@ -24,7 +24,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
   validStoreUsers: any = [
     WebRole[WebRole.CUSTOMER_SERVICE_MANAGER],
     WebRole[WebRole.ASSISTANT_MANAGER],
-    WebRole[WebRole.MANAGER],
+    WebRole[WebRole.STORE_MANAGER],
     WebRole[WebRole.EMPLOYEE],
   ];
 
