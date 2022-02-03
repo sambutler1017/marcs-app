@@ -90,10 +90,6 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
   }
 
   generateSearchParams(value: any) {
-    return this.getParams()
-      .set('firstName', [value])
-      .set('lastName', [value])
-      .set('storeId', [value])
-      .set('storeName', [value]);
+    return this.getParams().set('search', value);
   }
 }

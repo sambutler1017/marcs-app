@@ -50,14 +50,14 @@ export class StoresOverviewComponent extends BaseComponent
     this.router.navigate([`/store/details/${event.id}`]);
   }
 
-  onSearch(value: string) {
+  onSearch(value: any) {
     let params = this.userService.getUserAccessMap();
 
     if (params) {
-      params.set('name', [value]).set('id', [value]);
+      params.set('search', value);
     } else {
       params = new Map<string, string[]>();
-      params.set('name', [value]).set('id', [value]);
+      params.set('search', value);
     }
 
     this.storeService
