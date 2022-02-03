@@ -79,14 +79,7 @@ export class UserOverviewComponent extends BaseComponent implements OnInit {
   }
 
   getParams() {
-    let params = this.userService.getUserAccessMap();
-    if (params !== null) {
-      params.set('accountStatus', ['APPROVED']);
-      return params;
-    } else {
-      params = new Map<string, string[]>();
-    }
-    return params.set('accountStatus', ['APPROVED']);
+    return this.userService.getUserAccessMap();
   }
 
   generateSearchParams(value: any) {

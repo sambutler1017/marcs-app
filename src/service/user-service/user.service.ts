@@ -234,14 +234,16 @@ export class UserService {
     if ([3, 4, 5].includes(userRole)) {
       return new Map<string, string[]>()
         .set('storeId', this.jwt.get('storeId'))
-        .set('excludedUserIds', this.jwt.get('userId'));
+        .set('excludedUserIds', this.jwt.get('userId'))
+        .set('accountStatus', ['APPROVED']);
     }
 
     //DISTRICT_MANAGER, REGIONAL
     if ([6, 7].includes(userRole)) {
       return new Map<string, string[]>()
         .set('regionalId', this.jwt.get('userId'))
-        .set('excludedUserIds', this.jwt.get('userId'));
+        .set('excludedUserIds', this.jwt.get('userId'))
+        .set('accountStatus', ['APPROVED']);
     }
 
     // EMPLOYEE and other
