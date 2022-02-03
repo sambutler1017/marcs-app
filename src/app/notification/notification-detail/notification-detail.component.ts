@@ -14,11 +14,7 @@ import {
   Notification,
   NotificationType,
 } from 'projects/insite-kit/src/models/notification.model';
-import {
-  AccountStatus,
-  User,
-  UserStatus,
-} from 'projects/insite-kit/src/models/user.model';
+import { AccountStatus, User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { iif, Observable, of, Subject } from 'rxjs';
@@ -140,14 +136,10 @@ export class NotificationDetailComponent extends BaseComponent
 
   onRequestApproved() {
     if (this.activeNotification.type === NotificationType.USER) {
-      const updateStatus: UserStatus = {
+      return this.userService.updateUserStatus(this.notificationData.id, {
         accountStatus: AccountStatus.APPROVED,
         appAccess: true,
-      };
-      return this.userService.updateUserStatus(
-        this.notificationData.id,
-        updateStatus
-      );
+      });
     } else {
       return this.vacationService.updateVacationInfo(this.notificationData.id, {
         status: VacationStatus.APPROVED,
@@ -158,7 +150,14 @@ export class NotificationDetailComponent extends BaseComponent
 
   onRequestDenied() {
     if (this.activeNotification.type === NotificationType.USER) {
-      return this.userService.deleteUser(this.notificationData.id);
+      return this.userService
+        .updateUserStatus(this.notificationData.id, {
+          accountStatus: AccountStatus.DENIED,
+          appAccess: false,
+        })
+        .pipe(
+          switchMap(() => this.userService.deleteUser(this.notificationData.id))
+        );
     } else {
       return this.vacationService.updateVacationInfo(this.notificationData.id, {
         status: VacationStatus.DENIED,

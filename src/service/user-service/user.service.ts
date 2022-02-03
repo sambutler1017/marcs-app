@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 export class UserService {
   readonly BASE_USER_PATH = 'api/user-app/user-profile';
   readonly BASE_USER_STATUS_PATH = 'api/user-app/user-status';
+  readonly BASE_USER_CREDENTIALS_PATH = 'api/user-app/user-credentials';
 
   constructor(
     private readonly request: RequestService,
@@ -153,7 +154,7 @@ export class UserService {
    */
   updateUserPassword(passUpdate: PasswordUpdate): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_PATH}/password`,
+      `${this.BASE_USER_CREDENTIALS_PATH}/password`,
       passUpdate
     );
   }
@@ -171,7 +172,7 @@ export class UserService {
     passUpdate: PasswordUpdate
   ): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_PATH}/password/${userId.toString()}`,
+      `${this.BASE_USER_CREDENTIALS_PATH}/password/${userId.toString()}`,
       passUpdate
     );
   }
@@ -194,14 +195,14 @@ export class UserService {
   }
 
   /**
-   * This will reset the users password for the given password update object
+   * This will reset the users password for the given password update object.
    *
    * @param passUpdate The password update object the password needs to be.
    * @returns User Object of the user that was updated.
    */
   resetUserPassword(passUpdate: PasswordUpdate): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_PATH}/password/reset`,
+      `${this.BASE_USER_CREDENTIALS_PATH}/password/reset`,
       passUpdate
     );
   }
