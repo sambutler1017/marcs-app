@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from 'projects/insite-kit/src/models/store.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
 
@@ -19,6 +20,32 @@ export class StoreService {
    */
   getStores(params?: Map<string, string[]>): Observable<Store[]> {
     return this.requestService.get<Store[]>(this.BASE_STORE_PATH, params);
+  }
+
+  /**
+   * Get the regional of the passed in store ID.
+   *
+   * @param storeId Id of the store to get the regional for.
+   * @return The regional of that store
+   * @throws Exception
+   */
+  getRegionalOfStoreById(storeId: string): Observable<User> {
+    return this.requestService.get<User>(
+      `${this.BASE_STORE_PATH}/regional/${storeId}`
+    );
+  }
+
+  /**
+   * Get the manager of the passed in store ID.
+   *
+   * @param storeId Id of the store to get the maanger for.
+   * @return The manager of that store
+   * @throws Exception
+   */
+  getManagerOfStoreById(storeId: string): Observable<User> {
+    return this.requestService.get<User>(
+      `${this.BASE_STORE_PATH}/manager/${storeId}`
+    );
   }
 
   /**

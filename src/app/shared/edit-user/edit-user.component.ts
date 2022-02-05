@@ -6,8 +6,9 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
-import { Subject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -21,12 +22,15 @@ export class EditUserComponent implements OnInit, OnDestroy {
   destroy = new Subject();
   userId: number;
   userUpdating: User;
+  currentUpdatedInfo: User;
   disableWebRoleUpdate = false;
+  modalLoading = false;
 
   constructor(
     private location: Location,
     private toastService: ToastrService,
     private userService: UserService,
+    private readonly storeService: StoreService,
     private readonly route: ActivatedRoute,
     private readonly jwt: JwtService
   ) {}
@@ -58,17 +62,39 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
+  onModalClose() {
+    this.loading = false;
+    this.managerChangeModal.close();
+  }
+
   onSaveClick(user: User) {
-    // if (this.checkUserRoleManager(user)) {
-    //   this.managerChangeModal.open();
-    // } else {
-    this.userProfileSave(user);
-    // }
+    this.loading = true;
+    if (this.checkUserRoleManager(user)) {
+      this.checkStoreHasManager(user);
+    } else {
+      this.userProfileSave(user);
+    }
+  }
+
+  checkStoreHasManager(user: User) {
+    this.storeService
+      .getManagerOfStoreById(user.storeId)
+      .pipe(
+        map((res) => res !== null),
+        catchError(() => of(false))
+      )
+      .subscribe((hasManager) => {
+        this.currentUpdatedInfo = user;
+        if (hasManager) {
+          this.managerChangeModal.open();
+        } else {
+          this.onManagerConfirm();
+        }
+      });
   }
 
   userProfileSave(user: User) {
-    this.loading = true;
-    this.userService.updateUserProfileById(this.userId, user).subscribe(
+    this.getUserSaveObservable(user).subscribe(
       () => {
         this.onCancelClick();
         this.toastService.success('User Successfully updated!');
@@ -80,15 +106,41 @@ export class EditUserComponent implements OnInit, OnDestroy {
     );
   }
 
+  onManagerConfirm() {
+    this.modalLoading = true;
+
+    this.getUserSaveObservable(this.currentUpdatedInfo)
+      .pipe(
+        switchMap((res) =>
+          this.storeService.updateStoreManagerOfStore(
+            this.userId,
+            this.currentUpdatedInfo.storeId
+          )
+        )
+      )
+      .subscribe(
+        (res) => {
+          this.modalLoading = false;
+          this.managerChangeModal.close();
+          this.onCancelClick();
+          this.toastService.success('User Successfully updated!');
+        },
+        (err) => {
+          this.modalLoading = false;
+          this.managerChangeModal.close();
+          this.toastService.error('User could not be updated at this time!');
+        }
+      );
+  }
+
+  getUserSaveObservable(user: User) {
+    return this.userService.updateUserProfileById(this.userId, user);
+  }
+
   checkUserRoleManager(user: User): boolean {
     return (
       user.webRole === WebRole[WebRole.STORE_MANAGER] &&
       this.userUpdating.webRole !== WebRole[WebRole.STORE_MANAGER]
     );
-  }
-
-  onManagerConfirm() {
-    console.log('User profile updated and manager change complete!');
-    this.managerChangeModal.close();
   }
 }

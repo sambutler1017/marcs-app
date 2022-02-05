@@ -301,7 +301,6 @@ export class UserService {
     if ([6, 7].includes(userRole)) {
       return [
         WebRole[WebRole.ASSISTANT_MANAGER].toString(),
-        WebRole[WebRole.CORPORATE_USER].toString(),
         WebRole[WebRole.CUSTOMER_SERVICE_MANAGER].toString(),
         WebRole[WebRole.STORE_MANAGER].toString(),
         WebRole[WebRole.EMPLOYEE].toString(),
