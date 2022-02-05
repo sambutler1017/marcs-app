@@ -24,7 +24,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   userUpdating: User;
   currentUpdatedInfo: User;
   disableWebRoleUpdate = false;
-  modalLoading = false;
+  disableSave = false;
 
   constructor(
     private location: Location,
@@ -59,19 +59,21 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   onCancelClick() {
+    this.resetStatus();
     this.location.back();
   }
 
   onModalClose() {
-    this.loading = false;
+    this.resetStatus();
     this.managerChangeModal.close();
   }
 
   onSaveClick(user: User) {
-    this.loading = true;
     if (this.checkUserRoleManager(user)) {
+      this.disableSave = true;
       this.checkStoreHasManager(user);
     } else {
+      this.loading = true;
       this.userProfileSave(user);
     }
   }
@@ -107,7 +109,8 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   onManagerConfirm() {
-    this.modalLoading = true;
+    this.loading = true;
+    this.managerChangeModal.close();
 
     this.getUserSaveObservable(this.currentUpdatedInfo)
       .pipe(
@@ -120,13 +123,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => {
-          this.modalLoading = false;
           this.managerChangeModal.close();
           this.onCancelClick();
           this.toastService.success('User Successfully updated!');
         },
         (err) => {
-          this.modalLoading = false;
+          this.resetStatus();
           this.managerChangeModal.close();
           this.toastService.error('User could not be updated at this time!');
         }
@@ -142,5 +144,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
       user.webRole === WebRole[WebRole.STORE_MANAGER] &&
       this.userUpdating.webRole !== WebRole[WebRole.STORE_MANAGER]
     );
+  }
+
+  resetStatus() {
+    this.loading = false;
+    this.disableSave = false;
   }
 }

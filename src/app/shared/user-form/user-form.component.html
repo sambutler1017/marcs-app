@@ -72,7 +72,7 @@
 <button
   class="btn btn-warning btn-size btn-right"
   (click)="onSaveClick()"
-  [disabled]="form.invalid || !form.dirty"
+  [disabled]="form.invalid || !form.dirty || disableSave"
 >
   {{ rightActionButton }}
 </button>

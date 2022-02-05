@@ -15,6 +15,7 @@ export class UserFormComponent implements OnInit {
   @Input() rightActionButton: string;
   @Input() leftActionButton: string;
   @Input() disableRoleUpdate = false;
+  @Input() disableSave = false;
   @Output() cancel = new EventEmitter<any>();
   @Output() save = new EventEmitter<User>();
 
