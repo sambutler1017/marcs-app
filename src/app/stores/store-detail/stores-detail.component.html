@@ -5,6 +5,19 @@
     (backClick)="onBackClick()"
   >
   </ik-header>
+
+  <ik-banner *ngIf="!regionalInfo && managerInfo" type="warning">
+    There is currently no regional assigned to this store.
+  </ik-banner>
+
+  <ik-banner *ngIf="!managerInfo && regionalInfo" type="warning">
+    There is currently no store manager assigned to this store.
+  </ik-banner>
+
+  <ik-banner *ngIf="!regionalInfo && !managerInfo" type="warning">
+    There is currently no store manager or regional assigned to this store.
+  </ik-banner>
+
   <div class="detail">
     <div class="leftColumn column-wide">
       <ik-card [padding]="false">

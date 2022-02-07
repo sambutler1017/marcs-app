@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppIconCardComponent } from './components/app-icon-card/app-icon-card.component';
 import { AppPageComponent } from './components/app-page/app-page.component';
+import { BannerComponent } from './components/banner/banner.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
@@ -42,6 +43,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ModalActionBarComponent,
     ModalBodyComponent,
     ModalHeaderComponent,
+    BannerComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -63,6 +65,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ModalBodyComponent,
     ModalHeaderComponent,
     WebRoleTranslationPipe,
+    BannerComponent,
   ],
   entryComponents: [ModalComponent],
 })

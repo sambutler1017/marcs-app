@@ -21,6 +21,10 @@
       </button>
     </div>
   </ik-header>
+  <ik-banner *ngIf="!userData.appAccess" type="warning">
+    This user currently does not have access to the website. Contact support
+    with any questions!
+  </ik-banner>
   <div class="leftColumn column-half">
     <ik-card [padding]="false">
       <ik-card-header [title]="userJson.detail.title">
@@ -36,51 +40,62 @@
           ></ik-icon>
         </ng-container>
       </ik-card-header>
-      <div class="left-column">
-        <ik-card-info
-          header="Name"
-          text="{{ userData | formatUserName }}"
-        ></ik-card-info>
+      <div class="flex">
+        <div class="left-column">
+          <ik-card-info
+            header="Name"
+            text="{{ userData | formatUserName }}"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [header]="userJson.detail.email"
+            [text]="userData.email ? userData.email : '-'"
+          ></ik-card-info>
+        </div>
       </div>
-      <div class="right-column">
-        <ik-card-info
-          [header]="userJson.detail.email"
-          [text]="userData.email ? userData.email : '-'"
-        ></ik-card-info>
+
+      <div class="flex">
+        <div class="left-column">
+          <ik-card-info
+            [header]="userJson.detail.storeId"
+            [text]="userData.storeId ? userData.storeId : '-'"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [header]="userJson.detail.storeName"
+            [text]="userData.storeName ? userData.storeName : '-'"
+          ></ik-card-info>
+        </div>
       </div>
-      <div class="left-column">
-        <ik-card-info
-          [header]="userJson.detail.storeId"
-          [text]="userData.storeId ? userData.storeId : '-'"
-        ></ik-card-info>
+
+      <div class="flex">
+        <div class="left-column">
+          <ik-card-info
+            header="Position"
+            [text]="userData.webRole | webRoleTranslate"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info
+            [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
+            header="Access"
+            [text]="
+              userData.appAccess ? 'Has Access' : 'Does not have App Access'
+            "
+          ></ik-card-info>
+        </div>
       </div>
-      <div class="right-column">
-        <ik-card-info
-          [header]="userJson.detail.storeName"
-          [text]="userData.storeName ? userData.storeName : '-'"
-        ></ik-card-info>
-      </div>
-      <div class="left-column">
-        <ik-card-info
-          header="Position"
-          [text]="userData.webRole | webRoleTranslate"
-        ></ik-card-info>
-      </div>
-      <div class="right-column">
-        <ik-card-info
-          [contentColor]="userData.appAccess ? 'text-success' : 'text-danger'"
-          header="Access"
-          [text]="
-            userData.appAccess ? 'Has Access' : 'Does not have App Access'
-          "
-        ></ik-card-info>
-      </div>
-      <div class="left-column width-full">
-        <ik-card-info
-          [header]="userJson.detail.hireDate"
-          [text]="userData.hireDate | date: 'mediumDate'"
-        >
-        </ik-card-info>
+
+      <div class="flex">
+        <div class="left-column">
+          <ik-card-info
+            [header]="userJson.detail.hireDate"
+            [text]="userData.hireDate | date: 'mediumDate'"
+          >
+          </ik-card-info>
+        </div>
       </div>
     </ik-card>
   </div>
