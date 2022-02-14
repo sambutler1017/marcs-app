@@ -172,9 +172,9 @@
   <ik-modal-header title="Add Vacation" type="info"></ik-modal-header>
   <ng-container *ngIf="!modalLoading; else loader">
     <ik-modal-body>
-      <ik-modal-body>
-        <form [formGroup]="form">
-          <div class="form-padding">
+      <form [formGroup]="form">
+        <div class="form-padding">
+          <div class="row">
             <div class="col-xs-6 col-sm-6">
               <div class="label-header">Start Date</div>
               <input
@@ -195,8 +195,19 @@
               />
             </div>
           </div>
-        </form>
-      </ik-modal-body>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="label-header spacer-margin">Notes</div>
+              <textarea
+                formControlName="notes"
+                rows="4"
+                cols="50"
+                class="form-input__shadow textarea-margin"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
     </ik-modal-body>
     <ik-modal-action-bar>
       <button

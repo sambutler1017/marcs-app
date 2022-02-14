@@ -22,6 +22,15 @@ ul {
   font-weight: 600;
 }
 
+.textarea-margin {
+  resize: none;
+  margin: 0.5em 0;
+}
+
+.spacer-margin {
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 500px) {
   .h-button {
     margin-top: 0;

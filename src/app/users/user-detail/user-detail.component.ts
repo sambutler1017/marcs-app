@@ -96,6 +96,7 @@ export class UserDetailComponent extends BaseComponent
     this.form = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
+      notes: '',
     });
 
     this.formChange();
@@ -168,6 +169,7 @@ export class UserDetailComponent extends BaseComponent
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
         status: VacationStatus.APPROVED,
+        notes: this.form.value.notes,
       })
       .pipe(
         switchMap(() =>
