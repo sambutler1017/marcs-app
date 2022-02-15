@@ -38,7 +38,10 @@
                 >
               </div>
             </div>
-            <div class="row" *ngIf="!loading; else loadingIcon">
+            <div
+              class="row align-items-center"
+              *ngIf="!loading; else loadingIcon"
+            >
               <div class="col align-self-center">
                 <button
                   class="btn btn-round__swap btn-primary width-half login-button"
