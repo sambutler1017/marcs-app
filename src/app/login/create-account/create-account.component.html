@@ -13,7 +13,7 @@
       <form [formGroup]="form" class="form-group">
         <div class="row">
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <label class="left">First Name</label>
+            <label class="left text-label">First Name</label>
             <input
               type="text"
               formControlName="firstName"
@@ -22,7 +22,7 @@
             />
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <label class="left">Last Name</label>
+            <label class="left text-label">Last Name</label>
             <input
               type="text"
               formControlName="lastName"
@@ -33,7 +33,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label class="left">Email</label>
+            <label class="left text-label">Email</label>
 
             <div class="inputcontainer">
               <input
@@ -57,7 +57,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label class="left">Position Title</label>
+            <label class="left text-label">Position Title</label>
             <select
               class="form-input__shadow margin-top-none"
               formControlName="positionTitle"
@@ -70,7 +70,7 @@
         </div>
         <div class="row" *ngIf="!storesLoading; else loadingIcon">
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <label class="left">Store ID Location</label>
+            <label class="left text-label">Store ID Location</label>
             <select
               class="form-input__shadow margin-top-none"
               formControlName="storeId"
@@ -82,7 +82,7 @@
             </select>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
-            <label class="left">Store Name Location</label>
+            <label class="left text-label">Store Name Location</label>
             <input
               type="text"
               formControlName="storeName"
@@ -94,7 +94,7 @@
         </div>
         <div class="row">
           <div class="col-md-12">
-            <label class="left">Password</label>
+            <label class="left text-label">Password</label>
             <input
               type="password"
               formControlName="password"
@@ -104,16 +104,18 @@
           </div>
         </div>
         <div class="row" *ngIf="!loading; else saveLoading">
-          <button
-            (click)="onCreateAccount()"
-            class="btn btn-round__swap btn-primary width-half"
-            [disabled]="form.invalid || emailExist || emailDirty"
-          >
-            Create Account
-          </button>
+          <div class="col align-self-center">
+            <button
+              (click)="onCreateAccount()"
+              class="btn btn-round__swap btn-primary create-button"
+              [disabled]="form.invalid || emailExist || emailDirty"
+            >
+              Create Account
+            </button>
+          </div>
         </div>
         <div class="row">
-          <p>
+          <p class="link-text">
             Already have an account?
             <a routerLink="/login/overview">Sign In</a>
           </p>

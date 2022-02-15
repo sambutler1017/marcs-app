@@ -68,6 +68,22 @@ select {
   color: #666;
 }
 
+.text-label {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding-left: 0 !important;
+}
+
+.link-text {
+  font-size: 14px;
+}
+
+.create-button {
+  padding: 4px 100px;
+  font-size: 1rem;
+}
+
 .inputcontainer {
   position: relative;
 }
@@ -179,6 +195,10 @@ select {
   .signUp-container {
     width: 90%;
     margin: 3em auto;
+  }
+
+  .create-button {
+    padding: 4px 50px;
   }
 
   .company__info {

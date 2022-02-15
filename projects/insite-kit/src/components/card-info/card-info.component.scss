@@ -3,11 +3,6 @@
   display: block;
 }
 
-.label-header {
-  font-size: 22px;
-  font-weight: 600;
-}
-
 .padding-info {
   padding: 24px;
 }
@@ -36,7 +31,7 @@
 
 @media screen and (max-width: 500px) {
   .label-header {
-    font-size: 18px;
+    font-size: 18px !important;
   }
 
   .label-text {

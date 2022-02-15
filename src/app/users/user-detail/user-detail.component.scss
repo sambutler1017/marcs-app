@@ -17,11 +17,6 @@ ul {
   margin: 0.5em auto;
 }
 
-.label-header {
-  font-size: 15px;
-  font-weight: 600;
-}
-
 .textarea-margin {
   resize: none;
   margin: 0.5em 0;
@@ -31,6 +26,10 @@ ul {
   margin-top: 10px;
 }
 
+.label-header {
+  font-size: 16px;
+}
+
 @media screen and (max-width: 500px) {
   .h-button {
     margin-top: 0;
@@ -38,9 +37,5 @@ ul {
 
   .header-buttons {
     display: block;
-  }
-
-  .modal-button {
-    margin-top: 15px;
   }
 }

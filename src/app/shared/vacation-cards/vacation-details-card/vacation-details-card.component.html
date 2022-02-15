@@ -39,7 +39,7 @@
   <ng-container *ngIf="!loading; else modalLoader">
     <ik-modal-body>
       <form [formGroup]="form">
-        <div class="form-padding">
+        <div class="row form-padding">
           <div class="col-xs-6 col-sm-6">
             <div class="label-header">Start Date</div>
             <input
@@ -69,7 +69,7 @@
           data?.status === VacationStatus.PENDING
         "
         [disabled]="form.invalid"
-        class="btn btn-success btn-left modal-button"
+        class="btn btn-success btn-left btn-modal"
         (click)="onApproveVacation()"
       >
         Approve
@@ -77,14 +77,14 @@
       <button
         *ngIf="data?.status === VacationStatus.APPROVED"
         [disabled]="form.invalid"
-        class="btn btn-danger btn-left modal-button"
+        class="btn btn-danger btn-left btn-modal"
         (click)="onDenyVacation()"
       >
         Deny
       </button>
       <button
         [disabled]="form.invalid"
-        class="btn btn-primary btn-right modal-button"
+        class="btn btn-primary btn-right btn-modal"
         (click)="onSaveVacation()"
       >
         Save Vacation
