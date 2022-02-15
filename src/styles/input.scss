@@ -20,14 +20,14 @@ select {
     font-size: 14px;
     box-shadow: 1px 1px 4px #888888;
     border: 0px solid transparent;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid rgb(112, 112, 112);
     padding: 0.6em 0.6em 0.6em 2em;
     outline: none;
     margin: 1.5em auto;
     transition: all 0.5s ease;
 
     &:focus {
-      border-bottom-color: #1e90ff;
+      border-bottom: 2.5px solid #1e90ff;
       box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
       border-radius: 4px;
     }
