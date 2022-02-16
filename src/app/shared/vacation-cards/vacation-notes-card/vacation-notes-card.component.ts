@@ -6,6 +6,7 @@ import {
   Access,
   App,
   Feature,
+  VacationStatus,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
@@ -29,6 +30,7 @@ export class VacationNotesCardComponent extends BaseComponent
   Feature = Feature;
   Application = App;
   Access = Access;
+  VacationStatus = VacationStatus;
 
   notesModalLoading = false;
 

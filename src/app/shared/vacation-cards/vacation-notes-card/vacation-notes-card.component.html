@@ -1,10 +1,12 @@
 <ik-card [padding]="false">
   <ik-card-header title="Notes">
-    <ik-icon
-      icon="edit"
-      *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
-      (click)="notesModal.open()"
-    ></ik-icon>
+    <ng-container *ngIf="data?.status !== VacationStatus.EXPIRED">
+      <ik-icon
+        icon="edit"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        (click)="notesModal.open()"
+      ></ik-icon>
+    </ng-container>
   </ik-card-header>
   <ik-card-info [text]="data?.notes"></ik-card-info>
 </ik-card>

@@ -14,6 +14,7 @@ export enum VacationStatus {
   APPROVED = 'APPROVED',
   DENIED = 'DENIED',
   PENDING = 'PENDING',
+  EXPIRED = 'EXPIRED',
 }
 
 export enum App {
