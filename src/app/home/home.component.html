@@ -2,7 +2,10 @@
 <ik-home-image></ik-home-image>
 <div class="home-margin row">
   <ng-container *ngFor="let app of apps">
-    <div class="col-12 col-sm-6 col-md-4 app-icon" *ngIf="app?.title">
+    <div
+      class="col-xs-12 col-sm-6 col-md-6 col-lg-4 app-icon"
+      *ngIf="app?.title"
+    >
       <ik-icon-card
         *ngIf="app?.title"
         class=""
