@@ -6,11 +6,9 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { startOfDay } from 'date-fns';
-import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { of, Subject } from 'rxjs';
-import { map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -35,7 +33,6 @@ export class CalendarOverviewComponent extends BaseComponent
   CalendarView = CalendarView;
 
   events: CalendarEvent[] = [];
-  vacations: Vacation[];
   loading = true;
   destroy = new Subject();
 
@@ -49,18 +46,11 @@ export class CalendarOverviewComponent extends BaseComponent
 
   ngOnInit() {
     this.loading = true;
-    this.getVacations()
-      .pipe(
-        tap((res) => (this.vacations = res)),
-        map((vacs) => vacs.map((v) => v.userId)),
-        switchMap((v) => this.getUserProfiles(v)),
-        takeUntil(this.destroy)
-      )
-      .subscribe((res) => {
-        this.mapEvents(res);
-        this.triggerNotificationUpdate();
-        this.loading = false;
-      });
+    this.getVacations().subscribe((res) => {
+      this.mapEvents(res);
+      this.triggerNotificationUpdate();
+      this.loading = false;
+    });
   }
 
   ngOnDestroy() {
@@ -120,11 +110,10 @@ export class CalendarOverviewComponent extends BaseComponent
     );
   }
 
-  mapEvents(users: User[]) {
+  mapEvents(vacations: Vacation[]) {
     let hourCount = this.getHourCountTracker();
 
-    this.vacations.forEach((v) => {
-      const user = users.find((u) => u.id === v.userId);
+    vacations.forEach((v) => {
       const dateString = v.startDate
         .toString()
         .split('-')
@@ -140,7 +129,7 @@ export class CalendarOverviewComponent extends BaseComponent
 
       this.events.push({
         start: startDate,
-        title: `${user.firstName} ${user.lastName} (${user.storeId})`,
+        title: `${v.fullName} (${v.storeId})`,
         meta: { vacation: v },
       });
       hourCount[dateString[0].toString()][dateString[1]][dateString[2]]++;
