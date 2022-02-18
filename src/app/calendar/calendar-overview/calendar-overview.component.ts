@@ -6,10 +6,12 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { startOfDay } from 'date-fns';
+import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { of, Subject } from 'rxjs';
+import { combineLatest, of, Subject } from 'rxjs';
 import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
+import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 import { CustomDateFormatter } from './custom-date.formatter';
@@ -33,12 +35,14 @@ export class CalendarOverviewComponent extends BaseComponent
   CalendarView = CalendarView;
 
   events: CalendarEvent[] = [];
+  blockDates: BlockOutDate[];
   loading = true;
   destroy = new Subject();
 
   constructor(
     private readonly vacationService: VacationService,
     private readonly userService: UserService,
+    private readonly blockDateService: BlockDatesService,
     public notificationService: NotificationService
   ) {
     super(notificationService);
@@ -46,8 +50,12 @@ export class CalendarOverviewComponent extends BaseComponent
 
   ngOnInit() {
     this.loading = true;
-    this.getVacations().subscribe((res) => {
-      this.mapEvents(res);
+    combineLatest([
+      this.getVacations(),
+      this.blockDateService.getBlockOutDates(),
+    ]).subscribe(([userVacs, blockDates]) => {
+      this.mapUserEvents(userVacs);
+      this.blockDates = blockDates;
       this.triggerNotificationUpdate();
       this.loading = false;
     });
@@ -74,17 +82,28 @@ export class CalendarOverviewComponent extends BaseComponent
     this.view = CalendarView.Day;
   }
 
-  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent): void {
+  beforeMonthViewRender(renderEvent: CalendarMonthViewBeforeRenderEvent) {
     renderEvent.body.forEach((day) => {
-      const dayOfMonth = day.date.getMonth();
-      if (dayOfMonth === 11) {
+      if (this.isBlockOutDate(day.date)) {
         day.cssClass = 'block-day-icon';
       }
     });
   }
 
-  eventClicked({ event }: { event: CalendarEvent }): void {
+  eventClicked({ event }: { event: CalendarEvent }) {
     console.log('Event clicked', event);
+  }
+
+  isBlockOutDate(day: Date) {
+    let isBlockDate = false;
+    this.blockDates.every((bDate) => {
+      if (day >= new Date(bDate.startDate) && day <= new Date(bDate.endDate)) {
+        isBlockDate = true;
+        return;
+      }
+      return true;
+    });
+    return isBlockDate;
   }
 
   getVacations() {
@@ -110,7 +129,7 @@ export class CalendarOverviewComponent extends BaseComponent
     );
   }
 
-  mapEvents(vacations: Vacation[]) {
+  mapUserEvents(vacations: Vacation[]) {
     let hourCount = this.getHourCountTracker();
 
     vacations.forEach((v) => {
