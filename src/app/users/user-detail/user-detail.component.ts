@@ -16,7 +16,7 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { Application, User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -32,7 +32,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   @ViewChild(GridComponent) grid: GridComponent;
 
   userData: User;
-  vacationDataLoader: Observable<Vacation[]>;
+  vacationDataLoader: Vacation[];
   applications: string[] = [];
   userJson = json;
   vacationEditRoute: string;
@@ -67,12 +67,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           () =>
             (this.canEdit = this.userService.canEditUser(this.userData.webRole))
         ),
-        tap(
-          () =>
-            (this.vacationDataLoader = this.vacationService.getVacationsByUserId(
-              this.userData.id
-            ))
+        switchMap(() =>
+          this.vacationService.getVacationsByUserId(this.userData.id)
         ),
+        tap((res) => (this.vacationDataLoader = res)),
         switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
@@ -173,7 +171,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           this.loading = false;
-          this.grid.refresh();
+          this.vacationDataLoader = res;
           this.addVacationModal.close();
           this.toastService.success('Vacation sucessfully added!');
         },

@@ -39,7 +39,7 @@
       </tr>
     </table>
     <ng-content select="ik-grid-pager"></ng-content>
-    <ng-container *ngIf="gridData.length <= 0">
+    <ng-container *ngIf="gridData.length <= 0 && !loading">
       <label class="item-label-margin label-text left no-data-margin">{{
         "No" + " " + translationKey
       }}</label>

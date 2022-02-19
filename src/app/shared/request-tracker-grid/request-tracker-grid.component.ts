@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-request-tracker-grid',
   templateUrl: './request-tracker-grid.component.html',
@@ -16,7 +15,7 @@ import { Observable } from 'rxjs';
 export class RequestTrackerGridComponent {
   @ViewChild(GridComponent) grid: GridComponent;
 
-  @Input() dataLoader: Observable<Vacation[]>;
+  @Input() dataLoader: Vacation[];
   @Output() rowClick = new EventEmitter<any>();
 
   constructor() {}

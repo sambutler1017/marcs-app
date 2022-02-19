@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
-import { Observable, Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Notification } from '../../models/notification.model';
 
 @Injectable({
@@ -8,7 +8,6 @@ import { Notification } from '../../models/notification.model';
 })
 export class NotificationService {
   readonly BASE_PATH = 'api/notification-app/notifications';
-  private notificationListener: Subject<any> = new Subject<any>();
 
   constructor(private readonly requestService: RequestService) {}
 

@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { RequestTrackerGridComponent } from 'src/app/shared/request-tracker-grid/request-tracker-grid.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -20,7 +20,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
   requestTrackerGrid: RequestTrackerGridComponent;
 
   loading = false;
-  dataLoader: Observable<Vacation[]>;
+  dataLoader: Vacation[];
   destroy = new Subject();
   form: FormGroup;
   vacationInfo: Vacation;
@@ -30,12 +30,13 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
     private readonly vacationService: VacationService,
     private readonly fb: FormBuilder,
     private readonly toastService: ToastrService
-  ) {
-    this.dataLoader = this.vacationService.getCurrentUserVacations();
-  }
+  ) {}
 
   ngOnInit() {
     this.buildForm();
+    this.vacationService
+      .getCurrentUserVacations()
+      .subscribe((res) => (this.dataLoader = res));
   }
 
   ngOnDestroy() {
@@ -82,7 +83,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
       )
       .subscribe(
         (res) => {
-          this.requestTrackerGrid.grid.refresh();
+          this.dataLoader = res;
 
           this.requestModal.close();
           this.loading = false;

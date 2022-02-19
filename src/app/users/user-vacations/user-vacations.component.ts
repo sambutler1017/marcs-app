@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -17,7 +17,7 @@ export class UserVacationsComponent implements OnInit, OnDestroy {
   @ViewChild('vacationModalDetails') vacationDetailsModal: ModalComponent;
 
   destroy = new Subject();
-  dataLoader: Observable<Vacation[]>;
+  dataLoader: Vacation[];
   user: User;
   selectedVacation: Vacation;
 
@@ -34,12 +34,10 @@ export class UserVacationsComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((p) => this.userService.getUserById(p.id)),
         tap((user) => (this.user = user)),
-        tap(
-          () =>
-            (this.dataLoader = this.vacationService.getVacationsByUserId(
-              this.user.id
-            ))
+        switchMap(() =>
+          this.vacationService.getVacationsByUserId(this.user.id)
         ),
+        tap((res) => (this.dataLoader = res)),
         takeUntil(this.destroy)
       )
       .subscribe();

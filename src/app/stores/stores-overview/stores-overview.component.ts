@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from 'projects/insite-kit/src/models/store.model';
-import { Observable } from 'rxjs';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -9,19 +8,19 @@ import { UserService } from 'src/service/user-service/user.service';
   selector: 'ik-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
-export class StoresOverviewComponent {
-  dataLoader: Observable<Store[]>;
+export class StoresOverviewComponent implements OnInit {
+  dataLoader: Store[];
 
   constructor(
     private storeService: StoreService,
     private userService: UserService,
     private router: Router
-  ) {
-    this.dataLoader = this.getStoreDataLoader();
-  }
+  ) {}
 
-  getStoreDataLoader() {
-    return this.storeService.getStores(this.userService.getUserAccessMap());
+  ngOnInit() {
+    this.storeService
+      .getStores(this.userService.getUserAccessMap())
+      .subscribe((res) => (this.dataLoader = res));
   }
 
   handleClick(event: any) {
@@ -38,6 +37,8 @@ export class StoresOverviewComponent {
       params.set('search', value);
     }
 
-    this.dataLoader = this.storeService.getStores(params);
+    this.storeService
+      .getStores(params)
+      .subscribe((res) => (this.dataLoader = res));
   }
 }

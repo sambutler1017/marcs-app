@@ -1,24 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { Observable } from 'rxjs';
 @Component({
   selector: 'app-notification-overview',
   templateUrl: './notification-overview.component.html',
   styleUrls: ['./notification-overview.component.scss'],
 })
-export class NotificationOverviewComponent {
-  dataLoader: Observable<Notification[]>;
+export class NotificationOverviewComponent implements OnInit {
+  dataLoader: Notification[];
 
   constructor(
     public notificationService: NotificationService,
     private readonly jwt: JwtService,
     private readonly router: Router
-  ) {
-    this.dataLoader = this.getNotifications(this.getParams());
+  ) {}
+
+  ngOnInit() {
+    this.getNotifications(this.getParams()).subscribe(
+      (res) => (this.dataLoader = res)
+    );
   }
 
   getNotifications(params?: Map<string, string[]>) {

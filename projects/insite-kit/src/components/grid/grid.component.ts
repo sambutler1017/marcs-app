@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component,
   ContentChild,
   ContentChildren,
@@ -8,12 +9,9 @@ import {
   OnDestroy,
   Output,
   QueryList,
-  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { GridDataObservable } from '../../models/grid.model';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
 import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
@@ -23,13 +21,13 @@ import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent implements OnChanges, OnDestroy {
+export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChildren(GridColumnComponent) columns: QueryList<GridColumnComponent>;
   @ContentChild(GridPagerComponent) pager: GridPagerComponent;
   @ContentChild(GridShowAllComponent) showAll: GridShowAllComponent;
 
-  @Input() dataLoader: GridDataObservable;
-  @Input() gridData: any[];
+  @Input() dataLoader: any[];
+  @Input() gridData: any[] = [];
   @Input() translationKey: any;
   @Input() pageSize = 15;
   @Input() searchEnabled = false;
@@ -44,15 +42,26 @@ export class GridComponent implements OnChanges, OnDestroy {
 
   loading = true;
   destroy = new Subject();
+  initialLoadComplete = false;
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.dataLoader && changes.dataLoader.currentValue) {
-      this.loadGridData();
+  ngAfterViewInit(): void {
+    this.checkDataLoader();
+    this.initialLoadComplete = true;
+  }
+
+  ngOnChanges() {
+    if (this.initialLoadComplete) {
+      this.checkDataLoader();
+    }
+  }
+
+  checkDataLoader() {
+    if (this.dataLoader) {
+      this.initGrid();
     } else {
       this.loading = true;
-      return;
     }
   }
 
@@ -60,15 +69,8 @@ export class GridComponent implements OnChanges, OnDestroy {
     this.destroy.next();
   }
 
-  loadGridData() {
-    this.loading = true;
-    this.dataLoader
-      .pipe(takeUntil(this.destroy))
-      .subscribe((response) => this.initGrid(response));
-  }
-
-  initGrid(data: any[]) {
-    this.gridData = data;
+  initGrid() {
+    this.gridData = this.dataLoader;
     this.loading = false;
     this.listenToRoute();
 
@@ -106,10 +108,6 @@ export class GridComponent implements OnChanges, OnDestroy {
     this.search.emit(value);
   }
 
-  refresh() {
-    this.loadGridData();
-  }
-
   rowClick(event: number) {
     this.gridRowClick.emit(
       this.gridData[event + this.gridIndex - this.gridContent.length]
@@ -130,7 +128,7 @@ export class GridComponent implements OnChanges, OnDestroy {
 
   getRowData(index: number) {
     const arrayData = [];
-    this.columns.forEach((col) =>
+    this.columns?.forEach((col) =>
       arrayData.push(
         this.gridData[index][col.field] ? this.gridData[index][col.field] : '-'
       )

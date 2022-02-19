@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
@@ -6,22 +6,25 @@ import {
   App,
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-overview.component.html',
 })
-export class UserOverviewComponent {
+export class UserOverviewComponent implements OnInit {
   @ViewChild(ModalComponent) modal: ModalComponent;
-  dataloader: any;
+  dataloader: User[];
 
   Feature = Feature;
   Application = App;
   Access = Access;
 
-  constructor(private userService: UserService, private router: Router) {
-    this.dataloader = this.getUserDataLoader();
+  constructor(private userService: UserService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.getUsers(this.getParams()).subscribe((res) => (this.dataloader = res));
   }
 
   getUserDataLoader() {
@@ -34,9 +37,11 @@ export class UserOverviewComponent {
 
   onSearch(value: any) {
     if (value.trim() === '') {
-      this.dataloader = this.getUserDataLoader();
+      this.getUserDataLoader().subscribe((res) => (this.dataloader = res));
     } else {
-      this.dataloader = this.getUsers(this.generateSearchParams(value));
+      this.getUsers(this.generateSearchParams(value)).subscribe(
+        (res) => (this.dataloader = res)
+      );
     }
   }
 
