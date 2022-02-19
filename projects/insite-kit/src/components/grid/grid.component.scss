@@ -6,20 +6,6 @@
   width: 100%;
 }
 
-.showAll__link {
-  font-weight: bold;
-  font-size: 15px;
-  color: #178bff;
-  float: right;
-  padding: 10px;
-}
-
-.showAll__link:hover {
-  color: #57a9fc;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 .grid-table {
   table-layout: fixed;
 }
@@ -43,7 +29,7 @@ input {
 
 .column-header {
   font-size: 25px;
-  font-weight: 500px;
+  font-weight: 500;
   text-align: left;
 }
 
@@ -84,53 +70,6 @@ table {
   margin-top: 5px;
 }
 
-.page-number {
-  width: 38px;
-  height: 38px;
-  text-align: center;
-  font-size: 25px;
-  border-radius: 10px;
-  margin: 0 2px 5px 2px;
-  cursor: pointer;
-}
-
-.page-number:hover {
-  background-color: #e8e8e8;
-}
-
-.active {
-  background-color: #81befa;
-  pointer-events: none;
-}
-
-.grid-footer {
-  margin-top: 10px;
-}
-
-.left-arrow {
-  content: url(../../assets/images/icons/left-arrow-icon-page.png);
-  transition: transform 0.2s;
-  cursor: pointer;
-  width: 30px;
-  margin: 2px 5px 0 5px;
-}
-
-.left-arrow:hover {
-  transform: scale(1.2);
-}
-
-.right-arrow {
-  content: url(../../assets/images/icons/right-arrow-icon-page.png);
-  transition: transform 0.2s;
-  cursor: pointer;
-  width: 30px;
-  margin: 2px 5px 0 5px;
-}
-
-.right-arrow:hover {
-  transform: scale(1.1);
-}
-
 .back-arrow {
   content: url(../../assets/images/icons/back-arrow-icon.png);
   width: 34px;
@@ -166,11 +105,6 @@ table {
 
   .grid-padding {
     padding: 5px;
-  }
-
-  .page-number {
-    width: 32px;
-    height: 32px;
   }
 
   .search {

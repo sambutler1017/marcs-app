@@ -4,18 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
   selector: 'app-user-vacations-detail',
   templateUrl: './user-vacations-detail.component.html',
 })
-export class UserVacationsDetailComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class UserVacationsDetailComponent implements OnInit, OnDestroy {
   @ViewChild('deleteVacationModal') deleteVacationModal: ModalComponent;
 
   destroy = new Subject();
@@ -28,11 +25,8 @@ export class UserVacationsDetailComponent extends BaseComponent
     private readonly location: Location,
     private readonly route: ActivatedRoute,
     private readonly vacationService: VacationService,
-    private readonly toastService: ToastrService,
-    public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+    private readonly toastService: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.route.params
@@ -41,10 +35,7 @@ export class UserVacationsDetailComponent extends BaseComponent
         switchMap(() => this.vacationService.getVacationById(this.vacationId)),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => {
-        this.vacationData = res;
-        this.triggerNotificationUpdate();
-      });
+      .subscribe((res) => (this.vacationData = res));
   }
 
   ngOnDestroy(): void {

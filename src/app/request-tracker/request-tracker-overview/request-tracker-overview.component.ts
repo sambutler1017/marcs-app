@@ -2,13 +2,10 @@ import { formatDate } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { default as json } from 'projects/insite-kit/src/assets/translations/request-tracker/en.json';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { RequestTrackerGridComponent } from 'src/app/shared/request-tracker-grid/request-tracker-grid.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
@@ -16,19 +13,14 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './request-tracker-overview.component.html',
   styleUrls: ['./request-tracker-overview.component.scss'],
 })
-export class RequestTrackerOverviewComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
   @ViewChild('vacationModal') requestModal: ModalComponent;
   @ViewChild('vacationDetailsModal') vacationDetailsModal: ModalComponent;
   @ViewChild(RequestTrackerGridComponent)
   requestTrackerGrid: RequestTrackerGridComponent;
 
   loading = false;
-  requestTrackerJson = json;
-  outputEventColumns = ['id', 'regionalId'];
-  excludedColumns = [];
-  columns = ['startDate', 'endDate', 'status', 'insertDate'];
-  dataLoader: Vacation[];
+  dataLoader: Observable<Vacation[]>;
   destroy = new Subject();
   form: FormGroup;
   vacationInfo: Vacation;
@@ -36,19 +28,14 @@ export class RequestTrackerOverviewComponent extends BaseComponent
 
   constructor(
     private readonly vacationService: VacationService,
-    public notificationService: NotificationService,
     private readonly fb: FormBuilder,
     private readonly toastService: ToastrService
   ) {
-    super(notificationService);
+    this.dataLoader = this.vacationService.getCurrentUserVacations();
   }
 
   ngOnInit() {
     this.buildForm();
-    this.vacationService.getCurrentUserVacations().subscribe((res) => {
-      this.dataLoader = res;
-      this.triggerNotificationUpdate();
-    });
   }
 
   ngOnDestroy() {
@@ -95,8 +82,7 @@ export class RequestTrackerOverviewComponent extends BaseComponent
       )
       .subscribe(
         (res) => {
-          this.requestTrackerGrid.grid.resetData();
-          this.dataLoader = res;
+          this.requestTrackerGrid.grid.refresh();
 
           this.requestModal.close();
           this.loading = false;

@@ -1,16 +1,15 @@
-<ik-header [title]="storeJson.storeTitle"> </ik-header>
+<ik-header title="Overview"> </ik-header>
 
 <ik-grid
-  noDataText="No Stores"
-  [translationKey]="storeJson"
+  translationKey="Stores"
   [dataLoader]="dataLoader"
-  [columns]="columns"
-  [outputEventColumns]="outputEventColumns"
-  [columnsToExclude]="excludedColumns"
   [pageSize]="10"
   [searchEnabled]="true"
-  [pagerEnabled]="true"
   [headerPadding]="true"
   (gridRowClick)="handleClick($event)"
   (search)="onSearch($event)"
-></ik-grid>
+>
+  <ik-grid-column label="Store ID" field="id"></ik-grid-column>
+  <ik-grid-column label="Store Name" field="name"></ik-grid-column>
+  <ik-grid-pager></ik-grid-pager>
+</ik-grid>

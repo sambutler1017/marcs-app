@@ -1,11 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
+import { Observable } from 'rxjs';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -13,37 +9,19 @@ import { UserService } from 'src/service/user-service/user.service';
   selector: 'ik-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
-export class StoresOverviewComponent extends BaseComponent
-  implements OnInit, OnDestroy {
-  storeJson = json;
-  outputEventColumns = ['id', 'regionalId'];
-  excludedColumns = ['regionalId', 'managerId'];
-  columns = ['id', 'name'];
-  dataLoader: Store[];
-
-  destroy = new Subject();
+export class StoresOverviewComponent {
+  dataLoader: Observable<Store[]>;
 
   constructor(
     private storeService: StoreService,
     private userService: UserService,
-    private router: Router,
-    public notificationService: NotificationService
+    private router: Router
   ) {
-    super(notificationService);
+    this.dataLoader = this.getStoreDataLoader();
   }
 
-  ngOnInit() {
-    this.storeService
-      .getStores(this.userService.getUserAccessMap())
-      .pipe(takeUntil(this.destroy))
-      .subscribe((res) => {
-        this.dataLoader = res;
-        this.triggerNotificationUpdate();
-      });
-  }
-
-  ngOnDestroy() {
-    this.destroy.next();
+  getStoreDataLoader() {
+    return this.storeService.getStores(this.userService.getUserAccessMap());
   }
 
   handleClick(event: any) {
@@ -60,9 +38,6 @@ export class StoresOverviewComponent extends BaseComponent
       params.set('search', value);
     }
 
-    this.storeService
-      .getStores(params)
-      .pipe(takeUntil(this.destroy))
-      .subscribe((res) => (this.dataLoader = res));
+    this.dataLoader = this.storeService.getStores(params);
   }
 }

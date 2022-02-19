@@ -1,13 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -15,7 +13,7 @@ import { UserService } from 'src/service/user-service/user.service';
   selector: 'ik-stores-detail',
   templateUrl: './stores-detail.component.html',
 })
-export class StoresDetailComponent extends BaseComponent implements OnInit {
+export class StoresDetailComponent implements OnInit {
   storeInfo: Store;
   regionalInfo: User;
   managerInfo: User;
@@ -27,12 +25,8 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
     private activeRoute: ActivatedRoute,
     private readonly storeService: StoreService,
     private readonly userService: UserService,
-    private readonly router: Router,
-    private readonly location: Location,
-    public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+    private readonly location: Location
+  ) {}
 
   ngOnInit() {
     this.loading = true;
@@ -49,7 +43,6 @@ export class StoresDetailComponent extends BaseComponent implements OnInit {
       .subscribe((res) => {
         this.loading = false;
         this.managerInfo = res;
-        this.triggerNotificationUpdate();
       });
   }
 

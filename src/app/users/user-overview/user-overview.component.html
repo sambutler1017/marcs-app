@@ -9,16 +9,15 @@
 </ik-header>
 
 <ik-grid
-  noDataText="No Users"
-  [translationKey]="userJson"
-  [dataLoader]="dataLoader"
-  [columns]="columns"
-  [outputEventColumns]="outputEventColumns"
-  [columnsToExclude]="excludedColumns"
-  [padding]="true"
-  [pageSize]="15"
+  [dataLoader]="dataloader"
+  translationKey="Users"
   [searchEnabled]="true"
-  [pagerEnabled]="true"
   (gridRowClick)="handleClick($event)"
   (search)="onSearch($event)"
-></ik-grid>
+>
+  <ik-grid-column label="First Name" field="firstName"></ik-grid-column>
+  <ik-grid-column label="Last Name" field="lastName"></ik-grid-column>
+  <ik-grid-column label="Store Id" field="storeId"></ik-grid-column>
+  <ik-grid-column label="Store Name" field="storeName"></ik-grid-column>
+  <ik-grid-pager></ik-grid-pager>
+</ik-grid>

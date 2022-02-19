@@ -41,8 +41,8 @@
   <ng-container *ngIf="!loading; else modalLoader">
     <ik-modal-body>
       <form [formGroup]="form">
-        <div class="row form-padding">
-          <div class="col-xs-6 col-sm-6">
+        <div class="form-padding row justify-content-between">
+          <div class="col-6">
             <div class="label-header">Start Date</div>
             <input
               type="date"
@@ -52,7 +52,7 @@
             />
           </div>
 
-          <div class="col-xs-6 col-sm-6">
+          <div class="col-6">
             <div class="label-header">End Date</div>
             <input
               type="date"

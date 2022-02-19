@@ -16,17 +16,14 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
   selector: 'app-vacation-details-card',
   templateUrl: './vacation-details-card.component.html',
   styleUrls: ['./vacation-details-card.component.scss'],
 })
-export class VacationDetailsCardComponent extends BaseComponent
-  implements OnChanges, OnDestroy {
+export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
   @Input() data: Vacation;
   @ViewChild(ModalComponent) vacationEditModal: ModalComponent;
 
@@ -42,11 +39,8 @@ export class VacationDetailsCardComponent extends BaseComponent
 
   constructor(
     private readonly vacationService: VacationService,
-    private readonly fb: FormBuilder,
-    public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+    private readonly fb: FormBuilder
+  ) {}
 
   ngOnChanges() {
     this.buildForm();

@@ -1,37 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/assets/translations/notifications/en.json';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-notification-overview',
   templateUrl: './notification-overview.component.html',
   styleUrls: ['./notification-overview.component.scss'],
 })
-export class NotificationOverviewComponent extends BaseComponent
-  implements OnInit {
-  notificationJson = json;
-  outputEventColumns = ['id'];
-  excludedColumns = ['id', 'read', 'receiverId'];
-  columns = ['type', 'linkId', 'insertDate'];
-  dataLoader: Notification[];
+export class NotificationOverviewComponent {
+  dataLoader: Observable<Notification[]>;
 
   constructor(
     public notificationService: NotificationService,
     private readonly jwt: JwtService,
     private readonly router: Router
   ) {
-    super(notificationService);
-  }
-
-  ngOnInit() {
-    this.getNotifications(this.getParams()).subscribe((res) => {
-      this.dataLoader = res;
-      this.triggerNotificationUpdate();
-    });
+    this.dataLoader = this.getNotifications(this.getParams());
   }
 
   getNotifications(params?: Map<string, string[]>) {

@@ -7,6 +7,9 @@ import { BannerComponent } from './components/banner/banner.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
+import { GridColumnComponent } from './components/grid/grid-column/grid-column.component';
+import { GridPagerComponent } from './components/grid/grid-pager/grid-pager.component';
+import { GridShowAllComponent } from './components/grid/grid-show-all/grid-show-all.component';
 import { GridComponent } from './components/grid/grid.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
@@ -29,6 +32,9 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     HomeNavbarComponent,
     AppNavbarComponent,
     GridComponent,
+    GridColumnComponent,
+    GridPagerComponent,
+    GridShowAllComponent,
     HeaderComponent,
     CardComponent,
     CardInfoComponent,
@@ -51,6 +57,9 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     HomeNavbarComponent,
     AppPageComponent,
     GridComponent,
+    GridColumnComponent,
+    GridPagerComponent,
+    GridShowAllComponent,
     HeaderComponent,
     CardComponent,
     CardInfoComponent,

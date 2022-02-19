@@ -19,7 +19,6 @@ import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { iif, Observable, of, Subject } from 'rxjs';
 import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
@@ -28,8 +27,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './notification-detail.component.html',
   styleUrls: ['./notification-detail.component.scss'],
 })
-export class NotificationDetailComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class NotificationDetailComponent implements OnInit, OnDestroy {
   @ViewChild(ModalComponent) requestModal: ModalComponent;
 
   destroy = new Subject();
@@ -52,9 +50,7 @@ export class NotificationDetailComponent extends BaseComponent
     private readonly fb: FormBuilder,
     private readonly toastService: ToastrService,
     private readonly router: Router
-  ) {
-    super(notificationService);
-  }
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -68,10 +64,7 @@ export class NotificationDetailComponent extends BaseComponent
         concatMap(() => this.getNotificationData()),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => {
-        this.notificationData = res;
-        this.triggerNotificationUpdate();
-      });
+      .subscribe((res) => (this.notificationData = res));
   }
 
   ngOnDestroy() {

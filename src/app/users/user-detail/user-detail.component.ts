@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
+import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
@@ -15,10 +16,8 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { Application, User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
@@ -27,20 +26,17 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss'],
 })
-export class UserDetailComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class UserDetailComponent implements OnInit, OnDestroy {
   @ViewChild('deleteUserModal') deleteUserModal: ModalComponent;
   @ViewChild('addVacationModal') addVacationModal: ModalComponent;
+  @ViewChild(GridComponent) grid: GridComponent;
 
   userData: User;
-  vacationData: Vacation[];
+  vacationDataLoader: Observable<Vacation[]>;
   applications: string[] = [];
   userJson = json;
   vacationEditRoute: string;
   loading = true;
-  outputEventColumns = ['id'];
-  excludedColumns = ['id', 'userId', 'insertDate'];
-  columns = ['startDate', 'endDate', 'status'];
   form: FormGroup;
   modalLoading = false;
   canEdit = false;
@@ -58,11 +54,8 @@ export class UserDetailComponent extends BaseComponent
     private readonly router: Router,
     private readonly toastService: ToastrService,
     private readonly location: Location,
-    private readonly fb: FormBuilder,
-    public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+    private readonly fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.buildForm();
@@ -74,16 +67,17 @@ export class UserDetailComponent extends BaseComponent
           () =>
             (this.canEdit = this.userService.canEditUser(this.userData.webRole))
         ),
-        switchMap(() =>
-          this.vacationService.getVacationsByUserId(this.userData.id)
+        tap(
+          () =>
+            (this.vacationDataLoader = this.vacationService.getVacationsByUserId(
+              this.userData.id
+            ))
         ),
-        tap((res) => (this.vacationData = res)),
         switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
         this.setApplications(res);
-        this.triggerNotificationUpdate();
         this.loading = false;
       });
   }
@@ -179,7 +173,7 @@ export class UserDetailComponent extends BaseComponent
       .subscribe(
         (res) => {
           this.loading = false;
-          this.vacationData = res;
+          this.grid.refresh();
           this.addVacationModal.close();
           this.toastService.success('Vacation sucessfully added!');
         },

@@ -10,7 +10,6 @@ import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model'
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { combineLatest, of, Subject } from 'rxjs';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -28,8 +27,7 @@ import { CustomDateFormatter } from './custom-date.formatter';
     },
   ],
 })
-export class CalendarOverviewComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class CalendarOverviewComponent implements OnInit, OnDestroy {
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
@@ -44,9 +42,7 @@ export class CalendarOverviewComponent extends BaseComponent
     private readonly userService: UserService,
     private readonly blockDateService: BlockDatesService,
     public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+  ) {}
 
   ngOnInit() {
     this.loading = true;
@@ -56,7 +52,6 @@ export class CalendarOverviewComponent extends BaseComponent
     ]).subscribe(([userVacs, blockDates]) => {
       this.mapUserEvents(userVacs);
       this.blockDates = blockDates;
-      this.triggerNotificationUpdate();
       this.loading = false;
     });
   }

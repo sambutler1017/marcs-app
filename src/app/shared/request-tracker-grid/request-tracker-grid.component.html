@@ -1,14 +1,13 @@
 <ik-grid
-  noDataText="No Vacations"
-  [translationKey]="requestTrackerJson"
+  translationKey="Vacations"
   [dataLoader]="dataLoader"
-  [columns]="columns"
-  [outputEventColumns]="outputEventColumns"
-  [columnsToExclude]="excludedColumns"
   [padding]="true"
   [pageSize]="15"
   [searchEnabled]="false"
-  [pagerEnabled]="true"
-  [routeUpdateEnabled]="false"
   (gridRowClick)="handleRowClick($event)"
-></ik-grid>
+>
+  <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
+  <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+  <ik-grid-column label="Status" field="status"></ik-grid-column>
+  <ik-grid-column label="Created" field="insertDate"></ik-grid-column>
+</ik-grid>

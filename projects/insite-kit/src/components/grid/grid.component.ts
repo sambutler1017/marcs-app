@@ -1,241 +1,141 @@
 import {
   Component,
+  ContentChild,
+  ContentChildren,
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
+  QueryList,
+  SimpleChanges,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from '../../service/common/common.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { GridDataObservable } from '../../models/grid.model';
+import { GridColumnComponent } from './grid-column/grid-column.component';
+import { GridPagerComponent } from './grid-pager/grid-pager.component';
+import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
 
 @Component({
   selector: 'ik-grid',
   templateUrl: './grid.component.html',
   styleUrls: ['./grid.component.scss'],
 })
-export class GridComponent implements OnChanges {
-  @Input() dataLoader: any[];
-  @Input() outputEventColumns = [];
-  @Input() columnsToExclude = [];
-  @Input() columns = [];
-  @Input() noDataText = 'No Items';
+export class GridComponent implements OnChanges, OnDestroy {
+  @ContentChildren(GridColumnComponent) columns: QueryList<GridColumnComponent>;
+  @ContentChild(GridPagerComponent) pager: GridPagerComponent;
+  @ContentChild(GridShowAllComponent) showAll: GridShowAllComponent;
+
+  @Input() dataLoader: GridDataObservable;
+  @Input() gridData: any[];
   @Input() translationKey: any;
-  @Input() pageSize = 25;
+  @Input() pageSize = 15;
   @Input() searchEnabled = false;
-  @Input() pagerEnabled = false;
-  @Input() routeUpdateEnabled = true;
-  @Input() title;
   @Input() padding = true;
   @Input() headerPadding = false;
-  @Input() showAllEnabled = false;
+
   @Output() gridRowClick = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
-  @Output() showAll = new EventEmitter<any>();
 
-  content = [[]];
-  outputData = [{}];
-  cachedDataLoader: any;
-  currentPageIndex = 0;
-  currentPageRowCount = 0;
-  dataCountTranslation = 'No Items';
-  noItems = false;
+  gridContent = [[]];
+  gridIndex = 0;
+
   loading = true;
+  destroy = new Subject();
 
-  pages: any;
-  totalPages = 0;
-  constructor(
-    private common: CommonService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(private route: ActivatedRoute) {}
 
-  ngOnChanges(): void {
-    if (!this.dataLoader) {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.dataLoader && changes.dataLoader.currentValue) {
+      this.loadGridData();
+    } else {
       this.loading = true;
       return;
     }
+  }
 
+  ngOnDestroy() {
+    this.destroy.next();
+  }
+
+  loadGridData() {
+    this.loading = true;
+    this.dataLoader
+      .pipe(takeUntil(this.destroy))
+      .subscribe((response) => this.initGrid(response));
+  }
+
+  initGrid(data: any[]) {
+    this.gridData = data;
+    this.loading = false;
+    this.listenToRoute();
+
+    if (this.pager) {
+      this.pager.initPager(
+        this.gridData.length,
+        this.gridIndex,
+        this.pageSize,
+        this.translationKey
+      );
+    }
+
+    if (this.showAll) {
+      this.showAll.init(this.gridData.length);
+    }
+  }
+
+  listenToRoute() {
     this.route.queryParams.subscribe((params) => {
       if (params.currentPage) {
-        this.currentPageIndex = Number(params.currentPage);
+        this.gridIndex = Number(params.currentPage);
       } else {
-        this.currentPageIndex = 0;
-        if (this.routeUpdateEnabled) {
-          this.updateRoute(this.currentPageIndex);
+        this.gridIndex = 0;
+        if (this.pager) {
+          this.pager.updateRoute(this.gridIndex);
         }
       }
       this.getPageData();
-    });
-
-    if (this.dataLoader.length <= 0) {
-      this.noItems = true;
-      this.loading = false;
-      return;
-    } else {
-      this.loading = false;
-      this.noItems = false;
-    }
-
-    this.totalPages = Math.ceil(this.dataLoader.length / this.pageSize);
-
-    this.excludeColumns();
-    this.getTotal();
-  }
-
-  updateRoute(value: number) {
-    this.router.navigate([], {
-      replaceUrl: false,
-      queryParams: {
-        currentPage: value,
-      },
     });
   }
 
   onSearch(value: string) {
     this.loading = true;
-    this.resetData();
-    this.updateRoute(0);
+    this.pager.updateRoute(0);
     this.search.emit(value);
   }
 
-  resetData() {
-    this.content = [[]];
-    this.outputData = [{}];
-    this.currentPageIndex = 0;
-    this.currentPageRowCount = 0;
-  }
-
-  excludeColumns() {
-    this.outputData = this.common.copyObject(this.dataLoader);
-
-    this.outputData.forEach((value) =>
-      Object.keys(value).forEach((key) => {
-        if (!this.outputEventColumns.includes(key)) {
-          delete value[key];
-        }
-      })
-    );
-
-    this.columnsToExclude.forEach((d) =>
-      this.dataLoader.forEach((value) => delete value[d])
-    );
-
-    this.cachedDataLoader = this.common.copyObject(this.dataLoader);
+  refresh() {
+    this.loadGridData();
   }
 
   rowClick(event: number) {
     this.gridRowClick.emit(
-      this.outputData[event + this.currentPageIndex - this.content.length]
+      this.gridData[event + this.gridIndex - this.gridContent.length]
     );
   }
 
-  onNextPageClick() {
-    if (this.currentPageIndex < this.dataLoader.length) {
-      this.updateRoute(this.currentPageIndex);
-    }
-  }
-
-  onPreviousPageClick() {
-    if (this.currentPageIndex > this.pageSize) {
-      this.currentPageIndex =
-        this.currentPageIndex - this.pageSize - this.currentPageRowCount;
-      this.updateRoute(this.currentPageIndex);
-    }
-  }
-
   getPageData() {
-    this.content = [];
-    this.currentPageRowCount = 0;
+    this.gridContent = [];
 
-    for (
-      let i = 0;
-      i < this.pageSize && this.dataLoader[this.currentPageIndex];
-      i++
-    ) {
-      this.content.push(
-        Object.values(this.getRowData(this.currentPageIndex++))
-      );
-      this.currentPageRowCount++;
+    for (let i = 0; i < this.pageSize && this.gridData[this.gridIndex]; i++) {
+      this.gridContent.push(Object.values(this.getRowData(this.gridIndex++)));
     }
-    this.updatePageFooter();
+
+    if (this.pager) {
+      this.pager.updatePageFooter(this.gridIndex);
+    }
   }
 
   getRowData(index: number) {
     const arrayData = [];
     this.columns.forEach((col) =>
       arrayData.push(
-        this.dataLoader[index][col] ? this.dataLoader[index][col] : '-'
+        this.gridData[index][col.field] ? this.gridData[index][col.field] : '-'
       )
     );
     return arrayData;
-  }
-
-  updatePageFooter() {
-    const page = Math.ceil(this.currentPageIndex / this.pageSize);
-
-    if (page === 1) {
-      this.pages = [
-        {
-          pageNum: page,
-          active: true,
-        },
-        {
-          pageNum: page + 1,
-          active: false,
-        },
-        {
-          pageNum: page + 2,
-          active: false,
-        },
-      ];
-    } else if (page === Math.ceil(this.dataLoader.length / this.pageSize)) {
-      this.pages = [
-        {
-          pageNum: page - 2,
-          active: false,
-        },
-        {
-          pageNum: page - 1,
-          active: false,
-        },
-        {
-          pageNum: page,
-          active: true,
-        },
-      ];
-    } else {
-      this.pages = [
-        {
-          pageNum: page - 1,
-          active: false,
-        },
-        {
-          pageNum: page,
-          active: true,
-        },
-        {
-          pageNum: page + 1,
-          active: false,
-        },
-      ];
-    }
-  }
-
-  pageClick(page: number) {
-    this.currentPageIndex = page * this.pageSize - this.pageSize;
-    this.updateRoute(this.currentPageIndex);
-  }
-
-  onShowAllClick() {
-    this.showAll.emit();
-  }
-
-  getTotal() {
-    if (this.dataLoader.length === 0) {
-      this.dataCountTranslation = 'No Items';
-    } else {
-      this.dataCountTranslation = `${this.dataLoader.length} ${this.translationKey.grid.total}`;
-    }
   }
 
   isDate(value: any) {

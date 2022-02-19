@@ -53,20 +53,4 @@ export class NotificationService {
   deleteNotification(id: number): Observable<any> {
     return this.requestService.delete<any>(`${this.BASE_PATH}/${id}`);
   }
-
-  /**
-   * The listener for the update
-   *
-   * @returns Observable with the update
-   */
-  notificationChange() {
-    return this.notificationListener.asObservable();
-  }
-
-  /**
-   * Trigger a observable to update notifications
-   */
-  triggerNotificationUpdate() {
-    this.notificationListener.next();
-  }
 }

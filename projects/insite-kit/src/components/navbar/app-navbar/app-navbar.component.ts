@@ -9,7 +9,7 @@ import {
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ik-app-navbar',
@@ -32,12 +32,8 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.notificationService
-      .notificationChange()
-      .pipe(
-        switchMap(() => this.getNotifications(this.getParams())),
-        takeUntil(this.destroy)
-      )
+    this.getNotifications(this.getParams())
+      .pipe(takeUntil(this.destroy))
       .subscribe((res) => (this.notificationCount = res.length));
   }
 

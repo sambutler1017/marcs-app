@@ -1,6 +1,6 @@
 <ik-card [padding]="false">
   <div [ngClass]="{ 'grid-padding': padding }">
-    <ng-content></ng-content>
+    <ng-content select="ik-card-header"></ng-content>
     <input
       *ngIf="searchEnabled"
       class="search"
@@ -8,18 +8,22 @@
       (change)="onSearch($event.srcElement.value)"
     />
     <table *ngIf="!loading; else loader" class="grid-table">
-      <thead *ngIf="!noItems">
+      <thead *ngIf="gridData.length > 0">
         <tr>
-          <td
-            *ngFor="let column of columns"
+          <th
+            *ngFor="let column of columns.toArray()"
             class="column-header"
             [ngClass]="{ 'header-padding': headerPadding }"
           >
-            <strong>{{ this.translationKey.grid.columns[column] }}</strong>
-          </td>
+            <ng-content select="ik-grid-column"></ng-content>
+            <strong>{{ column.label }}</strong>
+          </th>
         </tr>
       </thead>
-      <tr *ngFor="let row of content; let rowIndex = index" class="content-row">
+      <tr
+        *ngFor="let row of gridContent; let rowIndex = index"
+        class="content-row"
+      >
         <td
           *ngFor="let value of row"
           class="grid-content"
@@ -34,45 +38,14 @@
         </td>
       </tr>
     </table>
-    <div *ngIf="dataLoader && pagerEnabled && !noItems" class="grid-footer">
-      <div
-        class="left-arrow inline-block left"
-        (click)="onPreviousPageClick()"
-      ></div>
-      <div
-        *ngFor="let page of pages"
-        class="inline-block left"
-        [ngClass]="{
-          active: page.active,
-          'page-number': page.pageNum <= this.totalPages && page.pageNum > 0
-        }"
-        (click)="pageClick(page.pageNum)"
-      >
-        <div *ngIf="page.pageNum <= this.totalPages && page.pageNum > 0">
-          {{ page.pageNum }}
-        </div>
-      </div>
-      <div
-        class="right-arrow inline-block left"
-        (click)="onNextPageClick()"
-      ></div>
-      <label class="item-label-margin label-text right">{{
-        dataCountTranslation
-      }}</label>
-    </div>
-    <ng-container *ngIf="noItems">
+    <ng-content select="ik-grid-pager"></ng-content>
+    <ng-container *ngIf="gridData.length <= 0">
       <label class="item-label-margin label-text left no-data-margin">{{
-        noDataText
+        "No" + " " + translationKey
       }}</label>
     </ng-container>
   </div>
-  <div
-    *ngIf="showAllEnabled && !noItems"
-    class="showAll__link"
-    (click)="onShowAllClick()"
-  >
-    Show All
-  </div>
+  <ng-content select="ik-grid-show-all"></ng-content>
 </ik-card>
 
 <ng-template #loader>

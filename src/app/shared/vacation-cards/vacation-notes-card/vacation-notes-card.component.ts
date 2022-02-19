@@ -10,17 +10,14 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
-import { BaseComponent } from 'src/app/shared/base-component/base-class.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
   selector: 'app-vacation-notes-card',
   templateUrl: './vacation-notes-card.component.html',
   styleUrls: ['./vacation-notes-card.component.scss'],
 })
-export class VacationNotesCardComponent extends BaseComponent
-  implements OnInit, OnDestroy {
+export class VacationNotesCardComponent implements OnInit, OnDestroy {
   @ViewChild('notesModal') notesModal: ModalComponent;
   @Input() data: Vacation;
   destroy = new Subject();
@@ -37,11 +34,8 @@ export class VacationNotesCardComponent extends BaseComponent
   constructor(
     private readonly fb: FormBuilder,
     private readonly vacationService: VacationService,
-    private readonly toastService: ToastrService,
-    public notificationService: NotificationService
-  ) {
-    super(notificationService);
-  }
+    private readonly toastService: ToastrService
+  ) {}
 
   ngOnInit() {
     this.buildForm();
