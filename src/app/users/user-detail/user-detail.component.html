@@ -100,32 +100,7 @@
     </ik-card>
   </div>
   <div class="rightColumn column-half">
-    <ik-grid
-      title="Vacations"
-      translationKey="Vacations"
-      [dataLoader]="vacationDataLoader"
-      [padding]="false"
-      [headerPadding]="true"
-      (gridRowClick)="onRowClick($event)"
-    >
-      <ik-card-header title="Vacations">
-        <ng-container *ngIf="canEdit">
-          <ik-icon
-            icon="plus"
-            *featureAccess="[
-              Application.USER,
-              Feature.USER_VACATION,
-              Access.CREATE
-            ]"
-            (click)="addVacationModal.open()"
-          ></ik-icon>
-        </ng-container>
-      </ik-card-header>
-      <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
-      <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
-      <ik-grid-column label="Status" field="status"></ik-grid-column>
-      <ik-grid-show-all (showAll)="onShowAllClick()"></ik-grid-show-all>
-    </ik-grid>
+    <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
     <ik-card [padding]="false" *ngIf="applications.length > 0">
       <ik-card-header title="Application Access"></ik-card-header>
       <div class="app-text">
@@ -160,63 +135,4 @@
       Cancel
     </button>
   </ik-modal-action-bar>
-</ik-modal>
-
-<ik-modal #addVacationModal name="addVacationModal">
-  <ik-modal-header title="Add Vacation" type="info"></ik-modal-header>
-  <ng-container *ngIf="!modalLoading; else loader">
-    <ik-modal-body>
-      <form [formGroup]="form">
-        <div class="form-padding">
-          <div class="row justify-content-between">
-            <div class="col-6">
-              <div class="label-header">Start Date</div>
-              <input
-                type="date"
-                class="form-input__shadow input-margin"
-                placeholder="Start Date"
-                formControlName="startDate"
-              />
-            </div>
-
-            <div class="col-6">
-              <div class="label-header">End Date</div>
-              <input
-                type="date"
-                class="form-input__shadow input-margin"
-                placeholder="Start Date"
-                formControlName="endDate"
-              />
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12">
-              <div class="label-header spacer-margin">Notes</div>
-              <textarea
-                formControlName="notes"
-                rows="4"
-                cols="50"
-                class="form-input__shadow textarea-margin"
-              ></textarea>
-            </div>
-          </div>
-        </div>
-      </form>
-    </ik-modal-body>
-    <ik-modal-action-bar>
-      <button
-        [disabled]="form.invalid"
-        class="btn btn-primary btn-right btn-modal"
-        (click)="onAddVacation()"
-      >
-        Add Vacation
-      </button>
-      <button
-        class="btn btn-default btn-right btn-modal"
-        (click)="addVacationModal.close()"
-      >
-        Cancel
-      </button>
-    </ik-modal-action-bar>
-  </ng-container>
 </ik-modal>

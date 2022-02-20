@@ -1,0 +1,62 @@
+<ik-modal #addVacationModal name="addVacationModal">
+  <ik-modal-header title="Add Vacation" type="info"></ik-modal-header>
+  <ng-container *ngIf="!modalLoading; else loader">
+    <ik-modal-body>
+      <form [formGroup]="form">
+        <div class="form-padding">
+          <div class="row justify-content-between">
+            <div class="col-6">
+              <div class="label-header">Start Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="startDate"
+              />
+            </div>
+
+            <div class="col-6">
+              <div class="label-header">End Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="endDate"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12">
+              <div class="label-header spacer-margin">Notes</div>
+              <textarea
+                formControlName="notes"
+                rows="4"
+                cols="50"
+                class="form-input__shadow textarea-margin"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary btn-right btn-modal"
+        (click)="onAddVacation()"
+      >
+        Add Vacation
+      </button>
+      <button
+        class="btn btn-default btn-right btn-modal"
+        (click)="addVacationModal.close()"
+      >
+        Cancel
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

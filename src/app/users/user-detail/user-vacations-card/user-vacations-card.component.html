@@ -1,0 +1,31 @@
+<ik-grid
+  title="Vacations"
+  translationKey="Vacations"
+  [dataLoader]="vacationDataLoader"
+  [padding]="false"
+  [headerPadding]="true"
+  (gridRowClick)="onRowClick($event)"
+>
+  <ik-card-header title="Vacations">
+    <ng-container *ngIf="canEdit">
+      <ik-icon
+        icon="plus"
+        *featureAccess="[
+          Application.USER,
+          Feature.USER_VACATION,
+          Access.CREATE
+        ]"
+        (click)="addVacationModalComponent.modal.open()"
+      ></ik-icon>
+    </ng-container>
+  </ik-card-header>
+  <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
+  <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+  <ik-grid-column label="Status" field="status"></ik-grid-column>
+  <ik-grid-show-all (showAll)="onShowAllClick()"></ik-grid-show-all>
+</ik-grid>
+
+<app-add-user-vacation-modal
+  [userId]="userId"
+  (save)="onVacationSave($event)"
+></app-add-user-vacation-modal>

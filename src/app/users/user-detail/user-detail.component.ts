@@ -1,6 +1,5 @@
-import { formatDate, Location } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { default as appJson } from 'projects/insite-kit/src/assets/translations/application/en.json';
@@ -11,15 +10,12 @@ import {
   Access,
   App,
   Feature,
-  VacationStatus,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Application, User } from 'projects/insite-kit/src/models/user.model';
-import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
-import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -32,13 +28,9 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   @ViewChild(GridComponent) grid: GridComponent;
 
   userData: User;
-  vacationDataLoader: Vacation[];
   applications: string[] = [];
   userJson = json;
-  vacationEditRoute: string;
   loading = true;
-  form: FormGroup;
-  modalLoading = false;
   canEdit = false;
 
   WebRole = WebRole;
@@ -49,16 +41,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly userService: UserService,
-    private readonly vacationService: VacationService,
     private readonly activeRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly toastService: ToastrService,
-    private readonly location: Location,
-    private readonly fb: FormBuilder
+    private readonly location: Location
   ) {}
 
   ngOnInit() {
-    this.buildForm();
     this.activeRoute.params
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
@@ -67,10 +56,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
           () =>
             (this.canEdit = this.userService.canEditUser(this.userData.webRole))
         ),
-        switchMap(() =>
-          this.vacationService.getVacationsByUserId(this.userData.id)
-        ),
-        tap((res) => (this.vacationDataLoader = res)),
         switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
@@ -84,32 +69,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.destroy.next();
   }
 
-  buildForm() {
-    this.form = this.fb.group({
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      notes: '',
-    });
-
-    this.formChange();
-  }
-
-  formChange() {
-    this.form.controls.startDate.valueChanges.subscribe((v) =>
-      this.form.patchValue({ endDate: this.vacationChange(v) })
-    );
-  }
-
-  vacationChange(value: string) {
-    if (value.trim() === '') {
-      return '';
-    }
-
-    const endDate = new Date(value);
-    endDate.setDate(endDate.getDate() + 8);
-    return formatDate(endDate, 'yyyy-MM-dd', 'en-US');
-  }
-
   setApplications(apps: Application[]) {
     const translations = Object.values(appJson)[0];
     apps
@@ -119,10 +78,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   onUserEditClick() {
     this.router.navigate([`/user/${this.userData.id}/details/edit/info`]);
-  }
-
-  onVacationEditClick() {
-    this.router.navigate([`/user/${this.userData.id}/details/vacations/edit`]);
   }
 
   deleteModal() {
@@ -152,44 +107,5 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   onBackClick() {
     this.location.back();
-  }
-
-  onAddVacation() {
-    this.modalLoading = true;
-    this.vacationService
-      .createVacation(this.userData.id, {
-        startDate: this.form.value.startDate,
-        endDate: this.form.value.endDate,
-        status: VacationStatus.APPROVED,
-        notes: this.form.value.notes,
-      })
-      .pipe(
-        switchMap(() =>
-          this.vacationService.getVacationsByUserId(this.userData.id)
-        )
-      )
-      .subscribe(
-        (res) => {
-          this.loading = false;
-          this.vacationDataLoader = res;
-          this.addVacationModal.close();
-          this.toastService.success('Vacation sucessfully added!');
-        },
-        (err) => {
-          this.loading = false;
-          this.addVacationModal.close();
-          this.toastService.success(
-            'Vacation could not be added. Please try again later.'
-          );
-        }
-      );
-  }
-
-  onRowClick(event: any) {
-    if (this.canEdit) {
-      this.router.navigate([
-        `/user/${this.userData.id}/details/vacations/${event.id}/details`,
-      ]);
-    }
   }
 }
