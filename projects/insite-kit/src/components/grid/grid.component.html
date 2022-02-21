@@ -8,7 +8,7 @@
       (change)="onSearch($event.srcElement.value)"
     />
     <table *ngIf="!loading; else loader" class="grid-table">
-      <thead *ngIf="gridData.length > 0">
+      <thead *ngIf="dataLoader?.length > 0">
         <tr>
           <th
             *ngFor="let column of columns.toArray()"
@@ -39,7 +39,7 @@
       </tr>
     </table>
     <ng-content select="ik-grid-pager"></ng-content>
-    <ng-container *ngIf="gridData.length <= 0 && !loading">
+    <ng-container *ngIf="dataLoader?.length <= 0 && !loading">
       <label class="item-label-margin label-text left no-data-margin">{{
         "No" + " " + translationKey
       }}</label>

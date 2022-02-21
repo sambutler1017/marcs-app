@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
 import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
@@ -27,13 +27,13 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChild(GridPagerComponent) pager: GridPagerComponent;
   @ContentChild(GridShowAllComponent) showAll: GridShowAllComponent;
 
-  @Input() dataLoader: any[];
-  @Input() gridData: any[] = [];
+  @Input() dataLoader: any[] = [];
   @Input() translationKey: any;
   @Input() pageSize = 15;
   @Input() searchEnabled = false;
   @Input() padding = true;
   @Input() headerPadding = false;
+  @Input() basePath = '';
 
   @Output() gridRowClick = new EventEmitter<any>();
   @Output() search = new EventEmitter<any>();
@@ -68,17 +68,19 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
+    if (this.isNewAppRoute()) {
+      localStorage.removeItem(this.GRID_LOCAL_TAG);
+    }
     this.destroy.next();
   }
 
   initGrid() {
-    this.gridData = this.dataLoader;
     this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG)) | 0;
     this.loading = false;
 
     if (this.pager) {
       this.pager.initPager(
-        this.gridData.length,
+        this.dataLoader.length,
         this.gridIndex,
         this.pageSize,
         this.translationKey
@@ -88,7 +90,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
 
     if (this.showAll) {
-      this.showAll.init(this.gridData.length);
+      this.showAll.init(this.dataLoader.length);
     }
 
     this.getPageData();
@@ -97,26 +99,14 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   listenToRoute() {
     this.router.events
-      .pipe(filter((e) => e instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (this.pager) {
-          this.isInitialLoad(event) ? this.onNavStart() : this.onNavEnd();
-        } else {
-          this.gridIndex = 0;
-        }
-      });
+      .pipe(
+        filter((e) => e instanceof NavigationEnd),
+        takeUntil(this.destroy)
+      )
+      .subscribe(() => this.onGridChange());
   }
 
-  isInitialLoad(event: any) {
-    return event.url !== event.urlAfterRedirects;
-  }
-
-  onNavStart() {
-    this.gridIndex = 0;
-    localStorage.setItem(this.GRID_LOCAL_TAG, '0');
-  }
-
-  onNavEnd() {
+  onGridChange() {
     this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG));
     this.getPageData();
   }
@@ -129,14 +119,14 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   rowClick(event: number) {
     this.gridRowClick.emit(
-      this.gridData[event + this.gridIndex - this.gridContent.length]
+      this.dataLoader[event + this.gridIndex - this.gridContent.length]
     );
   }
 
   getPageData() {
     this.gridContent = [];
 
-    for (let i = 0; i < this.pageSize && this.gridData[this.gridIndex]; i++) {
+    for (let i = 0; i < this.pageSize && this.dataLoader[this.gridIndex]; i++) {
       this.gridContent.push(Object.values(this.getRowData(this.gridIndex++)));
     }
 
@@ -149,7 +139,9 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     const arrayData = [];
     this.columns?.forEach((col) =>
       arrayData.push(
-        this.gridData[index][col.field] ? this.gridData[index][col.field] : '-'
+        this.dataLoader[index][col.field]
+          ? this.dataLoader[index][col.field]
+          : '-'
       )
     );
     return arrayData;
@@ -162,5 +154,9 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
       let dateWrapper = new Date(value);
       return !isNaN(dateWrapper.getDate());
     }
+  }
+
+  isNewAppRoute() {
+    return !this.router.url.includes(`/${this.basePath}`);
   }
 }
