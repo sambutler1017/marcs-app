@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Notification } from '../../models/notification.model';
 
 @Injectable({
@@ -8,6 +8,7 @@ import { Notification } from '../../models/notification.model';
 })
 export class NotificationService {
   readonly BASE_PATH = 'api/notification-app/notifications';
+  private notificationListener: Subject<any> = new Subject<any>();
 
   constructor(private readonly requestService: RequestService) {}
 
@@ -51,5 +52,21 @@ export class NotificationService {
    */
   deleteNotification(id: number): Observable<any> {
     return this.requestService.delete<any>(`${this.BASE_PATH}/${id}`);
+  }
+
+  /**
+   * Watch for changes to the notifications trigger.
+   *
+   * @returns observeable with the change detected.
+   */
+  notificationChange() {
+    return this.notificationListener.asObservable();
+  }
+
+  /**
+   * Trigger an update for the notifications in the navbar
+   */
+  triggerNotificationUpdate() {
+    this.notificationListener.next();
   }
 }

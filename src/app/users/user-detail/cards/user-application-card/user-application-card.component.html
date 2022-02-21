@@ -1,0 +1,14 @@
+<ik-card [padding]="false">
+  <ik-card-header title="Application Access"></ik-card-header>
+  <ng-container *ngIf="!loading; else loader">
+    <div class="app-text">
+      <ul>
+        <li *ngFor="let app of applications">{{ app }}</li>
+      </ul>
+    </div>
+  </ng-container>
+</ik-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

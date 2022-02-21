@@ -1,9 +1,9 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/assets/translations/application/en.json';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -20,6 +20,7 @@ export class ProfileOverviewComponent implements OnInit {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly commonService: CommonService,
     private readonly router: Router,
     private readonly location: Location
   ) {}
@@ -32,9 +33,9 @@ export class ProfileOverviewComponent implements OnInit {
   }
 
   generateApplicationString() {
-    const apps: string[] = this.jwtService.get('apps');
-    const translations = Object.values(json)[0];
-    apps.forEach((v) => this.applications.push(translations[v]));
+    this.applications = this.commonService.getApplicationList(
+      this.jwtService.get('apps')
+    );
   }
 
   onEditProfile() {

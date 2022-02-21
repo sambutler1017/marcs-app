@@ -10,7 +10,7 @@ import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
-import { AddUserVacationModalComponent } from '../modals/add-user-vacation-modal/add-user-vacation-modal.component';
+import { AddUserVacationModalComponent } from '../../modals/add-user-vacation-modal/add-user-vacation-modal.component';
 
 @Component({
   selector: 'app-user-vacations-card',

@@ -1,7 +1,17 @@
 {
+  "apps": {
+    "user": "Users",
+    "store": "Stores",
+    "calendar": "Calendar",
+    "blockDates": "Block Out Dates",
+    "report": "Reports",
+    "requestTracker": "Request Tracker",
+    "contact": "Contact",
+    "notification": "Notifications"
+  },
   "appIcons": {
     "user": {
-      "title": "User's",
+      "title": "Users",
       "message": "Track's a users details and the their associated vacations.",
       "icon": "user",
       "page": "user"

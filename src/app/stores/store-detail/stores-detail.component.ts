@@ -1,7 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { default as json } from 'projects/insite-kit/src/assets/translations/stores/en.json';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { of } from 'rxjs';
@@ -17,7 +16,6 @@ export class StoresDetailComponent implements OnInit {
   storeInfo: Store;
   regionalInfo: User;
   managerInfo: User;
-  storeJson = json;
   managers = [];
   loading = true;
 

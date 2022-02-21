@@ -64,7 +64,10 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         concatMap(() => this.getNotificationData()),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => (this.notificationData = res));
+      .subscribe((res) => {
+        this.notificationData = res;
+        this.notificationService.triggerNotificationUpdate();
+      });
   }
 
   ngOnDestroy() {

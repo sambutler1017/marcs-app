@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { default as json } from 'projects/insite-kit/src/assets/translations/home/en.json';
+import { default as json } from 'projects/insite-kit/src/assets/translations/applications/en.json';
 import { App } from 'projects/insite-kit/src/models/app.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
-import { User } from '../../../projects/insite-kit/src/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -10,8 +9,6 @@ import { User } from '../../../projects/insite-kit/src/models/user.model';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  user: User;
-  hasData = false;
   apps: App[] = new Array();
   name: string;
 
@@ -22,12 +19,8 @@ export class HomeComponent implements OnInit {
     this.buildApps();
   }
 
-  logout() {
-    this.jwt.logOut();
-  }
-
   buildApps() {
-    const data = Object.values(json)[0];
+    const data = Object.values(json)[1];
     this.jwt.get('apps').forEach((v: string) => this.apps.push(data[v]));
   }
 }

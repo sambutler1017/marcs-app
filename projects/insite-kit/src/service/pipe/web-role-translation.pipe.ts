@@ -1,15 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { default as json } from 'projects/insite-kit/src/assets/translations/users/en.json';
+import { default as webRolesJson } from 'projects/insite-kit/src/assets/translations/web-roles/en.json';
 
 @Pipe({ name: 'webRoleTranslate' })
 export class WebRoleTranslationPipe implements PipeTransform {
-  userJson = json;
   transform(value: string): string {
-    const role = Object.values(this.userJson)[5][value];
-    if (role) {
-      return role;
-    } else {
-      return '-';
-    }
+    const role = Object.values(webRolesJson)[0][value];
+    return role ? role : '-';
   }
 }

@@ -14,7 +14,7 @@
       </button>
       <button
         class="btn btn-danger btn-size btn-right h-button"
-        (click)="deleteModal()"
+        (click)="deleteUserModal.modal.open()"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
       >
         Delete User
@@ -27,7 +27,7 @@
   </ik-banner>
   <div class="leftColumn column-half">
     <ik-card [padding]="false">
-      <ik-card-header [title]="userJson.detail.title">
+      <ik-card-header title="Details">
         <ng-container *ngIf="canEdit">
           <ik-icon
             icon="edit"
@@ -49,7 +49,7 @@
         </div>
         <div class="right-column">
           <ik-card-info
-            [header]="userJson.detail.email"
+            header="Email"
             [text]="userData.email ? userData.email : '-'"
           ></ik-card-info>
         </div>
@@ -58,13 +58,13 @@
       <div class="flex">
         <div class="left-column">
           <ik-card-info
-            [header]="userJson.detail.storeId"
+            header="Store ID"
             [text]="userData.storeId ? userData.storeId : '-'"
           ></ik-card-info>
         </div>
         <div class="right-column">
           <ik-card-info
-            [header]="userJson.detail.storeName"
+            header="Store Name"
             [text]="userData.storeName ? userData.storeName : '-'"
           ></ik-card-info>
         </div>
@@ -91,7 +91,7 @@
       <div class="flex">
         <div class="left-column">
           <ik-card-info
-            [header]="userJson.detail.hireDate"
+            header="Hire Date"
             [text]="userData.hireDate | date: 'mediumDate'"
           >
           </ik-card-info>
@@ -101,38 +101,12 @@
   </div>
   <div class="rightColumn column-half">
     <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
-    <ik-card [padding]="false" *ngIf="applications.length > 0">
-      <ik-card-header title="Application Access"></ik-card-header>
-      <div class="app-text">
-        <ul>
-          <li *ngFor="let app of applications">{{ app }}</li>
-        </ul>
-      </div>
-    </ik-card>
+    <app-user-application-card></app-user-application-card>
   </div>
 </div>
+
+<app-delete-user-modal [userId]="userData?.id"></app-delete-user-modal>
 
 <ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>
 </ng-template>
-
-<ik-modal #deleteUserModal name="deleteUserModal">
-  <ik-modal-header title="Delete User?" type="danger"></ik-modal-header>
-  <ik-modal-body>
-    <div>
-      Deleting this user will result in their personal info and vacations to be
-      deleted. Do you want to continue?
-    </div>
-  </ik-modal-body>
-  <ik-modal-action-bar>
-    <button class="btn btn-danger btn-right btn-modal" (click)="onDeleteUser()">
-      Delete User
-    </button>
-    <button
-      class="btn btn-default btn-right btn-modal"
-      (click)="deleteUserModal.close()"
-    >
-      Cancel
-    </button>
-  </ik-modal-action-bar>
-</ik-modal>
