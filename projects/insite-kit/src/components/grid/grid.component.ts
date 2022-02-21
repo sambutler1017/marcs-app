@@ -10,8 +10,9 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
 import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
@@ -43,8 +44,9 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   loading = true;
   destroy = new Subject();
   initialLoadComplete = false;
+  GRID_LOCAL_TAG = 'gridCurrentPage';
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly router: Router) {}
 
   ngAfterViewInit(): void {
     this.checkDataLoader();
@@ -71,8 +73,8 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   initGrid() {
     this.gridData = this.dataLoader;
+    this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG)) | 0;
     this.loading = false;
-    this.listenToRoute();
 
     if (this.pager) {
       this.pager.initPager(
@@ -81,25 +83,42 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.pageSize,
         this.translationKey
       );
+    } else {
+      this.gridIndex = 0;
     }
 
     if (this.showAll) {
       this.showAll.init(this.gridData.length);
     }
+
+    this.getPageData();
+    this.listenToRoute();
   }
 
   listenToRoute() {
-    this.route.queryParams.subscribe((params) => {
-      if (params.currentPage) {
-        this.gridIndex = Number(params.currentPage);
-      } else {
-        this.gridIndex = 0;
+    this.router.events
+      .pipe(filter((e) => e instanceof NavigationEnd))
+      .subscribe((event) => {
         if (this.pager) {
-          this.pager.updateRoute(this.gridIndex);
+          this.isInitialLoad(event) ? this.onNavStart() : this.onNavEnd();
+        } else {
+          this.gridIndex = 0;
         }
-      }
-      this.getPageData();
-    });
+      });
+  }
+
+  isInitialLoad(event: any) {
+    return event.url !== event.urlAfterRedirects;
+  }
+
+  onNavStart() {
+    this.gridIndex = 0;
+    localStorage.setItem(this.GRID_LOCAL_TAG, '0');
+  }
+
+  onNavEnd() {
+    this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG));
+    this.getPageData();
   }
 
   onSearch(value: string) {

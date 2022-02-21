@@ -16,6 +16,7 @@ import { UserService } from 'src/service/user-service/user.service';
 export class UserOverviewComponent implements OnInit {
   @ViewChild(ModalComponent) modal: ModalComponent;
   dataloader: User[];
+  GRID_TAG = 'GRID_USERS_GRID';
 
   Feature = Feature;
   Application = App;
