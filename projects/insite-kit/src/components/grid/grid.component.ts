@@ -137,13 +137,10 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   getRowData(index: number) {
     const arrayData = [];
-    this.columns?.forEach((col) =>
-      arrayData.push(
-        this.dataLoader[index][col.field]
-          ? this.dataLoader[index][col.field]
-          : '-'
-      )
-    );
+    this.columns?.forEach((col) => {
+      const val = this.dataLoader[index][col.field];
+      arrayData.push(val ? val : '-');
+    });
     return arrayData;
   }
 
