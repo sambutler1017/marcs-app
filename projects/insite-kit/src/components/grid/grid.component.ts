@@ -15,6 +15,7 @@ import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
+import { GridSearchComponent } from './grid-search/grid-search.component';
 import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
 
 @Component({
@@ -26,6 +27,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChildren(GridColumnComponent) columns: QueryList<GridColumnComponent>;
   @ContentChild(GridPagerComponent) pager: GridPagerComponent;
   @ContentChild(GridShowAllComponent) showAll: GridShowAllComponent;
+  @ContentChild(GridSearchComponent) search: GridSearchComponent;
 
   @Input() dataLoader: any[] = [];
   @Input() translationKey: any;
@@ -34,9 +36,9 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @Input() padding = true;
   @Input() headerPadding = false;
   @Input() basePath = '';
+  @Input() overflowEnabled = false;
 
-  @Output() gridRowClick = new EventEmitter<any>();
-  @Output() search = new EventEmitter<any>();
+  @Output() rowClick = new EventEmitter<any>();
 
   gridContent = [[]];
   gridIndex = 0;
@@ -93,6 +95,13 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
       this.showAll.init(this.dataLoader.length);
     }
 
+    if (this.search) {
+      this.search.search.pipe(takeUntil(this.destroy)).subscribe(() => {
+        this.loading = true;
+        this.pager.updateRoute(0);
+      });
+    }
+
     this.getPageData();
     this.listenToRoute();
   }
@@ -111,14 +120,8 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.getPageData();
   }
 
-  onSearch(value: string) {
-    this.loading = true;
-    this.pager.updateRoute(0);
-    this.search.emit(value);
-  }
-
-  rowClick(event: number) {
-    this.gridRowClick.emit(
+  onRowClick(event: number) {
+    this.rowClick.emit(
       this.dataLoader[event + this.gridIndex - this.gridContent.length]
     );
   }

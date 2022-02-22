@@ -4,7 +4,8 @@
   [dataLoader]="vacationDataLoader"
   [padding]="false"
   [headerPadding]="true"
-  (gridRowClick)="onRowClick($event)"
+  [overflowEnabled]="true"
+  (rowClick)="onRowClick($event)"
 >
   <ik-card-header title="Vacations">
     <ng-container *ngIf="canEdit">

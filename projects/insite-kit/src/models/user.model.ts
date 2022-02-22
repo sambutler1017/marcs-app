@@ -16,6 +16,7 @@ export interface User {
   insertDate?: Date;
   salt?: number;
   vacations?: Vacation[];
+  [key: string]: any;
 }
 
 export interface Application {

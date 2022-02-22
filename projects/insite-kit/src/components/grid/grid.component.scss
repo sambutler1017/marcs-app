@@ -1,17 +1,5 @@
-.search {
-  border-radius: 10px;
-  background: #e9e7e7;
-  padding: 15px;
-  font-size: 20px;
-  width: 100%;
-}
-
 .grid-table {
   table-layout: fixed;
-}
-
-input {
-  border-style: hidden;
 }
 
 *:focus {
@@ -24,7 +12,12 @@ input {
   font-weight: 500;
   padding: 15px;
   text-align: left;
-  overflow-wrap: break-word;
+}
+
+.content-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .column-header {
@@ -100,24 +93,10 @@ table {
 
   .column-header {
     font-size: 15px;
-    padding-left: 2px;
+    padding-left: 10px;
   }
 
   .grid-padding {
     padding: 5px;
-  }
-
-  .search {
-    font-size: 15px;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .column-header {
-    text-align: center;
-  }
-
-  .grid-content {
-    text-align: center;
   }
 }

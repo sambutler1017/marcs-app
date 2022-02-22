@@ -1,12 +1,7 @@
 <ik-card [padding]="false">
   <div [ngClass]="{ 'grid-padding': padding }">
     <ng-content select="ik-card-header"></ng-content>
-    <input
-      *ngIf="searchEnabled"
-      class="search"
-      placeholder="Search"
-      (change)="onSearch($event.srcElement.value)"
-    />
+    <ng-content select="ik-grid-search"></ng-content>
     <table *ngIf="!loading; else loader" class="grid-table">
       <thead *ngIf="dataLoader?.length > 0">
         <tr>
@@ -27,7 +22,8 @@
         <td
           *ngFor="let value of row"
           class="grid-content"
-          (click)="rowClick(rowIndex)"
+          [ngClass]="{ 'content-ellipsis': !overflowEnabled }"
+          (click)="onRowClick(rowIndex)"
         >
           <ng-container *ngIf="isDate(value); else notDate">
             {{ value | date: "longDate" }}

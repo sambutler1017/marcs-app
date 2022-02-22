@@ -9,16 +9,14 @@
 </ik-header>
 
 <ik-grid
-  [dataLoader]="dataloader"
-  [searchEnabled]="true"
   translationKey="Users"
   basePath="user"
-  (gridRowClick)="handleClick($event)"
-  (search)="onSearch($event)"
+  [dataLoader]="dataloader"
+  (rowClick)="rowClick($event)"
 >
-  <ik-grid-column label="First Name" field="firstName"></ik-grid-column>
-  <ik-grid-column label="Last Name" field="lastName"></ik-grid-column>
-  <ik-grid-column label="Store Id" field="storeId"></ik-grid-column>
+  <ik-grid-search (search)="onSearch($event)"></ik-grid-search>
+  <ik-grid-column label="Name" field="formattedName"></ik-grid-column>
+  <ik-grid-column label="Position" field="formattedRole"></ik-grid-column>
   <ik-grid-column label="Store Name" field="storeName"></ik-grid-column>
   <ik-grid-pager></ik-grid-pager>
 </ik-grid>

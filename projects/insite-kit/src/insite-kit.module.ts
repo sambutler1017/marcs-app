@@ -9,6 +9,7 @@ import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
 import { GridColumnComponent } from './components/grid/grid-column/grid-column.component';
 import { GridPagerComponent } from './components/grid/grid-pager/grid-pager.component';
+import { GridSearchComponent } from './components/grid/grid-search/grid-search.component';
 import { GridShowAllComponent } from './components/grid/grid-show-all/grid-show-all.component';
 import { GridComponent } from './components/grid/grid.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -50,6 +51,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ModalBodyComponent,
     ModalHeaderComponent,
     BannerComponent,
+    GridSearchComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -75,6 +77,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ModalHeaderComponent,
     WebRoleTranslationPipe,
     BannerComponent,
+    GridSearchComponent,
   ],
   entryComponents: [ModalComponent],
 })

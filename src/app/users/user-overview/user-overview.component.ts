@@ -37,7 +37,7 @@ export class UserOverviewComponent implements OnInit {
   }
 
   onSearch(value: any) {
-    if (value.trim() === '') {
+    if (value === '') {
       this.getUserDataLoader().subscribe((res) => (this.dataloader = res));
     } else {
       this.getUsers(this.generateSearchParams(value)).subscribe(
@@ -54,7 +54,7 @@ export class UserOverviewComponent implements OnInit {
     return this.getParams().set('search', value);
   }
 
-  handleClick(event: any) {
+  rowClick(event: any) {
     this.router.navigate([`/user/${event.id}/details`]);
   }
 

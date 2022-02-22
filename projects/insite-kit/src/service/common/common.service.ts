@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { default as applicationsJson } from 'projects/insite-kit/src/assets/translations/applications/en.json';
+import { default as webRolesJson } from 'projects/insite-kit/src/assets/translations/web-roles/en.json';
 
 @Injectable({
   providedIn: 'root',
@@ -50,5 +51,18 @@ export class CommonService {
     }
 
     return applications;
+  }
+
+  getFormattedRole(value: string) {
+    const role = Object.values(webRolesJson)[0][value];
+    return role ? role : '-';
+  }
+
+  getFormattedName(user: any) {
+    if (user.lastName) {
+      return `${user.firstName} ${user.lastName}`.trim();
+    } else {
+      return `${user.firstName}`.trim();
+    }
   }
 }

@@ -3,9 +3,7 @@
   basePath="requestTracker"
   [dataLoader]="dataLoader"
   [padding]="true"
-  [pageSize]="15"
-  [searchEnabled]="false"
-  (gridRowClick)="handleRowClick($event)"
+  (rowClick)="handleRowClick($event)"
 >
   <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
   <ik-grid-column label="End Date" field="endDate"></ik-grid-column>

@@ -5,8 +5,7 @@
   basePath="notification"
   [dataLoader]="dataLoader"
   [padding]="true"
-  [pageSize]="15"
-  (gridRowClick)="gridRowClick($event)"
+  (rowClick)="gridRowClick($event)"
 >
   <ik-grid-column label="Notification" field="type"></ik-grid-column>
   <ik-grid-column label="Link ID" field="id"></ik-grid-column>
