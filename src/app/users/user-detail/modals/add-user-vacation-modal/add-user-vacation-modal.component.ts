@@ -43,7 +43,7 @@ export class AddUserVacationModalComponent implements OnInit {
     this.form = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      notes: '',
+      notes: null,
     });
 
     this.formChange();
