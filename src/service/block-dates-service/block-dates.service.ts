@@ -51,6 +51,23 @@ export class BlockDatesService {
   }
 
   /**
+   * Update a block out date for the given object.
+   *
+   * @param id the id of the block out date to update.
+   * @param data The object to be created.
+   * @returns observable of the created block out date.
+   */
+  updateBlockOutDateById(
+    id: number,
+    data: BlockOutDate
+  ): Observable<BlockOutDate> {
+    return this.requestService.put<BlockOutDate>(
+      `${this.BASE_USER_PATH}/${id}`,
+      data
+    );
+  }
+
+  /**
    * Create a block out date for the given object.
    *
    * @param data The object to be created.

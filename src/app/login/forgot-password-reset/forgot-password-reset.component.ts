@@ -67,7 +67,7 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.jwt.setToken(`Bearer: ${this.token}`);
+    this.jwt.setToken(this.token);
     this.userService
       .resetUserPassword({ newPassword: this.form.value.newPassword })
       .subscribe(

@@ -1,0 +1,33 @@
+<ik-modal #deleteBlockOutDateModal name="deleteBlockOutDateModal">
+  <ik-modal-header
+    title="Delete Block Out Date?"
+    type="danger"
+  ></ik-modal-header>
+  <ng-container *ngIf="!loading; else modalLoader">
+    <ik-modal-body>
+      <div>
+        Deleting this block out date will result in it not showing up in the
+        calendar and allow users to schedule vacations between these days. Do
+        you want to continue?
+      </div>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-danger btn-right btn-modal"
+        (click)="onDeleteBlockOutDate()"
+      >
+        Delete Date
+      </button>
+      <button
+        class="btn btn-default btn-right btn-modal"
+        (click)="deleteBlockOutDateModal.close()"
+      >
+        Cancel
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ng-template #modalLoader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

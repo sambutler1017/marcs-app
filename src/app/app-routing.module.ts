@@ -8,6 +8,8 @@ import {
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
 import { UserResolverService } from 'src/service/user-service/user-resolver.service';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
+import { BlockDatesOverviewComponent } from './block-dates/block-dates-overview/block-dates-overview.component';
+import { BlockDatesComponent } from './block-dates/block-dates.component';
 import { CalendarOverviewComponent } from './calendar/calendar-overview/calendar-overview.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
@@ -98,6 +100,15 @@ const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: StoresOverviewComponent },
       { path: 'details/:id', component: StoresDetailComponent },
+    ],
+  },
+  {
+    path: 'blockDates',
+    component: BlockDatesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: BlockDatesOverviewComponent },
     ],
   },
   {

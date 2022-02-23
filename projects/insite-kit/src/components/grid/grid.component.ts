@@ -106,6 +106,10 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.listenToRoute();
   }
 
+  refresh() {
+    this.loading = true;
+  }
+
   listenToRoute() {
     this.router.events
       .pipe(

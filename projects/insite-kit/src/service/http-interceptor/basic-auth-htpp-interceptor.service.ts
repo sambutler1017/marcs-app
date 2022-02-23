@@ -1,8 +1,7 @@
 import {
   HttpHandler,
-
   HttpInterceptor,
-  HttpRequest
+  HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable({
@@ -14,7 +13,7 @@ export class BasicAuthHtppInterceptorService implements HttpInterceptor {
     if (localStorage.getItem('token')) {
       req = req.clone({
         setHeaders: {
-          Authorization: localStorage.getItem('token')
+          Authorization: `Bearer: ${localStorage.getItem('token')}`,
         },
       });
     }

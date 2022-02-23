@@ -32,7 +32,7 @@
       "title": "Block Dates",
       "message": "List of dates that a user is not able to take a vacation on.",
       "icon": "block",
-      "page": ""
+      "page": "blockDates"
     },
     "map": {
       "title": "Map",

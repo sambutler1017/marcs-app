@@ -1,0 +1,31 @@
+<ik-header title="Overview">
+  <button
+    class="btn btn-info btn-size btn-right"
+    (click)="addBlockOutDateModal.modal.open()"
+  >
+    Add Block Date
+  </button>
+</ik-header>
+<ik-grid
+  translationKey="Block Out Dates"
+  basePath="blockDates"
+  pageSize="10"
+  [dataLoader]="blockOutDatesData"
+  (rowClick)="rowClick($event)"
+>
+  <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
+  <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+  <ik-grid-pager></ik-grid-pager>
+</ik-grid>
+
+<app-block-date-detail-modal
+  [blockDate]="currentSelectedBlockDate"
+  [userCreated]="currentSelectedUser"
+  [loading]="loading"
+  (update)="refreshGrid()"
+  (delete)="refreshGrid()"
+></app-block-date-detail-modal>
+
+<app-add-block-out-date-modal
+  (save)="refreshGrid()"
+></app-add-block-out-date-modal>

@@ -1,0 +1,43 @@
+<ik-modal #addBlockOutDateModal name="addBlockOutDateModal">
+  <ik-modal-header title="New Block Out Date?" type="info"></ik-modal-header>
+  <ng-container *ngIf="!loading; else modalLoader">
+    <ik-modal-body>
+      <form [formGroup]="form">
+        <div class="form-padding row justify-content-between">
+          <div class="col-6">
+            <div class="label-header">Start Date</div>
+            <input
+              type="date"
+              class="form-input__shadow input-margin"
+              placeholder="Start Date"
+              formControlName="startDate"
+            />
+          </div>
+
+          <div class="col-6">
+            <div class="label-header">End Date</div>
+            <input
+              type="date"
+              class="form-input__shadow input-margin"
+              placeholder="Start Date"
+              formControlName="endDate"
+            />
+          </div>
+        </div>
+      </form>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        [disabled]="form.invalid"
+        class="btn btn-primary btn-full btn-size btn-modal"
+        (click)="onBlockOutDateCreate()"
+      >
+        Create Block Date
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ng-template #modalLoader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

@@ -1,0 +1,72 @@
+<ik-modal #blockOutDateDetailModal name="blockOutDateDetailModal">
+  <ik-modal-header title="Block Out Date Details" type="info"></ik-modal-header>
+  <ng-container *ngIf="!loading; else modalLoader">
+    <ik-modal-body>
+      <form [formGroup]="form">
+        <div class="form-padding">
+          <div class="row justify-content-between">
+            <div class="col-6">
+              <div class="label-header">Start Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="startDate"
+              />
+            </div>
+
+            <div class="col-6">
+              <div class="label-header">End Date</div>
+              <input
+                type="date"
+                class="form-input__shadow input-margin"
+                placeholder="Start Date"
+                formControlName="endDate"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <ik-card-info
+                header="Created By"
+                text="{{ userCreated | formatUserName }}"
+              ></ik-card-info>
+            </div>
+
+            <div class="col-6">
+              <ik-card-info
+                header="Date Created"
+                text="{{ blockDate?.insertDate | date: 'longDate' }}"
+              ></ik-card-info>
+            </div>
+          </div>
+        </div>
+      </form>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-danger btn-left btn-modal"
+        (click)="onBlockOutDateDelete()"
+      >
+        Delete
+      </button>
+
+      <button
+        class="btn btn-primary btn-right btn-modal"
+        [disabled]="!form.dirty || form.invalid"
+        (click)="onBlockOutDateUpdate()"
+      >
+        Update
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<app-delete-block-out-date-modal
+  [blockDateId]="blockDate?.id"
+  (delete)="onDeleteBlockDateComplete()"
+></app-delete-block-out-date-modal>
+
+<ng-template #modalLoader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>
