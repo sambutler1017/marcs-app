@@ -1,4 +1,4 @@
-import { formatDate, Location } from '@angular/common';
+import { formatDate } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -11,6 +11,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
+import {
+  Access,
+  App,
+  Feature,
+} from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { Subject } from 'rxjs';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
@@ -34,8 +39,11 @@ export class BlockDateDetailModalComponent implements OnInit {
   form: FormGroup;
   destroy = new Subject();
 
+  Feature = Feature;
+  Application = App;
+  Access = Access;
+
   constructor(
-    private readonly location: Location,
     private readonly fb: FormBuilder,
     private readonly blockDatesService: BlockDatesService,
     private readonly toastService: ToastrService

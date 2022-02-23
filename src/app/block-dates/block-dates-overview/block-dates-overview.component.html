@@ -2,6 +2,11 @@
   <button
     class="btn btn-info btn-size btn-right"
     (click)="addBlockOutDateModal.modal.open()"
+    *featureAccess="[
+      Application.BLOCK_DATES,
+      Feature.BLOCK_DATES_OVERVIEW,
+      Access.CREATE
+    ]"
   >
     Add Block Date
   </button>

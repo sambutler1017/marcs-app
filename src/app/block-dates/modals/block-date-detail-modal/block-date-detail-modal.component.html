@@ -47,6 +47,11 @@
       <button
         class="btn btn-danger btn-left btn-modal"
         (click)="onBlockOutDateDelete()"
+        *featureAccess="[
+          Application.BLOCK_DATES,
+          Feature.BLOCK_DATES_OVERVIEW,
+          Access.DELETE
+        ]"
       >
         Delete
       </button>
@@ -54,9 +59,20 @@
       <button
         class="btn btn-primary btn-right btn-modal"
         [disabled]="!form.dirty || form.invalid"
+        *featureAccess="[
+          Application.BLOCK_DATES,
+          Feature.BLOCK_DATES_OVERVIEW,
+          Access.UPDATE
+        ]"
         (click)="onBlockOutDateUpdate()"
       >
         Update
+      </button>
+      <button
+        class="btn btn-default btn-right btn-modal"
+        (click)="blockOutDateDetailModal.close()"
+      >
+        Close
       </button>
     </ik-modal-action-bar>
   </ng-container>
