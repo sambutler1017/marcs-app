@@ -27,17 +27,15 @@
           </div>
           <div class="row">
             <div class="col-6">
-              <ik-card-info
-                header="Created By"
-                text="{{ userCreated | formatUserName }}"
-              ></ik-card-info>
+              <div class="label-header padding-modal-top">Created By</div>
+              <div class="label-body">{{ userCreated | formatUserName }}</div>
             </div>
 
             <div class="col-6">
-              <ik-card-info
-                header="Date Created"
-                text="{{ blockDate?.insertDate | date: 'longDate' }}"
-              ></ik-card-info>
+              <div class="label-header padding-modal-top">Date Created</div>
+              <div class="label-body">
+                {{ blockDate?.insertDate | date: "longDate" }}
+              </div>
             </div>
           </div>
         </div>
