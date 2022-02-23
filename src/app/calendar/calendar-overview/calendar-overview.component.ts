@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+} from '@angular/core';
 import {
   CalendarDateFormatter,
   CalendarEvent,
@@ -8,8 +14,10 @@ import {
 import { startOfDay } from 'date-fns';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { combineLatest, of, Subject } from 'rxjs';
+import { VacationModalComponent } from 'src/app/shared/vacation-modal/vacation-modal.component';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -28,17 +36,20 @@ import { CustomDateFormatter } from './custom-date.formatter';
   ],
 })
 export class CalendarOverviewComponent implements OnInit, OnDestroy {
+  @ViewChild(VacationModalComponent) vacationModal: VacationModalComponent;
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
 
   events: CalendarEvent[] = [];
   blockDates: BlockOutDate[];
+  vacationClicked: Vacation;
   loading = true;
   destroy = new Subject();
 
   constructor(
     private readonly vacationService: VacationService,
+    private readonly commonService: CommonService,
     private readonly userService: UserService,
     private readonly blockDateService: BlockDatesService,
     public notificationService: NotificationService
@@ -86,13 +97,21 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
   }
 
   eventClicked({ event }: { event: CalendarEvent }) {
-    console.log('Event clicked', event);
+    this.vacationClicked = event.meta.vacation;
+    this.vacationModal.open();
   }
 
   isBlockOutDate(day: Date) {
     let isBlockDate = false;
+
     this.blockDates.every((bDate) => {
-      if (day >= new Date(bDate.startDate) && day <= new Date(bDate.endDate)) {
+      if (
+        this.blockDateService.isDateBetween(
+          this.commonService.convertStringToDate(bDate.startDate.toString()),
+          day,
+          this.commonService.convertStringToDate(bDate.endDate.toString())
+        )
+      ) {
         isBlockDate = true;
         return;
       }

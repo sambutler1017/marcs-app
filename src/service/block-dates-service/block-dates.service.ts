@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,22 @@ export class BlockDatesService {
     );
   }
 
+  isBlockOutDate(
+    startDate: Date | string,
+    endDate: Date | string
+  ): Observable<BlockOutDate> {
+    return this.getBlockOutDates().pipe(
+      map((b) =>
+        b.filter(
+          (block) =>
+            this.isDateBetween(block.startDate, startDate, block.endDate) ||
+            this.isDateBetween(block.startDate, endDate, block.endDate)
+        )
+      ),
+      map((res) => (res.length > 0 ? res[0] : null))
+    );
+  }
+
   /**
    * Create a block out date for the given object.
    *
@@ -50,5 +67,13 @@ export class BlockDatesService {
    */
   deleteBlockOutDate(id: number): Observable<any> {
     return this.requestService.delete<any>(`${this.BASE_USER_PATH}/${id}`);
+  }
+
+  isDateBetween(
+    leftThreshold: Date | string,
+    d: Date | string,
+    rightThreshold: Date | string
+  ) {
+    return leftThreshold <= d && d <= rightThreshold;
   }
 }

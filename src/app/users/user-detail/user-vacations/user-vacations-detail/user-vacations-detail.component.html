@@ -11,6 +11,11 @@
       Delete Vacation
     </button>
   </ik-header>
+  <ik-banner *ngIf="blockOutDateConflict" type="warning">
+    This vacation conflicts with the block out date
+    {{ blockOutDateConflict.startDate | date: "longDate" }} -
+    {{ blockOutDateConflict.endDate | date: "longDate" }}
+  </ik-banner>
   <app-vacation-details-card
     class="leftColumn column-wide"
     [data]="vacationData"

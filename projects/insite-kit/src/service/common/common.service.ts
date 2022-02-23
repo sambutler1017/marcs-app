@@ -65,4 +65,8 @@ export class CommonService {
       return `${user.firstName}`.trim();
     }
   }
+
+  convertStringToDate(d: string): Date {
+    return new Date(d.replace(/-/g, '/'));
+  }
 }

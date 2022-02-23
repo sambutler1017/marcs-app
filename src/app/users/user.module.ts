@@ -5,9 +5,9 @@ import { UserVacationsCardComponent } from './user-detail/cards/user-vacations-c
 import { AddUserVacationModalComponent } from './user-detail/modals/add-user-vacation-modal/add-user-vacation-modal.component';
 import { DeleteUserModalComponent } from './user-detail/modals/delete-user-modal/delete-user-modal.component';
 import { UserDetailComponent } from './user-detail/user-detail.component';
+import { UserVacationsDetailComponent } from './user-detail/user-vacations/user-vacations-detail/user-vacations-detail.component';
+import { UserVacationsComponent } from './user-detail/user-vacations/user-vacations.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
-import { UserVacationsDetailComponent } from './user-vacations/user-vacations-detail/user-vacations-detail.component';
-import { UserVacationsComponent } from './user-vacations/user-vacations.component';
 import { UserComponent } from './user.component';
 
 @NgModule({

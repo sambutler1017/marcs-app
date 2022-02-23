@@ -32,9 +32,9 @@ import { StoresDetailComponent } from './stores/store-detail/stores-detail.compo
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
+import { UserVacationsDetailComponent } from './users/user-detail/user-vacations/user-vacations-detail/user-vacations-detail.component';
+import { UserVacationsComponent } from './users/user-detail/user-vacations/user-vacations.component';
 import { UserOverviewComponent } from './users/user-overview/user-overview.component';
-import { UserVacationsDetailComponent } from './users/user-vacations/user-vacations-detail/user-vacations-detail.component';
-import { UserVacationsComponent } from './users/user-vacations/user-vacations.component';
 import { UserComponent } from './users/user.component';
 
 /**
