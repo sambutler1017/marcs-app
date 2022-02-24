@@ -19,19 +19,25 @@
         </ik-card-header>
         <div class="left-column">
           <ik-card-info
-            header="First Name"
-            [text]="user.firstName"
+            header="Name"
+            [text]="user | formatUserName"
           ></ik-card-info>
-          <ik-card-info header="Email" [text]="user.email"></ik-card-info>
-        </div>
-        <div class="right-column">
           <ik-card-info
-            header="Last Name"
-            [text]="user.lastName"
+            *ngIf="user.storeId"
+            header="Store ID"
+            [text]="user.storeId"
           ></ik-card-info>
           <ik-card-info
             header="Position"
             [text]="user.webRole | webRoleTranslate"
+          ></ik-card-info>
+        </div>
+        <div class="right-column">
+          <ik-card-info header="Email" [text]="user.email"></ik-card-info>
+          <ik-card-info
+            *ngIf="user.storeName"
+            header="Store Name"
+            [text]="user.storeName"
           ></ik-card-info>
         </div>
       </ik-card>

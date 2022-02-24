@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -35,6 +36,7 @@ export class UserFormComponent implements OnInit {
   constructor(
     private storeService: StoreService,
     private readonly userService: UserService,
+    private readonly jwt: JwtService,
     private readonly fb: FormBuilder
   ) {}
 
@@ -45,6 +47,7 @@ export class UserFormComponent implements OnInit {
 
     this.storeService.getStores().subscribe((res) => {
       this.stores = res;
+      this.checkUserCreating();
       this.storesLoading = false;
     });
   }
@@ -82,17 +85,28 @@ export class UserFormComponent implements OnInit {
     this.onWebRoleChange();
   }
 
+  checkUserCreating() {
+    const store = this.jwt.get('storeId');
+
+    if (store) {
+      this.form.controls.webRole.disable({ emitEvent: false });
+      this.form.controls.storeId.disable({ emitEvent: false });
+      this.form.controls.storeName.disable({ emitEvent: false });
+      this.form.patchValue({
+        storeId: store,
+        storeName: this.findStoreById(store).name,
+      });
+    }
+  }
+
   onStoreIdChange() {
     this.form.controls.storeId.valueChanges.subscribe((v) => {
       if (v.trim() === '') {
         return;
       }
 
-      const storeSelected = this.stores.find(
-        (s) => s.id.toLowerCase() === v.toLowerCase()
-      );
       this.form.patchValue({
-        storeName: storeSelected.name,
+        storeName: this.findStoreById(v).name,
       });
     });
   }
@@ -125,13 +139,10 @@ export class UserFormComponent implements OnInit {
     let user: User = {
       firstName: this.form.value.firstName,
       lastName: this.form.value.lastName,
-      webRole: this.form.value.webRole,
+      webRole: this.form.getRawValue().webRole,
+      storeId: this.form.getRawValue().storeId.toUpperCase(),
       hireDate: this.form.value.hireDate,
     };
-
-    if (this.form.value.storeId) {
-      user.storeId = this.form.value.storeId.toUpperCase();
-    }
 
     if (this.form.value.email) {
       user.email = this.form.value.email;
@@ -142,5 +153,9 @@ export class UserFormComponent implements OnInit {
 
   isManager(value: WebRole) {
     return this.validManagers.includes(value);
+  }
+
+  findStoreById(stId: any) {
+    return this.stores.find((s) => s.id.toLowerCase() === stId.toLowerCase());
   }
 }

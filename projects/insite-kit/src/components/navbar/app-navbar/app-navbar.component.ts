@@ -6,10 +6,11 @@ import {
   Feature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
+import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ik-app-navbar',
@@ -24,16 +25,28 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   Feature = Feature;
   Application = App;
   Access = Access;
+  notificationAccess: boolean;
 
   constructor(
     private readonly router: Router,
     private readonly notificationService: NotificationService,
+    private readonly authService: AuthService,
     private readonly jwt: JwtService
   ) {}
 
   ngOnInit() {
-    this.getNotifications(this.getParams())
-      .pipe(takeUntil(this.destroy))
+    this.authService
+      .hasAccess(
+        this.Application.GLOBAL,
+        this.Feature.NOTIFICATION,
+        this.Access.READ
+      )
+      .pipe(
+        tap((access) => (this.notificationAccess = access)),
+        filter((access) => access),
+        switchMap(() => this.getNotifications(this.getParams())),
+        takeUntil(this.destroy)
+      )
       .subscribe((res) => (this.notificationCount = res.length));
 
     this.notificationService

@@ -12,11 +12,7 @@
       <div (click)="onLogOutClick()">Log Out</div>
     </div>
   </div>
-  <div
-    class="bell"
-    *featureAccess="[Application.GLOBAL, Feature.NOTIFICATION, Access.READ]"
-    (click)="onBellClick()"
-  >
+  <div class="bell" *ngIf="notificationAccess" (click)="onBellClick()">
     <span class="bell-num" *ngIf="notificationCount > 0">{{
       notificationCount
     }}</span>
