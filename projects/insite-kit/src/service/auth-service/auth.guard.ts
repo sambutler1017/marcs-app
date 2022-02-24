@@ -19,7 +19,7 @@ export class AuthGuard implements CanActivate {
    * @returns boolean based on the status of the token
    */
   validToken(next: ActivatedRouteSnapshot): boolean {
-    if (!this.jwt.isValidToken()) {
+    if (!this.jwt.isAuthenticated()) {
       if (next.routeConfig.path !== 'login') {
         this.router.navigate(['/login']);
         return false;
@@ -38,14 +38,12 @@ export class AuthGuard implements CanActivate {
    * @returns boolean based on the status of the token
    */
   hasAppAccess(next: ActivatedRouteSnapshot): boolean {
-    const apps: string[] = this.jwt.isValidToken() ? this.jwt.get('apps') : [];
-
     if (['login', 'home', 'profile'].includes(next.routeConfig.path))
       return true;
 
-    const appAccess = apps.filter((path) =>
-      path.includes(next.routeConfig.path)
-    );
+    const appAccess = this.jwt
+      .get('apps')
+      .filter((path) => path.includes(next.routeConfig.path));
 
     return appAccess.length > 0;
   }

@@ -38,7 +38,7 @@ export class JwtService {
     return !(date.valueOf() > new Date().valueOf());
   }
 
-  isValidToken() {
+  isAuthenticated() {
     if (localStorage.getItem(TOKEN_NAME) != null) {
       if (this.isTokenExpired()) {
         localStorage.removeItem(TOKEN_NAME);
