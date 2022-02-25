@@ -1,0 +1,30 @@
+<ik-modal #deleteStoreModal name="deleteStoreModal">
+  <ik-modal-header title="Delete Store?" type="danger"></ik-modal-header>
+  <ng-container *ngIf="!modalLoading; else loader">
+    <ik-modal-body>
+      <div>
+        Deleting this store will result in the users at the store to become
+        unassigned and will need to be assigned to a new store by a user with
+        site admin or admin privileges. Do you want to continue?
+      </div>
+    </ik-modal-body>
+    <ik-modal-action-bar>
+      <button
+        class="btn btn-danger btn-right btn-modal"
+        (click)="onDeleteStore()"
+      >
+        Delete Store
+      </button>
+      <button
+        class="btn btn-default btn-right btn-modal"
+        (click)="deleteStoreModal.close()"
+      >
+        Cancel
+      </button>
+    </ik-modal-action-bar>
+  </ng-container>
+</ik-modal>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

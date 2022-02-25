@@ -4,6 +4,13 @@
     [backEnabled]="true"
     (backClick)="onBackClick()"
   >
+    <button
+      class="btn btn-danger btn-size btn-right h-button"
+      (click)="deleteStoreModal.modal.open()"
+      *featureAccess="[Application.STORE, Feature.STORE_DETAIL, Access.DELETE]"
+    >
+      Delete Store
+    </button>
   </ik-header>
 
   <ik-banner *ngIf="!regionalInfo && managerInfo" type="warning">
@@ -61,6 +68,8 @@
     </div>
   </div>
 </div>
+
+<app-delete-store-modal [storeId]="storeInfo?.id"></app-delete-store-modal>
 
 <ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>

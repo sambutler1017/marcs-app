@@ -1,5 +1,5 @@
 import { Location } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Access,
@@ -12,12 +12,15 @@ import { of } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
+import { DeleteStoreModalComponent } from './modals/delete-store-modal/delete-store-modal.component';
 
 @Component({
   selector: 'ik-stores-detail',
   templateUrl: './stores-detail.component.html',
 })
 export class StoresDetailComponent implements OnInit {
+  @ViewChild(DeleteStoreModalComponent)
+  deleteStoreModal: DeleteStoreModalComponent;
   storeInfo: Store;
   regionalInfo: User;
   managerInfo: User;

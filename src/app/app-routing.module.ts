@@ -33,6 +33,7 @@ import { ResetPasswordComponent } from './shared/reset-password/reset-password.c
 import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
 import { StoresDetailEditComponent } from './stores/store-detail/store-detail-edit/store-detail-edit.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
+import { AddStoreComponent } from './stores/stores-overview/add-store/add-store.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
@@ -69,7 +70,14 @@ const routes: Routes = [
         path: ':id/details',
         component: UserDetailComponent,
       },
-      { path: 'add-user', component: AddUserComponent },
+      {
+        path: 'add-user',
+        component: AddUserComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_DETAIL, Access.CREATE],
+        },
+      },
       {
         path: ':id/details/edit/info',
         component: EditUserComponent,
@@ -106,6 +114,14 @@ const routes: Routes = [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: StoresOverviewComponent },
       { path: ':id/details', component: StoresDetailComponent },
+      {
+        path: 'add-store',
+        component: AddStoreComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.STORE, Feature.STORE_DETAIL, Access.CREATE],
+        },
+      },
       {
         path: ':id/details/edit/info',
         component: StoresDetailEditComponent,

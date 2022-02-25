@@ -1,0 +1,17 @@
+<ik-header
+  title="Add Store"
+  [backEnabled]="true"
+  (backClick)="onCancelClick()"
+></ik-header>
+
+<app-store-form
+  *ngIf="!loading; else loader"
+  rightActionButton="Create Store"
+  leftActionButton="Cancel"
+  (cancel)="onCancelClick()"
+  (save)="onSaveClick($event)"
+></app-store-form>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  Access,
+  App,
+  Feature,
+} from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -10,6 +15,10 @@ import { UserService } from 'src/service/user-service/user.service';
 })
 export class StoresOverviewComponent implements OnInit {
   dataLoader: Store[];
+
+  Feature = Feature;
+  Application = App;
+  Access = Access;
 
   constructor(
     private storeService: StoreService,
@@ -40,5 +49,9 @@ export class StoresOverviewComponent implements OnInit {
     this.storeService
       .getStores(params)
       .subscribe((res) => (this.dataLoader = res));
+  }
+
+  onAddStore() {
+    this.router.navigate(['/store/add-store']);
   }
 }
