@@ -6,6 +6,7 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
+import { StoreResolverService } from 'src/service/store-service/store-resolver.service';
 import { UserResolverService } from 'src/service/user-service/user-resolver.service';
 import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/auth.guard';
 import { BlockDatesOverviewComponent } from './block-dates/block-dates-overview/block-dates-overview.component';
@@ -30,6 +31,7 @@ import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
+import { StoresDetailEditComponent } from './stores/store-detail/store-detail-edit/store-detail-edit.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { StoresOverviewComponent } from './stores/stores-overview/stores-overview.component';
 import { StoresComponent } from './stores/stores.component';
@@ -103,7 +105,16 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: StoresOverviewComponent },
-      { path: 'details/:id', component: StoresDetailComponent },
+      { path: ':id/details', component: StoresDetailComponent },
+      {
+        path: ':id/details/edit/info',
+        component: StoresDetailEditComponent,
+        canActivate: [FeatureAccessGuard],
+        resolve: { store: StoreResolverService },
+        data: {
+          feature: [App.STORE, Feature.STORE_DETAIL, Access.UPDATE],
+        },
+      },
     ],
   },
   {

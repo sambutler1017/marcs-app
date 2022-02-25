@@ -1,0 +1,47 @@
+<ik-header
+  title="Edit Store"
+  [backEnabled]="true"
+  (backClick)="onCancelClick()"
+></ik-header>
+
+<app-store-form
+  *ngIf="!loading; else loader"
+  [storeData]="store"
+  rightActionButton="Update Store"
+  leftActionButton="Cancel"
+  [disableSave]="disableSave"
+  (cancel)="onCancelClick()"
+  (save)="onSaveClick($event)"
+></app-store-form>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>
+
+<ik-modal #regionalChangeModal name="regionalChangeModal">
+  <ik-modal-header
+    title="New Regional/District Manager"
+    type="warning"
+  ></ik-modal-header>
+  <ik-modal-body>
+    <div>
+      Changing the regional or district manager of a store will result in the
+      existing overseer of the store to not have access to this store.Do you
+      want to continue?
+    </div>
+  </ik-modal-body>
+  <ik-modal-action-bar>
+    <button
+      class="btn btn-warning btn-right btn-modal"
+      (click)="onRegionalChangeConfirm()"
+    >
+      Confirm
+    </button>
+    <button
+      class="btn btn-default btn-right btn-modal"
+      (click)="onModalClose()"
+    >
+      Cancel
+    </button>
+  </ik-modal-action-bar>
+</ik-modal>

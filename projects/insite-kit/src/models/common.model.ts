@@ -39,6 +39,7 @@ export enum Access {
 export enum Feature {
   USER_DETAIL = 'detail',
   USER_VACATION = 'vacation',
+  STORE_DETAIL = 'detail',
   BLOCK_DATES_OVERVIEW = 'overview',
   PROFILE = 'profile',
   NOTIFICATION = 'notification',

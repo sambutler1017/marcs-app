@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import {
   CalendarDateFormatter,
   CalendarEvent,
@@ -16,7 +10,7 @@ import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model'
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { combineLatest, of, Subject } from 'rxjs';
+import { combineLatest, of } from 'rxjs';
 import { VacationModalComponent } from 'src/app/shared/vacation-modal/vacation-modal.component';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -35,7 +29,7 @@ import { CustomDateFormatter } from './custom-date.formatter';
     },
   ],
 })
-export class CalendarOverviewComponent implements OnInit, OnDestroy {
+export class CalendarOverviewComponent implements OnInit {
   @ViewChild(VacationModalComponent) vacationModal: VacationModalComponent;
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
@@ -45,7 +39,6 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
   blockDates: BlockOutDate[];
   vacationClicked: Vacation;
   loading = true;
-  destroy = new Subject();
 
   constructor(
     private readonly vacationService: VacationService,
@@ -65,10 +58,6 @@ export class CalendarOverviewComponent implements OnInit, OnDestroy {
       this.blockDates = blockDates;
       this.loading = false;
     });
-  }
-
-  ngOnDestroy() {
-    this.destroy.next();
   }
 
   setView(view: CalendarView) {

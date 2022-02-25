@@ -24,7 +24,7 @@ export class StoresOverviewComponent implements OnInit {
   }
 
   handleClick(event: any) {
-    this.router.navigate([`/store/details/${event.id}`]);
+    this.router.navigate([`/store/${event.id}/details`]);
   }
 
   onSearch(value: any) {

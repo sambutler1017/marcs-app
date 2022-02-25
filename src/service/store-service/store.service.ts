@@ -23,6 +23,16 @@ export class StoreService {
   }
 
   /**
+   * Get the store for the given store id.
+   *
+   * @param id The id of the store to get
+   * @returns observable of the returned request
+   */
+  getStoreById(id: number): Observable<Store> {
+    return this.requestService.get<Store>(`${this.BASE_STORE_PATH}/${id}`);
+  }
+
+  /**
    * Get the regional of the passed in store ID.
    *
    * @param storeId Id of the store to get the regional for.
@@ -45,6 +55,19 @@ export class StoreService {
   getManagerOfStoreById(storeId: string): Observable<User> {
     return this.requestService.get<User>(
       `${this.BASE_STORE_PATH}/manager/${storeId}`
+    );
+  }
+
+  /**
+   * Update a store information for the given id and store body.
+   *
+   * @param id The id of the store to be updated.
+   * @param store The store object to update to.
+   */
+  updateStore(id: string, store: Store): Observable<Store> {
+    return this.requestService.put<Store>(
+      `${this.BASE_STORE_PATH}/${id}`,
+      store
     );
   }
 
@@ -74,6 +97,26 @@ export class StoreService {
   updateRegionalOfStore(userId: number, storeId: string): Observable<Store> {
     return this.requestService.put<Store>(
       `${this.BASE_STORE_PATH}/${userId}/regional/${storeId}`
+    );
+  }
+
+  /**
+   * Create a store store body.
+   *
+   * @param store The store object to update to.
+   */
+  createStore(store: Store): Observable<Store> {
+    return this.requestService.post<Store>(this.BASE_STORE_PATH, store);
+  }
+
+  /**
+   * Delete a store for the given id.
+   *
+   * @param storeId The id of the store to delete.
+   */
+  deleteStore(storeId: string): Observable<any> {
+    return this.requestService.delete<any>(
+      `${this.BASE_STORE_PATH}/${storeId}`
     );
   }
 }

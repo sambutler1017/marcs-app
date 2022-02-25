@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserApplicationCardComponent } from './user-detail/cards/user-application-card/user-application-card.component';
 import { UserVacationsCardComponent } from './user-detail/cards/user-vacations-card/user-vacations-card.component';
@@ -22,6 +23,6 @@ import { UserComponent } from './user.component';
     DeleteUserModalComponent,
     UserApplicationCardComponent,
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, InsiteKitModule],
 })
 export class UserModule {}

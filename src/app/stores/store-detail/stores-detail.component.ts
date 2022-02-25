@@ -1,6 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  Access,
+  App,
+  Feature,
+} from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { of } from 'rxjs';
@@ -19,11 +24,16 @@ export class StoresDetailComponent implements OnInit {
   managers = [];
   loading = true;
 
+  Feature = Feature;
+  Application = App;
+  Access = Access;
+
   constructor(
     private activeRoute: ActivatedRoute,
     private readonly storeService: StoreService,
     private readonly userService: UserService,
-    private readonly location: Location
+    private readonly location: Location,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -57,6 +67,10 @@ export class StoresDetailComponent implements OnInit {
   }
 
   onBackClick() {
-    this.location.back();
+    this.router.navigate(['/store/overview']);
+  }
+
+  onStoreEditClick() {
+    this.router.navigate([`/store/${this.storeInfo.id}/details/edit/info`]);
   }
 }

@@ -21,7 +21,17 @@
   <div class="detail">
     <div class="leftColumn column-wide">
       <ik-card [padding]="false">
-        <ik-card-header title="Details"></ik-card-header>
+        <ik-card-header title="Details">
+          <ik-icon
+            icon="edit"
+            *featureAccess="[
+              Application.USER,
+              Feature.USER_DETAIL,
+              Access.UPDATE
+            ]"
+            (click)="onStoreEditClick()"
+          ></ik-icon>
+        </ik-card-header>
         <div class="left-column">
           <ik-card-info
             header="Store Name"

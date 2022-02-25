@@ -1,0 +1,49 @@
+<form [formGroup]="form">
+  <ik-card [padding]="false" [marginBottom]="false">
+    <ik-card-info header="Store Id*"
+      ><input
+        class="form-input__normal"
+        placeholder="Store Id"
+        formControlName="storeId"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Store Name*"
+      ><input
+        class="form-input__normal"
+        placeholder="Store Name"
+        formControlName="storeName"
+      />
+    </ik-card-info>
+
+    <ik-card-info header="Regional/District Manager*">
+      <select
+        class="form-input__normal"
+        formControlName="currentRegional"
+        *ngIf="!usersLoading; else loadingIcon"
+      >
+        <option value="" disabled selected hidden
+          >Regional/District Manager</option
+        >
+        <option
+          *ngFor="let user of regionalAndDistrictManagers"
+          [ngValue]="user.id"
+          >{{ user | formatUserName }}</option
+        >
+      </select>
+    </ik-card-info>
+  </ik-card>
+</form>
+<button class="btn btn-default btn-size btn-left" (click)="onCancelClick()">
+  {{ leftActionButton }}
+</button>
+<button
+  class="btn btn-warning btn-size btn-right"
+  (click)="onSaveClick()"
+  [disabled]="form.invalid || !form.dirty || disableSave"
+>
+  {{ rightActionButton }}
+</button>
+<ng-template #loadingIcon>
+  <ik-loading-indicator size="40px" thickness="3px"></ik-loading-indicator>
+</ng-template>

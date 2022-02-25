@@ -12,6 +12,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { RequestTrackerGridComponent } from './request-tracker-grid/request-tracker-grid.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { StoreFormComponent } from './store-form/store-form.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 import { UserFormComponent } from './user-form/user-form.component';
 import { VacationDetailsCardComponent } from './vacation-cards/vacation-details-card/vacation-details-card.component';
@@ -29,6 +30,7 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
     VacationModalComponent,
+    StoreFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +65,7 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
     VacationModalComponent,
+    StoreFormComponent,
   ],
   providers: [
     {
