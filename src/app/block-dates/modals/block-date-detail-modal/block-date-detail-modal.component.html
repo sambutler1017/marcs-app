@@ -56,7 +56,7 @@
 
       <button
         class="btn btn-primary btn-right btn-modal"
-        [disabled]="!form.dirty || form.invalid"
+        [disabled]="!form.dirty || form.invalid || loading"
         *featureAccess="[
           Application.BLOCK_DATES,
           Feature.BLOCK_DATES_OVERVIEW,

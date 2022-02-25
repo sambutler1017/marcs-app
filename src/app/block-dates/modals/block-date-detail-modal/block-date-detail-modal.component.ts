@@ -70,6 +70,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   }
 
   formChange() {
+    this.form.reset();
     this.form.controls.startDate.valueChanges.subscribe((v) =>
       this.form.patchValue({ endDate: this.vacationChange(v) })
     );
@@ -95,6 +96,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   }
 
   onBlockOutDateUpdate() {
+    this.loading = true;
     this.blockDatesService
       .updateBlockOutDateById(this.blockDate.id, {
         startDate: this.form.value.startDate,
@@ -103,6 +105,7 @@ export class BlockDateDetailModalComponent implements OnInit {
       .subscribe(
         () => {
           this.modal.close();
+          this.form.reset();
           this.toastService.success('Block out date successfully updated!');
           this.update.emit();
         },
