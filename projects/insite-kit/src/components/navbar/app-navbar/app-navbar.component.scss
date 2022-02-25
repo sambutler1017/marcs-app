@@ -1,6 +1,6 @@
 .app-navbar {
   min-height: 50px;
-  height: 90px;
+  height: 80px;
   border: 1px solid transparent;
   background: #f6f6f6;
   position: fixed;
@@ -22,12 +22,12 @@
   cursor: pointer;
 }
 
-.waffle {
-  content: url(../../../assets/images/nav-icons/waffle-icon.png);
-  height: 35px;
-  width: 35px;
+.home {
+  content: url(../../../assets/images/nav-icons/home-icon.png);
+  height: 40px;
+  width: 40px;
   float: left;
-  margin-top: 20px;
+  margin-top: 18px;
   margin-right: 5px;
   margin-left: 5px;
   color: white;
@@ -141,10 +141,10 @@
     margin-top: 2px;
   }
 
-  .waffle {
-    height: 25px !important;
-    width: 25px !important;
-    margin-top: 28px !important;
+  .home {
+    height: 30px !important;
+    width: 30px !important;
+    margin-top: 24px !important;
   }
 
   .profile {
@@ -174,7 +174,7 @@
     margin-top: 11px;
   }
 
-  .waffle {
+  .home {
     margin-right: 0 !important;
   }
 
@@ -189,10 +189,10 @@
     margin-top: 18px;
   }
 
-  .waffle {
-    height: 20px !important;
-    width: 20px !important;
-    margin-top: 30px !important;
+  .home {
+    height: 25px !important;
+    width: 25px !important;
+    margin-top: 26px !important;
   }
 
   .profile {
@@ -218,10 +218,10 @@
     margin-top: 14px;
   }
 
-  .waffle {
-    height: 15px !important;
-    width: 15px !important;
-    margin-top: 25px !important;
+  .home {
+    height: 20px !important;
+    width: 20px !important;
+    margin-top: 22px !important;
   }
 
   .profile {
