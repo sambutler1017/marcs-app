@@ -27,7 +27,6 @@ import { ProfileOverviewComponent } from './profile/profile-overview/profile-ove
 import { ProfileComponent } from './profile/profile.component';
 import { RequestTrackerOverviewComponent } from './request-tracker/request-tracker-overview/request-tracker-overview.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
-import { AddUserComponent } from './shared/add-user/add-user.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
@@ -39,6 +38,7 @@ import { StoresComponent } from './stores/stores.component';
 import { UserDetailComponent } from './users/user-detail/user-detail.component';
 import { UserVacationsDetailComponent } from './users/user-detail/user-vacations/user-vacations-detail/user-vacations-detail.component';
 import { UserVacationsComponent } from './users/user-detail/user-vacations/user-vacations.component';
+import { AddUserComponent } from './users/user-overview/add-user/add-user.component';
 import { UserOverviewComponent } from './users/user-overview/user-overview.component';
 import { UserComponent } from './users/user.component';
 

@@ -8,7 +8,6 @@ import { ToastrModule } from 'ngx-toastr';
 import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
 import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { AppRoutingModule } from '../app-routing.module';
-import { AddUserComponent } from './add-user/add-user.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { RequestTrackerGridComponent } from './request-tracker-grid/request-tracker-grid.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
@@ -22,7 +21,6 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
 @NgModule({
   declarations: [
     UserFormComponent,
-    AddUserComponent,
     EditUserComponent,
     ResetPasswordComponent,
     UpdatePasswordComponent,
@@ -57,7 +55,6 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     ReactiveFormsModule,
     ToastrModule,
     UserFormComponent,
-    AddUserComponent,
     EditUserComponent,
     ResetPasswordComponent,
     UpdatePasswordComponent,

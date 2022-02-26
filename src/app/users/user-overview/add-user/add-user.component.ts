@@ -1,5 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
@@ -21,10 +22,11 @@ export class AddUserComponent implements OnInit {
   currentUpdatedInfo: User;
 
   constructor(
-    private location: Location,
-    private toastService: ToastrService,
-    private userService: UserService,
-    private storeService: StoreService
+    private readonly location: Location,
+    private readonly toastService: ToastrService,
+    private readonly userService: UserService,
+    private readonly storeService: StoreService,
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -52,8 +54,8 @@ export class AddUserComponent implements OnInit {
 
   userProfileSave(user: User) {
     this.userService.addUser(user).subscribe(
-      () => {
-        this.onCancelClick();
+      (res) => {
+        this.router.navigate([`/user/${res.id}/details`]);
         this.toastService.success('User Successfully created!');
       },
       (err) => {
@@ -100,13 +102,13 @@ export class AddUserComponent implements OnInit {
       .subscribe(
         (res) => {
           this.managerChangeModal.close();
-          this.onCancelClick();
-          this.toastService.success('User Successfully updated!');
+          this.router.navigate([`/user/${res.id}/details`]);
+          this.toastService.success('User Successfully created!');
         },
         (err) => {
           this.resetStatus();
           this.managerChangeModal.close();
-          this.toastService.error('User could not be updated at this time!');
+          this.toastService.error('User could not be created at this time!');
         }
       );
   }

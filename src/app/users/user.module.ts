@@ -8,6 +8,7 @@ import { DeleteUserModalComponent } from './user-detail/modals/delete-user-modal
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserVacationsDetailComponent } from './user-detail/user-vacations/user-vacations-detail/user-vacations-detail.component';
 import { UserVacationsComponent } from './user-detail/user-vacations/user-vacations.component';
+import { AddUserComponent } from './user-overview/add-user/add-user.component';
 import { UserOverviewComponent } from './user-overview/user-overview.component';
 import { UserComponent } from './user.component';
 
@@ -16,6 +17,7 @@ import { UserComponent } from './user.component';
     UserOverviewComponent,
     UserDetailComponent,
     UserComponent,
+    AddUserComponent,
     UserVacationsComponent,
     UserVacationsDetailComponent,
     UserVacationsCardComponent,
