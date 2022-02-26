@@ -53,7 +53,6 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick(event: Store) {
-    console.log(this.store.regionalId);
     if (this.store.regionalId && this.store.regionalId !== event.regionalId) {
       this.currentUpdatedInfo = event;
       this.regionalChangeModal.open();
