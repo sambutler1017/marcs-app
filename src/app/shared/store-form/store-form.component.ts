@@ -50,10 +50,18 @@ export class StoreFormComponent implements OnInit {
         Validators.required,
       ],
       currentRegional: [
-        this.storeData ? this.storeData.regionalId : '',
+        this.storeData?.regionalId ? this.storeData.regionalId : '0',
         Validators.required,
       ],
     });
+
+    if (!this.storeData?.regionalId) {
+      this.disableSave = true;
+    }
+
+    this.form.controls.currentRegional.valueChanges.subscribe(
+      (v) => (this.disableSave = Number(v) <= 0)
+    );
   }
 
   onCancelClick() {
