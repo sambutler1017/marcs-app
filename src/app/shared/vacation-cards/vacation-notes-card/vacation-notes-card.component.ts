@@ -19,6 +19,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class VacationNotesCardComponent implements OnInit, OnDestroy {
   @ViewChild('notesModal') notesModal: ModalComponent;
+  @Input() cardTitle = 'Notes';
   @Input() data: Vacation;
   destroy = new Subject();
   form: FormGroup;

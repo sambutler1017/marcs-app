@@ -1,6 +1,11 @@
 <ik-card [padding]="false">
-  <ik-card-header title="Notes">
-    <ng-container *ngIf="data?.status !== VacationStatus.EXPIRED">
+  <ik-card-header [title]="cardTitle">
+    <ng-container
+      *ngIf="
+        data?.status === VacationStatus.APPROVED ||
+        data?.status === VacationStatus.DENIED
+      "
+    >
       <ik-icon
         icon="edit"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
@@ -8,7 +13,7 @@
       ></ik-icon>
     </ng-container>
   </ik-card-header>
-  <ik-card-info [text]="data?.notes"></ik-card-info>
+  <ik-card-info [text]="data?.notes ? data?.notes : '-'"></ik-card-info>
 </ik-card>
 
 <ng-template #loader>

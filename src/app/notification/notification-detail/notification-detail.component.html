@@ -27,6 +27,15 @@
   </div>
 
   <div class="rightColumn column-narrow">
+    <ng-container
+      *ngIf="activeNotification?.type === NotificationType.VACATION"
+    >
+      <app-vacation-notes-card
+        [data]="notificationData"
+        cardTitle="Reason for Vacation"
+      ></app-vacation-notes-card>
+    </ng-container>
+
     <ik-card [padding]="false">
       <ik-card-header title="Notification"> </ik-card-header>
       <div class="left-column">

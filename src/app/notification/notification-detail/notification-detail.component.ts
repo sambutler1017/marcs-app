@@ -157,7 +157,10 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     } else {
       return this.vacationService.updateVacationInfo(this.notificationData.id, {
         status: VacationStatus.DENIED,
-        notes: this.form.value.notes,
+        notes:
+          this.form.value.notes.trim() === ''
+            ? this.notificationData.notes
+            : null,
       });
     }
   }

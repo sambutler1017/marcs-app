@@ -47,6 +47,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
+      notes: [''],
     });
 
     this.formChange();
@@ -73,6 +74,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
     const vacationRequest = {
       startDate: this.form.value.startDate,
       endDate: this.form.value.endDate,
+      notes: this.form.value.notes.trim() !== '' ? this.form.value.notes : null,
     };
 
     this.vacationService
