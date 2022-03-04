@@ -14,10 +14,13 @@ footer {
 }
 
 .content-link {
-  cursor: pointer;
   padding: 10px 0;
   color: white;
   font-size: 18px;
+}
+
+.modal-content-text {
+  text-align: left;
 }
 
 @media screen and (max-width: 900px) {
