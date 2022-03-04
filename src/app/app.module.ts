@@ -3,7 +3,6 @@ import { AuthGuard } from '../../projects/insite-kit/src/service/auth-service/au
 import { AppComponent } from './app.component';
 import { BlockDatesModule } from './block-dates/block-dates.module';
 import { CalendarManagerModule } from './calendar/calendar.module';
-import { ContactModule } from './contact/contact.module';
 import { HomeModule } from './home/home.module';
 import { LoginModule } from './login/login.module';
 import { NotificationModule } from './notification/notification.module';
@@ -27,7 +26,6 @@ import { UserModule } from './users/user.module';
     ProfileModule,
     BlockDatesModule,
     HomeModule,
-    ContactModule,
     ReportsModule,
   ],
   providers: [AuthGuard],

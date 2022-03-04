@@ -6,7 +6,6 @@
     "blockDates": "Block Dates",
     "report": "Reports",
     "requestTracker": "Request Tracker",
-    "contact": "Contact",
     "notification": "Notifications"
   },
   "appIcons": {
@@ -51,12 +50,6 @@
       "message": "Tracks requested vacations and their review status.",
       "icon": "request-tracker",
       "page": "requestTracker"
-    },
-    "contact": {
-      "title": "Contact",
-      "message": "Contact admin with any issues or questions about the app.",
-      "icon": "contact",
-      "page": ""
     }
   }
 }

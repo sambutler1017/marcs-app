@@ -1,19 +1,22 @@
 .global-app-background {
   object-fit: cover;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  // height: 100vh;
   background: url(../../projects/insite-kit/src/assets/images/global-app-background.jpg)
     no-repeat;
   background-size: cover;
   text-align: center;
-  position: absolute;
+  position: relative;
   overflow-x: hidden;
 }
 
-html {
-  overflow: scroll;
-}
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 0;
+  height: 0;
   background: transparent; /* make scrollbar transparent */
+}
+
+#content-wrap {
+  padding-bottom: 100px; /* Footer height */
 }

@@ -7,6 +7,7 @@ import { BannerComponent } from './components/banner/banner.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
+import { AppFooterComponent } from './components/footer/app-footer.component';
 import { GridColumnComponent } from './components/grid/grid-column/grid-column.component';
 import { GridPagerComponent } from './components/grid/grid-pager/grid-pager.component';
 import { GridSearchComponent } from './components/grid/grid-search/grid-search.component';
@@ -52,11 +53,13 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ModalHeaderComponent,
     BannerComponent,
     GridSearchComponent,
+    AppFooterComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
     AppIconCardComponent,
     HomeNavbarComponent,
+    AppNavbarComponent,
     AppPageComponent,
     GridComponent,
     GridColumnComponent,
@@ -78,6 +81,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     WebRoleTranslationPipe,
     BannerComponent,
     GridSearchComponent,
+    AppFooterComponent,
   ],
   entryComponents: [ModalComponent],
 })
