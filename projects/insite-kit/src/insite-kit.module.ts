@@ -8,6 +8,7 @@ import { CardHeaderComponent } from './components/card-header/card-header.compon
 import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
 import { AppFooterComponent } from './components/footer/app-footer.component';
+import { ContactAdminModalComponent } from './components/footer/modals/contact-admin-modal/contact-admin-modal.component';
 import { PrivacyPolicyModalComponent } from './components/footer/modals/privacy-policy-modal/privacy-policy-modal.component';
 import { ProjectModalComponent } from './components/footer/modals/project-modal/project-modal.component';
 import { GridColumnComponent } from './components/grid/grid-column/grid-column.component';
@@ -58,6 +59,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     AppFooterComponent,
     PrivacyPolicyModalComponent,
     ProjectModalComponent,
+    ContactAdminModalComponent,
   ],
   imports: [BrowserModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -88,6 +90,7 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     AppFooterComponent,
     PrivacyPolicyModalComponent,
     ProjectModalComponent,
+    ContactAdminModalComponent,
   ],
   entryComponents: [ModalComponent],
 })
