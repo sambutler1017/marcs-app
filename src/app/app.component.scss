@@ -2,7 +2,6 @@
   object-fit: cover;
   width: 100%;
   min-height: 100vh;
-  // height: 100vh;
   background: url(../../projects/insite-kit/src/assets/images/global-app-background.jpg)
     no-repeat;
   background-size: cover;
@@ -14,9 +13,9 @@
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
-  background: transparent; /* make scrollbar transparent */
+  background: transparent;
 }
 
-#content-wrap {
+.content_wrap {
   padding-bottom: 100px; /* Footer height */
 }
