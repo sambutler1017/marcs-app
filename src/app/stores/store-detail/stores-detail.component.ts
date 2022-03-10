@@ -26,6 +26,7 @@ export class StoresDetailComponent implements OnInit {
   managerInfo: User;
   managers = [];
   loading = true;
+  canEdit = false;
 
   Feature = Feature;
   Application = App;
@@ -49,6 +50,8 @@ export class StoresDetailComponent implements OnInit {
         tap((res) => (this.storeInfo = res)),
         switchMap(() => this.getRegionalInfo()),
         tap((res) => (this.regionalInfo = res)),
+        switchMap(() => this.storeService.canEditStore(this.storeInfo.id)),
+        tap((res) => (this.canEdit = res)),
         switchMap(() => this.getManagerInfo())
       )
       .subscribe((res) => {

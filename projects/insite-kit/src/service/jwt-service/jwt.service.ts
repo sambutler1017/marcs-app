@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
+import { WebRole } from '../../models/common.model';
 
 export const TOKEN_NAME = 'token';
 
@@ -56,6 +57,14 @@ export class JwtService {
     const reviewToken = tokenOverride ? tokenOverride : this.getToken();
     const decoded = jwt_decode(reviewToken);
     return decoded[value];
+  }
+
+  getRequiredUserId() {
+    return Number(this.get('userId'));
+  }
+
+  getRequiredWebRole() {
+    return this.get('webRole') as keyof typeof WebRole;
   }
 
   isUserLoggedIn() {

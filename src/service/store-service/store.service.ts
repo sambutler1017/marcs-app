@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
+import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +13,10 @@ import { Observable } from 'rxjs';
 export class StoreService {
   readonly BASE_STORE_PATH = 'api/store-app/stores';
 
-  constructor(private readonly requestService: RequestService) {}
+  constructor(
+    private readonly requestService: RequestService,
+    private readonly jwt: JwtService
+  ) {}
 
   /**
    * Get a list of stores for the given request
@@ -28,7 +34,7 @@ export class StoreService {
    * @param id The id of the store to get
    * @returns observable of the returned request
    */
-  getStoreById(id: number): Observable<Store> {
+  getStoreById(id: string): Observable<Store> {
     return this.requestService.get<Store>(`${this.BASE_STORE_PATH}/${id}`);
   }
 
@@ -117,6 +123,22 @@ export class StoreService {
   deleteStore(storeId: string): Observable<any> {
     return this.requestService.delete<any>(
       `${this.BASE_STORE_PATH}/${storeId}`
+    );
+  }
+
+  /**
+   * Checks to see if the currently logged in user is able to edit the store.
+   *
+   * @param storeId The store Id to check access too.
+   * @returns Observable of type boolean.
+   */
+  canEditStore(storeId: string): Observable<boolean> {
+    return this.getStoreById(storeId).pipe(
+      map(
+        (res) =>
+          this.jwt.getRequiredUserId() === res.regionalId ||
+          WebRole[this.jwt.getRequiredWebRole()] > WebRole.REGIONAL
+      )
     );
   }
 }

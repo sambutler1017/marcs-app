@@ -29,15 +29,17 @@
     <div class="leftColumn column-wide">
       <ik-card [padding]="false">
         <ik-card-header title="Details">
-          <ik-icon
-            icon="edit"
-            *featureAccess="[
-              Application.USER,
-              Feature.USER_DETAIL,
-              Access.UPDATE
-            ]"
-            (click)="onStoreEditClick()"
-          ></ik-icon>
+          <ng-container *ngIf="canEdit">
+            <ik-icon
+              icon="edit"
+              *featureAccess="[
+                Application.USER,
+                Feature.USER_DETAIL,
+                Access.UPDATE
+              ]"
+              (click)="onStoreEditClick()"
+            ></ik-icon>
+          </ng-container>
         </ik-card-header>
         <div class="left-column">
           <ik-card-info
