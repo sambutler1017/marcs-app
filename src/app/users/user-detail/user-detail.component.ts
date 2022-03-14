@@ -49,7 +49,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.userData = res;
-        this.canEdit = this.userService.canEditUser(this.userData.webRole);
+        this.canEdit = this.userService.canEditUser(res.webRole);
         this.loading = false;
       });
   }
@@ -58,16 +58,8 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.destroy.next();
   }
 
-  onUserEditClick() {
-    this.router.navigate([`/user/${this.userData.id}/details/edit/info`]);
-  }
-
   onResetPassword() {
     this.router.navigate([`/user/${this.userData.id}/details/reset-password`]);
-  }
-
-  onShowAllClick() {
-    this.router.navigate([`/user/${this.userData.id}/details/vacations`]);
   }
 
   onBackClick() {

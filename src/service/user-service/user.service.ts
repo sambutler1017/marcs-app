@@ -230,6 +230,16 @@ export class UserService {
   }
 
   /**
+   * Checks to see if the given user id has access to the application.
+   *
+   * @param id The user id to check.
+   * @returns Boolean if the user has app access or not.
+   */
+  hasAppAccess(id: number): Observable<boolean> {
+    return this.getUserById(id).pipe(map((res) => res.appAccess));
+  }
+
+  /**
    * This will get what users the user is able to see.
    */
   getUserAccessMap() {

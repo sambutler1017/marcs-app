@@ -1,0 +1,64 @@
+<ik-card [padding]="false">
+  <ik-card-header title="Details">
+    <ng-container *ngIf="canEdit">
+      <ik-icon
+        icon="edit"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        (click)="onUserEditClick()"
+      ></ik-icon>
+    </ng-container>
+  </ik-card-header>
+  <div class="flex">
+    <div class="left-column">
+      <ik-card-info
+        header="Name"
+        text="{{ user | formatUserName }}"
+      ></ik-card-info>
+    </div>
+    <div class="right-column">
+      <ik-card-info
+        header="Email"
+        [text]="user?.email ? user.email : '-'"
+      ></ik-card-info>
+    </div>
+  </div>
+
+  <div class="flex" *ngIf="user?.storeId">
+    <div class="left-column">
+      <ik-card-info header="Store ID" [text]="user.storeId"></ik-card-info>
+    </div>
+    <div class="right-column">
+      <ik-card-info header="Store Name" [text]="user.storeName"></ik-card-info>
+    </div>
+  </div>
+
+  <div class="flex">
+    <div class="left-column">
+      <ik-card-info
+        header="Position"
+        [text]="user?.webRole | webRoleTranslate"
+      ></ik-card-info>
+    </div>
+    <div class="right-column">
+      <ik-card-info
+        [contentColor]="user?.appAccess ? 'text-success' : 'text-danger'"
+        header="Access"
+        [text]="user?.appAccess ? 'Has Access' : 'Does not have App Access'"
+      ></ik-card-info>
+    </div>
+  </div>
+
+  <div class="flex">
+    <div class="left-column">
+      <ik-card-info
+        header="Hire Date"
+        [text]="user?.hireDate | date: 'mediumDate'"
+      >
+      </ik-card-info>
+    </div>
+  </div>
+</ik-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>
