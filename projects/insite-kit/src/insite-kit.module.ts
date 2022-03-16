@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { JwtModule } from '@auth0/angular-jwt';
 import { AppIconCardComponent } from './components/app-icon-card/app-icon-card.component';
 import { AppPageComponent } from './components/app-page/app-page.component';
 import { BannerComponent } from './components/banner/banner.component';
@@ -29,6 +30,10 @@ import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -61,7 +66,16 @@ import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe
     ProjectModalComponent,
     ContactAdminModalComponent,
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+      },
+    }),
+  ],
   exports: [
     AppIconCardComponent,
     HomeNavbarComponent,

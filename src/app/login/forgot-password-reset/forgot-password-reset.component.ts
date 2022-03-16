@@ -33,8 +33,8 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         map((p) => p.id),
-        tap((id) => {
-          const value = this.jwt.get('passwordReset', id);
+        tap((token) => {
+          const value = this.jwt.get('passwordReset', token);
           if (value === null || !value) {
             this.router.navigate(['/login/overview']);
           }
