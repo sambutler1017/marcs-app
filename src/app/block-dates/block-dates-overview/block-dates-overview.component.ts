@@ -7,7 +7,8 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { switchMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { AddBlockOutDateModalComponent } from '../modals/add-block-out-date-modal/add-block-out-date-modal.component';
@@ -55,7 +56,8 @@ export class BlockDatesOverviewComponent implements OnInit {
           this.userService.getUserById(
             this.currentSelectedBlockDate.insertUserId
           )
-        )
+        ),
+        catchError(() => of(null))
       )
       .subscribe((res) => {
         this.currentSelectedUser = res;
