@@ -10,6 +10,8 @@ export class UsernamePipe implements PipeTransform {
       } else {
         return user.firstName;
       }
+    } else {
+      return '-';
     }
   }
 }
