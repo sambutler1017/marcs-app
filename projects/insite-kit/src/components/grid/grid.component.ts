@@ -32,11 +32,12 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @Input() dataLoader: any[] = [];
   @Input() translationKey: any;
   @Input() pageSize = 15;
-  @Input() searchEnabled = false;
   @Input() padding = true;
   @Input() headerPadding = false;
   @Input() basePath = '';
   @Input() overflowEnabled = false;
+  @Input() storageTag = 'gridCurrentPage';
+  @Input() alwaysDestroy = false;
 
   @Output() rowClick = new EventEmitter<any>();
 
@@ -46,11 +47,10 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   loading = true;
   destroy = new Subject();
   initialLoadComplete = false;
-  GRID_LOCAL_TAG = 'gridCurrentPage';
 
   constructor(private readonly router: Router) {}
 
-  ngAfterViewInit(): void {
+  ngAfterViewInit() {
     this.checkDataLoader();
     this.initialLoadComplete = true;
   }
@@ -70,14 +70,14 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy() {
-    if (this.isNewAppRoute()) {
-      localStorage.removeItem(this.GRID_LOCAL_TAG);
+    if (this.isNewAppRoute() || this.alwaysDestroy) {
+      localStorage.removeItem(this.storageTag);
     }
     this.destroy.next();
   }
 
   initGrid() {
-    this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG)) | 0;
+    this.gridIndex = Number(localStorage.getItem(this.storageTag)) | 0;
     this.loading = false;
 
     if (this.pager) {
@@ -85,7 +85,8 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
         this.dataLoader.length,
         this.gridIndex,
         this.pageSize,
-        this.translationKey
+        this.translationKey,
+        this.storageTag
       );
     } else {
       this.gridIndex = 0;
@@ -120,7 +121,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   }
 
   onGridChange() {
-    this.gridIndex = Number(localStorage.getItem(this.GRID_LOCAL_TAG));
+    this.gridIndex = Number(localStorage.getItem(this.storageTag));
     this.getPageData();
   }
 

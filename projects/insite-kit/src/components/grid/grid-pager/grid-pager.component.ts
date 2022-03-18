@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class GridPagerComponent {
   dataLength: number = 0;
   translationKey: string = '';
-  GRID_LOCAL_TAG = 'gridCurrentPage';
+  storageTag = 'gridCurrentPage';
 
   totalPages: number = 0;
   pageSize: number = 0;
@@ -18,11 +18,18 @@ export class GridPagerComponent {
 
   constructor(private readonly router: Router) {}
 
-  initPager(length: number, index: number, size: number, key: string) {
+  initPager(
+    length: number,
+    index: number,
+    size: number,
+    key: string,
+    tag: string
+  ) {
     this.dataLength = length;
     this.pageIndex = index;
     this.pageSize = size;
     this.translationKey = key;
+    this.storageTag = tag;
     this.setFooter();
   }
 
@@ -32,7 +39,7 @@ export class GridPagerComponent {
   }
 
   updateRoute(index: number) {
-    localStorage.setItem(this.GRID_LOCAL_TAG, `${index}`);
+    localStorage.setItem(this.storageTag, `${index}`);
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([], { state: { currentPage: index } });
   }

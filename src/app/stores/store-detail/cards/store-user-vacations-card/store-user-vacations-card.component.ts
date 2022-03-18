@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   Access,
   App,
@@ -13,7 +13,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   selector: 'app-store-user-vacations-card',
   templateUrl: './store-user-vacations-card.component.html',
 })
-export class StoreUserVacationsCardComponent implements OnInit, OnDestroy {
+export class StoreUserVacationsCardComponent implements OnInit {
   @Input() storeId: string;
 
   userVacations: Vacation[];
@@ -38,9 +38,5 @@ export class StoreUserVacationsCardComponent implements OnInit, OnDestroy {
         this.userVacations = res;
         this.loading = false;
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy.next();
   }
 }

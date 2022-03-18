@@ -1,7 +1,10 @@
 <ik-grid
   title="Vacations"
   translationKey="Vacations"
+  storageTag="STORE_VACATIONS_GRID_CARD"
+  pageSize="5"
   [dataLoader]="userVacations"
+  [alwaysDestroy]="true"
   [padding]="false"
   [headerPadding]="true"
   [overflowEnabled]="true"
@@ -10,4 +13,5 @@
   <ik-grid-column label="Name" field="fullName"></ik-grid-column>
   <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
   <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+  <ik-grid-pager></ik-grid-pager>
 </ik-grid>
