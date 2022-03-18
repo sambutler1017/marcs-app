@@ -1,0 +1,51 @@
+<ik-card [padding]="false">
+  <ik-card-header title="Details">
+    <ng-container *ngIf="canEdit">
+      <ik-icon
+        icon="edit"
+        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        (click)="onStoreEditClick()"
+      ></ik-icon>
+    </ng-container>
+  </ik-card-header>
+  <ng-container *ngIf="!loading; else loader">
+    <div class="flex">
+      <div class="left-column">
+        <ik-card-info
+          header="Store Name"
+          [text]="storeInfo.name"
+        ></ik-card-info>
+      </div>
+      <div class="right-column">
+        <ik-card-info header="Store Id" [text]="storeInfo.id"></ik-card-info>
+      </div>
+    </div>
+
+    <div class="flex">
+      <div class="left-column">
+        <ik-card-info
+          header="Regional"
+          [text]="
+            regionalInfo
+              ? regionalInfo.firstName + ' ' + regionalInfo.lastName
+              : '-'
+          "
+        ></ik-card-info>
+      </div>
+      <div class="right-column">
+        <ik-card-info
+          header="Manager"
+          [text]="
+            managerInfo
+              ? managerInfo.firstName + ' ' + managerInfo.lastName
+              : '-'
+          "
+        ></ik-card-info>
+      </div>
+    </div>
+  </ng-container>
+</ik-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>

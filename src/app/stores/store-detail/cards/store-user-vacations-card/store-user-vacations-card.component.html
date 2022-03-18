@@ -1,0 +1,13 @@
+<ik-grid
+  title="Vacations"
+  translationKey="Vacations"
+  [dataLoader]="userVacations"
+  [padding]="false"
+  [headerPadding]="true"
+  [overflowEnabled]="true"
+>
+  <ik-card-header title="Vacations"> </ik-card-header>
+  <ik-grid-column label="Name" field="fullName"></ik-grid-column>
+  <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
+  <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+</ik-grid>

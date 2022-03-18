@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
+import { StoreDetailCardComponent } from './store-detail/cards/store-detail-card/store-detail-card.component';
+import { StoreUserVacationsCardComponent } from './store-detail/cards/store-user-vacations-card/store-user-vacations-card.component';
 import { DeleteStoreModalComponent } from './store-detail/modals/delete-store-modal/delete-store-modal.component';
 import { StoresDetailEditComponent } from './store-detail/store-detail-edit/store-detail-edit.component';
 import { StoresDetailComponent } from './store-detail/stores-detail.component';
@@ -15,6 +17,8 @@ import { StoresComponent } from './stores.component';
     StoresDetailEditComponent,
     AddStoreComponent,
     DeleteStoreModalComponent,
+    StoreDetailCardComponent,
+    StoreUserVacationsCardComponent,
   ],
   imports: [SharedModule],
 })

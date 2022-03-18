@@ -13,60 +13,39 @@
     </button>
   </ik-header>
 
-  <ik-banner *ngIf="!regionalInfo && managerInfo" type="warning">
+  <ik-banner
+    *ngIf="!storeInfo?.regionalId && storeInfo?.managerId"
+    type="warning"
+  >
     There is currently no regional assigned to this store.
   </ik-banner>
 
-  <ik-banner *ngIf="!managerInfo && regionalInfo" type="warning">
+  <ik-banner
+    *ngIf="!storeInfo?.managerId && storeInfo?.regionalId"
+    type="warning"
+  >
     There is currently no store manager assigned to this store.
   </ik-banner>
 
-  <ik-banner *ngIf="!regionalInfo && !managerInfo" type="warning">
+  <ik-banner
+    *ngIf="!storeInfo?.regionalId && !storeInfo?.managerId"
+    type="warning"
+  >
     There is currently no store manager or regional assigned to this store.
   </ik-banner>
 
   <div class="detail">
-    <div class="leftColumn column-wide">
-      <ik-card [padding]="false">
-        <ik-card-header title="Details">
-          <ng-container *ngIf="canEdit">
-            <ik-icon
-              icon="edit"
-              *featureAccess="[
-                Application.USER,
-                Feature.USER_DETAIL,
-                Access.UPDATE
-              ]"
-              (click)="onStoreEditClick()"
-            ></ik-icon>
-          </ng-container>
-        </ik-card-header>
-        <div class="left-column">
-          <ik-card-info
-            header="Store Name"
-            [text]="storeInfo.name"
-          ></ik-card-info>
-          <ik-card-info
-            header="Regional"
-            [text]="
-              regionalInfo
-                ? regionalInfo.firstName + ' ' + regionalInfo.lastName
-                : '-'
-            "
-          ></ik-card-info>
-        </div>
-        <div class="right-column">
-          <ik-card-info header="Store Id" [text]="storeInfo.id"></ik-card-info>
-          <ik-card-info
-            header="Manager"
-            [text]="
-              managerInfo
-                ? managerInfo.firstName + ' ' + managerInfo.lastName
-                : '-'
-            "
-          ></ik-card-info>
-        </div>
-      </ik-card>
+    <div class="leftColumn column-half">
+      <app-store-detail-card
+        *ngIf="storeInfo"
+        [storeId]="storeInfo.id"
+      ></app-store-detail-card>
+    </div>
+    <div class="rightColumn column-half">
+      <app-store-user-vacations-card
+        *ngIf="storeInfo"
+        [storeId]="storeInfo.id"
+      ></app-store-user-vacations-card>
     </div>
   </div>
 </div>
