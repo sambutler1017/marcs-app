@@ -17,6 +17,8 @@ export class ReportsOverviewComponent {
   onUserDownloadClick() {
     this.userReportsService
       .generateUserProfileReport(this.userService.getUserAccessMap())
-      .subscribe((res) => saveAs(res, 'user-download.csv'));
+      .subscribe((res) =>
+        saveAs(res, `user-reports-${new Date().getTime()}.csv`)
+      );
   }
 }
