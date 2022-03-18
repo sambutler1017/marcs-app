@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
@@ -37,8 +36,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   constructor(
     private readonly userService: UserService,
     private readonly activeRoute: ActivatedRoute,
-    private readonly router: Router,
-    private readonly location: Location
+    private readonly router: Router
   ) {}
 
   ngOnInit() {
@@ -63,6 +61,6 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   }
 
   onBackClick() {
-    this.location.back();
+    this.router.navigate(['/user/overview']);
   }
 }

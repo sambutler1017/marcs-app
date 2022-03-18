@@ -141,15 +141,15 @@ export class UserFormComponent implements OnInit {
 
   onSaveClick() {
     let user: User = {
-      firstName: this.form.value.firstName,
-      lastName: this.form.value.lastName,
+      firstName: this.form.value.firstName.trim(),
+      lastName: this.form.value.lastName.trim(),
       webRole: this.form.getRawValue().webRole,
       storeId: this.form.getRawValue().storeId.toUpperCase(),
       hireDate: this.form.value.hireDate,
     };
 
     if (this.form.value.email) {
-      user.email = this.form.value.email;
+      user.email = this.form.value.email.trim();
     }
 
     this.save.emit(user);
