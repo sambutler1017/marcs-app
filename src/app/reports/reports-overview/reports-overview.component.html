@@ -3,6 +3,7 @@
     paragraph="Download a CSV of all your users to have access to them locally."
     appName="User Reports"
     icon="user"
+    [disabled]="disableDownloads"
     (click)="onUserDownloadClick()"
   ></ik-icon-card>
 </div>

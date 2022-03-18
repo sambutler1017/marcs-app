@@ -13,6 +13,7 @@ export class AppIconCardComponent {
   @Input() pageRoute;
   @Input() width = 96;
   @Input() height = 96;
+  @Input() disabled = false;
 
   constructor(private router: Router) {}
 

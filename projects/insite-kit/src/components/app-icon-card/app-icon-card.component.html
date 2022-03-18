@@ -1,4 +1,8 @@
-<div class="chip" (click)="routeToApp()">
+<div
+  class="chip"
+  [ngClass]="{ 'chip-disabled': disabled }"
+  (click)="routeToApp()"
+>
   <div [className]="'icon ' + icon"></div>
   <span class="title">{{ appName }}</span>
   <br /><br />

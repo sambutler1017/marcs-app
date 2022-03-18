@@ -8,6 +8,7 @@ import { BannerComponent } from './components/banner/banner.component';
 import { CardHeaderComponent } from './components/card-header/card-header.component';
 import { CardInfoComponent } from './components/card-info/card-info.component';
 import { CardComponent } from './components/card/card.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { AppFooterComponent } from './components/footer/app-footer.component';
 import { ContactAdminModalComponent } from './components/footer/modals/contact-admin-modal/contact-admin-modal.component';
 import { PrivacyPolicyModalComponent } from './components/footer/modals/privacy-policy-modal/privacy-policy-modal.component';
@@ -65,6 +66,7 @@ export function tokenGetter() {
     PrivacyPolicyModalComponent,
     ProjectModalComponent,
     ContactAdminModalComponent,
+    CheckboxComponent,
   ],
   imports: [
     BrowserModule,
@@ -105,6 +107,7 @@ export function tokenGetter() {
     PrivacyPolicyModalComponent,
     ProjectModalComponent,
     ContactAdminModalComponent,
+    CheckboxComponent,
   ],
   entryComponents: [ModalComponent],
 })
