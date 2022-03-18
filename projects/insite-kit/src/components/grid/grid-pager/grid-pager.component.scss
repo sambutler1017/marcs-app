@@ -47,7 +47,19 @@
 
 @media screen and (max-width: 570px) {
   .page-number {
-    width: 32px;
-    height: 33px;
+    width: 30px;
+    height: 30px;
+    font-size: 20px;
+    margin: 3px 2px 5px;
+  }
+
+  .left-arrow {
+    width: 25px;
+    margin: 5px 5px 0 5px;
+  }
+
+  .right-arrow {
+    width: 25px;
+    margin: 5px 5px 0 5px;
   }
 }
