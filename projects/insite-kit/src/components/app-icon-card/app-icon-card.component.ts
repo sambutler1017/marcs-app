@@ -10,13 +10,15 @@ export class AppIconCardComponent {
   @Input() icon: string;
   @Input() paragraph: string;
   @Input() appName: string;
-  @Input() pageRoute = 'home';
+  @Input() pageRoute;
   @Input() width = 96;
   @Input() height = 96;
 
   constructor(private router: Router) {}
 
   routeToApp() {
-    this.router.navigate([this.pageRoute]);
+    if (this.pageRoute) {
+      this.router.navigate([this.pageRoute]);
+    }
   }
 }

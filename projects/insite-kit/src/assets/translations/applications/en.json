@@ -33,17 +33,11 @@
       "icon": "block",
       "page": "blockDates"
     },
-    "map": {
-      "title": "Map",
-      "message": "List of all the stores, their locations, and directions to get there.",
-      "icon": "map",
-      "page": ""
-    },
     "report": {
       "title": "Reports",
       "message": "Report information of stores, users, and the users vacations.",
       "icon": "report",
-      "page": ""
+      "page": "report"
     },
     "requestTracker": {
       "title": "Request Tracker",

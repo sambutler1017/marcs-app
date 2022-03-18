@@ -25,6 +25,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component';
 import { ProfileOverviewComponent } from './profile/profile-overview/profile-overview.component';
 import { ProfileComponent } from './profile/profile.component';
+import { ReportsOverviewComponent } from './reports/reports-overview/reports-overview.component';
+import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerOverviewComponent } from './request-tracker/request-tracker-overview/request-tracker-overview.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { EditUserComponent } from './shared/edit-user/edit-user.component';
@@ -189,6 +191,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: CalendarOverviewComponent },
+    ],
+  },
+  {
+    path: 'report',
+    component: ReportsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: ReportsOverviewComponent },
     ],
   },
   { path: '**', redirectTo: 'home' },

@@ -70,4 +70,23 @@ export class RequestService {
     let endpoint = `${this.urlService.getAPIUrl()}/${url}`;
     return this.http.delete<T>(endpoint);
   }
+
+  /**
+   * Perform a download on the called endpoint.
+   *
+   * @param url to call.
+   * @param params params to add to endpoint.
+   * @returns Blob donwload of the passed in object.
+   */
+  download(url: string, params?: Map<string, string[]>): Observable<Blob> {
+    let endpoint = `${this.urlService.getAPIUrl()}/${url}?`;
+    if (params) {
+      params.forEach((value, key) => {
+        endpoint = `${endpoint}${key}=${value}&`;
+      });
+    }
+    return this.http.get(endpoint.slice(0, -1), {
+      responseType: 'blob',
+    });
+  }
 }
