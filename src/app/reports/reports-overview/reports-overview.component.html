@@ -1,9 +1,19 @@
 <div class="col-12 text-center app-icon">
   <ik-icon-card
-    paragraph="Download a CSV of all your users to have access to them locally."
+    paragraph="Download a CSV of all active users under your stores."
     appName="User Reports"
     icon="user"
     [disabled]="disableDownloads"
     (click)="onUserDownloadClick()"
+  ></ik-icon-card>
+</div>
+
+<div class="col-12 text-center app-icon">
+  <ik-icon-card
+    paragraph="Download a CSV of all active user vacations."
+    appName="Vacation Reports"
+    icon="calendar"
+    [disabled]="disableDownloads"
+    (click)="onUserVacationDownloadClick()"
   ></ik-icon-card>
 </div>
