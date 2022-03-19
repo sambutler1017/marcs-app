@@ -33,6 +33,7 @@
             "styles": [
               "./node_modules/angular-calendar/css/angular-calendar.css",
               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles/style.scss",
               "src/styles/input.scss",
               "src/styles/button.scss",
               "src/styles/loading.scss",
