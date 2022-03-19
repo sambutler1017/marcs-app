@@ -39,7 +39,6 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    ToastrModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-right',
     }),
