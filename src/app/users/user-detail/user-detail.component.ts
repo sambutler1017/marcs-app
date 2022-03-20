@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import {
   Access,
@@ -36,6 +37,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   constructor(
     private readonly userService: UserService,
     private readonly activeRoute: ActivatedRoute,
+    private readonly toastService: ToastrService,
     private readonly router: Router
   ) {}
 
@@ -45,11 +47,19 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         switchMap((res) => this.userService.getUserById(res.id)),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => {
-        this.userData = res;
-        this.canEdit = this.userService.canEditUser(res.webRole);
-        this.loading = false;
-      });
+      .subscribe(
+        (res) => {
+          this.userData = res;
+          this.canEdit = this.userService.canEditUser(res.webRole);
+          this.loading = false;
+        },
+        (error) => {
+          this.onBackClick();
+          this.toastService.error(
+            'Could not load user details at this time. Try again later.'
+          );
+        }
+      );
   }
 
   ngOnDestroy() {

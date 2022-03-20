@@ -6,7 +6,7 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { of } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -88,10 +88,12 @@ export class AddUserComponent implements OnInit {
 
   onManagerConfirm() {
     this.loading = true;
+    let newUser: User = null;
     this.managerChangeModal.close();
 
     this.getAddUserObservable(this.currentUpdatedInfo)
       .pipe(
+        tap((res) => (newUser = res)),
         switchMap((newUser) =>
           this.storeService.updateStoreManagerOfStore(
             newUser.id,
@@ -102,7 +104,7 @@ export class AddUserComponent implements OnInit {
       .subscribe(
         (res) => {
           this.managerChangeModal.close();
-          this.router.navigate([`/user/${res.id}/details`]);
+          this.router.navigate([`/user/${newUser.id}/details`]);
           this.toastService.success('User Successfully created!');
         },
         (err) => {

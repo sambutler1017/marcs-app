@@ -24,7 +24,7 @@ export class UserOverviewComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.getUsers(this.getParams()).subscribe((res) => (this.dataloader = res));
   }
 
