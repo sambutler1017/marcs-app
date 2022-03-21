@@ -3,7 +3,6 @@ import { saveAs } from 'file-saver';
 import { ToastrService } from 'ngx-toastr';
 import { UserReportsService } from 'src/service/reports-service/user-reports.service';
 import { VacationReportsService } from 'src/service/reports-service/vacation-reports.service';
-import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-reports-overview',
@@ -16,14 +15,13 @@ export class ReportsOverviewComponent {
   constructor(
     private readonly userReportsService: UserReportsService,
     private readonly vacationReportsService: VacationReportsService,
-    private readonly userService: UserService,
     private readonly toastService: ToastrService
   ) {}
 
   onUserDownloadClick() {
     this.disableDownloads = true;
     this.userReportsService
-      .generateUserProfileReport(this.userService.getUserAccessMap())
+      .generateUserProfileReport(this.userReportsService.getReportAccessMap())
       .subscribe(
         (report) => this.downloadSuccess(report, 'user-reports'),
         (error) => this.downloadError()
@@ -33,7 +31,7 @@ export class ReportsOverviewComponent {
   onUserVacationDownloadClick() {
     this.disableDownloads = true;
     this.vacationReportsService
-      .generateUserVacationsReport(this.userService.getUserAccessMap())
+      .generateUserVacationsReport(this.userReportsService.getReportAccessMap())
       .subscribe(
         (report) => this.downloadSuccess(report, 'vacation-reports'),
         (error) => this.downloadError()

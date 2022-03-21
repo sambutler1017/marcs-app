@@ -41,7 +41,6 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    console.log(this.canEdit);
     this.activeRoute.params
       .pipe(
         tap((p) => (this.userId = p.id)),
