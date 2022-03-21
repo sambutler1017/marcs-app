@@ -7,6 +7,7 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -25,6 +26,7 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   vacationDataLoader: Vacation[];
   userId: number;
   vacationEditRoute: string;
+  hasFeatureAccess = false;
 
   Feature = Feature;
   Application = App;
@@ -34,13 +36,23 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   constructor(
     private readonly vacationService: VacationService,
     private readonly activeRoute: ActivatedRoute,
+    private readonly authService: AuthService,
     private readonly router: Router
   ) {}
 
   ngOnInit() {
+    console.log(this.canEdit);
     this.activeRoute.params
       .pipe(
         tap((p) => (this.userId = p.id)),
+        switchMap(() =>
+          this.authService.hasAccess(
+            App.USER,
+            Feature.USER_VACATION,
+            Access.READ
+          )
+        ),
+        tap((res) => (this.hasFeatureAccess = res)),
         switchMap(() => this.vacationService.getVacationsByUserId(this.userId)),
         takeUntil(this.destroy)
       )

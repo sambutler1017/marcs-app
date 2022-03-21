@@ -24,7 +24,7 @@
   <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
   <ik-grid-column label="Status" field="status"></ik-grid-column>
   <ik-grid-show-all
-    *featureAccess="[Application.USER, Feature.USER_VACATION, Access.UPDATE]"
+    *ngIf="canEdit && hasFeatureAccess"
     (showAll)="onShowAllClick()"
   ></ik-grid-show-all>
 </ik-grid>

@@ -102,7 +102,7 @@ const routes: Routes = [
         component: UserVacationsComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.USER, Feature.USER_VACATION, Access.UPDATE],
+          feature: [App.USER, Feature.USER_VACATION, Access.READ],
         },
       },
       {

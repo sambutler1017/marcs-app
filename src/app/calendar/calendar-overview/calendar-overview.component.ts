@@ -7,10 +7,15 @@ import {
 } from 'angular-calendar';
 import { startOfDay } from 'date-fns';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
+import {
+  Access,
+  App,
+  Feature,
+} from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
-import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { combineLatest, of } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { VacationModalComponent } from 'src/app/shared/vacation-modal/vacation-modal.component';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -39,13 +44,14 @@ export class CalendarOverviewComponent implements OnInit {
   blockDates: BlockOutDate[];
   vacationClicked: Vacation;
   loading = true;
+  canEdit = false;
 
   constructor(
     private readonly vacationService: VacationService,
     private readonly commonService: CommonService,
     private readonly userService: UserService,
     private readonly blockDateService: BlockDatesService,
-    public notificationService: NotificationService
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -53,9 +59,11 @@ export class CalendarOverviewComponent implements OnInit {
     combineLatest([
       this.getVacations(),
       this.blockDateService.getBlockOutDates(),
-    ]).subscribe(([userVacs, blockDates]) => {
+      this.authService.hasAccess(App.USER, Feature.USER_VACATION, Access.READ),
+    ]).subscribe(([userVacs, blockDates, access]) => {
       this.mapUserEvents(userVacs);
       this.blockDates = blockDates;
+      this.canEdit = access;
       this.loading = false;
     });
   }
@@ -87,7 +95,12 @@ export class CalendarOverviewComponent implements OnInit {
 
   eventClicked({ event }: { event: CalendarEvent }) {
     this.vacationClicked = event.meta.vacation;
-    this.vacationModal.open();
+    if (
+      this.canEdit &&
+      this.userService.canEditUser(this.vacationClicked.webRole)
+    ) {
+      this.vacationModal.open();
+    }
   }
 
   isBlockOutDate(day: Date) {
@@ -117,19 +130,6 @@ export class CalendarOverviewComponent implements OnInit {
     } else {
       return this.vacationService.getVacations();
     }
-  }
-
-  getUserProfiles(userIds: number[]) {
-    if (userIds.length === 0) {
-      return of([]);
-    }
-
-    return this.userService.getUsers(
-      new Map<string, string[]>().set(
-        'id',
-        userIds.map((id) => id.toString())
-      )
-    );
   }
 
   mapUserEvents(vacations: Vacation[]) {
