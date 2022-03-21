@@ -11,6 +11,7 @@
               class="form-input__shadow input-margin"
               placeholder="Start Date"
               formControlName="startDate"
+              [readonly]="!canEdit"
             />
           </div>
 
@@ -21,6 +22,7 @@
               class="form-input__shadow input-margin"
               placeholder="Start Date"
               formControlName="endDate"
+              [readonly]="!canEdit"
             />
           </div>
         </div>
@@ -43,11 +45,7 @@
       <button
         class="btn btn-danger btn-left btn-modal"
         (click)="onBlockOutDateDelete()"
-        *featureAccess="[
-          Application.BLOCK_DATES,
-          Feature.BLOCK_DATES_OVERVIEW,
-          Access.DELETE
-        ]"
+        *ngIf="canEdit"
       >
         Delete
       </button>
@@ -55,11 +53,7 @@
       <button
         class="btn btn-primary btn-right btn-modal"
         [disabled]="!form.dirty || form.invalid || loading"
-        *featureAccess="[
-          Application.BLOCK_DATES,
-          Feature.BLOCK_DATES_OVERVIEW,
-          Access.UPDATE
-        ]"
+        *ngIf="canEdit"
         (click)="onBlockOutDateUpdate()"
       >
         Update

@@ -17,6 +17,7 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { Subject } from 'rxjs';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { DeleteBlockOutDateModalComponent } from '../delete-block-out-date-modal/delete-block-out-date-modal.component';
@@ -38,6 +39,7 @@ export class BlockDateDetailModalComponent implements OnInit {
 
   form: FormGroup;
   destroy = new Subject();
+  canEdit = false;
 
   Feature = Feature;
   Application = App;
@@ -46,10 +48,17 @@ export class BlockDateDetailModalComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly blockDatesService: BlockDatesService,
-    private readonly toastService: ToastrService
+    private readonly toastService: ToastrService,
+    private readonly authService: AuthService
   ) {}
 
   ngOnInit() {
+    this.authService
+      .hasAccess(App.BLOCK_DATES, Feature.BLOCK_DATES_OVERVIEW, Access.UPDATE)
+      .subscribe((res) => {
+        this.canEdit = res;
+        console.log('User can edit:', this.canEdit);
+      });
     this.buildForm();
   }
 

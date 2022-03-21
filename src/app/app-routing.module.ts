@@ -97,7 +97,14 @@ const routes: Routes = [
           feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
         },
       },
-      { path: ':id/details/vacations', component: UserVacationsComponent },
+      {
+        path: ':id/details/vacations',
+        component: UserVacationsComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_VACATION, Access.UPDATE],
+        },
+      },
       {
         path: ':id/details/vacations/:vacId/details',
         canActivate: [FeatureAccessGuard],
