@@ -270,7 +270,7 @@ export class UserService {
     }
 
     // EMPLOYEE and other
-    return new Map<string, string[]>().set('id', [this.jwt.get('userId')]);
+    return new Map<string, string[]>().set('userId', [this.jwt.get('userId')]);
   }
 
   /**
