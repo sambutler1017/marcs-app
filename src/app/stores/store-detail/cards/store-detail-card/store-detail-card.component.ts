@@ -7,19 +7,16 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { of } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
-import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-store-detail-card',
   templateUrl: './store-detail-card.component.html',
 })
 export class StoreDetailCardComponent implements OnInit {
-  @Input() storeId: string;
+  @Input() store: Store;
 
-  storeInfo: Store;
   regionalInfo: User;
   managerInfo: User;
 
@@ -32,20 +29,17 @@ export class StoreDetailCardComponent implements OnInit {
 
   constructor(
     private readonly storeService: StoreService,
-    private readonly userService: UserService,
     private readonly router: Router
   ) {}
 
   ngOnInit() {
     this.loading = true;
     this.storeService
-      .getStoreById(this.storeId)
+      .hasEditStoreAccess(this.store)
       .pipe(
-        tap((res) => (this.storeInfo = res)),
+        tap((res) => (this.canEdit = res)),
         switchMap(() => this.getRegionalInfo()),
         tap((res) => (this.regionalInfo = res)),
-        switchMap(() => this.storeService.canEditStore(this.storeInfo.id)),
-        tap((res) => (this.canEdit = res)),
         switchMap(() => this.getManagerInfo())
       )
       .subscribe((res) => {
@@ -55,18 +49,14 @@ export class StoreDetailCardComponent implements OnInit {
   }
 
   getManagerInfo() {
-    return !!this.storeInfo?.managerId
-      ? this.userService.getUserById(this.storeInfo.managerId)
-      : of(null);
+    return this.storeService.getRegionalOfStoreById(this.store.id);
   }
 
   getRegionalInfo() {
-    return !!this.storeInfo?.regionalId
-      ? this.userService.getUserById(this.storeInfo.regionalId)
-      : of(null);
+    return this.storeService.getManagerOfStoreById(this.store.id);
   }
 
   onStoreEditClick() {
-    this.router.navigate([`/store/${this.storeInfo.id}/details/edit/info`]);
+    this.router.navigate([`/store/${this.store.id}/details/edit/info`]);
   }
 }

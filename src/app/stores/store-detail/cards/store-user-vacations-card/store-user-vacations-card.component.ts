@@ -5,6 +5,7 @@ import {
   Feature,
   VacationStatus,
 } from 'projects/insite-kit/src/models/common.model';
+import { Store } from 'projects/insite-kit/src/models/store.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -14,7 +15,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
   templateUrl: './store-user-vacations-card.component.html',
 })
 export class StoreUserVacationsCardComponent implements OnInit {
-  @Input() storeId: string;
+  @Input() store: Store;
 
   userVacations: Vacation[];
   loading = true;
@@ -31,7 +32,7 @@ export class StoreUserVacationsCardComponent implements OnInit {
     this.vacationService
       .getVacations(
         new Map<string, string[]>()
-          .set('storeId', [this.storeId])
+          .set('storeId', [this.store.id])
           .set('status', [VacationStatus.APPROVED])
       )
       .subscribe((res) => {

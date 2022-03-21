@@ -1,6 +1,6 @@
 <div *ngIf="!loading; else loader">
   <ik-header
-    [title]="storeInfo.name"
+    [title]="store.name"
     [backEnabled]="true"
     (backClick)="onBackClick()"
   >
@@ -13,44 +13,31 @@
     </button>
   </ik-header>
 
-  <ik-banner
-    *ngIf="!storeInfo?.regionalId && storeInfo?.managerId"
-    type="warning"
-  >
+  <ik-banner *ngIf="!store?.regionalId && store?.managerId" type="warning">
     There is currently no regional assigned to this store.
   </ik-banner>
 
-  <ik-banner
-    *ngIf="!storeInfo?.managerId && storeInfo?.regionalId"
-    type="warning"
-  >
+  <ik-banner *ngIf="!store?.managerId && store?.regionalId" type="warning">
     There is currently no store manager assigned to this store.
   </ik-banner>
 
-  <ik-banner
-    *ngIf="!storeInfo?.regionalId && !storeInfo?.managerId"
-    type="warning"
-  >
+  <ik-banner *ngIf="!store?.regionalId && !store?.managerId" type="warning">
     There is currently no store manager or regional assigned to this store.
   </ik-banner>
 
-  <div class="detail">
+  <div class="detail" *ngIf="store">
     <div class="leftColumn column-half">
-      <app-store-detail-card
-        *ngIf="storeInfo"
-        [storeId]="storeInfo.id"
-      ></app-store-detail-card>
+      <app-store-detail-card [store]="store"></app-store-detail-card>
     </div>
     <div class="rightColumn column-half">
       <app-store-user-vacations-card
-        *ngIf="storeInfo"
-        [storeId]="storeInfo.id"
+        [store]="store"
       ></app-store-user-vacations-card>
     </div>
   </div>
 </div>
 
-<app-delete-store-modal [storeId]="storeInfo?.id"></app-delete-store-modal>
+<app-delete-store-modal [storeId]="store?.id"></app-delete-store-modal>
 
 <ng-template #loader>
   <ik-loading-indicator></ik-loading-indicator>

@@ -17,7 +17,7 @@ export class StoresDetailComponent implements OnInit {
   @ViewChild(DeleteStoreModalComponent)
   deleteStoreModal: DeleteStoreModalComponent;
 
-  storeInfo: Store;
+  store: Store;
   loading = true;
 
   Feature = Feature;
@@ -35,7 +35,7 @@ export class StoresDetailComponent implements OnInit {
     const params: any = this.activeRoute.params;
     this.storeService.getStoreById(params.value.id).subscribe((res) => {
       this.loading = false;
-      this.storeInfo = res;
+      this.store = res;
     });
   }
 

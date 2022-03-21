@@ -4,8 +4,8 @@ import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -134,11 +134,20 @@ export class StoreService {
    */
   canEditStore(storeId: string): Observable<boolean> {
     return this.getStoreById(storeId).pipe(
-      map(
-        (res) =>
-          this.jwt.getRequiredUserId() === res.regionalId ||
-          WebRole[this.jwt.getRequiredWebRole()] > WebRole.REGIONAL
-      )
+      switchMap((res) => this.hasEditStoreAccess(res))
+    );
+  }
+
+  /**
+   * Checks to see if the logged in user has edit access to the passed in store object.
+   *
+   * @param store The store to check access for.
+   * @returns Boolean confirming if they have access or not.
+   */
+  hasEditStoreAccess(store: Store): Observable<boolean> {
+    return of(
+      this.jwt.getRequiredUserId() === store.regionalId ||
+        WebRole[this.jwt.getRequiredWebRole()] > WebRole.REGIONAL
     );
   }
 }
