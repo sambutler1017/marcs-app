@@ -122,15 +122,11 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
             ]
           }
         },
@@ -144,38 +140,6 @@
             "production": {
               "devServerTarget": "marcs-app:serve:production"
             }
-          }
-        }
-      }
-    },
-    "insite-kit": {
-      "projectType": "library",
-      "root": "projects/insite-kit",
-      "sourceRoot": "projects/insite-kit/src",
-      "prefix": "ik",
-      "architect": {
-        "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
-          "options": {
-            "tsConfig": "projects/insite-kit/tsconfig.lib.json",
-            "project": "projects/insite-kit/ng-package.json"
-          },
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/insite-kit/tsconfig.lib.prod.json"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/insite-kit/tsconfig.lib.json",
-              "projects/insite-kit/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }

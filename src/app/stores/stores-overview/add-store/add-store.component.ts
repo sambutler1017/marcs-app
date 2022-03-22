@@ -6,7 +6,7 @@ import { Store } from 'projects/insite-kit/src/models/store.model';
 import { StoreService } from 'src/service/store-service/store.service';
 
 @Component({
-  selector: 'ik-add-store',
+  selector: 'app-add-store',
   templateUrl: './add-store.component.html',
 })
 export class AddStoreComponent {

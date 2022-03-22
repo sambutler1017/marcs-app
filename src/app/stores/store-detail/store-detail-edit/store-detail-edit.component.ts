@@ -10,7 +10,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 
 @Component({
-  selector: 'ik-store-detail-edit',
+  selector: 'app-store-detail-edit',
   templateUrl: './store-detail-edit.component.html',
 })
 export class StoresDetailEditComponent implements OnInit, OnDestroy {

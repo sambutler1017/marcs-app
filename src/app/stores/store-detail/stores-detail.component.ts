@@ -10,7 +10,7 @@ import { StoreService } from 'src/service/store-service/store.service';
 import { DeleteStoreModalComponent } from './modals/delete-store-modal/delete-store-modal.component';
 
 @Component({
-  selector: 'ik-stores-detail',
+  selector: 'app-stores-detail',
   templateUrl: './stores-detail.component.html',
 })
 export class StoresDetailComponent implements OnInit {

@@ -16,12 +16,6 @@
       "dom"
     ],
     "types":["jquery"],
-    "paths": {
-      "insite-kit": [
-        "dist/insite-kit/insite-kit",
-        "dist/insite-kit"
-      ]
-    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

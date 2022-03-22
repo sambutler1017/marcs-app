@@ -10,7 +10,7 @@ import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
-  selector: 'ik-stores-overview',
+  selector: 'app-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
 export class StoresOverviewComponent implements OnInit {
