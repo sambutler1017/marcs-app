@@ -23,3 +23,19 @@
   float: right;
   cursor: pointer;
 }
+
+.close-icon {
+  content: url(../../assets/images/icons/close-icon.png);
+  width: 25px;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+}
+
+.notification-icon {
+  content: url(../../assets/images/nav-icons/notification-bell.png);
+  width: 25px;
+  height: 25px;
+  float: right;
+  cursor: pointer;
+}

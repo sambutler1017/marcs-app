@@ -1,0 +1,88 @@
+.notification-card {
+  height: auto;
+  width: 300px;
+  border-radius: 15px;
+  background: linear-gradient(to bottom, #ffffff 12%, #fffff5 100%);
+  cursor: pointer;
+  position: fixed;
+  box-shadow: 0 2px 5px #0006;
+  padding: 15px 10px;
+  top: 25px;
+  right: -500px;
+  z-index: 1;
+}
+
+.title {
+  font-size: 18px;
+  float: left;
+  font-weight: 700;
+  display: block;
+}
+
+.message {
+  font-size: 16px;
+  display: block;
+  word-wrap: break-word;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.notification-overall {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.notification-icon {
+  align-self: center;
+  border-radius: 20%;
+  background: linear-gradient(to bottom, #1e90ff 12%, #3399ff 73%);
+  padding: 4px;
+}
+
+.notification-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.notification__visible {
+  animation: movein 0.5s ease forwards, moveout 0.5s 3s ease forwards;
+
+  &:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes movein {
+  from {
+    right: -500px;
+  }
+  to {
+    right: 10px;
+  }
+}
+
+@keyframes moveout {
+  from {
+    right: 10px;
+  }
+  to {
+    right: -500px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .title {
+    font-size: 14px;
+  }
+
+  .message {
+    font-size: 12px;
+  }
+
+  .notification-card {
+    height: auto;
+    width: 250px;
+  }
+}

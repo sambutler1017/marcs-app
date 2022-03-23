@@ -28,6 +28,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-image.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
+import { NotificationBarComponent } from './components/notification-bar/notification-bar.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
@@ -67,6 +68,7 @@ export function tokenGetter() {
     ProjectModalComponent,
     ContactAdminModalComponent,
     CheckboxComponent,
+    NotificationBarComponent,
   ],
   imports: [
     BrowserModule,
@@ -108,6 +110,7 @@ export function tokenGetter() {
     ProjectModalComponent,
     ContactAdminModalComponent,
     CheckboxComponent,
+    NotificationBarComponent,
   ],
   entryComponents: [ModalComponent],
 })
