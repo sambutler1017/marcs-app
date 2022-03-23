@@ -9,8 +9,9 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
 import { Subject } from 'rxjs';
-import { switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { DeleteUserModalComponent } from './modals/delete-user-modal/delete-user-modal.component';
 
@@ -25,6 +26,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   @ViewChild(GridComponent) grid: GridComponent;
 
   userData: User;
+  applications: string[];
   loading = true;
   canEdit = false;
 
@@ -38,6 +40,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly activeRoute: ActivatedRoute,
     private readonly toastService: ToastrService,
+    private readonly commonService: CommonService,
     private readonly router: Router
   ) {}
 
@@ -45,12 +48,14 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.activeRoute.params
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
+        tap((res) => (this.userData = res)),
+        switchMap((res) => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
       .subscribe(
         (res) => {
-          this.userData = res;
-          this.canEdit = this.userService.canEditUser(res.webRole);
+          this.applications = this.commonService.getApplicationList(res);
+          this.canEdit = this.userService.canEditUser(this.userData.webRole);
           this.loading = false;
         },
         (error) => {
@@ -64,6 +69,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  onUserEditClick() {
+    this.router.navigate([`/user/${this.userData.id}/details/edit/info`]);
   }
 
   onResetPassword() {

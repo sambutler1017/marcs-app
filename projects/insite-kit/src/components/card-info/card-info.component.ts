@@ -1,16 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ik-card-info',
   templateUrl: './card-info.component.html',
   styleUrls: ['./card-info.component.scss'],
 })
-export class CardInfoComponent implements OnInit {
+export class CardInfoComponent {
   @Input() header: string;
   @Input() text: string;
   @Input() contentColor = 'text-default';
   @Input() padding = true;
-  constructor() { }
-
-  ngOnInit(): void { }
 }

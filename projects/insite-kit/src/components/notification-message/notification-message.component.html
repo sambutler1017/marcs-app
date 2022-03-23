@@ -1,15 +1,14 @@
 <div
+  [@fadeInOut]="'in'"
+  *ngFor="let notification of notifications"
   class="notification-card"
   (click)="onNotificationRouteClick()"
-  [ngClass]="{
-    notification__visible: notificationVisible
-  }"
 >
   <div class="notification-overall">
     <ik-icon class="notification-icon" icon="notification"></ik-icon>
     <div class="notification-content">
-      <span class="title">New Vacation Request</span>
-      <span class="message">Just Now</span>
+      <span class="title">{{ notification.title }}</span>
+      <span class="message">{{ notification.message }}</span>
     </div>
     <ik-icon icon="close" (iconClick)="closeNotification()"></ik-icon>
   </div>

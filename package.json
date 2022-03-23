@@ -13,8 +13,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "serve": "ng serve",
-    "serve:prod": "ng serve --configuration production",
-    "serve:local": "ng serve --configuration local",
+    "serve:prod": "ng serve --live-reload --configuration production",
+    "serve:local": "ng serve --live-reload --configuration local",
     "heroku-postbuild": "ng build --configuration production",
     "preinstall": "npx npm-force-resolutions"
   },

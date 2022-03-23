@@ -1,13 +1,18 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Inject, Input, ViewContainerRef } from '@angular/core';
+import { NotificationMessageService } from '../../service/notification-message-service/notification-message.service';
 
 @Component({
   selector: 'ik-app-page',
   templateUrl: './app-page.component.html',
   styleUrls: ['./app-page.component.scss'],
 })
-export class AppPageComponent implements OnInit {
+export class AppPageComponent {
   @Input() appName: string;
-  constructor() {}
 
-  ngOnInit(): void {}
+  constructor(
+    @Inject(NotificationMessageService) notificationMessageService,
+    @Inject(ViewContainerRef) viewContainerRef
+  ) {
+    notificationMessageService.setRootViewContainerRef(viewContainerRef);
+  }
 }

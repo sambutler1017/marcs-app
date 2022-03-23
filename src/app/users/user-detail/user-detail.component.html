@@ -27,14 +27,19 @@
   </ik-banner>
 
   <div class="leftColumn column-half">
-    <app-user-detail-card
-      [canEdit]="canEdit"
+    <app-user-details-card
       [user]="userData"
-    ></app-user-detail-card>
+      [editEnabled]="canEdit"
+      title="Details"
+      (editClick)="onUserEditClick()"
+    ></app-user-details-card>
   </div>
   <div class="rightColumn column-half">
     <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
-    <app-user-application-card></app-user-application-card>
+    <app-user-application-access-card
+      [applications]="applications"
+      [loading]="loading"
+    ></app-user-application-access-card>
   </div>
 </div>
 

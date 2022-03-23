@@ -1,10 +1,10 @@
 <ik-card [padding]="false">
-  <ik-card-header title="Details">
-    <ng-container *ngIf="canEdit">
+  <ik-card-header [title]="title">
+    <ng-container *ngIf="editEnabled">
       <ik-icon
         icon="edit"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
-        (click)="onUserEditClick()"
+        (click)="onEditIconClick()"
       ></ik-icon>
     </ng-container>
   </ik-card-header>
@@ -58,7 +58,3 @@
     </div>
   </div>
 </ik-card>
-
-<ng-template #loader>
-  <ik-loading-indicator></ik-loading-indicator>
-</ng-template>

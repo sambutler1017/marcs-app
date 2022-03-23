@@ -8,6 +8,7 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { NotificationMessageService } from 'projects/insite-kit/src/service/notification-message-service/notification-message.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { Subject } from 'rxjs';
 import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -31,7 +32,8 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
-    private readonly jwt: JwtService
+    private readonly jwt: JwtService,
+    private readonly notificationMessageService: NotificationMessageService
   ) {}
 
   ngOnInit() {
