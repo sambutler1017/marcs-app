@@ -27,7 +27,7 @@ export class NotificationMessageComponent {
   constructor(private readonly router: Router) {}
 
   onNotificationRouteClick(notification: Notification) {
-    this.router.navigate([`/notification/details/${notification.linkId}`]);
+    this.router.navigate([`/notification/details/${notification.id}`]);
   }
 
   addNotification(notification: Notification) {
