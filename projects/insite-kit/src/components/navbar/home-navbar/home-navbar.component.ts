@@ -75,7 +75,6 @@ export class HomeNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stompService.deactivate();
     this.destroy.next();
   }
 

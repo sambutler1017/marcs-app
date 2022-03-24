@@ -1,6 +1,6 @@
 .notification-card {
   height: auto;
-  width: 260px;
+  width: auto;
   border-radius: 15px;
   background: linear-gradient(to bottom, #ffffff 12%, #fffff5 100%);
   cursor: pointer;
@@ -41,6 +41,7 @@
   align-self: center;
   border-radius: 20%;
   background: linear-gradient(to bottom, #1e90ff 12%, #3399ff 73%);
+  margin-right: 10px;
   padding: 4px;
 }
 
@@ -61,16 +62,11 @@
 
 @media screen and (max-width: 500px) {
   .title {
-    font-size: 14px;
+    font-size: 16px;
   }
 
   .message {
-    font-size: 12px;
-  }
-
-  .notification-card {
-    height: auto;
-    width: 215px;
+    font-size: 14px;
   }
 }
 

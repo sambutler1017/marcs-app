@@ -76,7 +76,6 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.stompService.deactivate();
     this.destroy.next();
   }
 

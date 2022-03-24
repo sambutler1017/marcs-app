@@ -116,3 +116,19 @@
 .dropdown:hover .dropdown-content {
   display: block;
 }
+
+@media screen and (max-width: 630px) {
+  .bell-num {
+    right: -3px;
+    top: -5px;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .bell-num {
+    padding: 0px 5px;
+  }
+}
