@@ -12,7 +12,6 @@ export class LoginOverviewComponent {
   @ViewChild('email') email: ElementRef;
   @ViewChild('password') password: ElementRef;
 
-  userLoggedIn = false;
   loading = false;
 
   constructor(
@@ -28,7 +27,6 @@ export class LoginOverviewComponent {
 
     this.auth.authenticate(email, password).subscribe(
       () => {
-        this.userLoggedIn = true;
         this.router.navigate(['/home']);
         this.loading = false;
       },

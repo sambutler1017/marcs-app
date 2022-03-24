@@ -6,10 +6,6 @@ const urlService: UrlService = new UrlService();
 export const webSocketStompConfig: RxStompConfig = {
   // Which server?
   brokerURL: urlService.getSocketAPIUrl(),
-  connectHeaders: {
-    login: 'guest',
-    passcode: 'guest',
-  },
 
   // How often to heartbeat?
   // Interval in milliseconds, set to 0 to disable
