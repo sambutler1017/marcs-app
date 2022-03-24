@@ -62,6 +62,7 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => (this.notificationCount = res.length));
 
+    this.stompService.activate();
     this.stompService
       .watch('/notifications')
       .pipe(
@@ -75,6 +76,7 @@ export class AppNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.stompService.deactivate();
     this.destroy.next();
   }
 

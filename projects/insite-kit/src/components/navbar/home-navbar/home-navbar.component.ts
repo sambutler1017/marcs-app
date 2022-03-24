@@ -61,6 +61,7 @@ export class HomeNavbarComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => (this.notificationCount = res.length));
 
+    this.stompService.activate();
     this.stompService
       .watch('/notifications')
       .pipe(
@@ -73,7 +74,8 @@ export class HomeNavbarComponent implements OnInit, OnDestroy {
       .subscribe((res) => (this.notificationCount = res.length));
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
+    this.stompService.deactivate();
     this.destroy.next();
   }
 
