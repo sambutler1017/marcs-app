@@ -82,13 +82,11 @@ form {
   opacity: 0.4;
 }
 
-@media screen and (max-width: 770px) {
-  .main-content {
-    width: 90%;
-  }
+@media screen and (max-width: 767px) {
   .company__info {
     display: none;
   }
+
   .login_form {
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
