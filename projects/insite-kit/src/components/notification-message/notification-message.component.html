@@ -2,7 +2,7 @@
   [@fadeInOut]="'in'"
   *ngFor="let notification of notifications"
   class="notification-card"
-  (click)="onNotificationRouteClick()"
+  (click)="onNotificationRouteClick(notification)"
 >
   <div class="notification-overall">
     <ik-icon class="notification-icon" icon="notification"></ik-icon>

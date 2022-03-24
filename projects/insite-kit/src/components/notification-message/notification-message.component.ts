@@ -6,6 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Notification } from '../../models/notification.model';
 
 @Component({
@@ -23,7 +24,11 @@ export class NotificationMessageComponent {
   notifications: Notification[] = [];
   num = 0;
 
-  onNotificationRouteClick() {}
+  constructor(private readonly router: Router) {}
+
+  onNotificationRouteClick(notification: Notification) {
+    this.router.navigate([`/notification/details/${notification.linkId}`]);
+  }
 
   addNotification(notification: Notification) {
     this.notifications = [...this.notifications, notification];
