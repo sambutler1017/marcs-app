@@ -65,9 +65,8 @@
   right: -4px;
   top: -5px;
   color: #fff;
-  width: auto;
-  height: auto;
-  padding: 0px 7px;
+  width: 22px;
+  height: 22px;
   background: red;
   border-radius: 100%;
 }
@@ -135,8 +134,10 @@
  * Media Value changes
  */
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 850px) {
   .bell-num {
+    width: 20px;
+    height: 20px;
     font-size: 14px;
   }
 }

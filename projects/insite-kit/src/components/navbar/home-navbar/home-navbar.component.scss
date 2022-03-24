@@ -51,8 +51,8 @@
   right: -3px;
   top: -5px;
   color: #fff;
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   background: red;
   border-radius: 50%;
 }
@@ -117,14 +117,10 @@
   display: block;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 850px) {
   .bell-num {
+    width: 20px;
+    height: 20px;
     font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .bell-num {
-    padding: 0px 5px;
   }
 }

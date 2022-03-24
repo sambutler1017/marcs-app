@@ -15,6 +15,8 @@
     "serve": "ng serve",
     "serve:prod": "ng serve --live-reload --configuration production",
     "serve:local": "ng serve --live-reload --configuration local",
+    "serve:device:prod": "ng serve --port 4200 --host 192.168.111.228 --live-reload --configuration production",
+    "serve:device:local": "ng serve --port 4200 --host 192.168.111.228 --live-reload --configuration local",
     "heroku-postbuild": "ng build --configuration production",
     "preinstall": "npx npm-force-resolutions"
   },
