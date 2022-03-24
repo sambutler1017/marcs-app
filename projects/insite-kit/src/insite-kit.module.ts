@@ -31,7 +31,10 @@ import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar
 import { NotificationMessageComponent } from './components/notification-message/notification-message.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
+import { NotificationMessagePipe } from './service/pipe/notification-message.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
+import { StompServiceFactory } from './service/stomp/stomp-factory';
+import { StompWebSocketService } from './service/stomp/stomp-websocket.service';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -69,6 +72,7 @@ export function tokenGetter() {
     ContactAdminModalComponent,
     CheckboxComponent,
     NotificationMessageComponent,
+    NotificationMessagePipe,
   ],
   imports: [
     BrowserModule,
@@ -111,7 +115,14 @@ export function tokenGetter() {
     ContactAdminModalComponent,
     CheckboxComponent,
     NotificationMessageComponent,
+    NotificationMessagePipe,
   ],
   entryComponents: [ModalComponent, NotificationMessageComponent],
+  providers: [
+    {
+      provide: StompWebSocketService,
+      useFactory: StompServiceFactory,
+    },
+  ],
 })
 export class InsiteKitModule {}

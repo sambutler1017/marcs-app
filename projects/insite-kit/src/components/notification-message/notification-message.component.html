@@ -7,9 +7,8 @@
   <div class="notification-overall">
     <ik-icon class="notification-icon" icon="notification"></ik-icon>
     <div class="notification-content">
-      <span class="title">{{ notification.title }}</span>
-      <span class="message">{{ notification.message }}</span>
+      <span class="title">{{ notification | formatNotitication }}</span>
+      <span class="message">Just Now</span>
     </div>
-    <ik-icon icon="close" (iconClick)="closeNotification()"></ik-icon>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { ComponentRef, Injectable, ViewContainerRef } from '@angular/core';
 import { NotificationMessageComponent } from '../../components/notification-message/notification-message.component';
-import { NotificationType } from '../../models/notification.model';
+import { Notification } from '../../models/notification.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class NotificationMessageService {
     );
   }
 
-  triggerNotification(type: NotificationType) {
-    this.componentInstance.instance.addNotification(type);
+  triggerNotification(notification: Notification) {
+    this.componentInstance.instance.addNotification(notification);
   }
 }

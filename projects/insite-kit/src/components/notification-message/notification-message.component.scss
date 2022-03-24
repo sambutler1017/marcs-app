@@ -1,14 +1,14 @@
 .notification-card {
   height: auto;
-  width: 300px;
+  width: 260px;
   border-radius: 15px;
   background: linear-gradient(to bottom, #ffffff 12%, #fffff5 100%);
   cursor: pointer;
-  position: relative;
   box-shadow: 0 2px 5px #0006;
   padding: 15px 10px;
   float: right;
-  top: -310px;
+  top: 70px;
+  position: absolute;
   right: 10px;
   z-index: 9999;
   margin-bottom: 10px;
@@ -59,18 +59,6 @@
   }
 }
 
-@media screen and (max-width: 1030px) {
-  .notification-card {
-    top: -300px;
-  }
-}
-
-@media screen and (max-width: 575px) {
-  .notification-card {
-    top: -285px;
-  }
-}
-
 @media screen and (max-width: 500px) {
   .title {
     font-size: 14px;
@@ -82,13 +70,12 @@
 
   .notification-card {
     height: auto;
-    width: 250px;
-    top: -275px;
+    width: 215px;
   }
 }
 
 @media screen and (max-width: 455px) {
   .notification-card {
-    top: -245px;
+    top: 60px;
   }
 }

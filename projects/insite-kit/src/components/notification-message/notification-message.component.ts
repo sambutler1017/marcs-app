@@ -6,8 +6,7 @@ import {
   trigger,
 } from '@angular/animations';
 import { Component } from '@angular/core';
-import { NotificationType } from '../../models/notification.model';
-import { WebNotification } from '../../models/web-notification.model';
+import { Notification } from '../../models/notification.model';
 
 @Component({
   selector: 'ik-notification-message',
@@ -21,27 +20,16 @@ import { WebNotification } from '../../models/web-notification.model';
   ],
 })
 export class NotificationMessageComponent {
-  notifications: WebNotification[] = [];
+  notifications: Notification[] = [];
   num = 0;
 
   onNotificationRouteClick() {}
 
-  closeNotification() {}
-
-  addNotification(type: NotificationType) {
-    const stringNotification = type.toString().toLowerCase();
-    const newNotificationMessage = {
-      id: this.num++,
-      title: `New ${stringNotification[0].toUpperCase()}${stringNotification.substring(
-        1
-      )} Request`,
-      message: 'Just Now',
-    };
-
-    this.notifications = [...this.notifications, newNotificationMessage];
+  addNotification(notification: Notification) {
+    this.notifications = [...this.notifications, notification];
     setTimeout(() => {
       this.notifications = this.notifications.filter(
-        (m) => m.id !== newNotificationMessage.id
+        (m) => m.id !== notification.id
       );
     }, 3000);
   }

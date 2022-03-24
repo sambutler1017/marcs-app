@@ -23,4 +23,13 @@ export class UrlService {
       return `https://${environment.apiUrl}`;
     }
   }
+
+  /**
+   * Gets the API for socket calls
+   *
+   * @returns The url for the api web socket.
+   */
+  getSocketAPIUrl() {
+    return `ws://${environment.apiUrl}/api/web-notification-app`;
+  }
 }
