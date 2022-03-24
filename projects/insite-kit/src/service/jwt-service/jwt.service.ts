@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { WebRole } from '../../models/common.model';
 import { StompWebSocketService } from '../stomp/stomp-websocket.service';
 
@@ -79,6 +80,16 @@ export class JwtService {
    */
   getRequiredWebRole() {
     return this.get('webRole') as keyof typeof WebRole;
+  }
+
+  getUser(): User {
+    return {
+      id: this.getRequiredUserId(),
+      firstName: this.get('firstName'),
+      lastName: this.get('lastName'),
+      email: this.get('email'),
+      webRole: this.getRequiredWebRole(),
+    };
   }
 
   /**

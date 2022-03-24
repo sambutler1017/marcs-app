@@ -36,6 +36,6 @@ export class NotificationMessageComponent {
       this.notifications = this.notifications.filter(
         (m) => m.id !== notification.id
       );
-    }, 3000);
+    }, 3500);
   }
 }

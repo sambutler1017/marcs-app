@@ -1,5 +1,5 @@
 import { Component, Inject, Input, ViewContainerRef } from '@angular/core';
-import { NotificationMessageService } from '../../service/notification-message-service/notification-message.service';
+import { NotificationMessageService } from '../../service/notification-message/notification-message.service';
 
 @Component({
   selector: 'ik-app-page',
