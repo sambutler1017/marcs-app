@@ -30,6 +30,10 @@ export class UrlService {
    * @returns The url for the api web socket.
    */
   getSocketAPIUrl() {
-    return `ws://${environment.apiUrl}/api/web-notification-app`;
+    if (environment.isLocal) {
+      return `ws://${environment.apiUrl}/api/web-notification-app`;
+    } else {
+      return `wss://${environment.apiUrl}/api/web-notification-app`;
+    }
   }
 }
