@@ -7,7 +7,10 @@ import {
 } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Notification } from '../../models/notification.model';
+import {
+  Notification,
+  NotificationType,
+} from '../../models/notification.model';
 
 @Component({
   selector: 'ik-notification-message',
@@ -27,7 +30,13 @@ export class NotificationMessageComponent {
   constructor(private readonly router: Router) {}
 
   onNotificationRouteClick(notification: Notification) {
-    this.router.navigate([`/notification/details/${notification.id}`]);
+    if (
+      NotificationType[notification.type] === NotificationType.REQUEST_TRACKER
+    ) {
+      this.router.navigate(['/requestTracker/overview']);
+    } else {
+      this.router.navigate([`/notification/details/${notification.id}`]);
+    }
   }
 
   addNotification(notification: Notification) {

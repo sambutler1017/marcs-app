@@ -8,6 +8,7 @@ export interface Notification {
 }
 
 export enum NotificationType {
-  USER = 'USER',
-  VACATION = 'VACATION',
+  USER = 'New User Request',
+  VACATION = 'New Vacation Request',
+  REQUEST_TRACKER = 'Vacation Status Update',
 }
