@@ -106,7 +106,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
   listenToWebSocket() {
     this.stompService.activate();
     return this.stompService
-      .listen(this.jwt.getUser())
+      .listen(this.jwt.getRequiredUserId())
       .pipe(
         tap((res) => this.notificationMessageService.triggerNotification(res)),
         tap(() => this.notificationService.triggerNotificationUpdate()),
