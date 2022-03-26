@@ -1,13 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  Access,
-  App,
-  Feature,
-  VacationStatus,
-} from 'projects/insite-kit/src/models/common.model';
+import { VacationStatus } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
-import { Subject } from 'rxjs';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
@@ -19,11 +13,6 @@ export class StoreUserVacationsCardComponent implements OnInit {
 
   userVacations: Vacation[];
   loading = true;
-  destroy = new Subject();
-
-  Feature = Feature;
-  Application = App;
-  Access = Access;
 
   constructor(private readonly vacationService: VacationService) {}
 
