@@ -30,9 +30,7 @@ export class NotificationMessageComponent {
   constructor(private readonly router: Router) {}
 
   onNotificationRouteClick(notification: Notification) {
-    if (
-      NotificationType[notification.type] === NotificationType.REQUEST_TRACKER
-    ) {
+    if (notification.type === NotificationType.REQUEST_TRACKER) {
       this.router.navigate(['/requestTracker/overview']);
     } else {
       this.router.navigate([`/notification/details/${notification.id}`]);
