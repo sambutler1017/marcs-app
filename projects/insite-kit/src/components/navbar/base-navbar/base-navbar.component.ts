@@ -45,6 +45,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.stompService.init();
     this.notificationUpdates();
     this.validateNotificationAccess();
     this.listenToWebSocket();
@@ -71,6 +72,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
 
   onLogOutClick() {
     this.jwt.logOut();
+    this.stompService.deactivate();
   }
 
   getNotifications(params?: Map<string, string[]>) {
@@ -104,9 +106,8 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
   }
 
   listenToWebSocket() {
-    this.stompService.activate();
     return this.stompService
-      .listen(this.jwt.getRequiredUserId())
+      .listen()
       .pipe(
         tap((res) => this.notificationMessageService.triggerNotification(res)),
         tap(() => this.notificationService.triggerNotificationUpdate()),

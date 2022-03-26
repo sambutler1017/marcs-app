@@ -33,7 +33,6 @@ import { FeatureAccessDirective } from './directives/featureAccess/feature-acces
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
 import { NotificationMessagePipe } from './service/pipe/notification-message.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
-import { StompServiceFactory } from './service/stomp/stomp-factory';
 import { StompWebSocketService } from './service/stomp/stomp-websocket.service';
 
 export function tokenGetter() {
@@ -118,11 +117,6 @@ export function tokenGetter() {
     NotificationMessagePipe,
   ],
   entryComponents: [ModalComponent, NotificationMessageComponent],
-  providers: [
-    {
-      provide: StompWebSocketService,
-      useFactory: StompServiceFactory,
-    },
-  ],
+  providers: [StompWebSocketService],
 })
 export class InsiteKitModule {}

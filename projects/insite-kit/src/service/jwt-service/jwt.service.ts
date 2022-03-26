@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { WebRole } from '../../models/common.model';
-import { StompWebSocketService } from '../stomp/stomp-websocket.service';
 
 export const TOKEN_NAME = 'token';
 
@@ -13,8 +12,7 @@ export const TOKEN_NAME = 'token';
 export class JwtService {
   constructor(
     private router: Router,
-    private readonly jwtHelperService: JwtHelperService,
-    private readonly stompService: StompWebSocketService
+    private readonly jwtHelperService: JwtHelperService
   ) {}
 
   /**
@@ -97,7 +95,6 @@ export class JwtService {
    * page.
    */
   logOut() {
-    this.stompService.deactivate();
     localStorage.removeItem(TOKEN_NAME);
     this.router.navigate(['login']);
   }
