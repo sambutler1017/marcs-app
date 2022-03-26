@@ -48,11 +48,11 @@ export class StoreDetailCardComponent implements OnInit {
       });
   }
 
-  getManagerInfo() {
+  getRegionalInfo() {
     return this.storeService.getRegionalOfStoreById(this.store.id);
   }
 
-  getRegionalInfo() {
+  getManagerInfo() {
     return this.storeService.getManagerOfStoreById(this.store.id);
   }
 
