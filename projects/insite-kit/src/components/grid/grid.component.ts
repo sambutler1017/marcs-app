@@ -33,7 +33,6 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @Input() translationKey: any;
   @Input() pageSize = 15;
   @Input() padding = true;
-  @Input() headerPadding = false;
   @Input() basePath = '';
   @Input() overflowEnabled = false;
   @Input() storageTag = 'gridCurrentPage';

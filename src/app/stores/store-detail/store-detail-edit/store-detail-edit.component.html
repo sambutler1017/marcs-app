@@ -1,7 +1,5 @@
-<ik-header
-  title="Edit Store"
-  [backEnabled]="true"
-  (backClick)="onCancelClick()"
+<ik-header title="Edit Store"
+  ><ik-header-back (back)="onCancelClick()"></ik-header-back
 ></ik-header>
 
 <app-store-form

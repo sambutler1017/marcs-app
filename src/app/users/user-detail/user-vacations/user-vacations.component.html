@@ -1,9 +1,6 @@
 <ng-container *ngIf="user; else loader">
-  <ik-header
-    title="{{ user | formatUserName }} - Vacations"
-    [backEnabled]="true"
-    (backClick)="onBackClick()"
-  >
+  <ik-header title="{{ user | formatUserName }} - Vacations"
+    ><ik-header-back (back)="onBackClick()"></ik-header-back>
   </ik-header>
   <app-request-tracker-grid
     [dataLoader]="dataLoader"

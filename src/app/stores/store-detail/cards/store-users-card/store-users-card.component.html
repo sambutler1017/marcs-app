@@ -1,13 +1,10 @@
 <ik-grid
-  title="Users"
-  translationKey="Users"
   storageTag="STORE_USERS_GRID_CARD"
   pageSize="5"
   [dataLoader]="storeUsers"
-  [alwaysDestroy]="true"
   [padding]="false"
-  [headerPadding]="true"
   [overflowEnabled]="true"
+  [alwaysDestroy]="true"
 >
   <ik-card-header title="Users"> </ik-card-header>
   <ik-grid-column label="Name" field="formattedName"></ik-grid-column>

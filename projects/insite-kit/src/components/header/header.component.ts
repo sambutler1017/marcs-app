@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, ContentChild, Input } from '@angular/core';
+import { HeaderBackComponent } from './header-back/header-back.component';
 
 @Component({
   selector: 'ik-header',
@@ -6,13 +7,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
+  @ContentChild(HeaderBackComponent) backArrow: HeaderBackComponent;
   @Input() title: string;
-  @Input() backEnabled = false;
-  @Output() backClick = new EventEmitter<any>();
-
-  constructor() {}
 
   onBackClick() {
-    this.backClick.emit();
+    this.backArrow.onBackClick();
   }
 }

@@ -1,9 +1,6 @@
 <div *ngIf="!loading; else loader">
-  <ik-header
-    title="{{ userData | formatUserName }}"
-    [backEnabled]="true"
-    (backClick)="onBackClick()"
-  >
+  <ik-header title="{{ userData | formatUserName }}">
+    <ik-header-back (back)="onBackClick()"></ik-header-back>
     <div class="inline-display header-buttons" *ngIf="canEdit">
       <button
         class="btn btn-default btn-size btn-right h-button"

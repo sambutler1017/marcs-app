@@ -1,4 +1,5 @@
-<ik-header title="New User" [backEnabled]="true" (backClick)="onCancelClick()">
+<ik-header title="New User"
+  ><ik-header-back (back)="onCancelClick()"></ik-header-back>
 </ik-header>
 
 <app-user-form

@@ -1,9 +1,6 @@
 <ng-container *ngIf="vacationData; else loader">
-  <ik-header
-    title="{{ vacationData?.fullName }} ({{ vacationId }})"
-    [backEnabled]="true"
-    (backClick)="onBackClick()"
-  >
+  <ik-header title="{{ vacationData?.fullName }} ({{ vacationId }})"
+    ><ik-header-back (back)="onBackClick()"></ik-header-back>
     <button
       class="btn btn-danger btn-size btn-right h-button"
       (click)="onOpenDeleteModal()"

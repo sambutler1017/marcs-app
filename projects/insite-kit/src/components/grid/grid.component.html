@@ -8,7 +8,7 @@
           <th
             *ngFor="let column of columns.toArray()"
             class="column-header"
-            [ngClass]="{ 'header-padding': headerPadding }"
+            [ngClass]="{ 'header-padding': !padding }"
           >
             <ng-content select="ik-grid-column"></ng-content>
             <strong>{{ column.label }}</strong>

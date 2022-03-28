@@ -1,13 +1,11 @@
 <ik-grid
-  title="Vacations"
   translationKey="Vacations"
   storageTag="STORE_VACATIONS_GRID_CARD"
   pageSize="5"
   [dataLoader]="userVacations"
-  [alwaysDestroy]="true"
   [padding]="false"
-  [headerPadding]="true"
   [overflowEnabled]="true"
+  [alwaysDestroy]="true"
 >
   <ik-card-header title="Vacations"> </ik-card-header>
   <ik-grid-column label="Name" field="fullName"></ik-grid-column>

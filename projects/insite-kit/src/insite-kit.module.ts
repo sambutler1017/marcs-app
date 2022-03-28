@@ -18,6 +18,7 @@ import { GridPagerComponent } from './components/grid/grid-pager/grid-pager.comp
 import { GridSearchComponent } from './components/grid/grid-search/grid-search.component';
 import { GridShowAllComponent } from './components/grid/grid-show-all/grid-show-all.component';
 import { GridComponent } from './components/grid/grid.component';
+import { HeaderBackComponent } from './components/header/header-back/header-back.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
@@ -72,6 +73,7 @@ export function tokenGetter() {
     CheckboxComponent,
     NotificationMessageComponent,
     NotificationMessagePipe,
+    HeaderBackComponent,
   ],
   imports: [
     BrowserModule,
@@ -115,6 +117,7 @@ export function tokenGetter() {
     CheckboxComponent,
     NotificationMessageComponent,
     NotificationMessagePipe,
+    HeaderBackComponent,
   ],
   entryComponents: [ModalComponent, NotificationMessageComponent],
   providers: [StompWebSocketService],

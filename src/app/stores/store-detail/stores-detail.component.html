@@ -1,9 +1,6 @@
 <div *ngIf="!loading; else loader">
-  <ik-header
-    [title]="store.name"
-    [backEnabled]="true"
-    (backClick)="onBackClick()"
-  >
+  <ik-header [title]="store.name"
+    ><ik-header-back (back)="onBackClick()"></ik-header-back>
     <button
       class="btn btn-danger btn-size btn-right h-button"
       (click)="deleteStoreModal.modal.open()"
