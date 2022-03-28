@@ -8,24 +8,21 @@ import { ToastrModule } from 'ngx-toastr';
 import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
 import { BasicAuthHtppInterceptorService } from 'projects/insite-kit/src/service/http-interceptor/basic-auth-htpp-interceptor.service';
 import { AppRoutingModule } from '../app-routing.module';
-import { EditUserComponent } from './edit-user/edit-user.component';
-import { RequestTrackerGridComponent } from './request-tracker-grid/request-tracker-grid.component';
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
-import { StoreFormComponent } from './store-form/store-form.component';
-import { UpdatePasswordComponent } from './update-password/update-password.component';
-import { UserApplicationAccessCardComponent } from './user-application-access-card/user-application-access-card.component';
-import { UserDetailsCardComponent } from './user-details-card/user-details-card.component';
-import { UserFormComponent } from './user-form/user-form.component';
-import { VacationDetailsCardComponent } from './vacation-cards/vacation-details-card/vacation-details-card.component';
-import { VacationNotesCardComponent } from './vacation-cards/vacation-notes-card/vacation-notes-card.component';
-import { VacationModalComponent } from './vacation-modal/vacation-modal.component';
+import { UserApplicationAccessCardComponent } from './cards/user-application-access-card/user-application-access-card.component';
+import { UserDetailsCardComponent } from './cards/user-details-card/user-details-card.component';
+import { VacationDetailsCardComponent } from './cards/vacation-details-card/vacation-details-card.component';
+import { VacationNotesCardComponent } from './cards/vacation-notes-card/vacation-notes-card.component';
+import { StoreFormComponent } from './forms/store-form/store-form.component';
+import { UserFormComponent } from './forms/user-form/user-form.component';
+import { RequestTrackerGridComponent } from './grids/request-tracker-grid/request-tracker-grid.component';
+import { VacationModalComponent } from './modals/vacation-modal/vacation-modal.component';
+import { EditUserComponent } from './pages/edit-user/edit-user.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
 
 @NgModule({
   declarations: [
     UserFormComponent,
-    EditUserComponent,
-    ResetPasswordComponent,
-    UpdatePasswordComponent,
     RequestTrackerGridComponent,
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
@@ -33,6 +30,9 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     StoreFormComponent,
     UserDetailsCardComponent,
     UserApplicationAccessCardComponent,
+    UpdatePasswordComponent,
+    ResetPasswordComponent,
+    EditUserComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,9 +58,6 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     ReactiveFormsModule,
     ToastrModule,
     UserFormComponent,
-    EditUserComponent,
-    ResetPasswordComponent,
-    UpdatePasswordComponent,
     RequestTrackerGridComponent,
     VacationDetailsCardComponent,
     VacationNotesCardComponent,
@@ -68,6 +65,9 @@ import { VacationModalComponent } from './vacation-modal/vacation-modal.componen
     StoreFormComponent,
     UserApplicationAccessCardComponent,
     UserDetailsCardComponent,
+    UpdatePasswordComponent,
+    ResetPasswordComponent,
+    EditUserComponent,
   ],
   providers: [
     {

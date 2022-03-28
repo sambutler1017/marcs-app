@@ -6,7 +6,7 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
-import { RequestTrackerGridComponent } from 'src/app/shared/request-tracker-grid/request-tracker-grid.component';
+import { RequestTrackerGridComponent } from 'src/app/shared/grids/request-tracker-grid/request-tracker-grid.component';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
   selector: 'app-request-tracker-overview',

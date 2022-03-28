@@ -16,7 +16,7 @@ import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
 import { combineLatest } from 'rxjs';
-import { VacationModalComponent } from 'src/app/shared/vacation-modal/vacation-modal.component';
+import { VacationModalComponent } from 'src/app/shared/modals/vacation-modal/vacation-modal.component';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';

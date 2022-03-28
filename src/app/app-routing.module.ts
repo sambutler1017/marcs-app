@@ -29,9 +29,9 @@ import { ReportsOverviewComponent } from './reports/reports-overview/reports-ove
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerOverviewComponent } from './request-tracker/request-tracker-overview/request-tracker-overview.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
-import { EditUserComponent } from './shared/edit-user/edit-user.component';
-import { ResetPasswordComponent } from './shared/reset-password/reset-password.component';
-import { UpdatePasswordComponent } from './shared/update-password/update-password.component';
+import { EditUserComponent } from './shared/pages/edit-user/edit-user.component';
+import { ResetPasswordComponent } from './shared/pages/reset-password/reset-password.component';
+import { UpdatePasswordComponent } from './shared/pages/update-password/update-password.component';
 import { StoresDetailEditComponent } from './stores/store-detail/store-detail-edit/store-detail-edit.component';
 import { StoresDetailComponent } from './stores/store-detail/stores-detail.component';
 import { AddStoreComponent } from './stores/stores-overview/add-store/add-store.component';
