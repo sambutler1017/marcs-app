@@ -49,10 +49,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this.onCancelClick();
-          this.toastService.success('User Successfully updated!');
+          this.toastService.success('Profile Successfully updated!');
         },
         (err) => {
-          this.toastService.error('User could not be updated at this time!');
+          this.toastService.error('Profile could not be updated at this time!');
           this.loading = false;
         }
       );
