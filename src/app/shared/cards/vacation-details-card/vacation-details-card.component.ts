@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
@@ -39,7 +40,8 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
 
   constructor(
     private readonly vacationService: VacationService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly toastService: ToastrService
   ) {}
 
   ngOnChanges() {
@@ -83,7 +85,16 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
       })
-      .subscribe((res) => this.updateCard(res));
+      .subscribe(
+        (res) => {
+          this.updateCard(res);
+          this.toastService.success('Vacation successfully updated!');
+        },
+        () =>
+          this.toastService.error(
+            'Could not update vaction at this time. Try again later.'
+          )
+      );
   }
 
   onDenyVacation() {
