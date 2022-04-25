@@ -109,9 +109,13 @@ export class CalendarOverviewComponent implements OnInit {
     this.blockDates.every((bDate) => {
       if (
         this.blockDateService.isDateBetween(
-          this.commonService.convertStringToDate(bDate.startDate.toString()),
+          this.commonService.convertStringToDate(
+            bDate.startDate.toString().split('T')[0]
+          ),
           day,
-          this.commonService.convertStringToDate(bDate.endDate.toString())
+          this.commonService.convertStringToDate(
+            bDate.endDate.toString().split('T')[0]
+          )
         )
       ) {
         isBlockDate = true;
@@ -138,6 +142,7 @@ export class CalendarOverviewComponent implements OnInit {
     vacations.forEach((v) => {
       const dateString = v.startDate
         .toString()
+        .split('T')[0]
         .split('-')
         .map((v) => Number(v));
 
