@@ -64,8 +64,8 @@ export class BlockDateDetailModalComponent implements OnInit {
 
   updateForm() {
     this.form.patchValue({
-      startDate: this.blockDate.startDate,
-      endDate: this.blockDate.endDate,
+      startDate: this.blockDate.startDate.toString().split('T')[0],
+      endDate: this.blockDate.endDate.toString().split('T')[0],
     });
   }
 

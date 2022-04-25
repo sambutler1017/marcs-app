@@ -78,7 +78,9 @@ export class UserFormComponent implements OnInit {
         this.userData ? this.userData.storeName : '',
         Validators.required,
       ],
-      hireDate: this.userData ? this.userData.hireDate : '',
+      hireDate: this.userData
+        ? this.userData.hireDate.toString().split('T')[0]
+        : '',
     });
 
     if (this.disableRoleUpdate) {

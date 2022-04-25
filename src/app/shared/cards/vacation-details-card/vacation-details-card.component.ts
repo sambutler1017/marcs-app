@@ -50,8 +50,14 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
 
   buildForm() {
     this.form = this.fb.group({
-      startDate: [this.data?.startDate, Validators.required],
-      endDate: [this.data?.endDate, Validators.required],
+      startDate: [
+        this.data?.startDate.toString().split('T')[0],
+        Validators.required,
+      ],
+      endDate: [
+        this.data?.endDate.toString().split('T')[0],
+        Validators.required,
+      ],
     });
 
     this.formChange();
