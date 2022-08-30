@@ -15,7 +15,7 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   loading = true;
   userId: number;
   userUpdating: User;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private location: Location,

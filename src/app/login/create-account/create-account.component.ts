@@ -30,7 +30,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
 
   WebRole = WebRole;
 
-  destroy = new Subject();
+  destroy = new Subject<void>();
   emailInputStatus = '';
   emailDirty = false;
   emailExist = false;

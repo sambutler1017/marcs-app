@@ -27,7 +27,7 @@ export class AddUserVacationModalComponent implements OnInit {
 
   form: FormGroup;
   modalLoading = false;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private readonly vacationService: VacationService,

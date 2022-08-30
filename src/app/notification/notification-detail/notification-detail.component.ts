@@ -30,7 +30,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 export class NotificationDetailComponent implements OnInit, OnDestroy {
   @ViewChild(ModalComponent) requestModal: ModalComponent;
 
-  destroy = new Subject();
+  destroy = new Subject<void>();
   activeNotification: Notification;
   notificationData: User | Vacation;
   form: FormGroup;

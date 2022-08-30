@@ -44,7 +44,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   gridIndex = 0;
 
   loading = true;
-  destroy = new Subject();
+  destroy = new Subject<void>();
   initialLoadComplete = false;
 
   constructor(private readonly router: Router) {}

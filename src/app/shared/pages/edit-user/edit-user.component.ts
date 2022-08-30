@@ -19,7 +19,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
   @ViewChild('managerChangeModal') managerChangeModal: ModalComponent;
 
   loading = true;
-  destroy = new Subject();
+  destroy = new Subject<void>();
   userId: number;
   userUpdating: User;
   currentUpdatedInfo: User;

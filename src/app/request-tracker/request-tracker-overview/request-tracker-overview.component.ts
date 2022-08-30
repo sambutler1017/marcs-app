@@ -21,7 +21,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
 
   loading = false;
   dataLoader: Vacation[];
-  destroy = new Subject();
+  destroy = new Subject<void>();
   form: FormGroup;
   vacationInfo: Vacation;
   vacationInfoModalLoading = false;

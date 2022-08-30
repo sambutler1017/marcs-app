@@ -16,7 +16,7 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
   loading = false;
   form: FormGroup;
   token: string;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private router: Router,

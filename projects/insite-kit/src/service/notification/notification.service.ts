@@ -8,7 +8,7 @@ import { Notification } from '../../models/notification.model';
 })
 export class NotificationService {
   readonly BASE_PATH = 'api/notification-app/notifications';
-  private notificationListener: Subject<any> = new Subject<any>();
+  private notificationListener = new Subject<void>();
 
   constructor(private readonly requestService: RequestService) {}
 

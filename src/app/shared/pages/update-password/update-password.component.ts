@@ -16,7 +16,7 @@ export class UpdatePasswordComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
   userId: number;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private location: Location,

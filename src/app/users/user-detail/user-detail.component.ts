@@ -34,7 +34,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   Feature = Feature;
   Application = App;
   Access = Access;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private readonly userService: UserService,

@@ -23,7 +23,7 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
 
   loading = true;
   disableSave = false;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private readonly storeService: StoreService,

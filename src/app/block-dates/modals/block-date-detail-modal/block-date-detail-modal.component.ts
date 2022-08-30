@@ -38,7 +38,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   @Output() delete = new EventEmitter<any>();
 
   form: FormGroup;
-  destroy = new Subject();
+  destroy = new Subject<void>();
   canEdit = false;
 
   Feature = Feature;

@@ -25,7 +25,7 @@ import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 })
 export class BaseNavbarComponent implements OnInit, OnDestroy {
   notificationCount = 0;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   Feature = Feature;
   Application = App;

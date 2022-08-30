@@ -21,7 +21,7 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
   @ViewChild('notesModal') notesModal: ModalComponent;
   @Input() cardTitle = 'Notes';
   @Input() data: Vacation;
-  destroy = new Subject();
+  destroy = new Subject<void>();
   form: FormGroup;
 
   WebRole = WebRole;

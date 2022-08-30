@@ -23,7 +23,7 @@ export class AddBlockOutDateModalComponent implements OnInit {
 
   loading: boolean;
   form: FormGroup;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     private readonly fb: FormBuilder,

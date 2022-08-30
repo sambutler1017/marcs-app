@@ -18,7 +18,7 @@ export class FeatureAccessDirective implements OnInit, OnDestroy {
   app: string;
   feature: string;
   type: Access;
-  destroy = new Subject();
+  destroy = new Subject<void>();
   hasPermission: boolean = false;
 
   constructor(

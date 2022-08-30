@@ -10,12 +10,12 @@
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2015",
+    "target": "es2020",
     "lib": [
       "es2018",
       "dom"
     ],
-    "types":["jquery"],
+    "types":["jquery"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

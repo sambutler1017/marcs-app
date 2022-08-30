@@ -30,7 +30,7 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
 
   loading = false;
   form: FormGroup;
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   VacationStatus = VacationStatus;
   WebRole = WebRole;

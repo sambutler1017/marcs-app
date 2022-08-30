@@ -17,7 +17,7 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 export class UserVacationsDetailComponent implements OnInit, OnDestroy {
   @ViewChild('deleteVacationModal') deleteVacationModal: ModalComponent;
 
-  destroy = new Subject();
+  destroy = new Subject<void>();
   vacationId: number;
   vacationData: Vacation;
   loading = false;

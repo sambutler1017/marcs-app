@@ -19,7 +19,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
   @ViewChild('notificationGrid') notificationGrid: GridComponent;
 
   dataLoader: Notification[];
-  destroy = new Subject();
+  destroy = new Subject<void>();
 
   constructor(
     public notificationService: NotificationService,
