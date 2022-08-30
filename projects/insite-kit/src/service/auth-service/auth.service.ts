@@ -21,7 +21,7 @@ export class AuthService {
    */
   authenticate(email: string, password: string): Observable<AuthToken> {
     return this.request
-      .post<AuthToken>('authenticate', { email, password })
+      .post<AuthToken>('api/authenticate', { email, password })
       .pipe(tap((u) => this.jwt.setToken(u.token)));
   }
 
@@ -32,7 +32,7 @@ export class AuthService {
    */
   reauthenticate(): Observable<AuthToken> {
     return this.request
-      .post<AuthToken>('reauthenticate')
+      .post<AuthToken>('api/reauthenticate')
       .pipe(tap((u) => this.jwt.setToken(u.token)));
   }
 

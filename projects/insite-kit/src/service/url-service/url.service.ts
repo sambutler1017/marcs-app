@@ -31,9 +31,9 @@ export class UrlService {
    */
   getSocketAPIUrl() {
     if (environment.isLocal) {
-      return `ws://${environment.apiUrl}/api/websocket`;
+      return `ws://${environment.apiUrl}/subscription/socket`;
     } else {
-      return `wss://${environment.apiUrl}/api/websocket`;
+      return `wss://${environment.apiUrl}/subscription/socket`;
     }
   }
 }
