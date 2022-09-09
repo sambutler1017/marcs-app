@@ -12,9 +12,9 @@ export interface User {
   password?: string;
   storeId?: string;
   storeName?: string;
+  lastLoginDate?: Date;
   hireDate?: Date;
   insertDate?: Date;
-  salt?: number;
   vacations?: Vacation[];
   [key: string]: any;
 }
