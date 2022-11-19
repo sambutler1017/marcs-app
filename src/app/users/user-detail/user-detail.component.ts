@@ -34,6 +34,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   Feature = Feature;
   Application = App;
   Access = Access;
+  Number = Number;
   destroy = new Subject<void>();
 
   constructor(
@@ -49,22 +50,22 @@ export class UserDetailComponent implements OnInit, OnDestroy {
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
         tap((res) => (this.userData = res)),
-        switchMap((res) => this.userService.getUserAppsById(this.userData.id)),
+        switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.applications = this.commonService.getApplicationList(res);
           this.canEdit = this.userService.canEditUser(this.userData.webRole);
           this.loading = false;
         },
-        (error) => {
+        error: () => {
           this.onBackClick();
           this.toastService.error(
             'Could not load user details at this time. Try again later.'
           );
-        }
-      );
+        },
+      });
   }
 
   ngOnDestroy() {

@@ -1,0 +1,46 @@
+.app-text {
+    padding: 12px 5px;
+    font-size: 20px;
+  }
+  
+  a:link {
+    text-decoration: none;
+  }
+  
+  ul {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+  }
+  
+  .input-margin {
+    margin: 0.5em auto;
+  }
+  
+  .textarea-margin {
+    resize: none;
+    margin: 0.5em 0;
+  }
+  
+  .spacer-margin {
+    margin-top: 10px;
+  }
+  
+  .label-header {
+    font-size: 16px;
+  }
+
+  .no-data-margin {
+    margin: 25px;
+  }
+  
+  @media screen and (max-width: 500px) {
+    .h-button {
+      margin-top: 0;
+    }
+  
+    .header-buttons {
+      display: block;
+    }
+  }
+  

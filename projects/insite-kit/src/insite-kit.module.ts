@@ -31,6 +31,7 @@ import { HomeImageComponent } from './components/navbar/home-navbar/home-image/h
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
 import { NotificationMessageComponent } from './components/notification-message/notification-message.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
+import { WebRoleRestrictionAccessDirective } from './directives/webRoleRestrictionAccess/webRole-restriction-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
 import { NotificationMessagePipe } from './service/pipe/notification-message.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
@@ -56,6 +57,7 @@ export function tokenGetter() {
     LoadingIndicatorComponent,
     HomeImageComponent,
     FeatureAccessDirective,
+    WebRoleRestrictionAccessDirective,
     CardHeaderComponent,
     IconComponent,
     UsernamePipe,
@@ -100,6 +102,7 @@ export function tokenGetter() {
     LoadingIndicatorComponent,
     HomeImageComponent,
     FeatureAccessDirective,
+    WebRoleRestrictionAccessDirective,
     CardHeaderComponent,
     IconComponent,
     UsernamePipe,

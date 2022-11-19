@@ -1,0 +1,25 @@
+<ik-card [padding]="false">
+  <ik-card-header title="Regional Stores"></ik-card-header>
+  <ng-container *ngIf="!loading; else loader">
+    <ng-container *ngIf="stores; else noStoresMessage">
+      <div
+        class="app-text"
+        *ngIf="stores && stores.length > 0; else noStoresMessage"
+      >
+        <ul>
+          <li *ngFor="let store of stores">{{ store.name }}</li>
+        </ul>
+      </div>
+    </ng-container>
+  </ng-container>
+</ik-card>
+
+<ng-template #loader>
+  <ik-loading-indicator></ik-loading-indicator>
+</ng-template>
+
+<ng-template #noStoresMessage>
+  <label class="label-text left no-data-margin">
+    No Stores
+  </label>
+</ng-template>
