@@ -33,6 +33,11 @@
   </div>
   <div class="rightColumn column-half">
     <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
+    <app-user-application-access-card
+      [applications]="applications"
+      [loading]="loading"
+      *webRoleRestrictionAccess="WebRole.SITE_ADMIN"
+    ></app-user-application-access-card>
     <app-manager-stores-card
       *ngIf="
         Number(WebRole[userData?.webRole]) >= WebRole.DISTRICT_MANAGER &&
@@ -40,11 +45,6 @@
       "
       [managerId]="userData?.id"
     ></app-manager-stores-card>
-    <app-user-application-access-card
-      [applications]="applications"
-      [loading]="loading"
-      *webRoleRestrictionAccess="WebRole.SITE_ADMIN"
-    ></app-user-application-access-card>
   </div>
 </div>
 
