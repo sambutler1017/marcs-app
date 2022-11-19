@@ -3,11 +3,14 @@
   font-size: 20px;
 }
 
-ul {
-  columns: 2;
-  -webkit-columns: 2;
-  -moz-columns: 2;
+.column-flex-left {
+  width: 50%;
 }
+
+.column-right-left {
+  width: 50%;
+}
+
 .no-data-margin {
   margin: 25px;
 }

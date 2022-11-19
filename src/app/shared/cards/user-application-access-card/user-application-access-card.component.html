@@ -2,8 +2,18 @@
   <ik-card-header title="Application Access"></ik-card-header>
   <ng-container *ngIf="!loading; else loader">
     <div class="app-text">
-      <ul>
-        <li *ngFor="let app of applications">{{ app }}</li>
+      <ul class="flex">
+        <div class="column-flex-left">
+          <ng-container *ngFor="let app of applications; let even = even">
+            <li *ngIf="even">{{ app }}</li>
+          </ng-container>
+        </div>
+
+        <div class="column-flex-left">
+          <ng-container *ngFor="let app of applications; let odd = odd">
+            <li *ngIf="odd">{{ app }}</li>
+          </ng-container>
+        </div>
       </ul>
     </div>
   </ng-container>

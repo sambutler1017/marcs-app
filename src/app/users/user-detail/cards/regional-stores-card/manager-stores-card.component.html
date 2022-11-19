@@ -5,8 +5,18 @@
       class="app-text"
       *ngIf="stores && stores.length > 0; else noStoresMessage"
     >
-      <ul>
-        <li *ngFor="let store of stores">{{ store.name }}</li>
+      <ul class="flex">
+        <div class="column-flex-left">
+          <ng-container *ngFor="let store of stores; let even = even">
+            <li *ngIf="even">{{ store.name }}</li>
+          </ng-container>
+        </div>
+
+        <div class="column-flex-left">
+          <ng-container *ngFor="let store of stores; let odd = odd">
+            <li *ngIf="odd">{{ store.name }}</li>
+          </ng-container>
+        </div>
       </ul>
     </div>
   </ng-container>
