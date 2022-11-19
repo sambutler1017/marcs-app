@@ -30,11 +30,11 @@
       title="Details"
       (editClick)="onUserEditClick()"
     ></app-user-details-card>
-    <app-user-application-access-card
+    <!-- <app-user-application-access-card
       [applications]="applications"
       [loading]="loading"
       *webRoleRestrictionAccess="WebRole.SITE_ADMIN"
-    ></app-user-application-access-card>
+    ></app-user-application-access-card> -->
   </div>
   <div class="rightColumn column-half">
     <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
