@@ -40,6 +40,8 @@ export class CalendarOverviewComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
 
+  YEAR_THRESHOLD = 4;
+
   events: CalendarEvent[] = [];
   blockDates: BlockOutDate[];
   vacationClicked: Vacation;
@@ -156,7 +158,7 @@ export class CalendarOverviewComponent implements OnInit {
 
       this.events.push({
         start: startDate,
-        title: `${v.fullName} (${v.storeId})`,
+        title: `${v.fullName} (${v.storeId ? v.storeId : v.webRole})`,
         meta: { vacation: v },
       });
       hourCount[dateString[0].toString()][dateString[1]][dateString[2]]++;
@@ -167,15 +169,11 @@ export class CalendarOverviewComponent implements OnInit {
     const currentYear = new Date().getFullYear();
     let hourCount: any = {};
 
-    hourCount[(currentYear - 1).toString()] = new Array(13)
-      .fill(0)
-      .map(() => new Array(31).fill(0));
-    hourCount[currentYear.toString()] = new Array(13)
-      .fill(0)
-      .map(() => new Array(31).fill(0));
-    hourCount[(currentYear + 1).toString()] = new Array(13)
-      .fill(0)
-      .map(() => new Array(31).fill(0));
+    for (let i = -3; i < this.YEAR_THRESHOLD; i++) {
+      hourCount[(currentYear + i).toString()] = new Array(13)
+        .fill(0)
+        .map(() => new Array(31).fill(0));
+    }
 
     return hourCount;
   }
