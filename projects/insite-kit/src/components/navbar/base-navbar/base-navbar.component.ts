@@ -1,10 +1,4 @@
-import {
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewContainerRef,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Access,
@@ -14,9 +8,7 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
-import { NotificationMessageService } from 'projects/insite-kit/src/service/notification-message/notification-message.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { StompWebSocketService } from 'projects/insite-kit/src/service/stomp/stomp-websocket.service';
 import { Subject } from 'rxjs';
 import { filter, switchMap, takeUntil, tap } from 'rxjs/operators';
 @Component({
@@ -36,19 +28,12 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly notificationService: NotificationService,
     private readonly authService: AuthService,
-    private readonly jwt: JwtService,
-    private readonly stompService: StompWebSocketService,
-    private readonly notificationMessageService: NotificationMessageService,
-    @Inject(ViewContainerRef) viewContainerRef
-  ) {
-    notificationMessageService.setRootViewContainerRef(viewContainerRef);
-  }
+    private readonly jwt: JwtService
+  ) {}
 
   ngOnInit() {
-    this.stompService.init();
     this.notificationUpdates();
     this.validateNotificationAccess();
-    this.listenToWebSocket();
   }
 
   ngOnDestroy() {
@@ -72,7 +57,6 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
 
   onLogOutClick() {
     this.jwt.logOut();
-    this.stompService.deactivate();
   }
 
   getNotifications(params?: Map<string, string[]>) {
@@ -103,17 +87,6 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe((res) => (this.notificationCount = res.length));
-  }
-
-  listenToWebSocket() {
-    return this.stompService
-      .listen()
-      .pipe(
-        tap((res) => this.notificationMessageService.triggerNotification(res)),
-        tap(() => this.notificationService.triggerNotificationUpdate()),
-        takeUntil(this.destroy)
-      )
-      .subscribe();
   }
 
   getParams() {

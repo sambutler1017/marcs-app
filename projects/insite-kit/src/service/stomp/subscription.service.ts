@@ -11,7 +11,7 @@ import { STOMP_SOCKET_CONFIG } from './stomp.config';
 @Injectable({
   providedIn: 'root',
 })
-export class StompWebSocketService extends RxStomp {
+export class SubscriptionService extends RxStomp {
   private readonly SOCKET_URL = '/queue/user/notification';
 
   constructor(
@@ -50,11 +50,11 @@ export class StompWebSocketService extends RxStomp {
    * @param userSession Determines if the connection is unique to the user.
    * @returns Observable of the caught Notification object.
    */
-  listen(): Observable<Notification> {
+  listen(des: string, userSession: boolean = false): Observable<Notification> {
     return this.subscriptionSession().pipe(
       switchMap((session) =>
         super
-          .watch(this.buildSocketPath(this.SOCKET_URL, session))
+          .watch(this.buildSocketPath(des, session, userSession))
           .pipe(map((res: Message) => JSON.parse(res.body)))
       )
     );
@@ -69,8 +69,8 @@ export class StompWebSocketService extends RxStomp {
    * @param ses The unique user session id.
    * @returns String of the built socket path.
    */
-  buildSocketPath(des: string, uuid: string): string {
-    return `${des}-${uuid}`;
+  buildSocketPath(des: string, uuid: string, userSes: boolean): string {
+    return userSes ? `${des}-${uuid}` : des;
   }
 
   /**

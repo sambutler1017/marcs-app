@@ -6,7 +6,7 @@ import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
-import { StompWebSocketService } from 'projects/insite-kit/src/service/stomp/stomp-websocket.service';
+import { SubscriptionService } from 'projects/insite-kit/src/service/stomp/subscription.service';
 import { Subject } from 'rxjs';
 import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -25,7 +25,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     public notificationService: NotificationService,
     private readonly jwt: JwtService,
     private readonly router: Router,
-    private readonly stompService: StompWebSocketService
+    private readonly subscriptionService: SubscriptionService
   ) {}
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
       (res) => (this.dataLoader = res)
     );
 
-    this.stompService
+    this.subscriptionService
       .watch('/notifications')
       .pipe(
         map((res: Message) => JSON.parse(res.body)),

@@ -1,5 +1,4 @@
-import { Component, Inject, Input, ViewContainerRef } from '@angular/core';
-import { NotificationMessageService } from '../../service/notification-message/notification-message.service';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'ik-app-page',
@@ -8,11 +7,4 @@ import { NotificationMessageService } from '../../service/notification-message/n
 })
 export class AppPageComponent {
   @Input() appName: string;
-
-  constructor(
-    @Inject(NotificationMessageService) notificationMessageService,
-    @Inject(ViewContainerRef) viewContainerRef
-  ) {
-    notificationMessageService.setRootViewContainerRef(viewContainerRef);
-  }
 }

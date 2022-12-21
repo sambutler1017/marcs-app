@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { JwtModule } from '@auth0/angular-jwt';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ToastrModule } from 'ngx-toastr';
 import { AppIconCardComponent } from './components/app-icon-card/app-icon-card.component';
 import { AppPageComponent } from './components/app-page/app-page.component';
 import { BannerComponent } from './components/banner/banner.component';
@@ -29,13 +31,14 @@ import { ModalComponent } from './components/modal/modal.component';
 import { AppNavbarComponent } from './components/navbar/app-navbar/app-navbar.component';
 import { HomeImageComponent } from './components/navbar/home-navbar/home-image/home-image.component';
 import { HomeNavbarComponent } from './components/navbar/home-navbar/home-navbar.component';
-import { NotificationMessageComponent } from './components/notification-message/notification-message.component';
+import { NotificationPopupComponent } from './components/notificaiton-popup/notification-popup.component';
 import { FeatureAccessDirective } from './directives/featureAccess/feature-access.directive';
 import { WebRoleRestrictionAccessDirective } from './directives/webRoleRestrictionAccess/webRole-restriction-access.directive';
 import { UsernamePipe } from './service/pipe/format-user-name.pipe';
-import { NotificationMessagePipe } from './service/pipe/notification-message.pipe';
 import { WebRoleTranslationPipe } from './service/pipe/web-role-translation.pipe';
-import { StompWebSocketService } from './service/stomp/stomp-websocket.service';
+import { GeneralNotificationComponent } from './service/stomp/general-notification/general-notification.component';
+import { SubscriptionService } from './service/stomp/subscription.service';
+import { UserNotificationComponent } from './service/stomp/user-notification/user-notification.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -73,18 +76,23 @@ export function tokenGetter() {
     ProjectModalComponent,
     ContactAdminModalComponent,
     CheckboxComponent,
-    NotificationMessageComponent,
-    NotificationMessagePipe,
     HeaderBackComponent,
+    UserNotificationComponent,
+    GeneralNotificationComponent,
+    NotificationPopupComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
       },
+    }),
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right',
     }),
   ],
   exports: [
@@ -118,11 +126,12 @@ export function tokenGetter() {
     ProjectModalComponent,
     ContactAdminModalComponent,
     CheckboxComponent,
-    NotificationMessageComponent,
-    NotificationMessagePipe,
     HeaderBackComponent,
+    UserNotificationComponent,
+    GeneralNotificationComponent,
+    NotificationPopupComponent,
   ],
-  entryComponents: [ModalComponent, NotificationMessageComponent],
-  providers: [StompWebSocketService],
+  entryComponents: [ModalComponent],
+  providers: [SubscriptionService],
 })
 export class InsiteKitModule {}
