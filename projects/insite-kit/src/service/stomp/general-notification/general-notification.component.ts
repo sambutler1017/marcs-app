@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
+import { PopupService } from '../../notification/popup.service';
 import { SubscriptionService } from '../subscription.service';
 
 @Component({
@@ -11,7 +12,10 @@ export class GeneralNotificationComponent implements OnInit, OnDestroy {
   private readonly GENERAL_SOCKET_URL = '/topic/general/notification';
   destroy = new Subject<void>();
 
-  constructor(private readonly subscriptionService: SubscriptionService) {}
+  constructor(
+    private readonly subscriptionService: SubscriptionService,
+    private readonly popupService: PopupService
+  ) {}
 
   ngOnDestroy() {
     this.destroy.next();
@@ -22,7 +26,7 @@ export class GeneralNotificationComponent implements OnInit, OnDestroy {
     return this.subscriptionService
       .listen(this.GENERAL_SOCKET_URL)
       .pipe(
-        // tap((res) => this.popupService.showNotification(res)),
+        tap((res) => this.popupService.showNotification(res)),
         takeUntil(this.destroy)
       )
       .subscribe();
