@@ -7,6 +7,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
@@ -37,6 +38,7 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
   Feature = Feature;
   Application = App;
   Access = Access;
+  editIcon = faPenToSquare;
 
   constructor(
     private readonly vacationService: VacationService,

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import {
   Access,
   App,
@@ -24,6 +25,7 @@ export class UserDetailsCardComponent implements OnInit {
   Application = App;
   Access = Access;
   lastLoginFieldAccess = false;
+  editIcon = faPenToSquare;
 
   constructor(private readonly jwt: JwtService) {}
 

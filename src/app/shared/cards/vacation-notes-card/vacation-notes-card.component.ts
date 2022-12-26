@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
@@ -29,6 +30,7 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
   Application = App;
   Access = Access;
   VacationStatus = VacationStatus;
+  editIcon = faPenToSquare;
 
   notesModalLoading = false;
 

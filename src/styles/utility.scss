@@ -136,6 +136,12 @@ a {
   font-family: emoji, sans-serif;
 }
 
+.cursor__pointer {
+  float: right;
+  cursor: pointer;
+}
+
+
 button,
 input {
   outline: none !important;

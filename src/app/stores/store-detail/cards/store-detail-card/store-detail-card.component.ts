@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import {
   Access,
   App,
@@ -26,6 +27,7 @@ export class StoreDetailCardComponent implements OnInit {
   Feature = Feature;
   Application = App;
   Access = Access;
+  editIcon = faPenToSquare;
 
   constructor(
     private readonly storeService: StoreService,

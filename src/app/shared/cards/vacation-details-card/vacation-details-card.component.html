@@ -2,8 +2,9 @@
   <ik-card-header title="Details">
     <ng-container *ngIf="data?.status !== VacationStatus.EXPIRED">
       <ik-icon
-        icon="edit"
+        [icon]="editIcon"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        color="black"
         (click)="vacationEditModal.open()"
       ></ik-icon>
     </ng-container>

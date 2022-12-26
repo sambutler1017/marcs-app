@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import {
   Access,
   App,
@@ -32,6 +33,7 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   Application = App;
   Access = Access;
   destroy = new Subject<void>();
+  plusIcon = faPlus;
 
   constructor(
     private readonly vacationService: VacationService,

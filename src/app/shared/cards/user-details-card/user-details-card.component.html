@@ -2,8 +2,9 @@
   <ik-card-header [title]="title">
     <ng-container *ngIf="editEnabled">
       <ik-icon
-        icon="edit"
+        [icon]="editIcon"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        color="black"
         (click)="onEditIconClick()"
       ></ik-icon>
     </ng-container>

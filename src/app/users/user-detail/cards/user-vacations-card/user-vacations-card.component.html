@@ -8,12 +8,13 @@
   <ik-card-header title="Vacations">
     <ng-container *ngIf="canEdit">
       <ik-icon
-        icon="plus"
+        [icon]="plusIcon"
         *featureAccess="[
           Application.USER,
           Feature.USER_VACATION,
           Access.CREATE
         ]"
+        color="black"
         (click)="addVacationModalComponent.modal.open()"
       ></ik-icon>
     </ng-container>

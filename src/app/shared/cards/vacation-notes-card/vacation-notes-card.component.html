@@ -7,8 +7,9 @@
       "
     >
       <ik-icon
-        icon="edit"
+        [icon]="editIcon"
         *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        color="black"
         (click)="notesModal.open()"
       ></ik-icon>
     </ng-container>
