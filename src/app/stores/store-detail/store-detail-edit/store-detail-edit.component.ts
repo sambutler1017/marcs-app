@@ -70,16 +70,16 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
 
   storeSave(event: Store) {
     this.loading = true;
-    this.storeService.updateStore(this.store.id, event).subscribe(
-      (res) => {
+    this.storeService.updateStore(this.store.id, event).subscribe({
+      next: () => {
         this.router.navigate([`/store/${event.id}/details`]);
         this.toastService.success('Store sucessfully updated!');
       },
-      (err) => {
+      error: () => {
         this.router.navigate([`/store/${this.store.id}/details`]);
         this.toastService.error('Store could not be updated at this time!');
-      }
-    );
+      },
+    });
   }
 
   onModalClose() {

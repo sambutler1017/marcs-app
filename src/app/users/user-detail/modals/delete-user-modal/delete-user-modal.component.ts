@@ -23,15 +23,15 @@ export class DeleteUserModalComponent {
 
   onDeleteUser() {
     this.modalLoading = true;
-    this.userService.deleteUser(this.userId).subscribe(
-      () => {
+    this.userService.deleteUser(this.userId).subscribe({
+      next: () => {
         this.modal.close();
         this.modalLoading = false;
         this.toastService.success('User successfully deleted!');
         this.router.navigate(['/user']);
       },
-      (err) =>
-        this.toastService.success('User could not be deleted at this time!')
-    );
+      error: () =>
+        this.toastService.success('User could not be deleted at this time!'),
+    });
   }
 }

@@ -34,7 +34,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
         tap((id) => (this.userId = id)),
         takeUntil(this.destroy)
       )
-      .subscribe((user) => this.buildForm());
+      .subscribe(() => this.buildForm());
   }
 
   ngOnDestroy() {
@@ -66,16 +66,16 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     }
 
     const passUpdate = { newPassword: this.form.value.password };
-    this.userService.updateUserPasswordById(this.userId, passUpdate).subscribe(
-      (res) => {
+    this.userService.updateUserPasswordById(this.userId, passUpdate).subscribe({
+      next: () => {
         this.toastService.success('User password successfully reset!');
         this.location.back();
       },
-      () => {
+      error: () => {
         this.toastService.error('Could not reset user password at this time!');
         this.location.back();
-      }
-    );
+      },
+    });
   }
 
   validPassword() {

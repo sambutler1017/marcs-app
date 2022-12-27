@@ -93,16 +93,16 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
       })
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.updateCard(res);
           this.toastService.success('Vacation successfully updated!');
         },
-        () =>
+        error: () =>
           this.toastService.error(
             'Could not update vaction at this time. Try again later.'
-          )
-      );
+          ),
+      });
   }
 
   onDenyVacation() {

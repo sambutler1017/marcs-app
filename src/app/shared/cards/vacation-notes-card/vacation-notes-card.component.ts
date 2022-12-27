@@ -58,20 +58,20 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
     this.notesModalLoading = true;
     this.vacationService
       .updateVacationInfo(this.data.id, { notes: this.form.value.notes })
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.notesModalLoading = false;
           this.notesModal.close();
           this.data = res;
           this.toastService.success('Vacation notes successfully updated!');
         },
-        (err) => {
+        error: () => {
           this.notesModalLoading = false;
           this.notesModal.close();
           this.toastService.success(
             'Vacation notes could not be updated at this time. Please try again later.'
           );
-        }
-      );
+        },
+      });
   }
 }

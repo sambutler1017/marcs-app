@@ -77,20 +77,20 @@ export class AddUserVacationModalComponent implements OnInit {
       .pipe(
         switchMap(() => this.vacationService.getVacationsByUserId(this.userId))
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.modalLoading = false;
           this.save.emit(res);
           this.modal.close();
           this.toastService.success('Vacation sucessfully added!');
         },
-        (err) => {
+        error: () => {
           this.modalLoading = false;
           this.modal.close();
           this.toastService.success(
             'Vacation could not be added. Please try again later.'
           );
-        }
-      );
+        },
+      });
   }
 }

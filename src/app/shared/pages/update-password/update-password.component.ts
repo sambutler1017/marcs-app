@@ -67,16 +67,16 @@ export class UpdatePasswordComponent implements OnInit, OnDestroy {
       currentPassword: this.form.value.currentPassword,
     };
 
-    this.userService.updateUserPassword(passUpdate).subscribe(
-      (res) => {
+    this.userService.updateUserPassword(passUpdate).subscribe({
+      next: () => {
         this.toastService.success('User password successfully reset!');
         this.location.back();
       },
-      () => {
+      error: () => {
         this.toastService.error('Could not reset user password at this time!');
         this.location.back();
-      }
-    );
+      },
+    });
   }
 
   validPassword() {

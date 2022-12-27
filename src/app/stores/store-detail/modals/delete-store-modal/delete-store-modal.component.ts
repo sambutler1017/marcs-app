@@ -23,15 +23,15 @@ export class DeleteStoreModalComponent {
 
   onDeleteStore() {
     this.modalLoading = true;
-    this.storeService.deleteStore(this.storeId).subscribe(
-      () => {
+    this.storeService.deleteStore(this.storeId).subscribe({
+      next: () => {
         this.modal.close();
         this.modalLoading = false;
         this.toastService.success('Store successfully deleted!');
         this.router.navigate(['/store/overview']);
       },
-      (err) =>
-        this.toastService.success('Store could not be deleted at this time!')
-    );
+      error: () =>
+        this.toastService.success('Store could not be deleted at this time!'),
+    });
   }
 }

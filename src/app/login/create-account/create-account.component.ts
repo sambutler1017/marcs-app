@@ -49,18 +49,18 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
     this.buildForm();
     this.setAllowedRoles();
 
-    this.storeService.getStores().subscribe(
-      (res) => {
+    this.storeService.getStores().subscribe({
+      next: (res) => {
         this.stores = res;
         this.storesLoading = false;
       },
-      () => {
+      error: () => {
         this.toastService.error(
           'Can not create account at this time. Try again later.'
         );
         this.router.navigate(['/overview']);
-      }
-    );
+      },
+    });
   }
 
   ngOnDestroy(): void {
@@ -87,22 +87,22 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
       user.storeId = this.form.value.storeId.toUpperCase();
     }
 
-    this.userService.createUser(user).subscribe(
-      (res) => {
+    this.userService.createUser(user).subscribe({
+      next: () => {
         this.loading = false;
         this.toastService.success(
           'Account created Successfully! Once your account is approved, you will then be able to login with the email and password you provided'
         );
         this.router.navigate(['/overview']);
       },
-      (err) => {
+      error: () => {
         this.loading = false;
         this.toastService.error(
           'Account could not be created at this time. Please try again later.'
         );
         this.router.navigate(['/overview']);
-      }
-    );
+      },
+    });
   }
 
   checkEmail() {

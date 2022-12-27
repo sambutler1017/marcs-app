@@ -113,21 +113,21 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         ),
         takeUntil(this.destroy)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: () => {
           this.modalLoading = false;
           this.requestModal.close();
           this.router.navigate(['/notification/overview']);
           this.toastService.success(`Request has been successfully ${status}`);
         },
-        (err) => {
+        error: () => {
           this.modalLoading = false;
           this.requestModal.close();
           this.toastService.error(
             'Request can not be reviewed at this time. Try again later.'
           );
-        }
-      );
+        },
+      });
   }
 
   onRequestApproved() {

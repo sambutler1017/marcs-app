@@ -83,30 +83,25 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
         switchMap(() => this.vacationService.getCurrentUserVacations()),
         takeUntil(this.destroy)
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: (res) => {
           this.dataLoader = res;
-
           this.requestModal.close();
           this.loading = false;
           this.toastService.success('Vacation Request sucessfully sent!');
         },
-        (err) => {
+        error: () => {
           this.requestModal.close();
           this.loading = false;
           this.toastService.error(
             'Vacation Request could not be sent. Please try again later.'
           );
-        }
-      );
+        },
+      });
   }
 
   handleRowClick(event: any) {
-    this.vacationInfoModalLoading = true;
     this.vacationDetailsModal.open();
-    this.vacationService.getVacationById(event.id).subscribe((res) => {
-      this.vacationInfo = res;
-      this.vacationInfoModalLoading = false;
-    });
+    this.vacationInfo = event;
   }
 }

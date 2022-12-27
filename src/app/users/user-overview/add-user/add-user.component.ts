@@ -53,16 +53,16 @@ export class AddUserComponent implements OnInit {
   }
 
   userProfileSave(user: User) {
-    this.userService.addUser(user).subscribe(
-      (res) => {
+    this.userService.addUser(user).subscribe({
+      next: (res) => {
         this.router.navigate([`/user/${res.id}/details`]);
         this.toastService.success('User Successfully created!');
       },
-      (err) => {
+      error: () => {
         this.toastService.error('User could not be created!');
         this.loading = false;
-      }
-    );
+      },
+    });
   }
 
   checkStoreHasManager(user: User) {
@@ -101,18 +101,18 @@ export class AddUserComponent implements OnInit {
           )
         )
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: () => {
           this.managerChangeModal.close();
           this.router.navigate([`/user/${newUser.id}/details`]);
           this.toastService.success('User Successfully created!');
         },
-        (err) => {
+        error: () => {
           this.resetStatus();
           this.managerChangeModal.close();
           this.toastService.error('User could not be created at this time!');
-        }
-      );
+        },
+      });
   }
 
   checkUserRoleManager(user: User): boolean {

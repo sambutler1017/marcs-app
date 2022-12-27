@@ -46,15 +46,15 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
     this.userService
       .updateUserProfile(user)
       .pipe(switchMap(() => this.authService.reauthenticate()))
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.onCancelClick();
           this.toastService.success('Profile Successfully updated!');
         },
-        (err) => {
+        error: () => {
           this.toastService.error('Profile could not be updated at this time!');
           this.loading = false;
-        }
-      );
+        },
+      });
   }
 }

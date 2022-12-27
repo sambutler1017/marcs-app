@@ -63,20 +63,20 @@ export class UserVacationsDetailComponent implements OnInit, OnDestroy {
 
   onDeleteVacation() {
     this.loading = true;
-    this.vacationService.deleteVacationById(this.vacationId).subscribe(
-      (res) => {
+    this.vacationService.deleteVacationById(this.vacationId).subscribe({
+      next: () => {
         this.loading = false;
         this.deleteVacationModal.close();
         this.toastService.success('Vacation sucessfully deleted!');
         this.location.back();
       },
-      (err) => {
+      error: () => {
         this.loading = false;
         this.deleteVacationModal.close();
         this.toastService.success(
           'Vacation could not be deleted. Try again later.'
         );
-      }
-    );
+      },
+    });
   }
 }

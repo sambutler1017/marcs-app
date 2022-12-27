@@ -96,16 +96,16 @@ export class EditUserComponent implements OnInit, OnDestroy {
   }
 
   userProfileSave(user: User) {
-    this.getUserSaveObservable(user).subscribe(
-      () => {
+    this.getUserSaveObservable(user).subscribe({
+      next: () => {
         this.onCancelClick();
         this.toastService.success('User Successfully updated!');
       },
-      (err) => {
+      error: () => {
         this.toastService.error('User could not be updated at this time!');
         this.loading = false;
-      }
-    );
+      },
+    });
   }
 
   onManagerConfirm() {
@@ -114,25 +114,25 @@ export class EditUserComponent implements OnInit, OnDestroy {
 
     this.getUserSaveObservable(this.currentUpdatedInfo)
       .pipe(
-        switchMap((res) =>
+        switchMap(() =>
           this.storeService.updateStoreManagerOfStore(
             this.userId,
             this.currentUpdatedInfo.storeId
           )
         )
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: () => {
           this.managerChangeModal.close();
           this.onCancelClick();
           this.toastService.success('User Successfully updated!');
         },
-        (err) => {
+        error: () => {
           this.resetStatus();
           this.managerChangeModal.close();
           this.toastService.error('User could not be updated at this time!');
-        }
-      );
+        },
+      });
   }
 
   getUserSaveObservable(user: User) {

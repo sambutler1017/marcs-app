@@ -70,18 +70,18 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
     this.jwt.setToken(this.token);
     this.userService
       .resetUserPassword({ newPassword: this.form.value.newPassword })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.toastService.success('Password has successfully been reset!');
           this.jwt.logOut();
         },
-        () => {
+        error: () => {
           this.toastService.error(
             'Could not reset password at this time. Please try again later.'
           );
           this.jwt.logOut();
-        }
-      );
+        },
+      });
   }
 
   validPassword() {

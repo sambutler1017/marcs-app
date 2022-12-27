@@ -111,19 +111,19 @@ export class BlockDateDetailModalComponent implements OnInit {
         startDate: this.form.value.startDate,
         endDate: this.form.value.endDate,
       })
-      .subscribe(
-        () => {
+      .subscribe({
+        next: () => {
           this.modal.close();
           this.form.reset();
           this.toastService.success('Block out date successfully updated!');
           this.update.emit();
         },
-        (err) => {
+        error: () => {
           this.modal.close();
           this.toastService.error(
             'Could not update block out date at this time!'
           );
-        }
-      );
+        },
+      });
   }
 }

@@ -47,21 +47,21 @@ export class ForgotPasswordComponent implements OnInit {
         }),
         switchMap(() => this.userService.forgotPassword(this.form.value.email))
       )
-      .subscribe(
-        (res) => {
+      .subscribe({
+        next: () => {
           this.loading = false;
           this.toastService.success(
             'Email has sucessfully been sent! Please follow the instructions to reset your password.'
           );
           this.router.navigate(['/login/overview']);
         },
-        () => {
+        error: () => {
           this.loading = false;
           this.toastService.error(
             'Could not send email! Please try again later.'
           );
           this.router.navigate(['login/overview']);
-        }
-      );
+        },
+      });
   }
 }

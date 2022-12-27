@@ -24,17 +24,17 @@ export class AddStoreComponent {
   }
 
   onSaveClick(event: Store) {
-    this.storeService.createStore(event).subscribe(
-      (res) => {
+    this.storeService.createStore(event).subscribe({
+      next: () => {
         this.router.navigate([`/store/${event.id}/details`]);
         this.toastService.success(
           `${event.name} store has successfully been created!`
         );
       },
-      (err) => {
+      error: () => {
         this.router.navigate([`/store/overview`]);
         this.toastService.error('Could not create store at this time!');
-      }
-    );
+      },
+    });
   }
 }

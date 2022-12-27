@@ -22,20 +22,20 @@ export class ReportsOverviewComponent {
     this.disableDownloads = true;
     this.userReportsService
       .generateUserProfileReport(this.userReportsService.getReportAccessMap())
-      .subscribe(
-        (report) => this.downloadSuccess(report, 'user-reports'),
-        (error) => this.downloadError()
-      );
+      .subscribe({
+        next: (report) => this.downloadSuccess(report, 'user-reports'),
+        error: () => this.downloadError(),
+      });
   }
 
   onUserVacationDownloadClick() {
     this.disableDownloads = true;
     this.vacationReportsService
       .generateUserVacationsReport(this.userReportsService.getReportAccessMap())
-      .subscribe(
-        (report) => this.downloadSuccess(report, 'vacation-reports'),
-        (error) => this.downloadError()
-      );
+      .subscribe({
+        next: (report) => this.downloadSuccess(report, 'vacation-reports'),
+        error: () => this.downloadError(),
+      });
   }
 
   downloadSuccess(res: any, fileName: string) {

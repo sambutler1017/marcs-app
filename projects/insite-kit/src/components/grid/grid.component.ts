@@ -25,9 +25,9 @@ import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
 })
 export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChildren(GridColumnComponent) columns: QueryList<GridColumnComponent>;
-  @ContentChild(GridPagerComponent) pager: GridPagerComponent;
-  @ContentChild(GridShowAllComponent) showAll: GridShowAllComponent;
-  @ContentChild(GridSearchComponent) search: GridSearchComponent;
+  @ContentChild(GridPagerComponent) gridPager: GridPagerComponent;
+  @ContentChild(GridShowAllComponent) gridShowAll: GridShowAllComponent;
+  @ContentChild(GridSearchComponent) gridSearch: GridSearchComponent;
 
   @Input() dataLoader: any[] = [];
   @Input() translationKey: any;
@@ -37,6 +37,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @Input() overflowEnabled = false;
   @Input() storageTag = 'gridCurrentPage';
   @Input() alwaysDestroy = false;
+  @Input() idTag = 'id';
 
   @Output() rowClick = new EventEmitter<any>();
 
@@ -79,8 +80,20 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.gridIndex = Number(localStorage.getItem(this.storageTag)) | 0;
     this.loading = false;
 
-    if (this.pager) {
-      this.pager.initPager(
+    this.addGridPager();
+    this.addGridShowAll();
+    this.addGridSearch();
+    this.getPageData();
+    this.listenToRoute();
+  }
+
+  refresh() {
+    this.loading = true;
+  }
+
+  addGridPager() {
+    if (this.gridPager) {
+      this.gridPager.initPager(
         this.dataLoader.length,
         this.gridIndex,
         this.pageSize,
@@ -90,24 +103,25 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     } else {
       this.gridIndex = 0;
     }
-
-    if (this.showAll) {
-      this.showAll.init(this.dataLoader.length);
-    }
-
-    if (this.search) {
-      this.search.search.pipe(takeUntil(this.destroy)).subscribe(() => {
-        this.loading = true;
-        this.pager.updateRoute(0);
-      });
-    }
-
-    this.getPageData();
-    this.listenToRoute();
   }
 
-  refresh() {
-    this.loading = true;
+  addGridShowAll() {
+    if (this.gridShowAll) {
+      this.gridShowAll.init(this.dataLoader.length);
+    }
+  }
+
+  addGridSearch() {
+    if (this.gridSearch) {
+      this.gridSearch.search.pipe(takeUntil(this.destroy)).subscribe(() => {
+        this.loading = true;
+        this.gridPager.updateRoute(0);
+      });
+    }
+  }
+
+  getDataById(id: any) {
+    return this.dataLoader.find((v) => v[this.idTag] === id);
   }
 
   listenToRoute() {
@@ -137,8 +151,8 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
       this.gridContent.push(Object.values(this.getRowData(this.gridIndex++)));
     }
 
-    if (this.pager) {
-      this.pager.updatePageFooter(this.gridIndex);
+    if (this.gridPager) {
+      this.gridPager.updatePageFooter(this.gridIndex);
     }
   }
 

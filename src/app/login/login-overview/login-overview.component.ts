@@ -25,15 +25,15 @@ export class LoginOverviewComponent {
     const password = this.password.nativeElement.value;
     this.loading = true;
 
-    this.auth.authenticate(email, password).subscribe(
-      () => {
+    this.auth.authenticate(email, password).subscribe({
+      next: () => {
         this.router.navigate(['/home']);
         this.loading = false;
       },
-      (error) => {
+      error: () => {
         this.toastService.error('Invalid email or password!');
         this.loading = false;
-      }
-    );
+      },
+    });
   }
 }

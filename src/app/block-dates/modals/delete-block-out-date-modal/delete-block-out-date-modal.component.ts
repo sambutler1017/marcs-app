@@ -28,20 +28,20 @@ export class DeleteBlockOutDateModalComponent {
 
   onDeleteBlockOutDate() {
     this.loading = true;
-    this.blockDatesService.deleteBlockOutDate(this.blockDateId).subscribe(
-      () => {
+    this.blockDatesService.deleteBlockOutDate(this.blockDateId).subscribe({
+      next: () => {
         this.modal.close();
         this.loading = false;
         this.toastService.success('Block out date successfully deleted!');
         this.delete.emit();
       },
-      (err) => {
+      error: () => {
         this.modal.close();
         this.loading = false;
         this.toastService.error(
           'Could not delete block out date at this time!'
         );
-      }
-    );
+      },
+    });
   }
 }

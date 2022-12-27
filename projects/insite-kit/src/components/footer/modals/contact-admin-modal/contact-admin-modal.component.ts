@@ -33,20 +33,20 @@ export class ContactAdminModalComponent implements OnInit {
 
   sendMessage() {
     this.loading = true;
-    this.emailService.sendContactAdminEmail(this.form.value.message).subscribe(
-      (res) => {
+    this.emailService.sendContactAdminEmail(this.form.value.message).subscribe({
+      next: () => {
         this.reset();
         this.toastService.success(
           'Email successfully sent! We will get back to you as soon as possible!'
         );
       },
-      (err) => {
+      error: () => {
         this.reset();
         this.toastService.error(
           'Email could not be sent at this time! Please try again later.'
         );
-      }
-    );
+      },
+    });
   }
 
   reset() {
