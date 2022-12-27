@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -39,7 +39,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
     private readonly storeService: StoreService,
     private readonly userService: UserService,
     private readonly router: Router,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly fb: FormBuilder
   ) {}
 
@@ -55,7 +55,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
         this.storesLoading = false;
       },
       error: () => {
-        this.toastService.error(
+        this.popupService.error(
           'Can not create account at this time. Try again later.'
         );
         this.router.navigate(['/overview']);
@@ -69,7 +69,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
 
   onCreateAccount() {
     if (this.form.value.password.toString().trim().length < 8) {
-      this.toastService.error('Password must be at least 8 characters long.');
+      this.popupService.error('Password must be at least 8 characters long.');
       return;
     }
 
@@ -90,14 +90,14 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
     this.userService.createUser(user).subscribe({
       next: () => {
         this.loading = false;
-        this.toastService.success(
+        this.popupService.success(
           'Account created Successfully! Once your account is approved, you will then be able to login with the email and password you provided'
         );
         this.router.navigate(['/overview']);
       },
       error: () => {
         this.loading = false;
-        this.toastService.error(
+        this.popupService.error(
           'Account could not be created at this time. Please try again later.'
         );
         this.router.navigate(['/overview']);
@@ -116,7 +116,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
           this.emailExist = doesExist;
           if (doesExist) {
             this.setEmailIconClose();
-            this.toastService.warning(
+            this.popupService.warning(
               `The email already exists. Please sign in or choose forgot password to recover your account.`
             );
           } else if (this.form.controls.email.invalid) {

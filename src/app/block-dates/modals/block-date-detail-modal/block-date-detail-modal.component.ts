@@ -8,7 +8,6 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import {
@@ -18,6 +17,7 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { DeleteBlockOutDateModalComponent } from '../delete-block-out-date-modal/delete-block-out-date-modal.component';
@@ -48,7 +48,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly blockDatesService: BlockDatesService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly authService: AuthService
   ) {}
 
@@ -115,12 +115,12 @@ export class BlockDateDetailModalComponent implements OnInit {
         next: () => {
           this.modal.close();
           this.form.reset();
-          this.toastService.success('Block out date successfully updated!');
+          this.popupService.success('Block out date successfully updated!');
           this.update.emit();
         },
         error: () => {
           this.modal.close();
-          this.toastService.error(
+          this.popupService.error(
             'Could not update block out date at this time!'
           );
         },

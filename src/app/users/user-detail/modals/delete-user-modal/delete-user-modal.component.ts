@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class DeleteUserModalComponent {
 
   constructor(
     private readonly userService: UserService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly router: Router
   ) {}
 
@@ -27,11 +27,11 @@ export class DeleteUserModalComponent {
       next: () => {
         this.modal.close();
         this.modalLoading = false;
-        this.toastService.success('User successfully deleted!');
+        this.popupService.success('User successfully deleted!');
         this.router.navigate(['/user']);
       },
       error: () =>
-        this.toastService.success('User could not be deleted at this time!'),
+        this.popupService.success('User could not be deleted at this time!'),
     });
   }
 }

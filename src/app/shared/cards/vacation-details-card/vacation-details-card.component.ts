@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
@@ -18,6 +17,7 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
@@ -43,7 +43,7 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
   constructor(
     private readonly vacationService: VacationService,
     private readonly fb: FormBuilder,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnChanges() {
@@ -96,10 +96,10 @@ export class VacationDetailsCardComponent implements OnChanges, OnDestroy {
       .subscribe({
         next: (res) => {
           this.updateCard(res);
-          this.toastService.success('Vacation successfully updated!');
+          this.popupService.success('Vacation successfully updated!');
         },
         error: () =>
-          this.toastService.error(
+          this.popupService.error(
             'Could not update vaction at this time. Try again later.'
           ),
       });

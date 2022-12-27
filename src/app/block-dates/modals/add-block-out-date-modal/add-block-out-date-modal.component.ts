@@ -7,8 +7,8 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 
@@ -28,7 +28,7 @@ export class AddBlockOutDateModalComponent implements OnInit {
   constructor(
     private readonly fb: FormBuilder,
     private readonly blockDatesService: BlockDatesService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnInit() {
@@ -73,12 +73,12 @@ export class AddBlockOutDateModalComponent implements OnInit {
           this.modal.close();
           this.loading = false;
           this.save.emit();
-          this.toastService.success('Block out date successfully updated!');
+          this.popupService.success('Block out date successfully updated!');
         },
         error: () => {
           this.modal.close();
           this.loading = false;
-          this.toastService.error(
+          this.popupService.error(
             'Could not update block out date at this time!'
           );
         },

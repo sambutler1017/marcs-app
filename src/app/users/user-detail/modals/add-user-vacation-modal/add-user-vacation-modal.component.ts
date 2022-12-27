@@ -8,9 +8,9 @@ import {
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { VacationStatus } from 'projects/insite-kit/src/models/common.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -31,7 +31,7 @@ export class AddUserVacationModalComponent implements OnInit {
 
   constructor(
     private readonly vacationService: VacationService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly fb: FormBuilder
   ) {}
 
@@ -82,12 +82,12 @@ export class AddUserVacationModalComponent implements OnInit {
           this.modalLoading = false;
           this.save.emit(res);
           this.modal.close();
-          this.toastService.success('Vacation sucessfully added!');
+          this.popupService.success('Vacation sucessfully added!');
         },
         error: () => {
           this.modalLoading = false;
           this.modal.close();
-          this.toastService.success(
+          this.popupService.success(
             'Vacation could not be added. Please try again later.'
           );
         },

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
@@ -17,6 +16,7 @@ import {
 import { AccountStatus, User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { iif, Observable, of, Subject } from 'rxjs';
 import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -46,9 +46,9 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
     private readonly activeRoute: ActivatedRoute,
     private readonly userService: UserService,
     private readonly vacationService: VacationService,
-    public notificationService: NotificationService,
+    private readonly notificationService: NotificationService,
     private readonly fb: FormBuilder,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly router: Router
   ) {}
 
@@ -118,12 +118,12 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
           this.modalLoading = false;
           this.requestModal.close();
           this.router.navigate(['/notification/overview']);
-          this.toastService.success(`Request has been successfully ${status}`);
+          this.popupService.success(`Request has been successfully ${status}`);
         },
         error: () => {
           this.modalLoading = false;
           this.requestModal.close();
-          this.toastService.error(
+          this.popupService.error(
             'Request can not be reviewed at this time. Try again later.'
           );
         },

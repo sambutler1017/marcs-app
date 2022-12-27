@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { filter, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -18,7 +18,7 @@ export class ForgotPasswordComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly userService: UserService,
     private readonly router: Router,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnInit() {
@@ -38,7 +38,7 @@ export class ForgotPasswordComponent implements OnInit {
       .pipe(
         filter((status) => {
           if (!status) {
-            this.toastService.error(
+            this.popupService.error(
               'The given email does not exist in our records. Please check that you typed in the email right.'
             );
             this.loading = false;
@@ -50,14 +50,14 @@ export class ForgotPasswordComponent implements OnInit {
       .subscribe({
         next: () => {
           this.loading = false;
-          this.toastService.success(
+          this.popupService.success(
             'Email has sucessfully been sent! Please follow the instructions to reset your password.'
           );
           this.router.navigate(['/login/overview']);
         },
         error: () => {
           this.loading = false;
-          this.toastService.error(
+          this.popupService.error(
             'Could not send email! Please try again later.'
           );
           this.router.navigate(['login/overview']);

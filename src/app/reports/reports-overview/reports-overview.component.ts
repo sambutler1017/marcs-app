@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { saveAs } from 'file-saver';
-import { ToastrService } from 'ngx-toastr';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { UserReportsService } from 'src/service/reports-service/user-reports.service';
 import { VacationReportsService } from 'src/service/reports-service/vacation-reports.service';
 
@@ -15,7 +15,7 @@ export class ReportsOverviewComponent {
   constructor(
     private readonly userReportsService: UserReportsService,
     private readonly vacationReportsService: VacationReportsService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   onUserDownloadClick() {
@@ -41,12 +41,12 @@ export class ReportsOverviewComponent {
   downloadSuccess(res: any, fileName: string) {
     saveAs(res, `${fileName}-${new Date().getTime()}.csv`);
     this.disableDownloads = false;
-    this.toastService.success('Report downloaded successfully!');
+    this.popupService.success('Report downloaded successfully!');
   }
 
   downloadError() {
     this.disableDownloads = false;
-    this.toastService.error(
+    this.popupService.error(
       'Report could not be downloaded at this time. Try again later.'
     );
   }

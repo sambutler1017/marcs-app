@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { PopupService } from '../popup/popup.service';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class FeatureAccessGuard implements CanActivate {
   constructor(
     private router: Router,
     private readonly authService: AuthService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
   canActivate(next: ActivatedRouteSnapshot): Observable<boolean> {
     return this.hasFeatureAccess(next);
@@ -36,7 +36,7 @@ export class FeatureAccessGuard implements CanActivate {
    */
   determineRoute(access: boolean, route: ActivatedRouteSnapshot) {
     if (!access) {
-      this.toastService.warning(
+      this.popupService.warning(
         'You do not have permission to access that page.'
       );
       this.router.navigate([route.parent.routeConfig.path]);

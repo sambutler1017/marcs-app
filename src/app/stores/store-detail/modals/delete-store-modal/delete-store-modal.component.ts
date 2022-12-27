@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { StoreService } from 'src/service/store-service/store.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class DeleteStoreModalComponent {
 
   constructor(
     private readonly storeService: StoreService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly router: Router
   ) {}
 
@@ -27,11 +27,11 @@ export class DeleteStoreModalComponent {
       next: () => {
         this.modal.close();
         this.modalLoading = false;
-        this.toastService.success('Store successfully deleted!');
+        this.popupService.success('Store successfully deleted!');
         this.router.navigate(['/store/overview']);
       },
       error: () =>
-        this.toastService.success('Store could not be deleted at this time!'),
+        this.popupService.success('Store could not be deleted at this time!'),
     });
   }
 }

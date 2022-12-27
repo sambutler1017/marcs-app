@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -27,7 +27,7 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly storeService: StoreService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly router: Router,
     private readonly location: Location,
     private readonly route: ActivatedRoute
@@ -73,11 +73,11 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
     this.storeService.updateStore(this.store.id, event).subscribe({
       next: () => {
         this.router.navigate([`/store/${event.id}/details`]);
-        this.toastService.success('Store sucessfully updated!');
+        this.popupService.success('Store sucessfully updated!');
       },
       error: () => {
         this.router.navigate([`/store/${this.store.id}/details`]);
-        this.toastService.error('Store could not be updated at this time!');
+        this.popupService.error('Store could not be updated at this time!');
       },
     });
   }

@@ -1,11 +1,11 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { of, Subject } from 'rxjs';
 import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -27,9 +27,9 @@ export class EditUserComponent implements OnInit, OnDestroy {
   disableSave = false;
 
   constructor(
-    private location: Location,
-    private toastService: ToastrService,
-    private userService: UserService,
+    private readonly location: Location,
+    private readonly popupService: PopupService,
+    private readonly userService: UserService,
     private readonly storeService: StoreService,
     private readonly route: ActivatedRoute,
     private readonly jwt: JwtService
@@ -99,10 +99,10 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.getUserSaveObservable(user).subscribe({
       next: () => {
         this.onCancelClick();
-        this.toastService.success('User Successfully updated!');
+        this.popupService.success('User Successfully updated!');
       },
       error: () => {
-        this.toastService.error('User could not be updated at this time!');
+        this.popupService.error('User could not be updated at this time!');
         this.loading = false;
       },
     });
@@ -125,12 +125,12 @@ export class EditUserComponent implements OnInit, OnDestroy {
         next: () => {
           this.managerChangeModal.close();
           this.onCancelClick();
-          this.toastService.success('User Successfully updated!');
+          this.popupService.success('User Successfully updated!');
         },
         error: () => {
           this.resetStatus();
           this.managerChangeModal.close();
-          this.toastService.error('User could not be updated at this time!');
+          this.popupService.error('User could not be updated at this time!');
         },
       });
   }

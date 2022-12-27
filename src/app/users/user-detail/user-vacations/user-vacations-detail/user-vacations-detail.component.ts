@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
@@ -29,7 +29,7 @@ export class UserVacationsDetailComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly vacationService: VacationService,
     private readonly blockDatesService: BlockDatesService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnInit(): void {
@@ -67,13 +67,13 @@ export class UserVacationsDetailComponent implements OnInit, OnDestroy {
       next: () => {
         this.loading = false;
         this.deleteVacationModal.close();
-        this.toastService.success('Vacation sucessfully deleted!');
+        this.popupService.success('Vacation sucessfully deleted!');
         this.location.back();
       },
       error: () => {
         this.loading = false;
         this.deleteVacationModal.close();
-        this.toastService.success(
+        this.popupService.success(
           'Vacation could not be deleted. Try again later.'
         );
       },

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { PopupService } from '../../notification/popup.service';
+import { PopupService } from '../../popup/popup.service';
 import { SubscriptionService } from '../subscription.service';
 
 @Component({

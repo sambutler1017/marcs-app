@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { Store } from 'projects/insite-kit/src/models/store.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { StoreService } from 'src/service/store-service/store.service';
 
 @Component({
@@ -13,10 +13,10 @@ export class AddStoreComponent {
   loading = false;
 
   constructor(
-    private storeService: StoreService,
-    private toastService: ToastrService,
-    private router: Router,
-    private location: Location
+    private readonly storeService: StoreService,
+    private readonly popupService: PopupService,
+    private readonly router: Router,
+    private readonly location: Location
   ) {}
 
   onCancelClick() {
@@ -27,13 +27,13 @@ export class AddStoreComponent {
     this.storeService.createStore(event).subscribe({
       next: () => {
         this.router.navigate([`/store/${event.id}/details`]);
-        this.toastService.success(
+        this.popupService.success(
           `${event.name} store has successfully been created!`
         );
       },
       error: () => {
         this.router.navigate([`/store/overview`]);
-        this.toastService.error('Could not create store at this time!');
+        this.popupService.error('Could not create store at this time!');
       },
     });
   }

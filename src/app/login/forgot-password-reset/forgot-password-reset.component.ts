@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { of, Subject } from 'rxjs';
 import { catchError, map, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -22,7 +22,7 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
     private router: Router,
     private readonly userService: UserService,
     private readonly jwt: JwtService,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute
   ) {}
@@ -72,11 +72,11 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
       .resetUserPassword({ newPassword: this.form.value.newPassword })
       .subscribe({
         next: () => {
-          this.toastService.success('Password has successfully been reset!');
+          this.popupService.success('Password has successfully been reset!');
           this.jwt.logOut();
         },
         error: () => {
-          this.toastService.error(
+          this.popupService.error(
             'Could not reset password at this time. Please try again later.'
           );
           this.jwt.logOut();
@@ -86,12 +86,12 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
 
   validPassword() {
     if (!this.passwordsMatch()) {
-      this.toastService.error('Passwords do not match!');
+      this.popupService.error('Passwords do not match!');
       return false;
     }
 
     if (this.form.value.newPassword.toString().length < 8) {
-      this.toastService.error(
+      this.popupService.error(
         'Password needs to have a length of at least 8 characters.'
       );
       return false;

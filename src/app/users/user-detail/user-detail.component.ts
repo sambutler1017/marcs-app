@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import {
   Access,
@@ -10,6 +9,7 @@ import {
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { CommonService } from 'projects/insite-kit/src/service/common/common.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -40,7 +40,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   constructor(
     private readonly userService: UserService,
     private readonly activeRoute: ActivatedRoute,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly commonService: CommonService,
     private readonly router: Router
   ) {}
@@ -61,7 +61,7 @@ export class UserDetailComponent implements OnInit, OnDestroy {
         },
         error: () => {
           this.onBackClick();
-          this.toastService.error(
+          this.popupService.error(
             'Could not load user details at this time. Try again later.'
           );
         },

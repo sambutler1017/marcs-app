@@ -1,10 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -23,7 +23,7 @@ export class AddUserComponent implements OnInit {
 
   constructor(
     private readonly location: Location,
-    private readonly toastService: ToastrService,
+    private readonly popupService: PopupService,
     private readonly userService: UserService,
     private readonly storeService: StoreService,
     private readonly router: Router
@@ -56,10 +56,10 @@ export class AddUserComponent implements OnInit {
     this.userService.addUser(user).subscribe({
       next: (res) => {
         this.router.navigate([`/user/${res.id}/details`]);
-        this.toastService.success('User Successfully created!');
+        this.popupService.success('User Successfully created!');
       },
       error: () => {
-        this.toastService.error('User could not be created!');
+        this.popupService.error('User could not be created!');
         this.loading = false;
       },
     });
@@ -105,12 +105,12 @@ export class AddUserComponent implements OnInit {
         next: () => {
           this.managerChangeModal.close();
           this.router.navigate([`/user/${newUser.id}/details`]);
-          this.toastService.success('User Successfully created!');
+          this.popupService.success('User Successfully created!');
         },
         error: () => {
           this.resetStatus();
           this.managerChangeModal.close();
-          this.toastService.error('User could not be created at this time!');
+          this.popupService.error('User could not be created at this time!');
         },
       });
   }

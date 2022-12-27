@@ -1,8 +1,8 @@
 import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -18,9 +18,9 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
   destroy = new Subject<void>();
 
   constructor(
-    private location: Location,
-    private toastService: ToastrService,
-    private userService: UserService,
+    private readonly location: Location,
+    private readonly popupService: PopupService,
+    private readonly userService: UserService,
     private readonly authService: AuthService
   ) {}
 
@@ -49,10 +49,10 @@ export class ProfileEditComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.onCancelClick();
-          this.toastService.success('Profile Successfully updated!');
+          this.popupService.success('Profile Successfully updated!');
         },
         error: () => {
-          this.toastService.error('Profile could not be updated at this time!');
+          this.popupService.error('Profile could not be updated at this time!');
           this.loading = false;
         },
       });

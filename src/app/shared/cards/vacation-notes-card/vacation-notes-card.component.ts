@@ -1,7 +1,6 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
@@ -11,6 +10,7 @@ import {
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 @Component({
@@ -37,7 +37,7 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
   constructor(
     private readonly fb: FormBuilder,
     private readonly vacationService: VacationService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnInit() {
@@ -63,12 +63,12 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
           this.notesModalLoading = false;
           this.notesModal.close();
           this.data = res;
-          this.toastService.success('Vacation notes successfully updated!');
+          this.popupService.success('Vacation notes successfully updated!');
         },
         error: () => {
           this.notesModalLoading = false;
           this.notesModal.close();
-          this.toastService.success(
+          this.popupService.success(
             'Vacation notes could not be updated at this time. Please try again later.'
           );
         },

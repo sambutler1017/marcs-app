@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 
 @Component({
   selector: 'app-login-overview',
@@ -15,9 +15,9 @@ export class LoginOverviewComponent {
   loading = false;
 
   constructor(
-    private auth: AuthService,
-    private router: Router,
-    private readonly toastService: ToastrService
+    private readonly auth: AuthService,
+    private readonly router: Router,
+    private readonly popupService: PopupService
   ) {}
 
   public login() {
@@ -31,7 +31,7 @@ export class LoginOverviewComponent {
         this.loading = false;
       },
       error: () => {
-        this.toastService.error('Invalid email or password!');
+        this.popupService.error('Invalid email or password!');
         this.loading = false;
       },
     });

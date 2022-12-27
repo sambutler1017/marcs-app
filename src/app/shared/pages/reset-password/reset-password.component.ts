@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { map, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
@@ -19,9 +19,9 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
   destroy = new Subject<void>();
 
   constructor(
-    private location: Location,
-    private toastService: ToastrService,
-    private userService: UserService,
+    private readonly location: Location,
+    private readonly popupService: PopupService,
+    private readonly userService: UserService,
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute
   ) {}
@@ -68,11 +68,11 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
     const passUpdate = { newPassword: this.form.value.password };
     this.userService.updateUserPasswordById(this.userId, passUpdate).subscribe({
       next: () => {
-        this.toastService.success('User password successfully reset!');
+        this.popupService.success('User password successfully reset!');
         this.location.back();
       },
       error: () => {
-        this.toastService.error('Could not reset user password at this time!');
+        this.popupService.error('Could not reset user password at this time!');
         this.location.back();
       },
     });
@@ -80,12 +80,12 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
 
   validPassword() {
     if (!this.passwordsMatch()) {
-      this.toastService.error('Passwords do not match!');
+      this.popupService.error('Passwords do not match!');
       return false;
     }
 
     if (this.form.value.password.toString().length < 8) {
-      this.toastService.error(
+      this.popupService.error(
         'Password needs to have a length of at least 8 characters.'
       );
       return false;

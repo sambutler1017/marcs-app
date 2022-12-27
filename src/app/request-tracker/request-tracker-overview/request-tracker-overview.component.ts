@@ -1,9 +1,9 @@
 import { formatDate } from '@angular/common';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { RequestTrackerGridComponent } from 'src/app/shared/grids/request-tracker-grid/request-tracker-grid.component';
@@ -29,7 +29,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
   constructor(
     private readonly vacationService: VacationService,
     private readonly fb: FormBuilder,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   ngOnInit() {
@@ -88,12 +88,12 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
           this.dataLoader = res;
           this.requestModal.close();
           this.loading = false;
-          this.toastService.success('Vacation Request sucessfully sent!');
+          this.popupService.success('Vacation Request sucessfully sent!');
         },
         error: () => {
           this.requestModal.close();
           this.loading = false;
-          this.toastService.error(
+          this.popupService.error(
             'Vacation Request could not be sent. Please try again later.'
           );
         },

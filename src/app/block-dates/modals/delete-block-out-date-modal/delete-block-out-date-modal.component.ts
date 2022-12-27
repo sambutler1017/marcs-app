@@ -5,8 +5,8 @@ import {
   Output,
   ViewChild,
 } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
+import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class DeleteBlockOutDateModalComponent {
 
   constructor(
     private readonly blockDatesService: BlockDatesService,
-    private readonly toastService: ToastrService
+    private readonly popupService: PopupService
   ) {}
 
   onDeleteBlockOutDate() {
@@ -32,13 +32,13 @@ export class DeleteBlockOutDateModalComponent {
       next: () => {
         this.modal.close();
         this.loading = false;
-        this.toastService.success('Block out date successfully deleted!');
+        this.popupService.success('Block out date successfully deleted!');
         this.delete.emit();
       },
       error: () => {
         this.modal.close();
         this.loading = false;
-        this.toastService.error(
+        this.popupService.error(
           'Could not delete block out date at this time!'
         );
       },
