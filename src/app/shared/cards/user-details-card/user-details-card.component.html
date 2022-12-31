@@ -44,7 +44,7 @@
       <ik-card-info
         [contentColor]="user?.appAccess ? 'text-success' : 'text-danger'"
         header="Access"
-        [text]="user?.appAccess ? 'Has Access' : 'Does not have App Access'"
+        [text]="user?.appAccess ? 'GRANTED' : 'DENIED'"
       ></ik-card-info>
     </div>
   </div>
@@ -60,7 +60,7 @@
     <div class="right-column" *ngIf="lastLoginFieldAccess">
       <ik-card-info
         header="Last Login"
-        [text]="user?.lastLoginDate | date: 'mediumDate'"
+        [text]="user?.lastLoginDate | date: 'MMMM d, y, h:mm a'"
       ></ik-card-info>
     </div>
   </div>

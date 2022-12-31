@@ -87,7 +87,7 @@ export class AddUserVacationModalComponent implements OnInit {
         error: () => {
           this.modalLoading = false;
           this.modal.close();
-          this.popupService.success(
+          this.popupService.error(
             'Vacation could not be added. Please try again later.'
           );
         },
