@@ -6,21 +6,22 @@ import {
   Access,
   App,
   Feature,
-  VacationStatus,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import {
   Notification,
   NotificationType,
 } from 'projects/insite-kit/src/models/notification.model';
-import { AccountStatus, User } from 'projects/insite-kit/src/models/user.model';
+import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { iif, Observable, of, Subject } from 'rxjs';
+import { iif, of, Subject } from 'rxjs';
 import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
+import { NotificationDetailUserComponent } from './detail-user/detail-user.component';
+import { NotificationDetailVactionComponent } from './detail-vacation/detail-vacation.component';
 
 @Component({
   selector: 'app-notification-detail',
@@ -29,6 +30,10 @@ import { VacationService } from 'src/service/vacation-service/vacation.service';
 })
 export class NotificationDetailComponent implements OnInit, OnDestroy {
   @ViewChild(ModalComponent) requestModal: ModalComponent;
+  @ViewChild(NotificationDetailUserComponent)
+  notificationUserDetail: NotificationDetailUserComponent;
+  @ViewChild(NotificationDetailVactionComponent)
+  notificationVacationDetail: NotificationDetailVactionComponent;
 
   destroy = new Subject<void>();
   activeNotification: Notification;
@@ -102,9 +107,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
 
   onRequestDecision(status: string) {
     this.modalLoading = true;
-    const observableRequest: Observable<any> =
-      status === 'APPROVED' ? this.onRequestApproved() : this.onRequestDenied();
-    observableRequest
+    this.processRequest(status)
       .pipe(
         switchMap(() =>
           this.notificationService.deleteNotification(
@@ -115,14 +118,12 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.modalLoading = false;
-          this.requestModal.close();
+          this.closeModal();
           this.router.navigate(['/notification/overview']);
           this.popupService.success(`Request has been successfully ${status}`);
         },
         error: () => {
-          this.modalLoading = false;
-          this.requestModal.close();
+          this.closeModal();
           this.popupService.error(
             'Request can not be reviewed at this time. Try again later.'
           );
@@ -130,39 +131,20 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  onRequestApproved() {
+  processRequest(status: string) {
     if (this.activeNotification.type === NotificationType.USER) {
-      return this.userService.updateUserStatus(this.notificationData.id, {
-        accountStatus: AccountStatus.APPROVED,
-        appAccess: true,
-      });
+      return this.notificationUserDetail.process(status);
     } else {
-      return this.vacationService.updateVacationInfo(this.notificationData.id, {
-        status: VacationStatus.APPROVED,
-        notes: this.form.value.notes,
-      });
+      return this.notificationVacationDetail.process(
+        status,
+        this.form.value.notes
+      );
     }
   }
 
-  onRequestDenied() {
-    if (this.activeNotification.type === NotificationType.USER) {
-      return this.userService
-        .updateUserStatus(this.notificationData.id, {
-          accountStatus: AccountStatus.DENIED,
-          appAccess: false,
-        })
-        .pipe(
-          switchMap(() => this.userService.deleteUser(this.notificationData.id))
-        );
-    } else {
-      return this.vacationService.updateVacationInfo(this.notificationData.id, {
-        status: VacationStatus.DENIED,
-        notes:
-          this.form.value.notes.trim() === ''
-            ? this.notificationData.notes
-            : null,
-      });
-    }
+  closeModal() {
+    this.modalLoading = false;
+    this.requestModal.close();
   }
 
   onBackClick() {
