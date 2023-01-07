@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { NotificationService } from '../../notification/notification.service';
 import { PopupService } from '../../popup/popup.service';
 import { SubscriptionService } from '../subscription.service';
 
@@ -14,7 +15,8 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly subscriptionService: SubscriptionService,
-    readonly popupService: PopupService
+    private readonly notificationService: NotificationService,
+    private readonly popupService: PopupService
   ) {}
 
   ngOnDestroy() {
@@ -27,6 +29,7 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
       .listen(this.USER_SOCKET_URL, true)
       .pipe(
         tap((res) => this.popupService.showNotification(res)),
+        tap(() => this.notificationService.triggerNotificationUpdate()),
         takeUntil(this.destroy)
       )
       .subscribe();
