@@ -28,6 +28,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ReportsOverviewComponent } from './reports/reports-overview/reports-overview.component';
 import { ReportsComponent } from './reports/reports.component';
 import { RequestTrackerOverviewComponent } from './request-tracker/request-tracker-overview/request-tracker-overview.component';
+import { RequestTrackerWizardComponent } from './request-tracker/request-tracker-wizard/request-tracker-wizard.component';
 import { RequestTrackerComponent } from './request-tracker/request-tracker.component';
 import { EditUserComponent } from './shared/pages/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './shared/pages/reset-password/reset-password.component';
@@ -178,6 +179,7 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'overview', pathMatch: 'full' },
       { path: 'overview', component: RequestTrackerOverviewComponent },
+      { path: 'wizard', component: RequestTrackerWizardComponent },
     ],
   },
   {

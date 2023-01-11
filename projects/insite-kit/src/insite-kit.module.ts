@@ -23,6 +23,7 @@ import { GridComponent } from './components/grid/grid.component';
 import { HeaderBackComponent } from './components/header/header-back/header-back.component';
 import { HeaderComponent } from './components/header/header.component';
 import { IconComponent } from './components/icon/icon.component';
+import { InfoCardComponent } from './components/info-card/info-card.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 import { ModalActionBarComponent } from './components/modal/modal-action-bar/modal-action-bar.component';
 import { ModalBodyComponent } from './components/modal/modal-body/modal-body.component';
@@ -80,6 +81,7 @@ export function tokenGetter() {
     UserNotificationComponent,
     GeneralNotificationComponent,
     NotificationPopupComponent,
+    InfoCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,6 +132,7 @@ export function tokenGetter() {
     UserNotificationComponent,
     GeneralNotificationComponent,
     NotificationPopupComponent,
+    InfoCardComponent,
   ],
   entryComponents: [ModalComponent],
   providers: [SubscriptionService],
