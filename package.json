@@ -6,12 +6,8 @@
     "npm": "8.17.0"
   },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "e2e": "ng e2e",
     "serve": "npm run serve:prod",
     "serve:prod": "ng serve --live-reload --configuration production",
     "serve:local": "ng serve --live-reload --configuration local",
