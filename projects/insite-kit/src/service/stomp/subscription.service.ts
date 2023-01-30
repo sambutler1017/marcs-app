@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RxStomp, RxStompState } from '@stomp/rx-stomp';
+import { RxStomp } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
-import { Observable, Subject } from 'rxjs';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
 import { JwtService } from '../jwt-service/jwt.service';
 import { UrlService } from '../url-service/url.service';
 import { STOMP_SOCKET_CONFIG } from './stomp.config';
@@ -12,10 +12,6 @@ import { STOMP_SOCKET_CONFIG } from './stomp.config';
   providedIn: 'root',
 })
 export class SubscriptionService extends RxStomp {
-  private RECONNECT_ATTEMPTS = 0;
-
-  destroy = new Subject<void>();
-
   constructor(
     private readonly jwt: JwtService,
     private readonly urlService: UrlService
@@ -29,25 +25,12 @@ export class SubscriptionService extends RxStomp {
    */
   init() {
     if (!this.active) {
-      this.reconnectCheck();
       this.configure(STOMP_SOCKET_CONFIG);
       this.configure({
         brokerURL: `${this.urlService.getSocketAPIUrl()}?${this.jwt.getToken()}`,
       });
       this.activate();
     }
-  }
-
-  /**
-   * Destroys the subscriptions of the STOMP connections.
-   */
-  terminate() {
-    if (this.active) {
-      this.deactivate();
-    }
-
-    this.RECONNECT_ATTEMPTS = 0;
-    this.destroy.next();
   }
 
   /**
@@ -89,30 +72,5 @@ export class SubscriptionService extends RxStomp {
    */
   private subscriptionSession() {
     return this.serverHeaders$.pipe(map((session) => session['user-name']));
-  }
-
-  /**
-   * Keeps track of the reconnect count. If the count exceeds 5 attempts then
-   * it will stomp the reconnect process.
-   */
-  private reconnectCheck() {
-    this.connectionState$
-      .pipe(
-        filter((res) => res === RxStompState.CONNECTING),
-        takeUntil(this.destroy)
-      )
-      .subscribe(() => {
-        if (this.RECONNECT_ATTEMPTS >= 5) {
-          this.deactivate();
-        }
-        this.RECONNECT_ATTEMPTS++;
-      });
-
-    this.connectionState$
-      .pipe(
-        filter((res) => res === RxStompState.OPEN),
-        takeUntil(this.destroy)
-      )
-      .subscribe(() => (this.RECONNECT_ATTEMPTS = 0));
   }
 }

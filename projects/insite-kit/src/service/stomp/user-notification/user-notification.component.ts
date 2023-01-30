@@ -20,7 +20,6 @@ export class UserNotificationComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnDestroy() {
-    this.subscriptionService.terminate();
     this.destroy.next();
   }
 
