@@ -34,6 +34,15 @@ export class SubscriptionService extends RxStomp {
   }
 
   /**
+   * Disconnects all STOMP socket connections.
+   */
+  disconnect() {
+    if (this.active) {
+      this.deactivate();
+    }
+  }
+
+  /**
    * This will listen to the websocket url for any request and show it to the
    * provided user.
    *
