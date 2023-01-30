@@ -31,7 +31,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@popperjs/core": "^2.11.2",
-    "@stomp/rx-stomp": "^1.1.4",
+    "@stomp/rx-stomp": "1.2.0",
     "angular-bootstrap-checkbox": "^0.5.0",
     "angular-calendar": "^0.28.28",
     "bootstrap": "^5.1.3",
