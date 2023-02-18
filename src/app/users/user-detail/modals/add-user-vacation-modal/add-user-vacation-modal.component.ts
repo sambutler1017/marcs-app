@@ -12,7 +12,6 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { VacationStatus } from 'projects/insite-kit/src/models/common.model';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
 import { Subject } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
 
 @Component({
@@ -74,9 +73,6 @@ export class AddUserVacationModalComponent implements OnInit {
         status: VacationStatus.APPROVED,
         notes: this.form.value.notes,
       })
-      .pipe(
-        switchMap(() => this.vacationService.getVacationsByUserId(this.userId))
-      )
       .subscribe({
         next: (res) => {
           this.modalLoading = false;

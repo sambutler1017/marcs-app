@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { PasswordUpdate } from 'projects/insite-kit/src/models/password-update.model';
@@ -10,7 +11,7 @@ import { CommonService } from 'projects/insite-kit/src/service/common/common.ser
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -32,15 +33,12 @@ export class UserService {
    * @param params to filter on
    * @returns User object
    */
-  getUsers(params?: Map<string, string[]>): Observable<User[]> {
+  getUsers(params?: Map<string, string[]>): Observable<HttpResponse<User[]>> {
     return this.request.get<User[]>(this.BASE_USER_PATH, params).pipe(
-      map((v) =>
-        v.map((i) => {
-          return {
-            ...i,
-            formattedRole: this.commonService.getFormattedRole(i.webRole),
-            formattedName: this.commonService.getFormattedName(i),
-          };
+      tap((v) =>
+        v.body.forEach((u) => {
+          u.formattedRole = this.commonService.getFormattedRole(u.webRole);
+          u.formattedName = this.commonService.getFormattedName(u);
         })
       )
     );
@@ -51,7 +49,7 @@ export class UserService {
    *
    * @returns User object of the current user.
    */
-  getCurrentUser(): Observable<User> {
+  getCurrentUser(): Observable<HttpResponse<User>> {
     return this.request.get<User>(`${this.BASE_USER_PATH}/current-user`);
   }
 
@@ -61,7 +59,7 @@ export class UserService {
    * @param params user id for the user to get
    * @returns User object
    */
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number): Observable<HttpResponse<User>> {
     return this.request.get<User>(`${this.BASE_USER_PATH}/${id.toString()}`);
   }
 
@@ -71,7 +69,7 @@ export class UserService {
    * @param id The id of the user to get applications for.
    * @returns List of Application object
    */
-  getUserAppsById(id: number): Observable<Application[]> {
+  getUserAppsById(id: number): Observable<HttpResponse<Application[]>> {
     return this.request.get<Application[]>(
       `${this.BASE_USER_PATH}/${id}/application-access`
     );
@@ -83,7 +81,7 @@ export class UserService {
    * @param storeId The store id to get the regional for.
    * @returns User object of the regional.
    */
-  getRegionalOfStoreById(storeId: string): Observable<User> {
+  getRegionalOfStoreById(storeId: string): Observable<HttpResponse<User>> {
     return this.request.get<User>(`${this.BASE_USER_PATH}/regional/${storeId}`);
   }
 
@@ -94,7 +92,7 @@ export class UserService {
    * @param email The email to check.
    * @returns Boolean of the status of the email.
    */
-  doesEmailExist(email: string): Observable<boolean> {
+  doesEmailExist(email: string): Observable<HttpResponse<boolean>> {
     return this.request.get<boolean>(
       `${this.BASE_USER_PATH}/check-email?email=${email}`
     );
@@ -236,7 +234,7 @@ export class UserService {
    * @returns Boolean if the user has app access or not.
    */
   hasAppAccess(id: number): Observable<boolean> {
-    return this.getUserById(id).pipe(map((res) => res.appAccess));
+    return this.getUserById(id).pipe(map((res) => res.body.appAccess));
   }
 
   /**

@@ -1,14 +1,12 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Message } from '@stomp/stompjs';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
-import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { SubscriptionService } from 'projects/insite-kit/src/service/stomp/subscription.service';
 import { Subject } from 'rxjs';
-import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notification-overview',
@@ -16,9 +14,12 @@ import { filter, map, switchMap, takeUntil } from 'rxjs/operators';
   styleUrls: ['./notification-overview.component.scss'],
 })
 export class NotificationOverviewComponent implements OnInit, OnDestroy {
+  private readonly GENERAL_SOCKET_URL = '/topic/general/notification';
+  private readonly USER_SOCKET_URL = '/queue/user/notification';
+
   @ViewChild('notificationGrid') notificationGrid: GridComponent;
 
-  dataLoader: Notification[];
+  dataLoader: any;
   destroy = new Subject<void>();
 
   constructor(
@@ -26,29 +27,37 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     private readonly jwt: JwtService,
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService
-  ) {}
+  ) {
+    this.dataLoader = (params) => this.getNotifications(this.getParams());
+  }
 
   ngOnInit() {
-    this.getNotifications(this.getParams()).subscribe(
-      (res) => (this.dataLoader = res)
-    );
-
-    this.subscriptionService
-      .watch('/notifications')
-      .pipe(
-        map((res: Message) => JSON.parse(res.body)),
-        filter((res: Notification) => this.isNotificationReceiver(res)),
-        switchMap(() => this.getNotifications(this.getParams())),
-        takeUntil(this.destroy)
-      )
-      .subscribe((res) => {
-        this.notificationGrid.refresh();
-        this.dataLoader = res;
-      });
+    this.listenToGeneral();
+    this.listenToUser();
   }
 
   ngOnDestroy() {
     this.destroy.next();
+  }
+
+  listenToGeneral() {
+    this.subscriptionService
+      .listen(this.GENERAL_SOCKET_URL)
+      .pipe(
+        switchMap(() => this.getNotifications(this.getParams())),
+        takeUntil(this.destroy)
+      )
+      .subscribe((res) => this.notificationGrid.refresh());
+  }
+
+  listenToUser() {
+    this.subscriptionService
+      .listen(this.USER_SOCKET_URL, true)
+      .pipe(
+        switchMap(() => this.getNotifications(this.getParams())),
+        takeUntil(this.destroy)
+      )
+      .subscribe((res) => this.notificationGrid.refresh());
   }
 
   getNotifications(params?: Map<string, string[]>) {
@@ -67,12 +76,5 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     } else {
       return new Map().set('receiverId', this.jwt.get('userId'));
     }
-  }
-
-  isNotificationReceiver(res: Notification) {
-    return (
-      this.jwt.getRequiredUserId() === res.receiverId ||
-      WebRole[this.jwt.getRequiredWebRole()] === WebRole.ADMIN
-    );
   }
 }

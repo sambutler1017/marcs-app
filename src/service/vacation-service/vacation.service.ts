@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
@@ -15,7 +16,9 @@ export class VacationService {
    *
    * @returns User object
    */
-  getVacations(params?: Map<string, string[]>): Observable<Vacation[]> {
+  getVacations(
+    params?: Map<string, string[]>
+  ): Observable<HttpResponse<Vacation[]>> {
     return this.request.get<Vacation[]>(`${this.BASE_VACATION_PATH}`, params);
   }
 
@@ -24,7 +27,7 @@ export class VacationService {
    *
    * @returns User object
    */
-  getCurrentUserVacations(): Observable<Vacation[]> {
+  getCurrentUserVacations(): Observable<HttpResponse<Vacation[]>> {
     return this.request.get<Vacation[]>(
       `${this.BASE_VACATION_PATH}/current-user`
     );
@@ -36,7 +39,7 @@ export class VacationService {
    * @param params The id of the vacation to get.
    * @returns Vacation object
    */
-  getVacationById(id: number): Observable<Vacation> {
+  getVacationById(id: number): Observable<HttpResponse<Vacation>> {
     return this.request.get<Vacation>(
       `${this.BASE_VACATION_PATH}/${id.toString()}`
     );
@@ -48,7 +51,7 @@ export class VacationService {
    * @param id of the vacation to get.
    * @returns User object
    */
-  getVacationsByUserId(id: number): Observable<Vacation[]> {
+  getVacationsByUserId(id: number): Observable<HttpResponse<Vacation[]>> {
     return this.request.get<Vacation[]>(
       `${this.BASE_VACATION_PATH}/${id.toString()}/user`
     );

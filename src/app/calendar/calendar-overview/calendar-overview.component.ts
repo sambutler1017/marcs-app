@@ -63,8 +63,8 @@ export class CalendarOverviewComponent implements OnInit {
       this.blockDateService.getBlockOutDates(),
       this.authService.hasAccess(App.USER, Feature.USER_VACATION, Access.READ),
     ]).subscribe(([userVacs, blockDates, access]) => {
-      this.mapUserEvents(userVacs);
-      this.blockDates = blockDates;
+      this.mapUserEvents(userVacs.body);
+      this.blockDates = blockDates.body;
       this.canEdit = access;
       this.loading = false;
     });

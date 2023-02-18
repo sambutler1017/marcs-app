@@ -1,13 +1,12 @@
-import { formatDate } from '@angular/common';
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import {
   Access,
   App,
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
-import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
 import { Subject } from 'rxjs';
 import { switchMap, takeUntil, tap } from 'rxjs/operators';
@@ -22,9 +21,10 @@ import { AddUserVacationModalComponent } from '../../modals/add-user-vacation-mo
 export class UserVacationsCardComponent implements OnInit, OnDestroy {
   @ViewChild(AddUserVacationModalComponent)
   addVacationModalComponent: AddUserVacationModalComponent;
+  @ViewChild(GridComponent) userVacationsGrid: GridComponent;
   @Input() canEdit: boolean = false;
 
-  vacationDataLoader: Vacation[];
+  vacationDataLoader: any;
   userId: number;
   vacationEditRoute: string;
   hasFeatureAccess = false;
@@ -54,10 +54,14 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
           )
         ),
         tap((res) => (this.hasFeatureAccess = res)),
-        switchMap(() => this.vacationService.getVacationsByUserId(this.userId)),
+        tap(() => (this.vacationDataLoader = this.getVacationDataLoader())),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => (this.vacationDataLoader = res));
+      .subscribe();
+  }
+
+  getVacationDataLoader() {
+    return (params) => this.vacationService.getVacationsByUserId(this.userId);
   }
 
   ngOnDestroy() {
@@ -65,17 +69,7 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   }
 
   onVacationSave(event: any) {
-    this.vacationDataLoader = event;
-  }
-
-  vacationChange(value: string) {
-    if (value.trim() === '') {
-      return '';
-    }
-
-    const endDate = new Date(value);
-    endDate.setDate(endDate.getDate() + 8);
-    return formatDate(endDate, 'yyyy-MM-dd', 'en-US');
+    this.userVacationsGrid.refresh();
   }
 
   onVacationEditClick() {

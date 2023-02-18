@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { filter, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -36,6 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.userService
       .doesEmailExist(this.form.value.email)
       .pipe(
+        map((res) => res.body),
         filter((status) => {
           if (!status) {
             this.popupService.error(

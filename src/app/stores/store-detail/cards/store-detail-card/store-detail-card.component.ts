@@ -41,13 +41,11 @@ export class StoreDetailCardComponent implements OnInit {
       .pipe(
         tap((res) => (this.canEdit = res)),
         switchMap(() => this.getRegionalInfo()),
-        tap((res) => (this.regionalInfo = res)),
-        switchMap(() => this.getManagerInfo())
+        tap((res) => (this.regionalInfo = res.body)),
+        switchMap(() => this.getManagerInfo()),
+        tap((res) => (this.managerInfo = res.body))
       )
-      .subscribe((res) => {
-        this.loading = false;
-        this.managerInfo = res;
-      });
+      .subscribe(() => (this.loading = false));
   }
 
   getRegionalInfo() {

@@ -17,7 +17,7 @@ export class UserVacationsComponent implements OnInit, OnDestroy {
   @ViewChild('vacationModalDetails') vacationDetailsModal: ModalComponent;
 
   destroy = new Subject<void>();
-  dataLoader: Vacation[];
+  dataLoader: any;
   user: User;
   selectedVacation: Vacation;
 
@@ -33,14 +33,15 @@ export class UserVacationsComponent implements OnInit, OnDestroy {
     this.route.params
       .pipe(
         switchMap((p) => this.userService.getUserById(p.id)),
-        tap((user) => (this.user = user)),
-        switchMap(() =>
-          this.vacationService.getVacationsByUserId(this.user.id)
-        ),
-        tap((res) => (this.dataLoader = res)),
+        tap((user) => (this.user = user.body)),
+        tap(() => (this.dataLoader = this.getUserVacationsDataloader())),
         takeUntil(this.destroy)
       )
       .subscribe();
+  }
+
+  getUserVacationsDataloader() {
+    return (params) => this.vacationService.getVacationsByUserId(this.user.id);
   }
 
   ngOnDestroy() {

@@ -64,7 +64,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         concatMap((res) =>
           this.notificationService.getNotificationById(res.id)
         ),
-        tap((res) => (this.activeNotification = res)),
+        tap((res) => (this.activeNotification = res.body)),
         concatMap(() => this.markNotification()),
         concatMap(() => this.getNotificationData()),
         takeUntil(this.destroy)

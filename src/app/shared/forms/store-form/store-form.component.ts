@@ -18,7 +18,7 @@ export class StoreFormComponent implements OnInit {
   @Output() save = new EventEmitter<Store>();
 
   form: FormGroup;
-  regionalAndDistrictManagers: User[];
+  regionalAndDistrictManagers: User[] | any;
   usersLoading = true;
 
   constructor(

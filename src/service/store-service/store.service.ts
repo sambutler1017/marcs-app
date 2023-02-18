@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
@@ -24,7 +25,7 @@ export class StoreService {
    * @param params to filter request on
    * @returns observable of the returned request
    */
-  getStores(params?: Map<string, string[]>): Observable<Store[]> {
+  getStores(params?: Map<string, string[]>): Observable<HttpResponse<Store[]>> {
     return this.requestService.get<Store[]>(this.BASE_STORE_PATH, params);
   }
 
@@ -34,7 +35,7 @@ export class StoreService {
    * @param id The id of the store to get
    * @returns observable of the returned request
    */
-  getStoreById(id: string): Observable<Store> {
+  getStoreById(id: string): Observable<HttpResponse<Store>> {
     return this.requestService.get<Store>(`${this.BASE_STORE_PATH}/${id}`);
   }
 
@@ -45,7 +46,7 @@ export class StoreService {
    * @return The regional of that store
    * @throws Exception
    */
-  getRegionalOfStoreById(storeId: string): Observable<User> {
+  getRegionalOfStoreById(storeId: string): Observable<HttpResponse<User>> {
     return this.requestService.get<User>(
       `${this.BASE_STORE_PATH}/regional/${storeId}`
     );
@@ -58,7 +59,7 @@ export class StoreService {
    * @return The manager of that store
    * @throws Exception
    */
-  getManagerOfStoreById(storeId: string): Observable<User> {
+  getManagerOfStoreById(storeId: string): Observable<HttpResponse<User>> {
     return this.requestService.get<User>(
       `${this.BASE_STORE_PATH}/manager/${storeId}`
     );
@@ -134,7 +135,7 @@ export class StoreService {
    */
   canEditStore(storeId: string): Observable<boolean> {
     return this.getStoreById(storeId).pipe(
-      switchMap((res) => this.hasEditStoreAccess(res))
+      switchMap((res) => this.hasEditStoreAccess(res.body))
     );
   }
 

@@ -28,7 +28,7 @@ export class ProfileOverviewComponent implements OnInit {
   ngOnInit() {
     this.userService
       .getUserById(this.jwtService.get('userId'))
-      .subscribe((v) => (this.user = v));
+      .subscribe((v) => (this.user = v.body));
     this.generateApplicationString();
   }
 

@@ -86,7 +86,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
         switchMap(() => this.getNotifications(this.getParams())),
         takeUntil(this.destroy)
       )
-      .subscribe((res) => (this.notificationCount = res.length));
+      .subscribe((res) => (this.notificationCount = res.body.length));
   }
 
   getParams() {

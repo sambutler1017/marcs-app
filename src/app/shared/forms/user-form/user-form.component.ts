@@ -46,7 +46,7 @@ export class UserFormComponent implements OnInit {
     this.buildForm();
 
     this.storeService.getStores(this.getStoreFilter()).subscribe((res) => {
-      this.stores = res;
+      this.stores = res.body;
       this.checkUserCreating();
       this.storesLoading = false;
     });

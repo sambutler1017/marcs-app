@@ -1,3 +1,4 @@
+import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import { RequestService } from 'projects/insite-kit/src/service/request-service/request.service';
@@ -18,7 +19,9 @@ export class BlockDatesService {
    * @param params to filter request on
    * @returns observable of the returned request
    */
-  getBlockOutDates(params?: Map<string, string[]>): Observable<BlockOutDate[]> {
+  getBlockOutDates(
+    params?: Map<string, string[]>
+  ): Observable<HttpResponse<BlockOutDate[]>> {
     return this.requestService.get<BlockOutDate[]>(this.BASE_USER_PATH, params);
   }
 
@@ -28,7 +31,7 @@ export class BlockDatesService {
    * @param id The id of the block out date.
    * @returns observable of the returned request
    */
-  getBlockOutDateById(id: number): Observable<BlockOutDate> {
+  getBlockOutDateById(id: number): Observable<HttpResponse<BlockOutDate>> {
     return this.requestService.get<BlockOutDate>(
       `${this.BASE_USER_PATH}/${id}`
     );
@@ -40,7 +43,7 @@ export class BlockDatesService {
   ): Observable<BlockOutDate> {
     return this.getBlockOutDates().pipe(
       map((b) =>
-        b.filter(
+        b.body.filter(
           (block) =>
             this.isDateBetween(block.startDate, startDate, block.endDate) ||
             this.isDateBetween(block.startDate, endDate, block.endDate)

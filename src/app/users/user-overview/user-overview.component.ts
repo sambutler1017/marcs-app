@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
@@ -6,52 +6,39 @@ import {
   App,
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
-import { User } from 'projects/insite-kit/src/models/user.model';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-user-content',
   templateUrl: './user-overview.component.html',
 })
-export class UserOverviewComponent implements OnInit {
+export class UserOverviewComponent {
   @ViewChild(ModalComponent) modal: ModalComponent;
-  dataloader: User[];
+  dataloader: any;
   GRID_TAG = 'GRID_USERS_GRID';
 
   Feature = Feature;
   Application = App;
   Access = Access;
 
-  constructor(private userService: UserService, private router: Router) {}
+  tempDataloader: any;
 
-  ngOnInit() {
-    this.getUsers(this.getParams()).subscribe((res) => (this.dataloader = res));
+  constructor(private userService: UserService, private router: Router) {
+    this.dataloader = (params) => this.getUserDataLoader(params);
   }
 
-  getUserDataLoader() {
-    return this.getUsers(this.getParams());
+  getUserDataLoader(params?: Map<string, string[]>) {
+    return this.userService.getUsers(this.getParams(params));
   }
 
-  getUsers(params?: Map<string, string[]>) {
-    return this.userService.getUsers(params);
-  }
-
-  onSearch(value: any) {
-    if (value === '') {
-      this.getUserDataLoader().subscribe((res) => (this.dataloader = res));
-    } else {
-      this.getUsers(this.generateSearchParams(value)).subscribe(
-        (res) => (this.dataloader = res)
-      );
+  getParams(params?: Map<string, string[]>) {
+    if (params) {
+      return new Map([
+        ...params.entries(),
+        ...this.userService.getUserAccessMap().entries(),
+      ]);
     }
-  }
-
-  getParams() {
     return this.userService.getUserAccessMap();
-  }
-
-  generateSearchParams(value: any) {
-    return this.getParams().set('search', value);
   }
 
   rowClick(event: any) {

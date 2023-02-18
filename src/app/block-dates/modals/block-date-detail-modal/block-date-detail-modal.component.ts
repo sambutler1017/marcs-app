@@ -55,10 +55,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   ngOnInit() {
     this.authService
       .hasAccess(App.BLOCK_DATES, Feature.BLOCK_DATES_OVERVIEW, Access.UPDATE)
-      .subscribe((res) => {
-        this.canEdit = res;
-        console.log('User can edit:', this.canEdit);
-      });
+      .subscribe((res) => (this.canEdit = res));
     this.buildForm();
   }
 

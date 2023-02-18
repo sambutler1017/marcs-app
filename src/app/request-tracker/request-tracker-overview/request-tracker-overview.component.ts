@@ -20,7 +20,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
   requestTrackerGrid: RequestTrackerGridComponent;
 
   loading = false;
-  dataLoader: Vacation[];
+  dataLoader: any;
   destroy = new Subject<void>();
   form: FormGroup;
   vacationInfo: Vacation;
@@ -30,13 +30,16 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
     private readonly vacationService: VacationService,
     private readonly fb: FormBuilder,
     private readonly popupService: PopupService
-  ) {}
+  ) {
+    this.dataLoader = (params) => this.getCurrentUserVacationsDataloader();
+  }
 
   ngOnInit() {
     this.buildForm();
-    this.vacationService
-      .getCurrentUserVacations()
-      .subscribe((res) => (this.dataLoader = res));
+  }
+
+  getCurrentUserVacationsDataloader() {
+    return this.vacationService.getCurrentUserVacations();
   }
 
   ngOnDestroy() {

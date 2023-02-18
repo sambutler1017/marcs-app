@@ -21,7 +21,7 @@ export class ManagerStoresCardComponent implements OnInit, OnDestroy {
     this.storeService
       .getStores(new Map().set('regionalId', this.managerId))
       .subscribe((res) => {
-        this.stores = res;
+        this.stores = res.body;
         this.loading = false;
       });
   }

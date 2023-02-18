@@ -15,7 +15,7 @@
   translationKey="Block Dates"
   basePath="blockDates"
   pageSize="10"
-  [dataLoader]="blockOutDatesData"
+  [dataLoader]="blockOutDatesDataloader"
   (rowClick)="rowClick($event)"
 >
   <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>

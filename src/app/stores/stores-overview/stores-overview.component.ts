@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Access,
   App,
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
-import { Store } from 'projects/insite-kit/src/models/store.model';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -13,8 +12,8 @@ import { UserService } from 'src/service/user-service/user.service';
   selector: 'app-stores-overview',
   templateUrl: './stores-overview.component.html',
 })
-export class StoresOverviewComponent implements OnInit {
-  dataLoader: Store[];
+export class StoresOverviewComponent {
+  dataLoader: any;
 
   Feature = Feature;
   Application = App;
@@ -24,31 +23,26 @@ export class StoresOverviewComponent implements OnInit {
     private storeService: StoreService,
     private userService: UserService,
     private router: Router
-  ) {}
+  ) {
+    this.dataLoader = (params) => this.getStoreDataloader(params);
+  }
 
-  ngOnInit() {
-    this.storeService
-      .getStores(this.userService.getUserAccessMap())
-      .subscribe((res) => (this.dataLoader = res));
+  getStoreDataloader(params?: Map<string, string[]>) {
+    return this.storeService.getStores(this.getParams(params));
+  }
+
+  getParams(params?: Map<string, string[]>) {
+    if (params) {
+      return new Map([
+        ...params.entries(),
+        ...this.userService.getUserAccessMap().entries(),
+      ]);
+    }
+    return this.userService.getUserAccessMap();
   }
 
   handleClick(event: any) {
     this.router.navigate([`/store/${event.id}/details`]);
-  }
-
-  onSearch(value: any) {
-    let params = this.userService.getUserAccessMap();
-
-    if (params) {
-      params.set('search', value);
-    } else {
-      params = new Map<string, string[]>();
-      params.set('search', value);
-    }
-
-    this.storeService
-      .getStores(params)
-      .subscribe((res) => (this.dataLoader = res));
   }
 
   onAddStore() {

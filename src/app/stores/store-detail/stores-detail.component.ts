@@ -35,7 +35,7 @@ export class StoresDetailComponent implements OnInit {
     const params: any = this.activeRoute.params;
     this.storeService.getStoreById(params.value.id).subscribe((res) => {
       this.loading = false;
-      this.store = res;
+      this.store = res.body;
     });
   }
 

@@ -51,7 +51,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
 
     this.storeService.getStores().subscribe({
       next: (res) => {
-        this.stores = res;
+        this.stores = res.body;
         this.storesLoading = false;
       },
       error: () => {
@@ -113,7 +113,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
         .pipe(takeUntil(this.destroy))
         .subscribe((doesExist) => {
           this.setEmailIconLoading();
-          this.emailExist = doesExist;
+          this.emailExist = doesExist.body;
           if (doesExist) {
             this.setEmailIconClose();
             this.popupService.warning(

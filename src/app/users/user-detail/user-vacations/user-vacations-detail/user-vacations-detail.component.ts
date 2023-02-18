@@ -37,7 +37,7 @@ export class UserVacationsDetailComponent implements OnInit, OnDestroy {
       .pipe(
         tap((p) => (this.vacationId = p.vacId)),
         switchMap(() => this.vacationService.getVacationById(this.vacationId)),
-        tap((res) => (this.vacationData = res)),
+        tap((res) => (this.vacationData = res.body)),
         switchMap(() =>
           this.blockDatesService.isBlockOutDate(
             this.vacationData.startDate,

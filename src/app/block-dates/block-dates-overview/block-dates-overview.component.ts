@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import {
@@ -7,8 +7,6 @@ import {
   Feature,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
-import { of } from 'rxjs';
-import { catchError, switchMap, tap } from 'rxjs/operators';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
 import { UserService } from 'src/service/user-service/user.service';
 import { AddBlockOutDateModalComponent } from '../modals/add-block-out-date-modal/add-block-out-date-modal.component';
@@ -19,13 +17,13 @@ import { BlockDateDetailModalComponent } from '../modals/block-date-detail-modal
   templateUrl: './block-dates-overview.component.html',
   styleUrls: ['./block-dates-overview.component.scss'],
 })
-export class BlockDatesOverviewComponent implements OnInit {
+export class BlockDatesOverviewComponent {
   @ViewChild(GridComponent) grid: GridComponent;
   @ViewChild(AddBlockOutDateModalComponent)
   addBlockOutDateModal: AddBlockOutDateModalComponent;
   @ViewChild(BlockDateDetailModalComponent)
   blockOutDateDetailModal: BlockDateDetailModalComponent;
-  blockOutDatesData: BlockOutDate[];
+  blockOutDatesDataloader: any;
 
   currentSelectedBlockDate: BlockOutDate;
   currentSelectedUser: User;
@@ -38,29 +36,23 @@ export class BlockDatesOverviewComponent implements OnInit {
   constructor(
     private readonly blockDatesService: BlockDatesService,
     private readonly userService: UserService
-  ) {}
+  ) {
+    this.blockOutDatesDataloader = (params) =>
+      this.getBlockOutDatesDataloader();
+  }
 
-  ngOnInit() {
-    this.getBlockOutDatesSub();
+  getBlockOutDatesDataloader() {
+    return this.blockDatesService.getBlockOutDates();
   }
 
   rowClick(event: any) {
     this.loading = true;
+    this.currentSelectedBlockDate = event;
     this.blockOutDateDetailModal.modal.open();
-
-    this.blockDatesService
-      .getBlockOutDateById(event.id)
-      .pipe(
-        tap((res) => (this.currentSelectedBlockDate = res)),
-        switchMap(() =>
-          this.userService.getUserById(
-            this.currentSelectedBlockDate.insertUserId
-          )
-        ),
-        catchError(() => of(null))
-      )
+    this.userService
+      .getUserById(this.currentSelectedBlockDate.insertUserId)
       .subscribe((res) => {
-        this.currentSelectedUser = res;
+        this.currentSelectedUser = res.body;
         this.blockOutDateDetailModal.updateForm();
         this.loading = false;
       });
@@ -68,12 +60,5 @@ export class BlockDatesOverviewComponent implements OnInit {
 
   refreshGrid() {
     this.grid.refresh();
-    this.getBlockOutDatesSub();
-  }
-
-  getBlockOutDatesSub() {
-    this.blockDatesService
-      .getBlockOutDates()
-      .subscribe((res) => (this.blockOutDatesData = res));
   }
 }

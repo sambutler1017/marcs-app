@@ -49,13 +49,13 @@ export class UserDetailComponent implements OnInit, OnDestroy {
     this.activeRoute.params
       .pipe(
         switchMap((res) => this.userService.getUserById(res.id)),
-        tap((res) => (this.userData = res)),
+        tap((res) => (this.userData = res.body)),
         switchMap(() => this.userService.getUserAppsById(this.userData.id)),
         takeUntil(this.destroy)
       )
       .subscribe({
         next: (res) => {
-          this.applications = this.commonService.getApplicationList(res);
+          this.applications = this.commonService.getApplicationList(res.body);
           this.canEdit = this.userService.canEditUser(this.userData.webRole);
           this.loading = false;
         },
