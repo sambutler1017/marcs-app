@@ -9,19 +9,17 @@ import { Subject } from 'rxjs';
 export class GridPagerComponent {
   dataLength = 0;
   translationKey = '';
-  storageTag = 'gridCurrentPage';
 
   totalPages = 0;
   pageSize = 0;
   activePage = 1;
   pages: any;
 
-  pageChange = new Subject<void>();
+  pageChange = new Subject<number>();
 
-  initPager(size: number, key: string, tag: string) {
+  initPager(size: number, key: string) {
     this.pageSize = size;
     this.translationKey = key;
-    this.storageTag = tag;
   }
 
   update(dataSize: number, page: number) {
@@ -31,25 +29,24 @@ export class GridPagerComponent {
     this.updatePageFooter(this.activePage);
   }
 
-  updateRoute(page: number) {
-    localStorage.setItem(this.storageTag, `${page}`);
-    this.pageChange.next();
+  triggerPageChange(page: number) {
+    this.pageChange.next(page);
   }
 
   pageClick(page: number) {
     this.activePage = page;
-    this.updateRoute(this.activePage);
+    this.triggerPageChange(this.activePage);
   }
 
   onNextPageClick() {
     if (this.activePage < this.totalPages) {
-      this.updateRoute(++this.activePage);
+      this.triggerPageChange(++this.activePage);
     }
   }
 
   onPreviousPageClick() {
     if (this.activePage > 1) {
-      this.updateRoute(--this.activePage);
+      this.triggerPageChange(--this.activePage);
     }
   }
 
