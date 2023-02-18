@@ -83,7 +83,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.addGridPager();
     this.addGridShowAll();
     this.addGridSearch();
-    this.getPageData();
+    this.updateGridData();
     this.listenToRoute();
   }
 
@@ -120,10 +120,6 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     }
   }
 
-  getDataById(id: any) {
-    return this.dataLoader.find((v) => v[this.idTag] === id);
-  }
-
   listenToRoute() {
     this.router.events
       .pipe(
@@ -135,7 +131,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   onGridChange() {
     this.gridIndex = Number(localStorage.getItem(this.storageTag));
-    this.getPageData();
+    this.updateGridData();
   }
 
   onRowClick(event: number) {
@@ -144,7 +140,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     );
   }
 
-  getPageData() {
+  updateGridData() {
     this.gridContent = [];
 
     for (let i = 0; i < this.pageSize && this.dataLoader[this.gridIndex]; i++) {
