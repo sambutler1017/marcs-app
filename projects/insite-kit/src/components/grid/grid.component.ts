@@ -164,7 +164,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     p.set('pageSize', [this.pageSize]);
     p.set('rowOffset', [rowOffsetSize]);
 
-    if (searchValue && this.gridSearch) {
+    if (this.gridSearch && searchValue) {
       this.gridSearch.currentSearch = searchValue;
       p.set('search', [searchValue]);
     }
