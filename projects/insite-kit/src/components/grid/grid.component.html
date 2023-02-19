@@ -3,7 +3,7 @@
     <ng-content select="ik-card-header"></ng-content>
     <ng-content select="ik-grid-search"></ng-content>
     <table *ngIf="!loading; else loader" class="grid-table">
-      <thead *ngIf="dataloaderData?.body.length > 0">
+      <thead *ngIf="data?.body.length > 0">
         <tr>
           <th
             *ngFor="let column of columns.toArray()"
@@ -15,7 +15,7 @@
           </th>
         </tr>
       </thead>
-      <tr *ngFor="let row of dataloaderData.body" class="content-row">
+      <tr *ngFor="let row of data.body" class="content-row">
         <td
           *ngFor="let col of columns.toArray()"
           class="grid-content"
@@ -32,7 +32,7 @@
       </tr>
     </table>
     <ng-content select="ik-grid-pager"></ng-content>
-    <ng-container *ngIf="dataloaderData?.body.length <= 0 && !loading">
+    <ng-container *ngIf="data?.body.length <= 0 && !loading">
       <label class="item-label-margin label-text left no-data-margin">{{
         "No" + " " + translationKey
       }}</label>

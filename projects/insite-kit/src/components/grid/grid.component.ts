@@ -11,11 +11,11 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { switchMap, takeUntil, tap } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
+import { GridParamBuilder } from './grid-param-builder/grid-param-builder.component';
 import { GridSearchComponent } from './grid-search/grid-search.component';
 import { GridShowAllComponent } from './grid-show-all/grid-show-all.component';
 
@@ -30,9 +30,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChild(GridShowAllComponent) gridShowAll: GridShowAllComponent;
   @ContentChild(GridSearchComponent) gridSearch: GridSearchComponent;
 
-  @Input() dataLoader: (
-    params: any
-  ) => Observable<HttpResponse<any[]>> | ((params: any) => Observable<any[]>);
+  @Input() dataLoader: (params: any) => Observable<HttpResponse<any[]>>;
   @Input() translationKey: any;
   @Input() pageSize = 15;
   @Input() padding = true;
@@ -41,18 +39,15 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   @Output() rowClick = new EventEmitter<any>();
 
-  dataloaderData: HttpResponse<any[]>;
-
   activePage = 1;
   loading = true;
   initialLoadComplete = false;
 
-  TOTAL_COUNT = 'total-count';
-
   destroy = new Subject<void>();
   stopListeningForData = new Subject<void>();
+  dataSubject = new Subject<HttpResponse<any[]>>();
 
-  constructor(private readonly router: Router) {}
+  data: HttpResponse<any[]>;
 
   ngAfterViewInit() {
     this.checkDataLoader();
@@ -83,8 +78,11 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
     this.addGridPager();
     this.addGridSearch();
-    this.listenToPageChange();
-    this.loadGridData().subscribe();
+
+    this.initPageChangeSubscription();
+    this.initDataSubscription();
+
+    this.loadData();
   }
 
   onRowClick(event: any) {
@@ -92,79 +90,87 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   }
 
   refresh() {
-    this.loadGridData().subscribe();
+    this.loadData();
   }
 
   addGridPager() {
     if (this.gridPager) {
       this.gridPager.initPager(this.pageSize, this.translationKey);
-    } else {
-      this.activePage = 1;
     }
   }
 
   addGridSearch() {
-    this.gridSearch?.search
+    if (!this.gridSearch) {
+      return;
+    }
+
+    this.gridSearch.search
       .pipe(
-        tap(() => (this.loading = true)),
         tap(() => (this.activePage = 1)),
-        switchMap((s) => this.loadGridData(s)),
         takeUntil(this.destroy)
       )
-      .subscribe();
+      .subscribe((s) => this.loadData(s));
   }
 
-  listenToPageChange() {
-    this.gridPager?.pageChange
+  initPageChangeSubscription() {
+    if (!this.gridPager) {
+      return;
+    }
+
+    this.gridPager.pageChange
       .pipe(
-        switchMap((page) => this.onPageChange(page)),
+        tap((page) => (this.activePage = page)),
         takeUntil(this.destroy)
       )
-      .subscribe();
+      .subscribe(() => this.loadData());
   }
 
-  onPageChange(page: number): Observable<any> {
-    this.activePage = page;
+  loadData(search?: string) {
     this.loading = true;
-    return this.loadGridData();
-  }
-
-  loadGridData(search?: string): Observable<any> {
     this.stopListeningForData.next();
 
-    return this.dataLoader.call(this, this.getGridParams(search)).pipe(
-      tap((res: any) => (this.dataloaderData = res)),
-      tap(() => this.updatePager()),
-      tap(() => this.updateShowAll()),
-      tap(() => (this.loading = false)),
-      takeUntil(this.stopListeningForData)
-    );
+    this.dataLoader
+      .call(this, this.getGridParams(search).build())
+      .pipe(takeUntil(this.stopListeningForData))
+      .subscribe((res) => this.updateData(res));
+  }
+
+  updateData(response: HttpResponse<any[]>) {
+    this.dataSubject.next(response);
+  }
+
+  initDataSubscription() {
+    this.dataSubject
+      .pipe(
+        tap((res) => (this.data = res)),
+        tap(() => this.updatePager()),
+        tap(() => this.updateShowAll()),
+        takeUntil(this.destroy)
+      )
+      .subscribe(() => (this.loading = false));
   }
 
   updatePager() {
-    if (this.dataloaderData.headers) {
-      const total = Number(this.dataloaderData.headers.get(this.TOTAL_COUNT));
-      this.gridPager?.update(total, this.activePage);
-    } else {
-      this.gridPager?.update(0, this.activePage);
+    if (!this.gridPager) {
+      return;
     }
+
+    const total = Number(this.data.headers.get('total-count'));
+    this.gridPager.update(total, this.activePage);
   }
 
   updateShowAll() {
-    this.gridShowAll?.update(this.dataloaderData.body.length);
+    if (!this.gridShowAll) {
+      return;
+    }
+
+    this.gridShowAll.update(this.data.body.length);
   }
 
   getGridParams(search?: string) {
-    const rowOffsetSize = (this.activePage - 1) * this.pageSize;
-
-    const p = new Map();
-    p.set('pageSize', [this.pageSize]);
-    p.set('rowOffset', [rowOffsetSize]);
-
-    if (this.gridSearch && search != '') {
-      p.set('search', [search]);
-    }
-    return p;
+    return new GridParamBuilder()
+      .withPaging(this.activePage, this.pageSize)
+      .withSearch(search);
   }
 
   isDate(value: any) {
@@ -174,9 +180,5 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
       let dateWrapper = new Date(value);
       return !isNaN(dateWrapper.getDate());
     }
-  }
-
-  isNewAppRoute() {
-    return !this.router.url.includes(`/${this.basePath}`);
   }
 }
