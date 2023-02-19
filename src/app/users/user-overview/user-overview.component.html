@@ -9,7 +9,6 @@
 </ik-header>
 
 <ik-grid
-  translationKey="Users"
   basePath="user"
   [dataLoader]="dataloader"
   (rowClick)="rowClick($event)"
@@ -18,5 +17,5 @@
   <ik-grid-column label="Name" field="formattedName"></ik-grid-column>
   <ik-grid-column label="Position" field="formattedRole"></ik-grid-column>
   <ik-grid-column label="Store Name" field="storeName"></ik-grid-column>
-  <ik-grid-pager></ik-grid-pager>
+  <ik-grid-pager key="Users"></ik-grid-pager>
 </ik-grid>

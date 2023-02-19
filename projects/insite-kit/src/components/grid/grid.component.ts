@@ -11,8 +11,9 @@ import {
   Output,
   QueryList,
 } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { GridDataloader } from '../../models/grid.model';
 import { GridColumnComponent } from './grid-column/grid-column.component';
 import { GridPagerComponent } from './grid-pager/grid-pager.component';
 import { GridParamBuilder } from './grid-param-builder/grid-param-builder.component';
@@ -30,7 +31,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChild(GridShowAllComponent) gridShowAll: GridShowAllComponent;
   @ContentChild(GridSearchComponent) gridSearch: GridSearchComponent;
 
-  @Input() dataLoader: (params: any) => Observable<HttpResponse<any[]>>;
+  @Input() dataLoader: GridDataloader;
   @Input() padding = true;
   @Input() basePath = '';
   @Input() overflowEnabled = false;

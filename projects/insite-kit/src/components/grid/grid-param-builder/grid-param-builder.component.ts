@@ -1,3 +1,5 @@
+import { GridQueryParams } from 'projects/insite-kit/src/models/grid.model';
+
 /**
  * Grid param builder class
  *
@@ -5,8 +7,15 @@
  * @since February 18, 2023
  */
 export class GridParamBuilder {
-  private params: Map<string, string[]> = new Map<string, string[]>();
+  private params: GridQueryParams = new Map<string, string[]>();
 
+  /**
+   * Add paging params to the query params object.
+   *
+   * @param page The current page of the grid.
+   * @param size The page size of the grid.
+   * @returns The current Grid param builder instance.
+   */
   withPaging(page: number, size: number): GridParamBuilder {
     const rowOffsetSize = (page - 1) * size;
 
@@ -15,14 +24,27 @@ export class GridParamBuilder {
     return this;
   }
 
+  /**
+   * Adds search param to the query params object.
+   *
+   * @param search The search object to be added.
+   * @returns The current Grid param builder instance.
+   */
   withSearch(search): GridParamBuilder {
     if (search != '') {
       this.params.set('search', [search]);
+    } else {
+      this.params.delete('search');
     }
     return this;
   }
 
-  build() {
+  /**
+   * The current query params data.
+   *
+   * @returns The grid query params.
+   */
+  build(): GridQueryParams {
     return this.params;
   }
 }

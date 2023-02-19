@@ -49,7 +49,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe((user) => {
-        this.userUpdating = user;
+        this.userUpdating = user.body;
         this.loading = false;
       });
   }
