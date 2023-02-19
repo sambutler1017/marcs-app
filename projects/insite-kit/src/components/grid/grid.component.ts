@@ -85,14 +85,6 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.loadData();
   }
 
-  onRowClick(event: any) {
-    this.rowClick.emit(event);
-  }
-
-  refresh() {
-    this.loadData();
-  }
-
   addGridPager() {
     if (this.gridPager) {
       this.gridPager.initPager(this.pageSize, this.translationKey);
@@ -110,6 +102,17 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
         takeUntil(this.destroy)
       )
       .subscribe((s) => this.loadData(s));
+  }
+
+  initDataSubscription() {
+    this.dataSubject
+      .pipe(
+        tap((res) => (this.data = res)),
+        tap(() => this.updatePager()),
+        tap(() => this.updateShowAll()),
+        takeUntil(this.destroy)
+      )
+      .subscribe(() => (this.loading = false));
   }
 
   initPageChangeSubscription() {
@@ -132,22 +135,17 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.dataLoader
       .call(this, this.getGridParams(search).build())
       .pipe(takeUntil(this.stopListeningForData))
-      .subscribe((res) => this.updateData(res));
+      .subscribe((res: HttpResponse<any[]>) => this.updateData(res));
+  }
+
+  getGridParams(search?: string): GridParamBuilder {
+    return new GridParamBuilder()
+      .withPaging(this.activePage, this.pageSize)
+      .withSearch(search);
   }
 
   updateData(response: HttpResponse<any[]>) {
     this.dataSubject.next(response);
-  }
-
-  initDataSubscription() {
-    this.dataSubject
-      .pipe(
-        tap((res) => (this.data = res)),
-        tap(() => this.updatePager()),
-        tap(() => this.updateShowAll()),
-        takeUntil(this.destroy)
-      )
-      .subscribe(() => (this.loading = false));
   }
 
   updatePager() {
@@ -167,13 +165,15 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
     this.gridShowAll.update(this.data.body.length);
   }
 
-  getGridParams(search?: string) {
-    return new GridParamBuilder()
-      .withPaging(this.activePage, this.pageSize)
-      .withSearch(search);
+  onRowClick(event: any) {
+    this.rowClick.emit(event);
   }
 
-  isDate(value: any) {
+  refresh() {
+    this.loadData();
+  }
+
+  isDate(value: any): boolean {
     if (typeof value === 'number') {
       return false;
     } else {
