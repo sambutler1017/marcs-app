@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -7,20 +7,16 @@ import { Subject } from 'rxjs';
   styleUrls: ['./grid-pager.component.scss'],
 })
 export class GridPagerComponent {
-  dataLength = 0;
-  translationKey = '';
+  @Input() pageSize = 15;
+  @Input() key = '';
+  @Input() visible = true;
 
+  dataLength = 0;
   totalPages = 0;
-  pageSize = 0;
   activePage = 1;
   pages: any;
 
   pageChange = new Subject<number>();
-
-  initPager(size: number, key: string) {
-    this.pageSize = size;
-    this.translationKey = key;
-  }
 
   update(dataSize: number, page: number) {
     this.dataLength = dataSize;

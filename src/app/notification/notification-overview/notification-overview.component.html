@@ -2,14 +2,12 @@
 
 <ik-grid
   #notificationGrid
-  translationKey="Notifications"
   basePath="notification"
   [dataLoader]="dataLoader"
-  [padding]="true"
   (rowClick)="gridRowClick($event)"
 >
   <ik-grid-column label="Notification" field="type"></ik-grid-column>
   <ik-grid-column label="Link ID" field="linkId"></ik-grid-column>
   <ik-grid-column label="Insert Date" field="insertDate"></ik-grid-column>
-  <ik-grid-pager></ik-grid-pager>
+  <ik-grid-pager key="Notifications"></ik-grid-pager>
 </ik-grid>

@@ -9,14 +9,12 @@
 >
 
 <ik-grid
-  translationKey="Stores"
-  basePath="store"
   [dataLoader]="dataLoader"
-  [pageSize]="10"
+  basePath="store"
   (rowClick)="handleClick($event)"
 >
   <ik-grid-search></ik-grid-search>
   <ik-grid-column label="Store ID" field="id"></ik-grid-column>
   <ik-grid-column label="Store Name" field="name"></ik-grid-column>
-  <ik-grid-pager></ik-grid-pager>
+  <ik-grid-pager [pageSize]="10" key="Stores"></ik-grid-pager>
 </ik-grid>

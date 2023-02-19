@@ -1,6 +1,4 @@
 <ik-grid
-  translationKey="Vacations"
-  pageSize="5"
   [dataLoader]="userVacationsDataloader"
   [padding]="false"
   [overflowEnabled]="true"
@@ -9,5 +7,5 @@
   <ik-grid-column label="Name" field="fullName"></ik-grid-column>
   <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
   <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
-  <ik-grid-pager></ik-grid-pager>
+  <ik-grid-pager [pageSize]="5" key="Vacations"></ik-grid-pager>
 </ik-grid>

@@ -1,6 +1,4 @@
 <ik-grid
-  translationKey="Users"
-  pageSize="5"
   [dataLoader]="storeUsersDataloader"
   [padding]="false"
   [overflowEnabled]="true"
@@ -9,4 +7,5 @@
   <ik-grid-column label="Name" field="formattedName"></ik-grid-column>
   <ik-grid-column label="Position" field="formattedRole"></ik-grid-column>
   <ik-grid-column label="Hire Date" field="hireDate"></ik-grid-column>
+  <ik-grid-pager [pageSize]="5" key="Users" [visible]="false"></ik-grid-pager>
 </ik-grid>

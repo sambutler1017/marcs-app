@@ -34,7 +34,7 @@
     <ng-content select="ik-grid-pager"></ng-content>
     <ng-container *ngIf="data?.body.length <= 0 && !loading">
       <label class="item-label-margin label-text left no-data-margin">{{
-        "No" + " " + translationKey
+        "No" + " " + gridPager.key
       }}</label>
     </ng-container>
   </div>

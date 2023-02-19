@@ -14,12 +14,12 @@ export class StoreUserVacationsCardComponent {
 
   constructor(private readonly vacationService: VacationService) {
     this.userVacationsDataloader = (params) =>
-      this.getUserVacationsDataloader();
+      this.getUserVacationsDataloader(params);
   }
 
-  getUserVacationsDataloader() {
+  getUserVacationsDataloader(params?: Map<string, string[]>) {
     return this.vacationService.getVacations(
-      new Map<string, string[]>()
+      params
         .set('storeId', [this.store.id])
         .set('status', [VacationStatus.APPROVED])
     );

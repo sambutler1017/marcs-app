@@ -31,8 +31,6 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   @ContentChild(GridSearchComponent) gridSearch: GridSearchComponent;
 
   @Input() dataLoader: (params: any) => Observable<HttpResponse<any[]>>;
-  @Input() translationKey: any;
-  @Input() pageSize = 15;
   @Input() padding = true;
   @Input() basePath = '';
   @Input() overflowEnabled = false;
@@ -76,22 +74,14 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
   initGrid() {
     this.activePage = 1;
 
-    this.addGridPager();
-    this.addGridSearch();
-
+    this.initSearchSubscription();
     this.initPageChangeSubscription();
     this.initDataSubscription();
 
     this.loadData();
   }
 
-  addGridPager() {
-    if (this.gridPager) {
-      this.gridPager.initPager(this.pageSize, this.translationKey);
-    }
-  }
-
-  addGridSearch() {
+  initSearchSubscription() {
     if (!this.gridSearch) {
       return;
     }
@@ -140,7 +130,7 @@ export class GridComponent implements OnChanges, OnDestroy, AfterViewInit {
 
   getGridParams(search?: string): GridParamBuilder {
     return new GridParamBuilder()
-      .withPaging(this.activePage, this.pageSize)
+      .withPaging(this.activePage, this.gridPager.pageSize)
       .withSearch(search);
   }
 

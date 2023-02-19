@@ -12,15 +12,13 @@
   </button>
 </ik-header>
 <ik-grid
-  translationKey="Block Dates"
   basePath="blockDates"
-  pageSize="10"
   [dataLoader]="blockOutDatesDataloader"
   (rowClick)="rowClick($event)"
 >
   <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
   <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
-  <ik-grid-pager></ik-grid-pager>
+  <ik-grid-pager [pageSize]="10" key="Block Dates"></ik-grid-pager>
 </ik-grid>
 
 <app-block-date-detail-modal
