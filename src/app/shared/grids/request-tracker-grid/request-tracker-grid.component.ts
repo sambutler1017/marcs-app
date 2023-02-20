@@ -1,4 +1,3 @@
-import { HttpResponse } from '@angular/common/http';
 import {
   Component,
   EventEmitter,
@@ -7,7 +6,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
-import { Observable } from 'rxjs';
+import { GridDataloader } from 'projects/insite-kit/src/models/grid.model';
 @Component({
   selector: 'app-request-tracker-grid',
   templateUrl: './request-tracker-grid.component.html',
@@ -16,7 +15,7 @@ import { Observable } from 'rxjs';
 export class RequestTrackerGridComponent {
   @ViewChild(GridComponent) grid: GridComponent;
 
-  @Input() dataLoader: (params: any) => Observable<HttpResponse<any>>;
+  @Input() dataLoader: GridDataloader;
   @Output() rowClick = new EventEmitter<any>();
 
   handleRowClick(event: any) {
