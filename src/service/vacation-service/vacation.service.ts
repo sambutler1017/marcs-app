@@ -49,6 +49,7 @@ export class VacationService {
    * Get vacations for the given user id.
    *
    * @param id of the vacation to get.
+   * @param params Any other params to be sent with the request.
    * @returns User object
    */
   getVacationsByUserId(
