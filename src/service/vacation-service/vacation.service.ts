@@ -51,9 +51,13 @@ export class VacationService {
    * @param id of the vacation to get.
    * @returns User object
    */
-  getVacationsByUserId(id: number): Observable<HttpResponse<Vacation[]>> {
+  getVacationsByUserId(
+    id: number,
+    params?: Map<string, string[]>
+  ): Observable<HttpResponse<Vacation[]>> {
     return this.request.get<Vacation[]>(
-      `${this.BASE_VACATION_PATH}/${id.toString()}/user`
+      `${this.BASE_VACATION_PATH}/${id.toString()}/user`,
+      params
     );
   }
 

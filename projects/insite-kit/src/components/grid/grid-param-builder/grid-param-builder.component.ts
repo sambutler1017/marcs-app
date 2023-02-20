@@ -31,7 +31,7 @@ export class GridParamBuilder {
    * @returns The current Grid param builder instance.
    */
   withSearch(search): GridParamBuilder {
-    if (search != '') {
+    if (search && search != '') {
       this.params.set('search', [search]);
     } else {
       this.params.delete('search');
