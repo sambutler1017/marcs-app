@@ -1,4 +1,8 @@
 import { Component, Input } from '@angular/core';
+import {
+  faBackwardStep,
+  faForwardStep,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -10,6 +14,9 @@ export class GridPagerComponent {
   @Input() pageSize = 15;
   @Input() key = '';
   @Input() visible = true;
+
+  backwardStepIcon = faBackwardStep;
+  forwardStepIcon = faForwardStep;
 
   dataLength = 0;
   totalPages = 0;
