@@ -10,7 +10,10 @@
     </ng-container>
   </ik-card-header>
   <div class="left-column">
-    <ik-card-info header="Store ID" [text]="data?.storeId"></ik-card-info>
+    <ik-card-info
+      header="Store ID"
+      [text]="data?.storeId ? data.storeId : '-'"
+    ></ik-card-info>
   </div>
   <div class="right-column">
     <ik-card-info
