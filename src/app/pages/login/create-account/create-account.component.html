@@ -1,0 +1,134 @@
+<div class="signUp-container">
+  <div class="col-md-4 text-center company__info">
+    <span class="company__logo">
+      <a class="logo"></a>
+    </span>
+    <h4 class="company-title large">Marc's Vacation App</h4>
+  </div>
+  <ik-card [marginBottom]="false">
+    <div class="row">
+      <h2 class="company-title large">Sign Up</h2>
+    </div>
+    <div class="row">
+      <form [formGroup]="form" class="form-group">
+        <div class="row">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="left text-label">First Name</label>
+            <input
+              type="text"
+              formControlName="firstName"
+              class="form-input__shadow margin-top-none"
+              placeholder="First Name"
+            />
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="left text-label">Last Name</label>
+            <input
+              type="text"
+              formControlName="lastName"
+              class="form-input__shadow margin-top-none"
+              placeholder="Last Name"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="left text-label">Email</label>
+
+            <div class="inputcontainer">
+              <input
+                type="text"
+                (blur)="checkEmail()"
+                (keyup)="setEmailStatus()"
+                formControlName="email"
+                class="form-input__shadow margin-top-none"
+                placeholder="Email"
+              />
+              <div class="icon-container">
+                <i
+                  *ngIf="emailInputStatus === 'LOADING'"
+                  class="loader-email"
+                ></i>
+                <i *ngIf="emailInputStatus === 'CLOSE'" class="close-mark"></i>
+                <i *ngIf="emailInputStatus === 'CHECK'" class="check-mark"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="left text-label">Position Title</label>
+            <select
+              class="form-input__shadow margin-top-none"
+              formControlName="positionTitle"
+            >
+              <option *ngFor="let role of roles" [ngValue]="role">{{
+                role | webRoleTranslate
+              }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row" *ngIf="!storesLoading; else loadingIcon">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="left text-label">Store ID Location</label>
+            <select
+              class="form-input__shadow margin-top-none"
+              formControlName="storeId"
+            >
+              <option value="" disabled selected hidden>Store ID</option>
+              <option *ngFor="let store of stores" [ngValue]="store.id">{{
+                store.id
+              }}</option>
+            </select>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <label class="left text-label">Store Name Location</label>
+            <input
+              type="text"
+              formControlName="storeName"
+              class="form-input__shadow margin-top-none"
+              placeholder="Store Name"
+              readonly
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <label class="left text-label">Password</label>
+            <input
+              type="password"
+              formControlName="password"
+              class="form-input__shadow margin-top-none"
+              placeholder="Password"
+            />
+          </div>
+        </div>
+        <div class="row" *ngIf="!loading; else saveLoading">
+          <div class="col align-self-center">
+            <button
+              (click)="onCreateAccount()"
+              class="btn btn-round__swap btn-primary create-button"
+              [disabled]="form.invalid || emailExist || emailDirty"
+            >
+              Create Account
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <p class="link-text">
+            Already have an account?
+            <a routerLink="/login">Sign In</a>
+          </p>
+        </div>
+      </form>
+    </div>
+  </ik-card>
+</div>
+
+<ng-template #loadingIcon>
+  <ik-loading-indicator size="40px" thickness="3px"></ik-loading-indicator>
+</ng-template>
+
+<ng-template #saveLoading>
+  <ik-loading-indicator size="30px" thickness="5px"></ik-loading-indicator>
+</ng-template>

@@ -1,0 +1,34 @@
+<ik-header title="Overview">
+  <button
+    class="btn btn-info btn-size btn-right"
+    (click)="addBlockOutDateModal.modal.open()"
+    *featureAccess="[
+      Application.BLOCK_DATES,
+      Feature.BLOCK_DATES_OVERVIEW,
+      Access.CREATE
+    ]"
+  >
+    Add Block Date
+  </button>
+</ik-header>
+<ik-grid
+  basePath="block-dates"
+  [dataLoader]="blockOutDatesDataloader"
+  (rowClick)="rowClick($event)"
+>
+  <ik-grid-column label="Start Date" field="startDate"></ik-grid-column>
+  <ik-grid-column label="End Date" field="endDate"></ik-grid-column>
+  <ik-grid-pager [pageSize]="10" key="Block Dates"></ik-grid-pager>
+</ik-grid>
+
+<app-block-date-detail-modal
+  [blockDate]="currentSelectedBlockDate"
+  [userCreated]="currentSelectedUser"
+  [loading]="loading"
+  (update)="refreshGrid()"
+  (delete)="refreshGrid()"
+></app-block-date-detail-modal>
+
+<app-add-block-out-date-modal
+  (save)="refreshGrid()"
+></app-add-block-out-date-modal>

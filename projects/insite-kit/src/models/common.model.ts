@@ -21,7 +21,7 @@ export enum App {
   USER = 'user',
   STORE = 'store',
   calendar = 'calendar',
-  BLOCK_DATES = 'blockDates',
+  BLOCK_DATES = 'block-dates',
   MAP = 'map',
   REPORT = 'report',
   REGIONAL = 'regional',
