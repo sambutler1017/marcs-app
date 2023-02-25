@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { of, Subject } from 'rxjs';
-import { catchError, map, takeUntil, tap } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
@@ -30,22 +29,22 @@ export class ForgotPasswordResetComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.buildForm();
 
-    this.route.params
-      .pipe(
-        map((p) => p.id),
-        tap((token) => {
-          const value = this.jwt.get('passwordReset', token);
-          if (value === null || !value) {
-            this.router.navigate(['/login']);
-          }
-        }),
-        catchError(() => {
-          this.router.navigate(['/login']);
-          return of(null);
-        }),
-        takeUntil(this.destroy)
-      )
-      .subscribe((t) => (this.token = t));
+    // this.route.params
+    //   .pipe(
+    //     map((p) => p.id),
+    //     tap((token) => {
+    //       const value = this.jwt.get('passwordReset', token);
+    //       if (value === null || !value) {
+    //         this.router.navigate(['/login']);
+    //       }
+    //     }),
+    //     catchError(() => {
+    //       this.router.navigate(['/login']);
+    //       return of(null);
+    //     }),
+    //     takeUntil(this.destroy)
+    //   )
+    //   .subscribe((t) => (this.token = t));
   }
 
   ngOnDestroy(): void {

@@ -1,67 +1,53 @@
-<div class="background">
-  <div class="container-fluid">
-    <div class="row main-content bg-success text-center">
-      <div class="col-md-4 text-center company__info">
-        <span class="company__logo">
-          <a class="logo"></a>
-        </span>
-        <h4 class="company-title large">Marc's Vacation App</h4>
+<app-login-container title="Sign In">
+  <div class="row">
+    <form [formGroup]="formGroup">
+      <div class="row">
+        <label class="left flex text-label">Email</label>
+        <input
+          type="text"
+          formControlName="email"
+          class="form-input__shadow margin-top-none"
+          placeholder="Email"
+        />
       </div>
-      <div class="col-md-8 col-xs-12 col-sm-12 login_form">
-        <div class="row">
-          <h2 class="company-title large sign-in-label">Sign In</h2>
-        </div>
-        <div class="row">
-          <form control="" class="form-group">
-            <div class="row">
-              <label class="left flex text-label">Email</label>
-              <input
-                type="text"
-                #email
-                class="form-input__shadow margin-top-none"
-                placeholder="Email"
-              />
-            </div>
-            <div class="row">
-              <label class="left flex text-label">Password</label>
-              <input
-                type="password"
-                #password
-                class="form-input__shadow margin-top-none"
-                placeholder="Password"
-              />
-            </div>
-            <div class="row">
-              <div class="col align-self-start">
-                <a routerLink="/login/forgot-password" class="left link-text"
-                  >Forgot Password?</a
-                >
-              </div>
-            </div>
-            <div class="row" *ngIf="!loading; else loadingIcon">
-              <div class="col align-self-center">
-                <button
-                  class="btn btn-round__swap btn-primary width-half login-button"
-                  (click)="login()"
-                >
-                  Login
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col align-self-center">
-                <p class="link-text">
-                  Don't have an account?
-                  <a routerLink="/login/create-account">Register Here</a>
-                </p>
-              </div>
-            </div>
-          </form>
+      <div class="row">
+        <label class="left flex text-label">Password</label>
+        <input
+          type="password"
+          formControlName="password"
+          class="form-input__shadow margin-top-none"
+          placeholder="Password"
+        />
+      </div>
+      <div class="row">
+        <div class="col align-self-start">
+          <a routerLink="/login/forgot-password" class="left link-text"
+            >Forgot Password?</a
+          >
         </div>
       </div>
-    </div>
+      <div class="row" *ngIf="!loading; else loadingIcon">
+        <div class="col align-self-center">
+          <button
+            [disabled]="formGroup.invalid"
+            class="btn btn-round__swap btn-primary width-half login-button"
+            (click)="login()"
+          >
+            Login
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col align-self-center">
+          <p class="link-text">
+            Don't have an account?
+            <a routerLink="/login/create-account">Register Here</a>
+          </p>
+        </div>
+      </div>
+    </form>
   </div>
-</div>
+</app-login-container>
 
 <ng-template #loadingIcon>
   <ik-loading-indicator size="30px" thickness="5px"></ik-loading-indicator>
