@@ -52,6 +52,7 @@
             class="form-input__shadow margin-top-none"
             formControlName="positionTitle"
           >
+            <option value="" disabled selected hidden>Position</option>
             <option *ngFor="let role of roles" [ngValue]="role">{{
               role | webRoleTranslate
             }}</option>
