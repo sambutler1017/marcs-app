@@ -44,7 +44,6 @@ import { UserComponent } from './pages/users/user.component';
 import { EditUserComponent } from './shared/pages/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './shared/pages/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './shared/pages/update-password/update-password.component';
-import { AuthenticatedLayoutComponent } from './shared/route/authenticated-layout.component';
 
 /**
  * Make sure to add back CanActivate on Home
@@ -63,150 +62,151 @@ const routes: Routes = [
     ],
   },
   // Authenticated Routes
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   {
-    path: '',
-    component: AuthenticatedLayoutComponent,
+    path: 'user',
+    component: UserComponent,
     canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeComponent },
+      { path: '', component: UserOverviewComponent, pathMatch: 'full' },
+      { path: ':id/details', component: UserDetailComponent },
       {
-        path: 'user',
-        component: UserComponent,
-        children: [
-          { path: '', component: UserOverviewComponent, pathMatch: 'full' },
-          { path: ':id/details', component: UserDetailComponent },
-          {
-            path: 'add-user',
-            component: AddUserComponent,
-            canActivate: [FeatureAccessGuard],
-            data: {
-              feature: [App.USER, Feature.USER_DETAIL, Access.CREATE],
-            },
-          },
-          {
-            path: ':id/details/edit/info',
-            component: EditUserComponent,
-            canActivate: [FeatureAccessGuard],
-            resolve: { user: UserResolverService },
-            data: {
-              feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
-            },
-          },
-          {
-            path: ':id/details/reset-password',
-            component: ResetPasswordComponent,
-            canActivate: [FeatureAccessGuard],
-            data: {
-              feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
-            },
-          },
-          {
-            path: ':id/details/vacations',
-            component: UserVacationsComponent,
-            canActivate: [FeatureAccessGuard],
-            data: {
-              feature: [App.USER, Feature.USER_VACATION, Access.READ],
-            },
-          },
-          {
-            path: ':id/details/vacations/:vacId/details',
-            canActivate: [FeatureAccessGuard],
-            data: {
-              feature: [App.USER, Feature.USER_VACATION, Access.UPDATE],
-            },
-            component: UserVacationsDetailComponent,
-          },
-        ],
+        path: 'add-user',
+        component: AddUserComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_DETAIL, Access.CREATE],
+        },
       },
       {
-        path: 'store',
-        component: StoresComponent,
-        children: [
-          { path: '', component: StoresOverviewComponent, pathMatch: 'full' },
-          { path: ':id/details', component: StoresDetailComponent },
-          {
-            path: 'add-store',
-            component: AddStoreComponent,
-            canActivate: [FeatureAccessGuard],
-            data: {
-              feature: [App.STORE, Feature.STORE_DETAIL, Access.CREATE],
-            },
-          },
-          {
-            path: ':id/details/edit/info',
-            component: StoresDetailEditComponent,
-            canActivate: [FeatureAccessGuard],
-            resolve: { store: StoreResolverService },
-            data: {
-              feature: [App.STORE, Feature.STORE_DETAIL, Access.UPDATE],
-            },
-          },
-        ],
+        path: ':id/details/edit/info',
+        component: EditUserComponent,
+        canActivate: [FeatureAccessGuard],
+        resolve: { user: UserResolverService },
+        data: {
+          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
+        },
       },
       {
-        path: 'block-dates',
-        component: BlockDatesComponent,
-        children: [
-          {
-            path: '',
-            component: BlockDatesOverviewComponent,
-            pathMatch: 'full',
-          },
-        ],
+        path: ':id/details/reset-password',
+        component: ResetPasswordComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
+        },
       },
       {
-        path: 'notification',
-        component: NotificationComponent,
-        children: [
-          {
-            path: '',
-            component: NotificationOverviewComponent,
-            pathMatch: 'full',
-          },
-          {
-            path: 'details/:id',
-            component: NotificationDetailComponent,
-          },
-        ],
+        path: ':id/details/vacations',
+        component: UserVacationsComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_VACATION, Access.READ],
+        },
       },
       {
-        path: 'request-tracker',
-        component: RequestTrackerComponent,
-        children: [
-          {
-            path: '',
-            component: RequestTrackerOverviewComponent,
-            pathMatch: 'full',
-          },
-          { path: 'wizard', component: RequestTrackerWizardComponent },
-        ],
-      },
-      {
-        path: 'profile',
-        component: ProfileComponent,
-        children: [
-          { path: '', component: ProfileOverviewComponent, pathMatch: 'full' },
-          { path: 'edit', component: ProfileEditComponent },
-          { path: 'update-password', component: UpdatePasswordComponent },
-        ],
-      },
-      {
-        path: 'calendar',
-        component: CalendarComponent,
-        children: [
-          { path: '', component: CalendarOverviewComponent, pathMatch: 'full' },
-        ],
-      },
-      {
-        path: 'report',
-        component: ReportsComponent,
-        children: [
-          { path: '', component: ReportsOverviewComponent, pathMatch: 'full' },
-        ],
+        path: ':id/details/vacations/:vacId/details',
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.USER, Feature.USER_VACATION, Access.UPDATE],
+        },
+        component: UserVacationsDetailComponent,
       },
     ],
   },
-
+  {
+    path: 'store',
+    component: StoresComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: StoresOverviewComponent, pathMatch: 'full' },
+      { path: ':id/details', component: StoresDetailComponent },
+      {
+        path: 'add-store',
+        component: AddStoreComponent,
+        canActivate: [FeatureAccessGuard],
+        data: {
+          feature: [App.STORE, Feature.STORE_DETAIL, Access.CREATE],
+        },
+      },
+      {
+        path: ':id/details/edit/info',
+        component: StoresDetailEditComponent,
+        canActivate: [FeatureAccessGuard],
+        resolve: { store: StoreResolverService },
+        data: {
+          feature: [App.STORE, Feature.STORE_DETAIL, Access.UPDATE],
+        },
+      },
+    ],
+  },
+  {
+    path: 'block-dates',
+    component: BlockDatesComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: BlockDatesOverviewComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'notification',
+    component: NotificationComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: NotificationOverviewComponent,
+        pathMatch: 'full',
+      },
+      {
+        path: 'details/:id',
+        component: NotificationDetailComponent,
+      },
+    ],
+  },
+  {
+    path: 'request-tracker',
+    component: RequestTrackerComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: RequestTrackerOverviewComponent,
+        pathMatch: 'full',
+      },
+      { path: 'wizard', component: RequestTrackerWizardComponent },
+    ],
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ProfileOverviewComponent, pathMatch: 'full' },
+      { path: 'edit', component: ProfileEditComponent },
+      { path: 'update-password', component: UpdatePasswordComponent },
+    ],
+  },
+  {
+    path: 'calendar',
+    component: CalendarComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: CalendarOverviewComponent, pathMatch: 'full' },
+    ],
+  },
+  {
+    path: 'report',
+    component: ReportsComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: '', component: ReportsOverviewComponent, pathMatch: 'full' },
+    ],
+  },
+  { path: '', redirectTo: 'home' },
   { path: '**', redirectTo: 'home' },
 ];
 

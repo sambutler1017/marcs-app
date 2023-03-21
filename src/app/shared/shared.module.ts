@@ -19,7 +19,6 @@ import { VacationModalComponent } from './modals/vacation-modal/vacation-modal.c
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
-import { AuthenticatedLayoutComponent } from './route/authenticated-layout.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +33,6 @@ import { AuthenticatedLayoutComponent } from './route/authenticated-layout.compo
     UpdatePasswordComponent,
     ResetPasswordComponent,
     EditUserComponent,
-    AuthenticatedLayoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +68,6 @@ import { AuthenticatedLayoutComponent } from './route/authenticated-layout.compo
     UpdatePasswordComponent,
     ResetPasswordComponent,
     EditUserComponent,
-    AuthenticatedLayoutComponent,
   ],
   providers: [
     {
