@@ -39,7 +39,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.route.data
       .pipe(
-        map((res) => res.user),
+        map((res) => res.user.body),
         tap((res) => (this.userId = res.id)),
         tap(
           () =>
@@ -49,7 +49,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe((user) => {
-        this.userUpdating = user.body;
+        this.userUpdating = user;
         this.loading = false;
       });
   }
