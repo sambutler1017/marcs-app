@@ -38,7 +38,7 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
 
     this.route.data
       .pipe(
-        tap((res) => (this.store = res.store)),
+        tap((res) => (this.store = res.store.body)),
         takeUntil(this.destroy)
       )
       .subscribe(() => (this.loading = false));

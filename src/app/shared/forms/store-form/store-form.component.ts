@@ -18,7 +18,7 @@ export class StoreFormComponent implements OnInit {
   @Output() save = new EventEmitter<Store>();
 
   form: FormGroup;
-  regionalAndDistrictManagers: User[] | any;
+  regionalAndDistrictManagers: User[];
   usersLoading = true;
 
   constructor(
@@ -29,7 +29,7 @@ export class StoreFormComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.getRegionalAndDistrictManagers().subscribe((res) => {
-      this.regionalAndDistrictManagers = res;
+      this.regionalAndDistrictManagers = res.body;
       this.usersLoading = false;
     });
   }
