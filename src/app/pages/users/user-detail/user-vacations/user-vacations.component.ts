@@ -41,7 +41,7 @@ export class UserVacationsComponent implements OnInit, OnDestroy {
   }
 
   getUserVacationsDataloader() {
-    return (params) =>
+    return (params: any) =>
       this.vacationService.getVacationsByUserId(this.user.id, params);
   }
 

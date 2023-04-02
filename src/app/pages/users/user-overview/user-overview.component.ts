@@ -15,7 +15,6 @@ import { UserService } from 'src/service/user-service/user.service';
 export class UserOverviewComponent {
   @ViewChild(ModalComponent) modal: ModalComponent;
   dataloader: any;
-  GRID_TAG = 'GRID_USERS_GRID';
 
   Feature = Feature;
   Application = App;
@@ -24,7 +23,7 @@ export class UserOverviewComponent {
   tempDataloader: any;
 
   constructor(private userService: UserService, private router: Router) {
-    this.dataloader = (params) => this.getUserDataLoader(params);
+    this.dataloader = (params: any) => this.getUserDataLoader(params);
   }
 
   getUserDataLoader(params?: Map<string, string[]>) {

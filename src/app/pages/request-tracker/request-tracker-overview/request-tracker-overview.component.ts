@@ -31,7 +31,7 @@ export class RequestTrackerOverviewComponent implements OnInit, OnDestroy {
     private readonly fb: FormBuilder,
     private readonly popupService: PopupService
   ) {
-    this.dataLoader = (params) => this.getCurrentUserVacationsDataloader();
+    this.dataLoader = () => this.getCurrentUserVacationsDataloader();
   }
 
   ngOnInit() {

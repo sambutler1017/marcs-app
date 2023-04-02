@@ -1,4 +1,4 @@
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -19,7 +19,6 @@ import { VacationModalComponent } from './modals/vacation-modal/vacation-modal.c
 import { EditUserComponent } from './pages/edit-user/edit-user.component';
 import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 import { UpdatePasswordComponent } from './pages/update-password/update-password.component';
-
 @NgModule({
   declarations: [
     UserFormComponent,

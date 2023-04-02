@@ -24,7 +24,7 @@ export class StoresOverviewComponent {
     private userService: UserService,
     private router: Router
   ) {
-    this.dataLoader = (params) => this.getStoreDataloader(params);
+    this.dataLoader = (params: any) => this.getStoreDataloader(params);
   }
 
   getStoreDataloader(params?: Map<string, string[]>) {

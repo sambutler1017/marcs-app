@@ -28,7 +28,7 @@ export class NotificationOverviewComponent implements OnInit, OnDestroy {
     private readonly router: Router,
     private readonly subscriptionService: SubscriptionService
   ) {
-    this.dataLoader = (params) => this.getNotifications(this.getParams());
+    this.dataLoader = (params: any) => this.getNotifications(this.getParams());
   }
 
   ngOnInit() {

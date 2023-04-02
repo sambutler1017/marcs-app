@@ -37,8 +37,7 @@ export class BlockDatesOverviewComponent {
     private readonly blockDatesService: BlockDatesService,
     private readonly userService: UserService
   ) {
-    this.blockOutDatesDataloader = (params) =>
-      this.getBlockOutDatesDataloader();
+    this.blockOutDatesDataloader = () => this.getBlockOutDatesDataloader();
   }
 
   getBlockOutDatesDataloader() {

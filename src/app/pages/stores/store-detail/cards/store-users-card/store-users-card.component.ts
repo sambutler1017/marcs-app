@@ -20,7 +20,7 @@ export class StoreUsersCardComponent {
   loading = true;
 
   constructor(private readonly userService: UserService) {
-    this.storeUsersDataloader = (params) => this.getStoreUserDataloader();
+    this.storeUsersDataloader = () => this.getStoreUserDataloader();
   }
 
   getStoreUserDataloader() {

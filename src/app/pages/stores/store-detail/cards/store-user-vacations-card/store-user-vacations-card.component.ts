@@ -13,7 +13,7 @@ export class StoreUserVacationsCardComponent {
   userVacationsDataloader: any;
 
   constructor(private readonly vacationService: VacationService) {
-    this.userVacationsDataloader = (params) =>
+    this.userVacationsDataloader = (params: any) =>
       this.getUserVacationsDataloader(params);
   }
 

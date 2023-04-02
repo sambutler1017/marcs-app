@@ -61,7 +61,7 @@ export class UserVacationsCardComponent implements OnInit, OnDestroy {
   }
 
   getVacationDataLoader() {
-    return (params) =>
+    return (params: any) =>
       this.vacationService.getVacationsByUserId(this.userId, params);
   }
 
