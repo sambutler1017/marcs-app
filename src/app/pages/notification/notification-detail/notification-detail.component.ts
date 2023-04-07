@@ -16,7 +16,7 @@ import { User } from 'projects/insite-kit/src/models/user.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { NotificationService } from 'projects/insite-kit/src/service/notification/notification.service';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { iif, of, Subject } from 'rxjs';
+import { Subject, iif, of } from 'rxjs';
 import { concatMap, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { UserService } from 'src/service/user-service/user.service';
 import { VacationService } from 'src/service/vacation-service/vacation.service';
@@ -70,7 +70,7 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy)
       )
       .subscribe((res) => {
-        this.notificationData = res;
+        this.notificationData = res.body;
         this.notificationService.triggerNotificationUpdate();
       });
   }

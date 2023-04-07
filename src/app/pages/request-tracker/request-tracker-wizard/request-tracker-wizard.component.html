@@ -1,3 +1,6 @@
+<ik-header title="Submit Request"
+  ><ik-header-back (back)="onBackClick()"></ik-header-back
+></ik-header>
 <ik-info-card
   textAlign="left"
   titleColor="#178BFF"
@@ -7,13 +10,19 @@
 ></ik-info-card>
 <div class="row">
   <ik-info-card
-    class="col-md-6 col-sm-12"
+    class="col-xl-6 col-sm-12 selection-card"
+    (click)="vacationRequest.requestModal.open()"
     title="Vacation"
     description="Request a vacation for a time period. The request will be sent to the proceeding manager to be reviewed."
   ></ik-info-card>
   <ik-info-card
-    class="col-md-6 col-sm-12"
+    *featureAccess="[Application.STORE, Feature.STORE_DETAIL, Access.UPDATE]"
+    class="col-xl-6 col-sm-12 selection-card"
     title="Store Move"
     description="Request a store from another regional/district manager to be added to your list. The receiving regional/district manager will either approve or deny the store transfer."
   ></ik-info-card>
 </div>
+
+<app-request-tracker-vacation-modal
+  #vacationRequest
+></app-request-tracker-vacation-modal>

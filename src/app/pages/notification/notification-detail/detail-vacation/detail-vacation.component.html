@@ -16,8 +16,9 @@
     <ik-card-info
       header="Start Date"
       [text]="
-        (vacationData?.startDate ? vacationData.startDate : '-')
-          | date: 'mediumDate'
+        vacationData?.startDate
+          ? (vacationData.startDate | date : 'mediumDate')
+          : '-'
       "
     ></ik-card-info>
   </div>
@@ -25,8 +26,9 @@
     <ik-card-info
       header="End Date"
       [text]="
-        (vacationData?.endDate ? vacationData.endDate : '-')
-          | date: 'mediumDate'
+        vacationData?.endDate
+          ? (vacationData.endDate | date : 'mediumDate')
+          : '-'
       "
     ></ik-card-info>
   </div>

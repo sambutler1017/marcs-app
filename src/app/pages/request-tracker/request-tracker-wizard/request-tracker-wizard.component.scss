@@ -1,0 +1,8 @@
+.selection-card {
+    transition: all 0.3s ease;
+}
+
+.selection-card:hover {
+    transform: scale(1.03);
+    color: #178BFF
+}
