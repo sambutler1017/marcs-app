@@ -19,3 +19,9 @@
     display: inline;
     margin: 0;
 }
+
+ik-info-card {
+    &.chip {
+        margin-top: 10px !important;
+    }
+}
