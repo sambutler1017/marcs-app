@@ -31,7 +31,7 @@ export class UserService {
    * Get a list of users based on the given request
    *
    * @param params to filter on
-   * @returns User object
+   * @returns User object,
    */
   getUsers(params?: Map<string, string[]>): Observable<HttpResponse<User[]>> {
     return this.request.get<User[]>(this.BASE_USER_PATH, params).pipe(
