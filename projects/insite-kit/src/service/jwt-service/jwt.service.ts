@@ -80,6 +80,11 @@ export class JwtService {
     return this.get('webRole') as keyof typeof WebRole;
   }
 
+  /**
+   * Get logged in user details object
+   *
+   * @returns The user object.
+   */
   getUser(): User {
     return {
       id: this.getRequiredUserId(),

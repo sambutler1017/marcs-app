@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RxStomp } from '@stomp/rx-stomp';
+import { RxStomp, RxStompState } from '@stomp/rx-stomp';
 import { Message } from '@stomp/stompjs';
 import { Notification } from 'projects/insite-kit/src/models/notification.model';
 import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { JwtService } from '../jwt-service/jwt.service';
 import { UrlService } from '../url-service/url.service';
 import { STOMP_SOCKET_CONFIG } from './stomp.config';
@@ -29,6 +29,8 @@ export class SubscriptionService extends RxStomp {
       this.configure({
         brokerURL: `${this.urlService.getSocketAPIUrl()}?${this.jwt.getToken()}`,
       });
+
+      this.listenForDisconnect();
       this.activate();
     }
   }
@@ -81,5 +83,18 @@ export class SubscriptionService extends RxStomp {
    */
   private subscriptionSession() {
     return this.serverHeaders$.pipe(map((session) => session['user-name']));
+  }
+
+  /**
+   * Listen for when socket connection breaks. If it breaks then it means the
+   * server is down or the users token has expired.
+   */
+  private listenForDisconnect() {
+    this.connectionState$
+      .pipe(
+        filter((c) => c === RxStompState.CLOSED),
+        filter(() => !this.jwt.isAuthenticated())
+      )
+      .subscribe(() => this.jwt.logOut());
   }
 }
