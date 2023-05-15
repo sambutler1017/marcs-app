@@ -7,6 +7,7 @@ import { NotificationModule } from './notification/notification.module';
 import { ProfileModule } from './profile/profile.module';
 import { ReportsModule } from './reports/reports.module';
 import { RequestTrackerModule } from './request-tracker/request-tracker.module';
+import { SchedulerModule } from './scheduler/scheduler.module';
 import { StoresModule } from './stores/stores.module';
 import { UserModule } from './users/user.module';
 
@@ -22,6 +23,7 @@ import { UserModule } from './users/user.module';
     BlockDatesModule,
     HomeModule,
     ReportsModule,
+    SchedulerModule,
   ],
 })
 export class PagesModule {}

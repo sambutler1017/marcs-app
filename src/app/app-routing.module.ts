@@ -30,6 +30,8 @@ import { ReportsComponent } from './pages/reports/reports.component';
 import { RequestTrackerOverviewComponent } from './pages/request-tracker/request-tracker-overview/request-tracker-overview.component';
 import { RequestTrackerWizardComponent } from './pages/request-tracker/request-tracker-wizard/request-tracker-wizard.component';
 import { RequestTrackerComponent } from './pages/request-tracker/request-tracker.component';
+import { SchedulerOverviewComponent } from './pages/scheduler/scheduler-overview/scheduler-overview.component';
+import { SchedulerComponent } from './pages/scheduler/scheduler.component';
 import { StoresDetailEditComponent } from './pages/stores/store-detail/store-detail-edit/store-detail-edit.component';
 import { StoresDetailComponent } from './pages/stores/store-detail/stores-detail.component';
 import { AddStoreComponent } from './pages/stores/stores-overview/add-store/add-store.component';
@@ -147,6 +149,18 @@ const routes: Routes = [
       {
         path: '',
         component: BlockDatesOverviewComponent,
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
+    path: 'scheduler',
+    component: SchedulerComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: SchedulerOverviewComponent,
         pathMatch: 'full',
       },
     ],

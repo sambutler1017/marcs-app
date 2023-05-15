@@ -243,32 +243,13 @@ export class UserService {
   getUserAccessMap() {
     const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
 
-    // CORPORATE_USER, SITE_ADMIN, ADMIN
-    if ([2, 8, 9].includes(userRole)) {
-      return new Map<string, string[]>().set(
-        'excludedUserIds',
-        this.jwt.get('userId')
-      );
+    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER, DISTRICT_MANAGER, REGIONAL
+    if ([3, 4, 5, 6, 7].includes(userRole)) {
+      return new Map<string, string[]>().set('accountStatus', ['APPROVED']);
     }
 
-    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER
-    if ([3, 4, 5].includes(userRole)) {
-      return new Map<string, string[]>()
-        .set('storeId', this.jwt.get('storeId'))
-        .set('excludedUserIds', this.jwt.get('userId'))
-        .set('accountStatus', ['APPROVED']);
-    }
-
-    //DISTRICT_MANAGER, REGIONAL
-    if ([6, 7].includes(userRole)) {
-      return new Map<string, string[]>()
-        .set('regionalId', this.jwt.get('userId'))
-        .set('excludedUserIds', this.jwt.get('userId'))
-        .set('accountStatus', ['APPROVED']);
-    }
-
-    // EMPLOYEE and other
-    return new Map<string, string[]>().set('userId', [this.jwt.get('userId')]);
+    // EMPLOYEE, CORPORATE_USER, SITE_ADMIN, ADMIN, and other
+    return new Map<string, string[]>();
   }
 
   /**
@@ -337,7 +318,7 @@ export class UserService {
         ) as string[];
     }
 
-    //EMPLOYEE or other can edit anyone
+    //EMPLOYEE or other can't create anyone
     return [];
   }
 }

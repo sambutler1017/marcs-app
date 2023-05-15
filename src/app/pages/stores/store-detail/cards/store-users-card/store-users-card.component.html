@@ -1,8 +1,4 @@
-<ik-grid
-  [dataLoader]="storeUsersDataloader"
-  [padding]="false"
-  [overflowEnabled]="true"
->
+<ik-grid [dataLoader]="storeUsersDataloader" [overflowEnabled]="true">
   <ik-card-header title="Users"> </ik-card-header>
   <ik-grid-column label="Name" field="formattedName"></ik-grid-column>
   <ik-grid-column label="Position" field="formattedRole"></ik-grid-column>

@@ -1,6 +1,8 @@
-<input
-  class="search"
-  placeholder="Search"
-  [value]="currentSearch"
-  (change)="onSearch($event.srcElement.value)"
-/>
+<div class="grid-search__container">
+  <input
+    class="grid-search"
+    placeholder="Search"
+    [value]="currentSearch"
+    (change)="onSearch($event.srcElement.value)"
+  />
+</div>

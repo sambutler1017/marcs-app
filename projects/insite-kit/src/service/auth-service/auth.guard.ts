@@ -38,7 +38,9 @@ export class AuthGuard implements CanActivate {
    * @returns boolean based on the status of the token
    */
   hasAppAccess(next: ActivatedRouteSnapshot): boolean {
-    if (['login', 'home', 'profile'].includes(next.routeConfig.path))
+    if (
+      ['login', 'home', 'profile', 'scheduler'].includes(next.routeConfig.path)
+    )
       return true;
 
     const appAccess = this.jwt
