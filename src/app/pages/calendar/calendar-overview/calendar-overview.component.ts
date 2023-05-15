@@ -129,7 +129,7 @@ export class CalendarOverviewComponent implements OnInit {
   }
 
   getVacations() {
-    let params = this.userService.getUserAccessMap();
+    let params = new Map<string, string[]>().set('accountStatus', ['APPROVED']);
 
     if (params) {
       return this.vacationService.getVacations(params);

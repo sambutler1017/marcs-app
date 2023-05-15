@@ -30,6 +30,34 @@ export class StoreService {
   }
 
   /**
+   * Get a list of stores for the given request
+   *
+   * @param params to filter request on
+   * @returns observable of the returned request
+   */
+  getStoresAllowedToAccess(): Observable<HttpResponse<Store[]>> {
+    const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
+    let params = new Map<string, string[]>();
+
+    // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER
+    if ([3, 4, 5].includes(userRole)) {
+      params.set('managerId', [this.jwt.getRequiredUserId().toString()]);
+    }
+
+    // DISTRICT_MANAGER, REGIONAL
+    if ([6, 7].includes(userRole)) {
+      params.set('regionalId', [this.jwt.getRequiredUserId().toString()]);
+    }
+
+    // EMPLOYEE
+    if (userRole === 1) {
+      params.set('id', [this.jwt.get('storeId')]);
+    }
+
+    return this.requestService.get<Store[]>(this.BASE_STORE_PATH, params);
+  }
+
+  /**
    * Get the store for the given store id.
    *
    * @param id The id of the store to get

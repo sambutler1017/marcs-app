@@ -27,17 +27,9 @@ export class UserOverviewComponent {
   }
 
   getUserDataLoader(params?: Map<string, string[]>) {
-    return this.userService.getUsers(this.getParams(params));
-  }
-
-  getParams(params?: Map<string, string[]>) {
-    if (params) {
-      return new Map([
-        ...params.entries(),
-        ...this.userService.getUserAccessMap().entries(),
-      ]);
-    }
-    return this.userService.getUserAccessMap();
+    return this.userService.getUsers(
+      params ? params : new Map<string, string[]>()
+    );
   }
 
   rowClick(event: any) {

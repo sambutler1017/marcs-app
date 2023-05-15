@@ -28,17 +28,9 @@ export class StoresOverviewComponent {
   }
 
   getStoreDataloader(params?: Map<string, string[]>) {
-    return this.storeService.getStores(this.getParams(params));
-  }
-
-  getParams(params?: Map<string, string[]>) {
-    if (params) {
-      return new Map([
-        ...params.entries(),
-        ...this.userService.getUserAccessMap().entries(),
-      ]);
-    }
-    return this.userService.getUserAccessMap();
+    return this.storeService.getStores(
+      params ? params : new Map<string, string[]>()
+    );
   }
 
   handleClick(event: any) {

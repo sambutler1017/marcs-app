@@ -42,9 +42,17 @@
     </div>
     <div class="right-column">
       <ik-card-info
+        *ngIf="user?.accountStatus !== 'PENDING'"
         [contentColor]="user?.appAccess ? 'text-success' : 'text-danger'"
         header="Access"
         [text]="user?.appAccess ? 'GRANTED' : 'DENIED'"
+      ></ik-card-info>
+
+      <ik-card-info
+        *ngIf="user?.accountStatus === 'PENDING'"
+        contentColor="text-warning"
+        header="Account Status"
+        text="PENDING"
       ></ik-card-info>
     </div>
   </div>
@@ -53,14 +61,14 @@
     <div class="left-column">
       <ik-card-info
         header="Hire Date"
-        [text]="user?.hireDate | date: 'mediumDate'"
+        [text]="user?.hireDate | date : 'mediumDate'"
       >
       </ik-card-info>
     </div>
     <div class="right-column" *ngIf="lastLoginFieldAccess">
       <ik-card-info
         header="Last Login"
-        [text]="user?.lastLoginDate | date: 'MMMM d, y, h:mm a'"
+        [text]="user?.lastLoginDate | date : 'MMMM d, y, h:mm a'"
       ></ik-card-info>
     </div>
   </div>
