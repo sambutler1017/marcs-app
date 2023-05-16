@@ -43,7 +43,7 @@ export class AddUserComponent implements OnInit {
   }
 
   onSaveClick(user: User) {
-    if (this.checkUserRoleManager(user)) {
+    if (this.checkUserRoleStoreManager(user)) {
       this.disableSave = true;
       this.checkStoreHasManager(user);
     } else {
@@ -115,7 +115,7 @@ export class AddUserComponent implements OnInit {
       });
   }
 
-  checkUserRoleManager(user: User): boolean {
+  checkUserRoleStoreManager(user: User): boolean {
     return user.webRole === WebRole[WebRole.STORE_MANAGER];
   }
 

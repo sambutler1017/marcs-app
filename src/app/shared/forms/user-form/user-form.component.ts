@@ -142,7 +142,10 @@ export class UserFormComponent implements OnInit {
       firstName: this.form.value.firstName.trim(),
       lastName: this.form.value.lastName.trim(),
       webRole: this.form.getRawValue().webRole,
-      storeId: this.form.getRawValue().storeId.toUpperCase(),
+      storeId:
+        this.form.getRawValue().storeId.trim() === ''
+          ? null
+          : this.form.getRawValue().storeId.toUpperCase(),
       hireDate: this.form.value.hireDate,
     };
 

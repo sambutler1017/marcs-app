@@ -6,7 +6,7 @@ import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { JwtService } from 'projects/insite-kit/src/service/jwt-service/jwt.service';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { of, Subject } from 'rxjs';
+import { Subject, of } from 'rxjs';
 import { catchError, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
@@ -82,7 +82,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
     this.storeService
       .getManagerOfStoreById(user.storeId)
       .pipe(
-        map((res) => res !== null),
+        map((res) => res.body !== null),
         catchError(() => of(false))
       )
       .subscribe((hasManager) => {
