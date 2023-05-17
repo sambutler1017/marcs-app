@@ -18,7 +18,7 @@ import { StoreService } from 'src/service/store-service/store.service';
 export class StoreDetailCardComponent implements OnInit {
   @Input() store: Store;
 
-  regionalInfo: User;
+  regionalManagerInfo: User;
   managerInfo: User;
 
   loading = true;
@@ -40,16 +40,16 @@ export class StoreDetailCardComponent implements OnInit {
       .hasEditStoreAccess(this.store)
       .pipe(
         tap((res) => (this.canEdit = res)),
-        switchMap(() => this.getRegionalInfo()),
-        tap((res) => (this.regionalInfo = res.body)),
+        switchMap(() => this.getRegionalManagerInfo()),
+        tap((res) => (this.regionalManagerInfo = res.body)),
         switchMap(() => this.getManagerInfo()),
         tap((res) => (this.managerInfo = res.body))
       )
       .subscribe(() => (this.loading = false));
   }
 
-  getRegionalInfo() {
-    return this.storeService.getRegionalOfStoreById(this.store.id);
+  getRegionalManagerInfo() {
+    return this.storeService.getRegionalManagerOfStoreById(this.store.id);
   }
 
   getManagerInfo() {

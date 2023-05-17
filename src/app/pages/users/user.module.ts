@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { InsiteKitModule } from 'projects/insite-kit/src/insite-kit.module';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { ManagerStoresCardComponent } from './user-detail/cards/regional-stores-card/manager-stores-card.component';
+import { RegionalManagerStoresCardComponent } from './user-detail/cards/regional-stores-card/regional-manager-stores-card.component';
 import { UserVacationsCardComponent } from './user-detail/cards/user-vacations-card/user-vacations-card.component';
 import { AddUserVacationModalComponent } from './user-detail/modals/add-user-vacation-modal/add-user-vacation-modal.component';
 import { DeleteUserModalComponent } from './user-detail/modals/delete-user-modal/delete-user-modal.component';
@@ -23,7 +23,7 @@ import { UserComponent } from './user.component';
     UserVacationsCardComponent,
     AddUserVacationModalComponent,
     DeleteUserModalComponent,
-    ManagerStoresCardComponent,
+    RegionalManagerStoresCardComponent,
   ],
   imports: [SharedModule, InsiteKitModule],
 })

@@ -26,22 +26,14 @@
     <div class="flex">
       <div class="left-column">
         <ik-card-info
-          header="Regional"
-          [text]="
-            regionalInfo
-              ? regionalInfo.firstName + ' ' + regionalInfo.lastName
-              : '-'
-          "
+          header="Regional Manager"
+          [text]="regionalManagerInfo | formatUserName"
         ></ik-card-info>
       </div>
       <div class="right-column">
         <ik-card-info
           header="Manager"
-          [text]="
-            managerInfo
-              ? managerInfo.firstName + ' ' + managerInfo.lastName
-              : '-'
-          "
+          [text]="managerInfo | formatUserName"
         ></ik-card-info>
       </div>
     </div>

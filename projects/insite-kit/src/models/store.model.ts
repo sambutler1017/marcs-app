@@ -1,6 +1,6 @@
 export interface Store {
   id: string;
-  regionalId?: number;
+  regionalManagerId?: number;
   managerId?: number;
   name: string;
 }

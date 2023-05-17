@@ -44,9 +44,11 @@ export class StoreService {
       params.set('managerId', [this.jwt.getRequiredUserId().toString()]);
     }
 
-    // DISTRICT_MANAGER, REGIONAL
+    // DISTRICT_MANAGER, REGIONAL_MANAGER
     if ([6, 7].includes(userRole)) {
-      params.set('regionalId', [this.jwt.getRequiredUserId().toString()]);
+      params.set('regionalManagerId', [
+        this.jwt.getRequiredUserId().toString(),
+      ]);
     }
 
     // EMPLOYEE
@@ -68,15 +70,17 @@ export class StoreService {
   }
 
   /**
-   * Get the regional of the passed in store ID.
+   * Get the regional manager of the passed in store ID.
    *
-   * @param storeId Id of the store to get the regional for.
-   * @return The regional of that store
+   * @param storeId Id of the store to get the regional manager for.
+   * @return The regional manager of that store
    * @throws Exception
    */
-  getRegionalOfStoreById(storeId: string): Observable<HttpResponse<User>> {
+  getRegionalManagerOfStoreById(
+    storeId: string
+  ): Observable<HttpResponse<User>> {
     return this.requestService.get<User>(
-      `${this.BASE_STORE_PATH}/regional/${storeId}`
+      `${this.BASE_STORE_PATH}/regional-manager/${storeId}`
     );
   }
 
@@ -123,15 +127,18 @@ export class StoreService {
   }
 
   /**
-   * This will update the regional of a store for the given user id and store id.
+   * This will update the regional manager of a store for the given user id and store id.
    *
-   * @param userId The user id to update the regional too.
-   * @param storeId The store to update the regional at.
-   * @returns store object with the updated regional.
+   * @param userId The user id to update the regional manager too.
+   * @param storeId The store to update the regional manager at.
+   * @returns store object with the updated regional manager.
    */
-  updateRegionalOfStore(userId: number, storeId: string): Observable<Store> {
+  updateRegionalManagerOfStore(
+    userId: number,
+    storeId: string
+  ): Observable<Store> {
     return this.requestService.put<Store>(
-      `${this.BASE_STORE_PATH}/${userId}/regional/${storeId}`
+      `${this.BASE_STORE_PATH}/${userId}/regional-manager/${storeId}`
     );
   }
 
@@ -175,8 +182,8 @@ export class StoreService {
    */
   hasEditStoreAccess(store: Store): Observable<boolean> {
     return of(
-      this.jwt.getRequiredUserId() === store.regionalId ||
-        WebRole[this.jwt.getRequiredWebRole()] > WebRole.REGIONAL
+      this.jwt.getRequiredUserId() === store.regionalManagerId ||
+        WebRole[this.jwt.getRequiredWebRole()] > WebRole.REGIONAL_MANAGER
     );
   }
 }

@@ -36,7 +36,7 @@ export class StoreFormComponent implements OnInit {
 
   getRegionalAndDistrictManagers() {
     const request = new Map<string, any[]>().set('webRole', [
-      WebRole[WebRole.REGIONAL],
+      WebRole[WebRole.REGIONAL_MANAGER],
       WebRole[WebRole.DISTRICT_MANAGER],
     ]);
     return this.userService.getUsers(request);
@@ -49,17 +49,19 @@ export class StoreFormComponent implements OnInit {
         this.storeData ? this.storeData.name : '',
         Validators.required,
       ],
-      currentRegional: [
-        this.storeData?.regionalId ? this.storeData.regionalId : '0',
+      currentRegionalManager: [
+        this.storeData?.regionalManagerId
+          ? this.storeData.regionalManagerId
+          : '0',
         Validators.required,
       ],
     });
 
-    if (!this.storeData?.regionalId) {
+    if (!this.storeData?.regionalManagerId) {
       this.disableSave = true;
     }
 
-    this.form.controls.currentRegional.valueChanges.subscribe(
+    this.form.controls.currentRegionalManager.valueChanges.subscribe(
       (v) => (this.disableSave = Number(v) <= 0)
     );
   }
@@ -72,7 +74,7 @@ export class StoreFormComponent implements OnInit {
     let store: Store = {
       id: this.form.value.storeId,
       name: this.form.value.storeName,
-      regionalId: this.form.value.currentRegional,
+      regionalManagerId: this.form.value.currentRegionalManager,
     };
 
     this.save.emit(store);

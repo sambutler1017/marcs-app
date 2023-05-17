@@ -5,8 +5,7 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { WebRole } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { PopupService } from 'projects/insite-kit/src/service/popup/popup.service';
-import { of } from 'rxjs';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { StoreService } from 'src/service/store-service/store.service';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -37,85 +36,48 @@ export class AddUserComponent implements OnInit {
     this.location.back();
   }
 
-  onModalClose() {
-    this.resetStatus();
-    this.managerChangeModal.close();
-  }
-
   onSaveClick(user: User) {
-    if (this.checkUserRoleStoreManager(user)) {
-      this.disableSave = true;
+    if (this.isNewUserRoleStoreManager(user)) {
       this.checkStoreHasManager(user);
     } else {
-      this.loading = true;
-      this.userProfileSave(user);
+      this.saveUserProfile(user);
     }
-  }
-
-  userProfileSave(user: User) {
-    this.userService.addUser(user).subscribe({
-      next: (res) => {
-        this.router.navigate([`/user/${res.id}/details`]);
-        this.popupService.success('User Successfully created!');
-      },
-      error: () => {
-        this.popupService.error('User could not be created!');
-        this.loading = false;
-      },
-    });
   }
 
   checkStoreHasManager(user: User) {
     this.storeService
       .getManagerOfStoreById(user.storeId)
-      .pipe(
-        map((res) => res !== null),
-        catchError(() => of(false))
-      )
+      .pipe(map((res) => res.body !== null))
       .subscribe((hasManager) => {
         this.currentUpdatedInfo = user;
         if (hasManager) {
           this.managerChangeModal.open();
         } else {
-          this.onManagerConfirm();
+          this.saveUserProfile(user);
         }
       });
   }
 
-  getAddUserObservable(user: User) {
-    return this.userService.addUser(user);
-  }
-
-  onManagerConfirm() {
-    this.loading = true;
-    let newUser: User = null;
+  onManagerChangeConfirm() {
     this.managerChangeModal.close();
-
-    this.getAddUserObservable(this.currentUpdatedInfo)
-      .pipe(
-        tap((res) => (newUser = res)),
-        switchMap((newUser) =>
-          this.storeService.updateStoreManagerOfStore(
-            newUser.id,
-            newUser.storeId
-          )
-        )
-      )
-      .subscribe({
-        next: () => {
-          this.managerChangeModal.close();
-          this.router.navigate([`/user/${newUser.id}/details`]);
-          this.popupService.success('User Successfully created!');
-        },
-        error: () => {
-          this.resetStatus();
-          this.managerChangeModal.close();
-          this.popupService.error('User could not be created at this time!');
-        },
-      });
+    this.saveUserProfile(this.currentUpdatedInfo);
   }
 
-  checkUserRoleStoreManager(user: User): boolean {
+  saveUserProfile(user: User) {
+    this.loading = true;
+    this.userService.addUser(user).subscribe({
+      next: (newUser) => {
+        this.router.navigate([`/user/${newUser.id}/details`]);
+        this.popupService.success('User Successfully created!');
+      },
+      error: () => {
+        this.resetStatus();
+        this.popupService.error('User could not be created at this time!');
+      },
+    });
+  }
+
+  isNewUserRoleStoreManager(user: User): boolean {
     return user.webRole === WebRole[WebRole.STORE_MANAGER];
   }
 

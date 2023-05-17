@@ -76,13 +76,17 @@ export class UserService {
   }
 
   /**
-   * This will get the User object of the regional that is in charge of that store.
+   * This will get the User object of the regional manager that is in charge of that store.
    *
-   * @param storeId The store id to get the regional for.
-   * @returns User object of the regional.
+   * @param storeId The store id to get the regional manager for.
+   * @returns User object of the regional manager.
    */
-  getRegionalOfStoreById(storeId: string): Observable<HttpResponse<User>> {
-    return this.request.get<User>(`${this.BASE_USER_PATH}/regional/${storeId}`);
+  getRegionalManagerOfStoreById(
+    storeId: string
+  ): Observable<HttpResponse<User>> {
+    return this.request.get<User>(
+      `${this.BASE_USER_PATH}/regional-manager/${storeId}`
+    );
   }
 
   /**
@@ -266,7 +270,7 @@ export class UserService {
       return true;
     }
 
-    // DISTRICT_MANAGER or REGIONAL editing user with role of STORE_MANAGER or lower
+    // DISTRICT_MANAGER or REGIONAL_MANAGER editing user with role of STORE_MANAGER or lower
     if ([6, 7].includes(userRole) && Number(WebRole[editableUserRole]) < 6) {
       return true;
     }
@@ -299,7 +303,7 @@ export class UserService {
       return [WebRole[WebRole.EMPLOYEE].toString()];
     }
 
-    // DISTRICT_MANAGER or REGIONAL editing user with role of STORE_MANAGER or lower
+    // DISTRICT_MANAGER or REGIONAL_MANAGER editing user with role of STORE_MANAGER or lower
     if ([6, 7].includes(userRole)) {
       return [
         WebRole[WebRole.ASSISTANT_MANAGER].toString(),

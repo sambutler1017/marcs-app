@@ -14,7 +14,8 @@ import { StoreService } from 'src/service/store-service/store.service';
   templateUrl: './store-detail-edit.component.html',
 })
 export class StoresDetailEditComponent implements OnInit, OnDestroy {
-  @ViewChild('regionalChangeModal') regionalChangeModal: ModalComponent;
+  @ViewChild('regionalManagerChangeModal')
+  regionalManagerChangeModal: ModalComponent;
 
   store: Store;
   currentUpdatedInfo: Store;
@@ -53,9 +54,12 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
   }
 
   onSaveClick(event: Store) {
-    if (this.store.regionalId && this.store.regionalId !== event.regionalId) {
+    if (
+      this.store.regionalManagerId &&
+      this.store.regionalManagerId !== event.regionalManagerId
+    ) {
       this.currentUpdatedInfo = event;
-      this.regionalChangeModal.open();
+      this.regionalManagerChangeModal.open();
       this.disableSave = true;
     } else {
       this.loading = true;
@@ -63,8 +67,8 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  onRegionalChangeConfirm() {
-    this.regionalChangeModal.close();
+  onRegionalManagerChangeConfirm() {
+    this.regionalManagerChangeModal.close();
     this.storeSave(this.currentUpdatedInfo);
   }
 
@@ -84,7 +88,7 @@ export class StoresDetailEditComponent implements OnInit, OnDestroy {
 
   onModalClose() {
     this.resetStatus();
-    this.regionalChangeModal.close();
+    this.regionalManagerChangeModal.close();
   }
 
   resetStatus() {

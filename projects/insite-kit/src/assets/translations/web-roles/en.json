@@ -6,7 +6,7 @@
     "ASSISTANT_MANAGER": "Assistant Manager",
     "STORE_MANAGER": "Store Manager",
     "DISTRICT_MANAGER": "District Manager",
-    "REGIONAL": "Regional",
+    "REGIONAL_MANAGER": "Regional Manager",
     "SITE_ADMIN": "Site Admin",
     "ADMIN": "Admin"
   }

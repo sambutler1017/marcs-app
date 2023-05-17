@@ -10,16 +10,26 @@
     </button>
   </ik-header>
 
-  <ik-banner *ngIf="!store?.regionalId && store?.managerId" type="warning">
-    There is currently no regional assigned to this store.
+  <ik-banner
+    *ngIf="!store?.regionalManagerId && store?.managerId"
+    type="warning"
+  >
+    There is currently no regional manager assigned to this store.
   </ik-banner>
 
-  <ik-banner *ngIf="!store?.managerId && store?.regionalId" type="warning">
+  <ik-banner
+    *ngIf="!store?.managerId && store?.regionalManagerId"
+    type="warning"
+  >
     There is currently no store manager assigned to this store.
   </ik-banner>
 
-  <ik-banner *ngIf="!store?.regionalId && !store?.managerId" type="warning">
-    There is currently no store manager or regional assigned to this store.
+  <ik-banner
+    *ngIf="!store?.regionalManagerId && !store?.managerId"
+    type="warning"
+  >
+    There is currently no store manager or regional manager assigned to this
+    store.
   </ik-banner>
 
   <div class="detail" *ngIf="store">

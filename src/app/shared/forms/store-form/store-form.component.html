@@ -19,17 +19,18 @@
     <ik-card-info header="Regional/District Manager*">
       <select
         class="form-input__normal"
-        formControlName="currentRegional"
+        formControlName="currentRegionalManager"
         *ngIf="!usersLoading; else loadingIcon"
       >
-        <option value="0" disabled selected hidden
-          >Regional/District Manager</option
-        >
+        <option value="0" disabled selected hidden>
+          Regional/District Manager
+        </option>
         <option
           *ngFor="let user of regionalAndDistrictManagers"
           [ngValue]="user.id"
-          >{{ user | formatUserName }}</option
         >
+          {{ user | formatUserName }}
+        </option>
       </select>
     </ik-card-info>
   </ik-card>

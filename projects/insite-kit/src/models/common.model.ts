@@ -5,7 +5,7 @@ export enum WebRole {
   ASSISTANT_MANAGER = 4,
   STORE_MANAGER = 5,
   DISTRICT_MANAGER = 6,
-  REGIONAL = 7,
+  REGIONAL_MANAGER = 7,
   SITE_ADMIN = 8,
   ADMIN = 9,
 }
@@ -24,7 +24,6 @@ export enum App {
   BLOCK_DATES = 'block-dates',
   MAP = 'map',
   REPORT = 'report',
-  REGIONAL = 'regional',
   CONTACT = 'contact',
   GLOBAL = 'global',
 }

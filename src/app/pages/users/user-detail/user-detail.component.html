@@ -38,13 +38,13 @@
   </div>
   <div class="rightColumn column-half">
     <app-user-vacations-card [canEdit]="canEdit"></app-user-vacations-card>
-    <app-manager-stores-card
+    <app-regional-manager-stores-card
       *ngIf="
         Number(WebRole[userData?.webRole]) >= WebRole.DISTRICT_MANAGER &&
         canEdit
       "
       [managerId]="userData?.id"
-    ></app-manager-stores-card>
+    ></app-regional-manager-stores-card>
   </div>
 </div>
 

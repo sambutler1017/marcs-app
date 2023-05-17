@@ -6,7 +6,6 @@
   [userData]="userUpdating"
   rightActionButton="Update User"
   leftActionButton="Cancel"
-  [disableRoleUpdate]="disableWebRoleUpdate"
   [disableSave]="disableSave"
   (cancel)="onCancelClick()"
   (save)="onSaveClick($event)"
@@ -21,21 +20,21 @@
   <ik-modal-header title="Confirm New Manager" type="warning"></ik-modal-header>
   <ik-modal-body>
     <div>
-      There is already a manager of this store. Updating the manager of the
-      store will cause the current manager to be demoted to an Assisstant
+      There is already a store manager of this store. Updating the manager of
+      the store will cause the current manager to be demoted to an Assisstant
       Manager. Do you want to continue?
     </div>
   </ik-modal-body>
   <ik-modal-action-bar>
     <button
       class="btn btn-warning btn-right btn-modal"
-      (click)="onManagerConfirm()"
+      (click)="onManagerChangeConfirm()"
     >
       Confirm
     </button>
     <button
       class="btn btn-default btn-right btn-modal"
-      (click)="onModalClose()"
+      (click)="managerChangeModal.close()"
     >
       Cancel
     </button>
