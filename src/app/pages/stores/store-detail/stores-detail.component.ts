@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { StoreService } from 'src/service/store-service/store.service';
@@ -20,8 +19,7 @@ export class StoresDetailComponent implements OnInit {
   store: Store;
   loading = true;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   constructor(

@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { StoreService } from 'src/service/store-service/store.service';
-import { UserService } from 'src/service/user-service/user.service';
 
 @Component({
   selector: 'app-stores-overview',
@@ -15,15 +13,10 @@ import { UserService } from 'src/service/user-service/user.service';
 export class StoresOverviewComponent {
   dataLoader: any;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
-  constructor(
-    private storeService: StoreService,
-    private userService: UserService,
-    private router: Router
-  ) {
+  constructor(private storeService: StoreService, private router: Router) {
     this.dataLoader = (params: any) => this.getStoreDataloader(params);
   }
 

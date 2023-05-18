@@ -12,22 +12,18 @@ export class NotificationDetailUserComponent {
 
   constructor(private readonly userService: UserService) {}
 
-  process(status: string) {
-    const type =
-      status === 'APPROVED' ? AccountStatus.APPROVED : AccountStatus.DENIED;
+  process(status: any) {
     return this.userService
       .updateUserStatus(this.userData.id, {
-        accountStatus: type,
+        accountStatus: status,
         appAccess: true,
       })
-      .pipe(
-        switchMap(() => this.deleteDeniedUser(type === AccountStatus.DENIED))
-      );
+      .pipe(switchMap(() => this.deleteDeniedUser(status)));
   }
 
-  deleteDeniedUser(isDenied: boolean) {
+  deleteDeniedUser(status: any) {
     return iif(
-      () => isDenied,
+      () => status === AccountStatus.DENIED,
       this.userService.deleteUser(this.userData.id),
       of(null)
     );

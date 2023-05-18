@@ -27,7 +27,7 @@ export class FeatureAccessGuard implements CanActivate {
   hasFeatureAccess(route: any): Observable<boolean> {
     const data = route.data;
     return this.authService
-      .hasAccess(data.feature[0], data.feature[1], data.feature[2])
+      .hasAccess(data.feature[0], data.feature[1])
       .pipe(tap((access) => this.determineRoute(access, route)));
   }
 

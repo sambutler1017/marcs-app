@@ -2,8 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
@@ -19,8 +18,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
   notificationCount = 0;
   destroy = new Subject<void>();
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
   notificationAccess: boolean;
 
@@ -65,11 +63,7 @@ export class BaseNavbarComponent implements OnInit, OnDestroy {
 
   validateNotificationAccess() {
     this.authService
-      .hasAccess(
-        this.Application.GLOBAL,
-        this.Feature.NOTIFICATION,
-        this.Access.READ
-      )
+      .hasAccess(this.Feature.NOTIFICATION, this.Access.READ)
       .pipe(
         tap((access) => (this.notificationAccess = access)),
         filter((access) => access),

@@ -3,11 +3,7 @@
     <ng-container *ngIf="canEdit">
       <ik-icon
         [icon]="editIcon"
-        *featureAccess="[
-          Application.STORE,
-          Feature.STORE_DETAIL,
-          Access.UPDATE
-        ]"
+        *featureAccess="[Feature.STORE_DETAIL, Access.UPDATE]"
         color="black"
         (click)="onStoreEditClick()"
       ></ik-icon>

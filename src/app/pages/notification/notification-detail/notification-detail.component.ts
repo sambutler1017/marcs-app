@@ -4,8 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import {
@@ -39,12 +38,11 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   activeNotification: Notification;
   notificationData: User | Vacation;
   form: FormGroup;
-  modalLoading = false;
+  loading = false;
 
   NotificationType = NotificationType;
   WebRole = WebRole;
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   constructor(
@@ -106,7 +104,8 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
   }
 
   onRequestDecision(status: string) {
-    this.modalLoading = true;
+    this.loading = true;
+    this.requestModal.close();
     this.processRequest(status)
       .pipe(
         switchMap(() =>
@@ -118,12 +117,12 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: () => {
-          this.closeModal();
+          this.loading = false;
           this.router.navigate(['/notification']);
           this.popupService.success(`Request has been successfully ${status}`);
         },
         error: () => {
-          this.closeModal();
+          this.loading = false;
           this.popupService.error(
             'Request can not be reviewed at this time. Try again later.'
           );
@@ -140,11 +139,6 @@ export class NotificationDetailComponent implements OnInit, OnDestroy {
         this.form.value.notes
       );
     }
-  }
-
-  closeModal() {
-    this.modalLoading = false;
-    this.requestModal.close();
   }
 
   onBackClick() {

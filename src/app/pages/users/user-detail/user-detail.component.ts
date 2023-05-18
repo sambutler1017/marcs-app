@@ -3,8 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.component';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
@@ -31,10 +30,10 @@ export class UserDetailComponent implements OnInit, OnDestroy {
   canEdit = false;
 
   WebRole = WebRole;
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
   Number = Number;
+
   destroy = new Subject<void>();
 
   constructor(

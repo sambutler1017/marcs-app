@@ -3,8 +3,7 @@ import { GridComponent } from 'projects/insite-kit/src/components/grid/grid.comp
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { BlockDatesService } from 'src/service/block-dates-service/block-dates.service';
@@ -29,8 +28,7 @@ export class BlockDatesOverviewComponent {
   currentSelectedUser: User;
   loading: boolean;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   constructor(

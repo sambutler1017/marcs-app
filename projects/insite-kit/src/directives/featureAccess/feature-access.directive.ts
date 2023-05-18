@@ -15,11 +15,9 @@ import { AuthService } from '../../service/auth-service/auth.service';
   selector: '[featureAccess]',
 })
 export class FeatureAccessDirective implements OnInit, OnDestroy {
-  app: string;
   feature: string;
   type: Access;
   destroy = new Subject<void>();
-  hasPermission: boolean = false;
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -29,12 +27,9 @@ export class FeatureAccessDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.authService
-      .hasAccess(this.app, this.feature, this.type)
+      .hasAccess(this.feature, this.type)
       .pipe(distinctUntilChanged(), takeUntil(this.destroy))
-      .subscribe((v) => {
-        this.hasPermission = v;
-        this.updateView();
-      });
+      .subscribe((v) => this.updateView(v));
   }
 
   ngOnDestroy() {
@@ -42,15 +37,12 @@ export class FeatureAccessDirective implements OnInit, OnDestroy {
   }
 
   @Input() set featureAccess(value: any) {
-    this.app = value[0] ? value[0] : '';
-    this.feature = value[1] ? value[1] : '';
-    this.type = value[2] ? value[2] : Access.CREATE;
-
-    this.updateView();
+    this.feature = value[0] ? value[0] : '';
+    this.type = value[1] ? value[1] : Access.CREATE;
   }
 
-  private updateView() {
-    if (this.hasPermission) {
+  private updateView(hasPermission: boolean) {
+    if (hasPermission) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {
       this.viewContainer.clear();

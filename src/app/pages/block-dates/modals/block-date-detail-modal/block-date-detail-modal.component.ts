@@ -12,8 +12,7 @@ import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.c
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
@@ -41,8 +40,7 @@ export class BlockDateDetailModalComponent implements OnInit {
   destroy = new Subject<void>();
   canEdit = false;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   constructor(
@@ -54,7 +52,7 @@ export class BlockDateDetailModalComponent implements OnInit {
 
   ngOnInit() {
     this.authService
-      .hasAccess(App.BLOCK_DATES, Feature.BLOCK_DATES_OVERVIEW, Access.UPDATE)
+      .hasAccess(AppFeature.BLOCK_DATES_OVERVIEW, Access.UPDATE)
       .subscribe((res) => (this.canEdit = res));
     this.buildForm();
   }

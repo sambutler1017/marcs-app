@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { Store } from 'projects/insite-kit/src/models/store.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
@@ -24,8 +23,7 @@ export class StoreDetailCardComponent implements OnInit {
   loading = true;
   canEdit = false;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
   editIcon = faPenToSquare;
 

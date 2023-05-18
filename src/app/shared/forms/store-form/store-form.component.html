@@ -1,24 +1,26 @@
 <form [formGroup]="form">
   <ik-card [padding]="false" [marginBottom]="false">
-    <ik-card-info header="Store Id*"
-      ><input
-        class="form-input__normal"
-        placeholder="Store Id"
-        formControlName="storeId"
-      />
-    </ik-card-info>
+    <div class="row">
+      <ik-card-info header="Store Id*" class="col-sm-6"
+        ><input
+          class="form-input__normal"
+          placeholder="Store Id"
+          formControlName="storeId"
+        />
+      </ik-card-info>
 
-    <ik-card-info header="Store Name*"
-      ><input
-        class="form-input__normal"
-        placeholder="Store Name"
-        formControlName="storeName"
-      />
-    </ik-card-info>
+      <ik-card-info header="Store Name*" class="col-sm-6"
+        ><input
+          class="form-input__normal"
+          placeholder="Store Name"
+          formControlName="storeName"
+        />
+      </ik-card-info>
+    </div>
 
     <ik-card-info header="Regional/District Manager*">
       <select
-        class="form-input__normal"
+        class="form-select__normal"
         formControlName="currentRegionalManager"
         *ngIf="!usersLoading; else loadingIcon"
       >

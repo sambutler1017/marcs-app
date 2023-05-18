@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 @Component({
   selector: 'app-request-tracker-wizard',
@@ -11,8 +10,7 @@ import {
   styleUrls: ['./request-tracker-wizard.component.scss'],
 })
 export class RequestTrackerWizardComponent {
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   constructor(private readonly router: Router) {}

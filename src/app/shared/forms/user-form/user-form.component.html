@@ -1,20 +1,22 @@
 <form [formGroup]="form">
   <ik-card [padding]="false" [marginBottom]="false">
-    <ik-card-info header="First Name*"
-      ><input
-        class="form-input__normal"
-        placeholder="First Name"
-        formControlName="firstName"
-      />
-    </ik-card-info>
+    <div class="row">
+      <ik-card-info header="First Name*" class="col-sm-6"
+        ><input
+          class="form-input__normal"
+          placeholder="First Name"
+          formControlName="firstName"
+        />
+      </ik-card-info>
 
-    <ik-card-info header="Last Name*"
-      ><input
-        class="form-input__normal"
-        placeholder="Last Name"
-        formControlName="lastName"
-      />
-    </ik-card-info>
+      <ik-card-info header="Last Name*" class="col-sm-6"
+        ><input
+          class="form-input__normal"
+          placeholder="Last Name"
+          formControlName="lastName"
+        />
+      </ik-card-info>
+    </div>
 
     <ik-card-info header="Email*">
       <input
@@ -27,33 +29,35 @@
     <ng-container *ngIf="!disableRoleUpdate">
       <ik-card-info header="Position*">
         <select class="form-input__normal" formControlName="webRole">
-          <option *ngFor="let role of roles" [ngValue]="role">{{
-            role | webRoleTranslate
-          }}</option>
+          <option *ngFor="let role of roles" [ngValue]="role">
+            {{ role | webRoleTranslate }}
+          </option>
         </select>
       </ik-card-info>
 
-      <ik-card-info header="Store ID*">
-        <select
-          class="form-input__normal"
-          formControlName="storeId"
-          *ngIf="!storesLoading; else loadingIcon"
-        >
-          <option value="" disabled selected hidden>Store ID</option>
-          <option *ngFor="let store of stores" [ngValue]="store.id">{{
-            store.id
-          }}</option>
-        </select>
-      </ik-card-info>
+      <div class="row">
+        <ik-card-info header="Store ID*" class="col-sm-6">
+          <select
+            class="form-select__normal"
+            formControlName="storeId"
+            *ngIf="!storesLoading; else loadingIcon"
+          >
+            <option value="" disabled selected hidden>Store ID</option>
+            <option *ngFor="let store of stores" [ngValue]="store.id">
+              {{ store.id }}
+            </option>
+          </select>
+        </ik-card-info>
 
-      <ik-card-info header="Store Name"
-        ><input
-          class="form-input__normal"
-          placeholder="Store Name"
-          formControlName="storeName"
-          readonly
-        />
-      </ik-card-info>
+        <ik-card-info header="Store Name" class="col-sm-6"
+          ><input
+            class="form-input__normal"
+            placeholder="Store Name"
+            formControlName="storeName"
+            readonly
+          />
+        </ik-card-info>
+      </div>
     </ng-container>
 
     <ik-card-info header="Hire Date"

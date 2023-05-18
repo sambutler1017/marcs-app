@@ -10,7 +10,7 @@
   </div>
 </ik-header>
 
-<ng-container *ngIf="notificationData; else loadingIcon">
+<ng-container *ngIf="notificationData && !loading; else loadingIcon">
   <div
     class="leftColumn column-wide"
     *ngIf="activeNotification?.type === NotificationType.VACATION"
@@ -58,7 +58,7 @@
             (activeNotification?.insertDate
               ? activeNotification.insertDate
               : '-'
-            ) | date: 'mediumDate'
+            ) | date : 'mediumDate'
           "
         ></ik-card-info>
       </div>
@@ -68,7 +68,7 @@
 
 <ik-modal #requestModal>
   <ik-modal-header title="Approved or Denied?" type="info"></ik-modal-header>
-  <ng-container *ngIf="!modalLoading; else loadingIcon">
+  <ng-container>
     <ik-modal-body>
       <form [formGroup]="form">
         <div *ngIf="activeNotification?.type === NotificationType.USER">
@@ -85,7 +85,7 @@
           rows="4"
           cols="50"
           class="form-input__shadow"
-          style="resize: none; margin: 15px 0 0 0;"
+          style="resize: none; margin: 15px 0 0 0"
         ></textarea>
       </form>
     </ik-modal-body>

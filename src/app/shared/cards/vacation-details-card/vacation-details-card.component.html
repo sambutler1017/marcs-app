@@ -3,7 +3,7 @@
     <ng-container *ngIf="data?.status !== VacationStatus.EXPIRED">
       <ik-icon
         [icon]="editIcon"
-        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        *featureAccess="[Feature.USER_DETAIL, Access.UPDATE]"
         color="black"
         (click)="vacationEditModal.open()"
       ></ik-icon>
@@ -25,13 +25,13 @@
   <div class="left-column">
     <ik-card-info
       header="Start Date"
-      [text]="data?.startDate | date: 'mediumDate'"
+      [text]="data?.startDate | date : 'mediumDate'"
     ></ik-card-info>
   </div>
   <div class="right-column">
     <ik-card-info
       header="End Date"
-      [text]="data?.endDate | date: 'mediumDate'"
+      [text]="data?.endDate | date : 'mediumDate'"
     ></ik-card-info>
   </div>
 </ik-card>

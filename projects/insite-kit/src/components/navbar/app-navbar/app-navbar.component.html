@@ -1,10 +1,7 @@
 <nav class="app-navbar">
   <div class="home inline-block" (click)="onWaffleClick()"></div>
   <div class="app-title inline-block">{{ appName }}</div>
-  <div
-    class="dropdown"
-    *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
-  >
+  <div class="dropdown" *featureAccess="[Feature.PROFILE, Access.READ]">
     <div class="profile inline-block"></div>
     <div class="dropdown-content">
       <div (click)="onProfileClick()">Profile</div>

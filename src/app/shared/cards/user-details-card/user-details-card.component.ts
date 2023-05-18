@@ -2,8 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
 import { User } from 'projects/insite-kit/src/models/user.model';
@@ -21,8 +20,7 @@ export class UserDetailsCardComponent implements OnInit {
   @Input() loading = false;
   @Output() editClick = new EventEmitter<any>();
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
   lastLoginFieldAccess = false;
   editIcon = faPenToSquare;

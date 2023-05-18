@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { FeatureAccessGuard } from 'projects/insite-kit/src/service/auth-service/feature-access.guard';
 import { StoreResolverService } from 'src/service/store-service/store-resolver.service';
@@ -77,7 +76,7 @@ const routes: Routes = [
         component: AddUserComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.USER, Feature.USER_DETAIL, Access.CREATE],
+          feature: [AppFeature.USER_DETAIL, Access.CREATE],
         },
       },
       {
@@ -86,7 +85,7 @@ const routes: Routes = [
         canActivate: [FeatureAccessGuard],
         resolve: { user: UserResolverService },
         data: {
-          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
+          feature: [AppFeature.USER_DETAIL, Access.UPDATE],
         },
       },
       {
@@ -94,7 +93,7 @@ const routes: Routes = [
         component: ResetPasswordComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.USER, Feature.USER_DETAIL, Access.UPDATE],
+          feature: [AppFeature.USER_DETAIL, Access.UPDATE],
         },
       },
       {
@@ -102,14 +101,14 @@ const routes: Routes = [
         component: UserVacationsComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.USER, Feature.USER_VACATION, Access.READ],
+          feature: [AppFeature.USER_VACATION, Access.READ],
         },
       },
       {
         path: ':id/details/vacations/:vacId/details',
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.USER, Feature.USER_VACATION, Access.UPDATE],
+          feature: [AppFeature.USER_VACATION, Access.UPDATE],
         },
         component: UserVacationsDetailComponent,
       },
@@ -127,7 +126,7 @@ const routes: Routes = [
         component: AddStoreComponent,
         canActivate: [FeatureAccessGuard],
         data: {
-          feature: [App.STORE, Feature.STORE_DETAIL, Access.CREATE],
+          feature: [AppFeature.STORE_DETAIL, Access.CREATE],
         },
       },
       {
@@ -136,7 +135,7 @@ const routes: Routes = [
         canActivate: [FeatureAccessGuard],
         resolve: { store: StoreResolverService },
         data: {
-          feature: [App.STORE, Feature.STORE_DETAIL, Access.UPDATE],
+          feature: [AppFeature.STORE_DETAIL, Access.UPDATE],
         },
       },
     ],

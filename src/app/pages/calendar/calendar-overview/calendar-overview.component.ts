@@ -9,8 +9,7 @@ import { startOfDay } from 'date-fns';
 import { BlockOutDate } from 'projects/insite-kit/src/models/BlockOutDate.model';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { Vacation } from 'projects/insite-kit/src/models/vacation.model';
 import { AuthService } from 'projects/insite-kit/src/service/auth-service/auth.service';
@@ -61,7 +60,7 @@ export class CalendarOverviewComponent implements OnInit {
     combineLatest([
       this.getVacations(),
       this.blockDateService.getBlockOutDates(),
-      this.authService.hasAccess(App.USER, Feature.USER_VACATION, Access.READ),
+      this.authService.hasAccess(AppFeature.USER_VACATION, Access.READ),
     ]).subscribe(([userVacs, blockDates, access]) => {
       this.mapUserEvents(userVacs.body);
       this.blockDates = blockDates.body;

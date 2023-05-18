@@ -17,17 +17,6 @@ export enum VacationStatus {
   EXPIRED = 'EXPIRED',
 }
 
-export enum App {
-  USER = 'user',
-  STORE = 'store',
-  calendar = 'calendar',
-  BLOCK_DATES = 'block-dates',
-  MAP = 'map',
-  REPORT = 'report',
-  CONTACT = 'contact',
-  GLOBAL = 'global',
-}
-
 export enum Access {
   CREATE = 'c',
   READ = 'r',
@@ -35,11 +24,11 @@ export enum Access {
   DELETE = 'd',
 }
 
-export enum Feature {
-  USER_DETAIL = 'detail',
-  USER_VACATION = 'vacation',
-  STORE_DETAIL = 'detail',
-  BLOCK_DATES_OVERVIEW = 'overview',
-  PROFILE = 'profile',
-  NOTIFICATION = 'notification',
+export enum AppFeature {
+  USER_DETAIL = 'user.detail',
+  USER_VACATION = 'user.vacation',
+  STORE_DETAIL = 'store.detail',
+  BLOCK_DATES_OVERVIEW = 'block-dates.overview',
+  PROFILE = 'global.profile',
+  NOTIFICATION = 'global.notification',
 }

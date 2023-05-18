@@ -2,10 +2,7 @@
   <div class="app-logo inline-block" (click)="onLogoClick()">
     {{ titleName }}
   </div>
-  <div
-    class="dropdown"
-    *featureAccess="[Application.GLOBAL, Feature.PROFILE, Access.READ]"
-  >
+  <div class="dropdown" *featureAccess="[Feature.PROFILE, Access.READ]">
     <div class="profile inline-block"></div>
     <div class="dropdown-content">
       <div (click)="onProfileClick()">Profile</div>

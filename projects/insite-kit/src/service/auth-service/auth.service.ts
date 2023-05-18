@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthToken } from '../../models/auth-token.model';
-import { Access, App, Feature } from '../../models/common.model';
+import { Access, AppFeature } from '../../models/common.model';
 import { JwtService } from '../jwt-service/jwt.service';
 import { RequestService } from '../request-service/request.service';
 
@@ -39,16 +39,13 @@ export class AuthService {
   /**
    * Determines if a user has access to a given feature for the given level
    *
-   * @param app to check feature on
    * @param key to check level access on
    * @param level type of the feature
    * @returns boolean
    */
-  hasAccess(
-    app: App | string,
-    key: Feature | string,
-    level: Access | 'c' | 'r' | 'u' | 'd' = Access.READ
-  ): Observable<boolean> {
+  hasAccess(appFeature: AppFeature | string, level: Access) {
+    const app = appFeature.split('.')[0];
+    const key = appFeature.split('.')[1];
     const feature: [{}] = this.jwt.get('access')[app];
     let access = [];
 

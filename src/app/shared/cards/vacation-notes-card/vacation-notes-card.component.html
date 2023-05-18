@@ -8,7 +8,7 @@
     >
       <ik-icon
         [icon]="editIcon"
-        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        *featureAccess="[Feature.USER_DETAIL, Access.UPDATE]"
         color="black"
         (click)="notesModal.open()"
       ></ik-icon>
@@ -35,7 +35,7 @@
           rows="4"
           cols="50"
           class="form-input__shadow"
-          style="resize: none; margin: 15px 0 0 0;"
+          style="resize: none; margin: 15px 0 0 0"
         ></textarea>
       </form>
     </ik-modal-body>

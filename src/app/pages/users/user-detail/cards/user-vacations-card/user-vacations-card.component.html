@@ -7,11 +7,7 @@
     <ng-container *ngIf="canEdit">
       <ik-icon
         [icon]="plusIcon"
-        *featureAccess="[
-          Application.USER,
-          Feature.USER_VACATION,
-          Access.CREATE
-        ]"
+        *featureAccess="[Feature.USER_VACATION, Access.CREATE]"
         color="black"
         (click)="addVacationModalComponent.modal.open()"
       ></ik-icon>
@@ -25,10 +21,12 @@
     key="Vacations"
     [visible]="false"
   ></ik-grid-pager>
-  <ik-grid-show-all
-    *ngIf="canEdit && hasFeatureAccess"
-    (showAll)="onShowAllClick()"
-  ></ik-grid-show-all>
+  <ng-container *featureAccess="[Feature.USER_VACATION, Access.READ]">
+    <ik-grid-show-all
+      *ngIf="canEdit"
+      (showAll)="onShowAllClick()"
+    ></ik-grid-show-all>
+  </ng-container>
 </ik-grid>
 
 <app-add-user-vacation-modal

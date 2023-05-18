@@ -5,14 +5,14 @@
       <button
         class="btn btn-default btn-size btn-right h-button"
         (click)="onResetPassword()"
-        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.UPDATE]"
+        *featureAccess="[Feature.USER_DETAIL, Access.UPDATE]"
       >
         Reset Password
       </button>
       <button
         class="btn btn-danger btn-size btn-right h-button"
         (click)="deleteUserModal.modal.open()"
-        *featureAccess="[Application.USER, Feature.USER_DETAIL, Access.DELETE]"
+        *featureAccess="[Feature.USER_DETAIL, Access.DELETE]"
       >
         Delete User
       </button>

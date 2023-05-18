@@ -4,8 +4,7 @@ import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
   VacationStatus,
   WebRole,
 } from 'projects/insite-kit/src/models/common.model';
@@ -26,8 +25,7 @@ export class VacationNotesCardComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   WebRole = WebRole;
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
   VacationStatus = VacationStatus;
   editIcon = faPenToSquare;

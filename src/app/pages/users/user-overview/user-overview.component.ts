@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { ModalComponent } from 'projects/insite-kit/src/components/modal/modal.component';
 import {
   Access,
-  App,
-  Feature,
+  AppFeature,
 } from 'projects/insite-kit/src/models/common.model';
 import { UserService } from 'src/service/user-service/user.service';
 
@@ -16,8 +15,7 @@ export class UserOverviewComponent {
   @ViewChild(ModalComponent) modal: ModalComponent;
   dataloader: any;
 
-  Feature = Feature;
-  Application = App;
+  Feature = AppFeature;
   Access = Access;
 
   tempDataloader: any;
