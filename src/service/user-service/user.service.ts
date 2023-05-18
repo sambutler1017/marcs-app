@@ -17,9 +17,9 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService {
-  readonly BASE_USER_PATH = 'api/user-app/user-profile';
-  readonly BASE_USER_STATUS_PATH = 'api/user-app/user-status';
-  readonly BASE_USER_CREDENTIALS_PATH = 'api/user-app/user-credentials';
+  readonly BASE_PATH = 'api/users';
+  readonly BASE_STATUS_PATH = this.BASE_PATH + '/status';
+  readonly BASE_CREDENTIALS_PATH = this.BASE_PATH + '/credentials';
 
   constructor(
     private readonly request: RequestService,
@@ -34,7 +34,7 @@ export class UserService {
    * @returns User object,
    */
   getUsers(params?: Map<string, string[]>): Observable<HttpResponse<User[]>> {
-    return this.request.get<User[]>(this.BASE_USER_PATH, params).pipe(
+    return this.request.get<User[]>(this.BASE_PATH, params).pipe(
       tap((v) =>
         v.body.forEach((u) => {
           u.formattedRole = this.commonService.getFormattedRole(u.webRole);
@@ -50,7 +50,7 @@ export class UserService {
    * @returns User object of the current user.
    */
   getCurrentUser(): Observable<HttpResponse<User>> {
-    return this.request.get<User>(`${this.BASE_USER_PATH}/current-user`);
+    return this.request.get<User>(`${this.BASE_PATH}/current-user`);
   }
 
   /**
@@ -60,7 +60,7 @@ export class UserService {
    * @returns User object
    */
   getUserById(id: number): Observable<HttpResponse<User>> {
-    return this.request.get<User>(`${this.BASE_USER_PATH}/${id.toString()}`);
+    return this.request.get<User>(`${this.BASE_PATH}/${id.toString()}`);
   }
 
   /**
@@ -71,7 +71,7 @@ export class UserService {
    */
   getUserAppsById(id: number): Observable<HttpResponse<Application[]>> {
     return this.request.get<Application[]>(
-      `${this.BASE_USER_PATH}/${id}/application-access`
+      `${this.BASE_PATH}/${id}/application-access`
     );
   }
 
@@ -85,7 +85,7 @@ export class UserService {
     storeId: string
   ): Observable<HttpResponse<User>> {
     return this.request.get<User>(
-      `${this.BASE_USER_PATH}/regional-manager/${storeId}`
+      `${this.BASE_PATH}/regional-manager/${storeId}`
     );
   }
 
@@ -98,7 +98,7 @@ export class UserService {
    */
   doesEmailExist(email: string): Observable<HttpResponse<boolean>> {
     return this.request.get<boolean>(
-      `${this.BASE_USER_PATH}/check-email?email=${email}`
+      `${this.BASE_PATH}/check-email?email=${email}`
     );
   }
 
@@ -109,7 +109,7 @@ export class UserService {
    * @returns The user that was created.
    */
   createUser(user: User): Observable<User> {
-    return this.request.post<User>(this.BASE_USER_PATH, user);
+    return this.request.post<User>(this.BASE_PATH, user);
   }
 
   /**
@@ -119,7 +119,7 @@ export class UserService {
    * @returns The user that was created.
    */
   addUser(user: User): Observable<User> {
-    return this.request.post<User>(`${this.BASE_USER_PATH}/add-user`, user);
+    return this.request.post<User>(`${this.BASE_PATH}/add-user`, user);
   }
 
   /**
@@ -130,10 +130,7 @@ export class UserService {
    * @returns User object of the user that is being reset, if exists.
    */
   forgotPassword(email: string): Observable<User> {
-    return this.request.post<User>(
-      `${this.BASE_USER_PATH}/forgot-password`,
-      email
-    );
+    return this.request.post<User>(`${this.BASE_PATH}/forgot-password`, email);
   }
 
   /**
@@ -143,7 +140,7 @@ export class UserService {
    * @returns User object with the updated user object.
    */
   updateUserProfile(user: User): Observable<User> {
-    return this.request.put<User>(`${this.BASE_USER_PATH}`, user);
+    return this.request.put<User>(`${this.BASE_PATH}`, user);
   }
 
   /**
@@ -154,10 +151,7 @@ export class UserService {
    * @returns User object
    */
   updateUserProfileById(id: number, user: User): Observable<User> {
-    return this.request.put<User>(
-      `${this.BASE_USER_PATH}/${id.toString()}`,
-      user
-    );
+    return this.request.put<User>(`${this.BASE_PATH}/${id.toString()}`, user);
   }
 
   /**
@@ -169,7 +163,7 @@ export class UserService {
    */
   updateUserPassword(passUpdate: PasswordUpdate): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_CREDENTIALS_PATH}/password`,
+      `${this.BASE_CREDENTIALS_PATH}/password`,
       passUpdate
     );
   }
@@ -187,7 +181,7 @@ export class UserService {
     passUpdate: PasswordUpdate
   ): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_CREDENTIALS_PATH}/password/${userId.toString()}`,
+      `${this.BASE_CREDENTIALS_PATH}/password/${userId.toString()}`,
       passUpdate
     );
   }
@@ -204,7 +198,7 @@ export class UserService {
     dataStatus: UserStatus
   ): Observable<UserStatus> {
     return this.request.put<UserStatus>(
-      `${this.BASE_USER_STATUS_PATH}/${userId}`,
+      `${this.BASE_STATUS_PATH}/${userId}`,
       dataStatus
     );
   }
@@ -217,7 +211,7 @@ export class UserService {
    */
   resetUserPassword(passUpdate: PasswordUpdate): Observable<User> {
     return this.request.put<User>(
-      `${this.BASE_USER_CREDENTIALS_PATH}/password/reset`,
+      `${this.BASE_CREDENTIALS_PATH}/password/reset`,
       passUpdate
     );
   }
@@ -228,7 +222,7 @@ export class UserService {
    * @param id of the user to be deleted.
    */
   deleteUser(id: number): Observable<any> {
-    return this.request.delete<any>(`${this.BASE_USER_PATH}/${id}`);
+    return this.request.delete<any>(`${this.BASE_PATH}/${id}`);
   }
 
   /**

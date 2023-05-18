@@ -12,7 +12,7 @@ import { switchMap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class StoreService {
-  readonly BASE_STORE_PATH = 'api/store-app/stores';
+  readonly BASE_PATH = 'api/stores';
 
   constructor(
     private readonly requestService: RequestService,
@@ -26,7 +26,7 @@ export class StoreService {
    * @returns observable of the returned request
    */
   getStores(params?: Map<string, string[]>): Observable<HttpResponse<Store[]>> {
-    return this.requestService.get<Store[]>(this.BASE_STORE_PATH, params);
+    return this.requestService.get<Store[]>(this.BASE_PATH, params);
   }
 
   /**
@@ -56,7 +56,7 @@ export class StoreService {
       params.set('id', [this.jwt.get('storeId')]);
     }
 
-    return this.requestService.get<Store[]>(this.BASE_STORE_PATH, params);
+    return this.requestService.get<Store[]>(this.BASE_PATH, params);
   }
 
   /**
@@ -66,7 +66,7 @@ export class StoreService {
    * @returns observable of the returned request
    */
   getStoreById(id: string): Observable<HttpResponse<Store>> {
-    return this.requestService.get<Store>(`${this.BASE_STORE_PATH}/${id}`);
+    return this.requestService.get<Store>(`${this.BASE_PATH}/${id}`);
   }
 
   /**
@@ -80,7 +80,7 @@ export class StoreService {
     storeId: string
   ): Observable<HttpResponse<User>> {
     return this.requestService.get<User>(
-      `${this.BASE_STORE_PATH}/regional-manager/${storeId}`
+      `${this.BASE_PATH}/regional-manager/${storeId}`
     );
   }
 
@@ -93,7 +93,7 @@ export class StoreService {
    */
   getManagerOfStoreById(storeId: string): Observable<HttpResponse<User>> {
     return this.requestService.get<User>(
-      `${this.BASE_STORE_PATH}/manager/${storeId}`
+      `${this.BASE_PATH}/manager/${storeId}`
     );
   }
 
@@ -104,10 +104,7 @@ export class StoreService {
    * @param store The store object to update to.
    */
   updateStore(id: string, store: Store): Observable<Store> {
-    return this.requestService.put<Store>(
-      `${this.BASE_STORE_PATH}/${id}`,
-      store
-    );
+    return this.requestService.put<Store>(`${this.BASE_PATH}/${id}`, store);
   }
 
   /**
@@ -122,7 +119,7 @@ export class StoreService {
     storeId: string
   ): Observable<Store> {
     return this.requestService.put<Store>(
-      `${this.BASE_STORE_PATH}/${userId}/manager/${storeId}`
+      `${this.BASE_PATH}/${userId}/manager/${storeId}`
     );
   }
 
@@ -138,7 +135,7 @@ export class StoreService {
     storeId: string
   ): Observable<Store> {
     return this.requestService.put<Store>(
-      `${this.BASE_STORE_PATH}/${userId}/regional-manager/${storeId}`
+      `${this.BASE_PATH}/${userId}/regional-manager/${storeId}`
     );
   }
 
@@ -148,7 +145,7 @@ export class StoreService {
    * @param store The store object to update to.
    */
   createStore(store: Store): Observable<Store> {
-    return this.requestService.post<Store>(this.BASE_STORE_PATH, store);
+    return this.requestService.post<Store>(this.BASE_PATH, store);
   }
 
   /**
@@ -157,9 +154,7 @@ export class StoreService {
    * @param storeId The id of the store to delete.
    */
   deleteStore(storeId: string): Observable<any> {
-    return this.requestService.delete<any>(
-      `${this.BASE_STORE_PATH}/${storeId}`
-    );
+    return this.requestService.delete<any>(`${this.BASE_PATH}/${storeId}`);
   }
 
   /**

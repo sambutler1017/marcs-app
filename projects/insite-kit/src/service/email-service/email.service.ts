@@ -7,7 +7,7 @@ import { RequestService } from '../request-service/request.service';
   providedIn: 'root',
 })
 export class EmailService {
-  readonly BASE_STORE_PATH = 'api/mail-app/email';
+  readonly BASE_PATH = 'api/mail';
 
   constructor(private request: RequestService) {}
 
@@ -18,6 +18,6 @@ export class EmailService {
    * @returns Who the email was sent too.
    */
   sendContactAdminEmail(email: string): Observable<User[]> {
-    return this.request.post<User[]>(`${this.BASE_STORE_PATH}/contact`, email);
+    return this.request.post<User[]>(`${this.BASE_PATH}/contact`, email);
   }
 }

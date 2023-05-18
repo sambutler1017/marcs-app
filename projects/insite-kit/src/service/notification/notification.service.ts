@@ -8,7 +8,7 @@ import { Notification } from '../../models/notification.model';
   providedIn: 'root',
 })
 export class NotificationService {
-  readonly BASE_PATH = 'api/notification-app/notifications';
+  readonly BASE_PATH = 'api/notifications';
   private notificationListener = new Subject<void>();
 
   constructor(private readonly requestService: RequestService) {}

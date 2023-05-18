@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class VacationService {
-  readonly BASE_VACATION_PATH = 'api/vacation-app/vacations';
+  readonly BASE_PATH = 'api/vacations';
   constructor(private request: RequestService) {}
 
   /**
@@ -19,7 +19,7 @@ export class VacationService {
   getVacations(
     params?: Map<string, string[]>
   ): Observable<HttpResponse<Vacation[]>> {
-    return this.request.get<Vacation[]>(`${this.BASE_VACATION_PATH}`, params);
+    return this.request.get<Vacation[]>(`${this.BASE_PATH}`, params);
   }
 
   /**
@@ -28,9 +28,7 @@ export class VacationService {
    * @returns User object
    */
   getCurrentUserVacations(): Observable<HttpResponse<Vacation[]>> {
-    return this.request.get<Vacation[]>(
-      `${this.BASE_VACATION_PATH}/current-user`
-    );
+    return this.request.get<Vacation[]>(`${this.BASE_PATH}/current-user`);
   }
 
   /**
@@ -40,9 +38,7 @@ export class VacationService {
    * @returns Vacation object
    */
   getVacationById(id: number): Observable<HttpResponse<Vacation>> {
-    return this.request.get<Vacation>(
-      `${this.BASE_VACATION_PATH}/${id.toString()}`
-    );
+    return this.request.get<Vacation>(`${this.BASE_PATH}/${id.toString()}`);
   }
 
   /**
@@ -57,7 +53,7 @@ export class VacationService {
     params?: Map<string, string[]>
   ): Observable<HttpResponse<Vacation[]>> {
     return this.request.get<Vacation[]>(
-      `${this.BASE_VACATION_PATH}/${id.toString()}/user`,
+      `${this.BASE_PATH}/${id.toString()}/user`,
       params
     );
   }
@@ -74,7 +70,7 @@ export class VacationService {
     vacation: Vacation
   ): Observable<Vacation> {
     return this.request.post<Vacation>(
-      `${this.BASE_VACATION_PATH}/${userId.toString()}/user`,
+      `${this.BASE_PATH}/${userId.toString()}/user`,
       vacation
     );
   }
@@ -91,7 +87,7 @@ export class VacationService {
     vacations: Vacation[]
   ): Observable<Vacation[]> {
     return this.request.post<Vacation[]>(
-      `${this.BASE_VACATION_PATH}/${userId.toString()}/user/batch`,
+      `${this.BASE_PATH}/${userId.toString()}/user/batch`,
       vacations
     );
   }
@@ -103,10 +99,7 @@ export class VacationService {
    * @returns Vacation object that was created
    */
   public requestVacation(vac: Vacation): Observable<Vacation> {
-    return this.request.post<Vacation>(
-      `${this.BASE_VACATION_PATH}/request`,
-      vac
-    );
+    return this.request.post<Vacation>(`${this.BASE_PATH}/request`, vac);
   }
 
   /**
@@ -120,10 +113,7 @@ export class VacationService {
     vacId: number,
     vac: Vacation
   ): Observable<Vacation> {
-    return this.request.put<Vacation>(
-      `${this.BASE_VACATION_PATH}/${vacId}/info`,
-      vac
-    );
+    return this.request.put<Vacation>(`${this.BASE_PATH}/${vacId}/info`, vac);
   }
 
   /**
@@ -133,7 +123,7 @@ export class VacationService {
    * @param vac What to update the vacation info too.
    */
   public updateVacationDatesById(id: number, vac: Vacation) {
-    return this.request.put<Vacation>(`${this.BASE_VACATION_PATH}/${id}`, vac);
+    return this.request.put<Vacation>(`${this.BASE_PATH}/${id}`, vac);
   }
 
   /**
@@ -143,7 +133,7 @@ export class VacationService {
    * @return {@link Observable<any>} for the user.
    */
   public deleteAllCurrentUserVacations(): Observable<any> {
-    return this.request.delete<any>(this.BASE_VACATION_PATH);
+    return this.request.delete<any>(this.BASE_PATH);
   }
 
   /**
@@ -152,9 +142,7 @@ export class VacationService {
    * @param id The id for the vacation
    */
   public deleteVacationById(id: number): Observable<any> {
-    return this.request.delete<any>(
-      `${this.BASE_VACATION_PATH}/${id.toString()}`
-    );
+    return this.request.delete<any>(`${this.BASE_PATH}/${id.toString()}`);
   }
 
   /**
@@ -164,7 +152,7 @@ export class VacationService {
    */
   public deleteAllVacationsByUserId(userId: number): Observable<any> {
     return this.request.delete<any>(
-      `${this.BASE_VACATION_PATH}/${userId.toString()}/user`
+      `${this.BASE_PATH}/${userId.toString()}/user`
     );
   }
 }

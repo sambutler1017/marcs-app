@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class BlockDatesService {
-  readonly BASE_USER_PATH = 'api/block-out-date-app/block-out-dates';
+  readonly BASE_PATH = 'api/block-out-dates';
 
   constructor(private readonly requestService: RequestService) {}
 
@@ -22,7 +22,7 @@ export class BlockDatesService {
   getBlockOutDates(
     params?: Map<string, string[]>
   ): Observable<HttpResponse<BlockOutDate[]>> {
-    return this.requestService.get<BlockOutDate[]>(this.BASE_USER_PATH, params);
+    return this.requestService.get<BlockOutDate[]>(this.BASE_PATH, params);
   }
 
   /**
@@ -32,9 +32,7 @@ export class BlockDatesService {
    * @returns observable of the returned request
    */
   getBlockOutDateById(id: number): Observable<HttpResponse<BlockOutDate>> {
-    return this.requestService.get<BlockOutDate>(
-      `${this.BASE_USER_PATH}/${id}`
-    );
+    return this.requestService.get<BlockOutDate>(`${this.BASE_PATH}/${id}`);
   }
 
   isBlockOutDate(
@@ -65,7 +63,7 @@ export class BlockDatesService {
     data: BlockOutDate
   ): Observable<BlockOutDate> {
     return this.requestService.put<BlockOutDate>(
-      `${this.BASE_USER_PATH}/${id}`,
+      `${this.BASE_PATH}/${id}`,
       data
     );
   }
@@ -77,7 +75,7 @@ export class BlockDatesService {
    * @returns observable of the created block out date.
    */
   createBlockOutDate(data: BlockOutDate): Observable<BlockOutDate> {
-    return this.requestService.post<BlockOutDate>(this.BASE_USER_PATH, data);
+    return this.requestService.post<BlockOutDate>(this.BASE_PATH, data);
   }
 
   /**
@@ -86,7 +84,7 @@ export class BlockDatesService {
    * @param id The id of the block out date to be deleted
    */
   deleteBlockOutDate(id: number): Observable<any> {
-    return this.requestService.delete<any>(`${this.BASE_USER_PATH}/${id}`);
+    return this.requestService.delete<any>(`${this.BASE_PATH}/${id}`);
   }
 
   isDateBetween(

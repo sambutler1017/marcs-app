@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class UserReportsService {
-  readonly BASE_USER_PATH = 'api/reports-app/user';
+  readonly BASE_PATH = 'api/reports/user';
 
   constructor(
     private readonly request: RequestService,
@@ -21,6 +21,6 @@ export class UserReportsService {
    * @returns User object
    */
   generateUserProfileReport(params?: Map<string, string[]>): Observable<any> {
-    return this.request.download(`${this.BASE_USER_PATH}/generate`, params);
+    return this.request.download(`${this.BASE_PATH}/generate`, params);
   }
 }
