@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'ik-grid-show-all',
@@ -6,6 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./grid-show-all.component.scss'],
 })
 export class GridShowAllComponent {
+  @Input() visible = true;
   @Output() showAll = new EventEmitter<any>();
 
   dataLength = 0;

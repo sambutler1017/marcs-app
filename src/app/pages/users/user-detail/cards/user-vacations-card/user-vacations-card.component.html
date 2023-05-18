@@ -21,12 +21,11 @@
     key="Vacations"
     [visible]="false"
   ></ik-grid-pager>
-  <ng-container *featureAccess="[Feature.USER_VACATION, Access.READ]">
-    <ik-grid-show-all
-      *ngIf="canEdit"
-      (showAll)="onShowAllClick()"
-    ></ik-grid-show-all>
-  </ng-container>
+  <ik-grid-show-all
+    *featureAccess="[Feature.USER_VACATION, Access.READ]"
+    [visible]="canEdit"
+    (showAll)="onShowAllClick()"
+  ></ik-grid-show-all>
 </ik-grid>
 
 <app-add-user-vacation-modal
