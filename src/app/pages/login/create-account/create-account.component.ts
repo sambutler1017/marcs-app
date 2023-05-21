@@ -26,6 +26,7 @@ export class CreateAccountComponent implements OnInit, OnDestroy {
     WebRole[WebRole.ASSISTANT_MANAGER],
     WebRole[WebRole.STORE_MANAGER],
     WebRole[WebRole.EMPLOYEE],
+    WebRole[WebRole.PART_TIME_EMPLOYEE],
   ];
 
   WebRole = WebRole;

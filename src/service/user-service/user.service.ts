@@ -242,11 +242,11 @@ export class UserService {
     const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
 
     // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER, DISTRICT_MANAGER, REGIONAL
-    if ([3, 4, 5, 6, 7].includes(userRole)) {
+    if ([4, 5, 6, 7, 8].includes(userRole)) {
       return new Map<string, string[]>().set('accountStatus', ['APPROVED']);
     }
 
-    // EMPLOYEE, CORPORATE_USER, SITE_ADMIN, ADMIN, and other
+    // EMPLOYEE, PART_TIME_EMPLOYEE, CORPORATE_USER, SITE_ADMIN, ADMIN, and other
     return new Map<string, string[]>();
   }
 
@@ -258,28 +258,29 @@ export class UserService {
    */
   canEditUser(editableUserRole: WebRole): boolean {
     const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
+    const editableUserRoleId: number = Number(WebRole[editableUserRole]);
 
     // MANAGER editing an EMPLOYEE
-    if (5 === userRole && Number(WebRole[editableUserRole]) === 1) {
+    if (6 === userRole && [1, 2].includes(editableUserRoleId)) {
       return true;
     }
 
     // DISTRICT_MANAGER or REGIONAL_MANAGER editing user with role of STORE_MANAGER or lower
-    if ([6, 7].includes(userRole) && Number(WebRole[editableUserRole]) < 6) {
+    if ([7, 8].includes(userRole) && editableUserRoleId < 7) {
       return true;
     }
 
     // SITE_ADMIN
-    if (8 === userRole && Number(WebRole[editableUserRole]) < 8) {
+    if (9 === userRole && editableUserRoleId < 9) {
       return true;
     }
 
     // ADMIN can edit anyone, but themselves
-    if (9 === userRole && Number(WebRole[editableUserRole]) < 9) {
+    if (10 === userRole && editableUserRoleId < 10) {
       return true;
     }
 
-    //EMPLOYEE or other can't edit anyone
+    //EMPLOYEE, PART_TIME_EMPLOYEE or other can't edit anyone
     return false;
   }
 
@@ -293,22 +294,23 @@ export class UserService {
     const userRole: number = Number(WebRole[this.jwt.get('webRole')]);
 
     // STORE_MANAGER editing an EMPLOYEE
-    if (5 === userRole) {
+    if (6 === userRole) {
       return [WebRole[WebRole.EMPLOYEE].toString()];
     }
 
     // DISTRICT_MANAGER or REGIONAL_MANAGER editing user with role of STORE_MANAGER or lower
-    if ([6, 7].includes(userRole)) {
+    if ([7, 8].includes(userRole)) {
       return [
         WebRole[WebRole.ASSISTANT_MANAGER].toString(),
         WebRole[WebRole.CUSTOMER_SERVICE_MANAGER].toString(),
         WebRole[WebRole.STORE_MANAGER].toString(),
         WebRole[WebRole.EMPLOYEE].toString(),
+        WebRole[WebRole.PART_TIME_EMPLOYEE].toString(),
       ];
     }
 
     // SITE_ADMIN and ADMIN can edit anyone
-    if ([8, 9].includes(userRole)) {
+    if ([9, 10].includes(userRole)) {
       return Object.keys(WebRole)
         .map((key) => WebRole[key])
         .filter(
@@ -316,7 +318,7 @@ export class UserService {
         ) as string[];
     }
 
-    //EMPLOYEE or other can't create anyone
+    //EMPLOYEE, PART_TIME_EMPLOYEE or other can't create anyone
     return [];
   }
 }

@@ -40,19 +40,19 @@ export class StoreService {
     let params = new Map<string, string[]>();
 
     // CUSTOMER_SERVICE_MANAGER, ASSISTANT_MANAGER, STORE_MANAGER
-    if ([3, 4, 5].includes(userRole)) {
+    if ([4, 5, 6].includes(userRole)) {
       params.set('managerId', [this.jwt.getRequiredUserId().toString()]);
     }
 
     // DISTRICT_MANAGER, REGIONAL_MANAGER
-    if ([6, 7].includes(userRole)) {
+    if ([7, 8].includes(userRole)) {
       params.set('regionalManagerId', [
         this.jwt.getRequiredUserId().toString(),
       ]);
     }
 
-    // EMPLOYEE
-    if (userRole === 1) {
+    // EMPLOYEE, PART_TIME_EMPLOYEE
+    if ([1, 2].includes(userRole)) {
       params.set('id', [this.jwt.get('storeId')]);
     }
 
