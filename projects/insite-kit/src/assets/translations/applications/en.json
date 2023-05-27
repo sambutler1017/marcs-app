@@ -6,7 +6,8 @@
     "block-dates": "Block Dates",
     "report": "Reports",
     "request-tracker": "Request Tracker",
-    "notification": "Notifications"
+    "notification": "Notifications",
+    "scheduler": "Scheduler"
   },
   "appIcons": {
     "user": {
@@ -44,6 +45,12 @@
       "message": "Tracks requested vacations and their review status.",
       "icon": "request-tracker",
       "page": "request-tracker"
+    },
+    "scheduler": {
+      "title": "Scheduler",
+      "message": "Creates and stores schedules for managers and employees.",
+      "icon": "scheduler",
+      "page": "scheduler"
     }
   }
 }

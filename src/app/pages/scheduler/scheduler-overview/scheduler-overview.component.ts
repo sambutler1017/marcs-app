@@ -1,9 +1,11 @@
 import {
   Component,
+  OnInit,
   TemplateRef,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import {
   CalendarEvent,
   CalendarEventTimesChangedEvent,
@@ -48,10 +50,10 @@ const colors: Record<string, EventColor> = {
     },
   ],
 })
-export class SchedulerOverviewComponent {
+export class SchedulerOverviewComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
-  view: CalendarView = CalendarView.Week;
+  view: CalendarView = CalendarView.Day;
 
   CalendarView = CalendarView;
 
@@ -137,6 +139,18 @@ export class SchedulerOverviewComponent {
   ];
 
   activeDayIsOpen: boolean = true;
+  formGroup: any;
+
+  constructor(private readonly fb: FormBuilder) {}
+
+  ngOnInit() {
+    this.formGroup = this.fb.group({
+      scheduleName: ['', Validators.required],
+      store: ['38KC', Validators.required],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+    });
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {

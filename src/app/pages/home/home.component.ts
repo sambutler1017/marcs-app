@@ -22,5 +22,6 @@ export class HomeComponent implements OnInit {
   buildApps() {
     const data = Object.values(json)[1];
     this.jwt.get('apps').forEach((v: string) => this.apps.push(data[v]));
+    console.log(this.apps);
   }
 }

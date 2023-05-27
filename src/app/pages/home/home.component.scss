@@ -1,5 +1,4 @@
 .centered-text-image {
-  margin-top: -100px;
   transform: translate(-50%, -50%);
   font-size: 80px;
   font-weight: 700;
@@ -7,6 +6,10 @@
   margin-left: 500px;
   width: 1000px;
   color: white;
+}
+
+.home-margin {
+  margin-bottom: 32px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -31,6 +34,5 @@
 @media screen and (max-width: 500px) {
   .home-margin {
     margin-top: 70px;
-    margin-bottom: 50px;
   }
 }
